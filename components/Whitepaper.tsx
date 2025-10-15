@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { FileText, Download, CheckCircle2, ExternalLink } from 'lucide-react';
+import { FileText, Download, CheckCircle2, ExternalLink, Calendar, Lock, PenTool, Settings, ShieldCheck, BarChart3 } from 'lucide-react';
 
 const sections = [
   { title: 'Executive Summary', page: 2 },
@@ -146,13 +146,20 @@ export default function Whitepaper() {
             </div>
 
             <div className="mt-8 p-4 rounded-xl bg-orange-500/10 border border-orange-500/30">
-              <p className="text-sm text-gray-300">
-                📄 <strong>Laatst bijgewerkt:</strong> December 2024
-                <br />
-                🔒 <strong>Status:</strong> Final version
-                <br />
-                ✍️ <strong>Auteurs:</strong> BLAZE Core Team
-              </p>
+              <div className="space-y-2 text-sm text-gray-300">
+                <div className="flex items-center gap-2">
+                  <Calendar className="w-4 h-4 text-orange-400" />
+                  <span><strong>Laatst bijgewerkt:</strong> December 2024</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Lock className="w-4 h-4 text-orange-400" />
+                  <span><strong>Status:</strong> Final version</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <PenTool className="w-4 h-4 text-orange-400" />
+                  <span><strong>Auteurs:</strong> BLAZE Core Team</span>
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>
@@ -171,38 +178,46 @@ export default function Whitepaper() {
               {
                 title: 'Technical specs',
                 description: 'Smart contract architectuur en API docs',
-                icon: '⚙️',
+                icon: Settings,
               },
               {
                 title: 'Audit report',
                 description: 'Security audit door CertiK',
-                icon: '🔐',
+                icon: ShieldCheck,
               },
               {
                 title: 'Tokenomics model',
                 description: 'Gedetailleerde financiële projecties',
-                icon: '📊',
+                icon: BarChart3,
               },
-            ].map((doc, index) => (
-              <motion.div
-                key={doc.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="card-glass p-6 hover:bg-white/10 transition-all cursor-pointer group"
-              >
-                <div className="text-4xl mb-3">{doc.icon}</div>
-                <h4 className="text-xl font-bold mb-2 group-hover:text-orange-400 transition-colors">
-                  {doc.title}
-                </h4>
-                <p className="text-gray-400 text-sm">{doc.description}</p>
-              </motion.div>
-            ))}
+            ].map((doc, index) => {
+              const IconComponent = doc.icon;
+              return (
+                <motion.div
+                  key={doc.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="card-glass p-6 hover:bg-white/10 transition-all cursor-pointer group"
+                >
+                  <div className="flex justify-center mb-3">
+                    <div className="w-16 h-16 rounded-xl bg-gradient-blaze/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <IconComponent className="w-8 h-8 text-orange-400" />
+                    </div>
+                  </div>
+                  <h4 className="text-xl font-bold mb-2 group-hover:text-orange-400 transition-colors">
+                    {doc.title}
+                  </h4>
+                  <p className="text-gray-400 text-sm">{doc.description}</p>
+                </motion.div>
+              );
+            })}
           </div>
         </motion.div>
       </div>
     </section>
   );
 }
+
 

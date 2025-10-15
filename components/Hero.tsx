@@ -62,7 +62,9 @@ export default function Hero() {
         >
           Set Your Finances
           <br />
-          <span className="text-gradient animate-bg">Ablaze 🔥</span>
+          <span className="text-gradient animate-bg inline-flex items-center gap-3">
+            Ablaze <Flame className="w-12 h-12 md:w-16 md:h-16 inline-block" />
+          </span>
         </motion.h1>
 
         {/* Subtitle */}
@@ -181,4 +183,5 @@ export default function Hero() {
     </section>
   );
 }
+
 

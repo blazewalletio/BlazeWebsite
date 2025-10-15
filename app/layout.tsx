@@ -5,7 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "BLAZE Wallet - Set Your Finances Ablaze 🔥",
+  title: "BLAZE Wallet - Set Your Finances Ablaze",
   description: "Revolutionary crypto wallet with DeFi features. Staking, Governance, Launchpad, and more. Join the presale now!",
   keywords: "crypto wallet, DeFi, BLAZE token, staking, governance, launchpad, presale",
   openGraph: {
@@ -28,4 +28,5 @@ export default function RootLayout({
     </html>
   );
 }
+
 

@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { CheckCircle2, Circle, Rocket } from 'lucide-react';
+import { CheckCircle2, Circle, Rocket, UserCircle, Code, Handshake } from 'lucide-react';
 
 const roadmapPhases = [
   {
@@ -161,40 +161,48 @@ export default function Roadmap() {
               {
                 name: 'Rick',
                 role: 'Founder & CEO',
-                avatar: '👨‍💼',
+                icon: UserCircle,
                 bio: 'Crypto entrepreneur met 5+ jaar ervaring in DeFi',
               },
               {
                 name: 'Core Team',
                 role: 'Development',
-                avatar: '👨‍💻',
+                icon: Code,
                 bio: 'Full-stack developers gespecialiseerd in blockchain',
               },
               {
                 name: 'Community',
                 role: 'Advisors',
-                avatar: '🤝',
+                icon: Handshake,
                 bio: 'Ervaren crypto advisors en marketing experts',
               },
-            ].map((member, index) => (
-              <motion.div
-                key={member.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="card-glass p-6 text-center hover:bg-white/10 transition-all"
-              >
-                <div className="text-6xl mb-4">{member.avatar}</div>
-                <h4 className="text-xl font-bold mb-1">{member.name}</h4>
-                <p className="text-orange-400 text-sm font-medium mb-3">{member.role}</p>
-                <p className="text-gray-400 text-sm">{member.bio}</p>
-              </motion.div>
-            ))}
+            ].map((member, index) => {
+              const IconComponent = member.icon;
+              return (
+                <motion.div
+                  key={member.name}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="card-glass p-6 text-center hover:bg-white/10 transition-all"
+                >
+                  <div className="flex justify-center mb-4">
+                    <div className="w-20 h-20 rounded-full bg-gradient-blaze flex items-center justify-center">
+                      <IconComponent className="w-10 h-10 text-white" />
+                    </div>
+                  </div>
+                  <h4 className="text-xl font-bold mb-1">{member.name}</h4>
+                  <p className="text-orange-400 text-sm font-medium mb-3">{member.role}</p>
+                  <p className="text-gray-400 text-sm">{member.bio}</p>
+                </motion.div>
+              );
+            })}
           </div>
         </motion.div>
       </div>
     </section>
   );
 }
+
 
