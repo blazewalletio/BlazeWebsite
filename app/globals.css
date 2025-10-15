@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-slate-950 text-white;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500;
+  }
+  
+  .bg-gradient-blaze {
+    @apply bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500;
+  }
+  
+  .bg-gradient-blaze-reverse {
+    @apply bg-gradient-to-r from-yellow-500 via-red-500 to-orange-500;
+  }
+  
+  .glow-orange {
+    box-shadow: 0 0 20px rgba(249, 115, 22, 0.5), 0 0 40px rgba(249, 115, 22, 0.3);
+  }
+  
+  .glow-red {
+    box-shadow: 0 0 20px rgba(220, 38, 38, 0.5), 0 0 40px rgba(220, 38, 38, 0.3);
+  }
+  
+  .card-glass {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl;
+  }
+  
+  .animate-bg {
+    background-size: 200% 200%;
+    animation: gradient 3s ease infinite;
+  }
+}
+
