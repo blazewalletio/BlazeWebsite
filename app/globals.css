@@ -37,6 +37,93 @@
     background-size: 200% 200%;
     animation: gradient 3s ease infinite;
   }
+
+  /* Wallet Demo Styles */
+  .glass {
+    @apply bg-white border border-gray-200;
+  }
+
+  .glass-card {
+    @apply bg-white rounded-2xl p-6 border border-gray-200 shadow-soft;
+  }
+
+  .card-hover {
+    @apply transform transition-all duration-200;
+    @apply hover:shadow-soft-lg hover:-translate-y-0.5;
+  }
+
+  .card-3d {
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+  }
+
+  .card-3d:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  }
+
+  .subtle-shimmer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(14, 165, 233, 0.03) 50%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: subtle-shimmer 8s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .subtle-glow {
+    box-shadow: 0 0 0 0 rgba(14, 165, 233, 0);
+    transition: box-shadow 0.3s ease;
+  }
+
+  .subtle-glow:hover {
+    box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1);
+  }
+
+  .bg-gradient-primary {
+    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+  }
+
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease infinite;
+  }
+}
+
+@keyframes gradient {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes subtle-shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 

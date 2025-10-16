@@ -1,13 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ExternalLink, Play } from 'lucide-react';
-import { useState } from 'react';
+import { ExternalLink } from 'lucide-react';
 import WalletDemo from './WalletDemo';
 
 export default function Demo() {
-  const [isPlaying, setIsPlaying] = useState(false);
-
   return (
     <section id="demo" className="relative py-20 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
@@ -39,37 +36,17 @@ export default function Demo() {
           className="max-w-7xl mx-auto"
         >
           {/* Demo container */}
-          <div className="relative rounded-2xl overflow-hidden card-glass border-2 border-orange-500/30 glow-orange">
-            {!isPlaying ? (
-              // Placeholder with play button
-              <div className="aspect-[16/10] flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800">
-                <div className="text-center">
-                  <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => setIsPlaying(true)}
-                    className="w-20 h-20 rounded-full bg-gradient-blaze flex items-center justify-center mb-4 mx-auto glow-orange"
-                  >
-                    <Play className="w-10 h-10 text-white ml-1" />
-                  </motion.button>
-                  <p className="text-xl font-bold mb-2">Bekijk de live demo</p>
-                  <p className="text-gray-400">Klik om de wallet te starten</p>
-                </div>
+          <div className="relative rounded-2xl overflow-hidden card-glass border-2 border-orange-500/30 glow-orange bg-white">
+            {/* Corner badges */}
+            <div className="absolute top-4 right-4 z-50 flex gap-2">
+              <div className="px-3 py-1 rounded-full bg-green-500/20 border border-green-500/30 text-green-400 text-sm font-bold flex items-center gap-1">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                LIVE DEMO
               </div>
-            ) : (
-              // Live wallet demo
-              <div className="relative">
-                <WalletDemo />
-                
-                {/* Corner badges */}
-                <div className="absolute top-4 right-4 z-50 flex gap-2">
-                  <div className="px-3 py-1 rounded-full bg-green-500/20 border border-green-500/30 text-green-400 text-sm font-bold flex items-center gap-1">
-                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                    LIVE DEMO
-                  </div>
-                </div>
-              </div>
-            )}
+            </div>
+            
+            {/* Wallet Demo Component */}
+            <WalletDemo />
           </div>
 
           {/* Quick stats below demo */}
