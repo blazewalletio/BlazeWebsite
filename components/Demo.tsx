@@ -78,17 +78,12 @@ export default function Demo() {
                 transition={{ duration: 0.3 }}
                 className="relative"
               >
-                {/* Monitor Frame */}
-                <div className="bg-gray-800 rounded-t-2xl p-4 pb-2">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                    <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                    <div className="ml-4 text-gray-400 text-sm">BLAZE Wallet - Desktop</div>
-                  </div>
-                  <div className="bg-white rounded-lg overflow-hidden shadow-2xl">
-                    {/* Desktop screenshot */}
-                    <div className="aspect-[16/10] bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center">
+                {/* Realistic Monitor Frame */}
+                <div className="bg-gradient-to-b from-slate-800 to-slate-900 rounded-t-3xl p-6 pb-4 shadow-2xl border border-slate-700/50">
+                  {/* Monitor Bezel */}
+                  <div className="bg-black rounded-2xl p-3 shadow-inner">
+                    {/* Screen */}
+                    <div className="bg-slate-900 rounded-xl overflow-hidden shadow-inner border border-slate-700/30">
                       <img 
                         src="/screenshots/desktop-wallet.png" 
                         alt="BLAZE Wallet Desktop Screenshot"
@@ -102,21 +97,34 @@ export default function Demo() {
                           }
                         }}
                       />
-                      <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100" style={{ display: 'none' }}>
+                      <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800" style={{ display: 'none' }}>
                         <div className="text-center">
                           <div className="w-16 h-16 bg-gradient-blaze rounded-xl flex items-center justify-center mb-4 mx-auto">
                             <Monitor className="w-8 h-8 text-white" />
                           </div>
-                          <p className="text-gray-600 font-semibold">Desktop Screenshot</p>
+                          <p className="text-gray-300 font-semibold">Desktop Screenshot</p>
                           <p className="text-gray-500 text-sm">Upload desktop-wallet.png naar /public/screenshots/</p>
                         </div>
                       </div>
                     </div>
                   </div>
+                  
+                  {/* Monitor Controls */}
+                  <div className="flex items-center justify-between mt-4 px-2">
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 bg-red-500 rounded-full shadow-lg"></div>
+                      <div className="w-3 h-3 bg-yellow-500 rounded-full shadow-lg"></div>
+                      <div className="w-3 h-3 bg-green-500 rounded-full shadow-lg"></div>
+                    </div>
+                    <div className="text-slate-400 text-xs font-medium">BLAZE Wallet - Desktop</div>
+                    <div className="w-8 h-1 bg-slate-600 rounded-full"></div>
+                  </div>
                 </div>
+                
                 {/* Monitor Stand */}
-                <div className="bg-gray-700 h-8 rounded-b-2xl"></div>
-                <div className="bg-gray-600 h-4 w-32 mx-auto rounded-b-lg"></div>
+                <div className="bg-gradient-to-b from-slate-700 to-slate-800 h-12 rounded-b-2xl shadow-lg border border-slate-600/50">
+                  <div className="bg-gradient-to-b from-slate-600 to-slate-700 h-6 w-40 mx-auto rounded-b-xl shadow-inner"></div>
+                </div>
               </motion.div>
             )}
 
@@ -127,17 +135,20 @@ export default function Demo() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.3 }}
                 className="relative mx-auto"
-                style={{ width: '280px' }}
+                style={{ width: '320px' }}
               >
-                {/* iPhone Frame */}
-                <div className="bg-black rounded-[3rem] p-2 shadow-2xl">
-                  {/* Notch */}
-                  <div className="bg-black h-6 w-32 mx-auto rounded-b-2xl mb-2"></div>
+                {/* Realistic iPhone Frame */}
+                <div className="bg-gradient-to-b from-slate-800 to-slate-900 rounded-[3.5rem] p-3 shadow-2xl border border-slate-700/50">
+                  {/* Top Bezel with Notch */}
+                  <div className="bg-black rounded-t-[3rem] h-8 flex items-center justify-center relative">
+                    <div className="bg-black h-6 w-36 rounded-b-2xl absolute top-0"></div>
+                    <div className="w-2 h-2 bg-slate-600 rounded-full"></div>
+                  </div>
                   
-                  {/* Screen */}
-                  <div className="bg-white rounded-[2.5rem] overflow-hidden">
-                    {/* Mobile screenshot */}
-                    <div className="aspect-[9/19.5] bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center">
+                  {/* Screen Container */}
+                  <div className="bg-black rounded-[2.5rem] p-1 shadow-inner">
+                    {/* Screen */}
+                    <div className="bg-slate-900 rounded-[2.2rem] overflow-hidden shadow-inner">
                       <img 
                         src="/screenshots/mobile-wallet.png" 
                         alt="BLAZE Wallet Mobile Screenshot"
@@ -151,20 +162,32 @@ export default function Demo() {
                           }
                         }}
                       />
-                      <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100" style={{ display: 'none' }}>
+                      <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800" style={{ display: 'none' }}>
                         <div className="text-center">
                           <div className="w-12 h-12 bg-gradient-blaze rounded-xl flex items-center justify-center mb-3 mx-auto">
                             <Smartphone className="w-6 h-6 text-white" />
                           </div>
-                          <p className="text-gray-600 font-semibold text-sm">Mobile Screenshot</p>
+                          <p className="text-gray-300 font-semibold text-sm">Mobile Screenshot</p>
                           <p className="text-gray-500 text-xs">Upload mobile-wallet.png naar /public/screenshots/</p>
                         </div>
                       </div>
                     </div>
                   </div>
                   
-                  {/* Home Indicator */}
-                  <div className="bg-gray-800 h-1 w-32 mx-auto rounded-full mt-2"></div>
+                  {/* Bottom Bezel with Home Indicator */}
+                  <div className="bg-black rounded-b-[3rem] h-8 flex items-center justify-center relative">
+                    <div className="w-32 h-1 bg-slate-700 rounded-full"></div>
+                  </div>
+                  
+                  {/* Side Buttons */}
+                  <div className="absolute left-0 top-20 w-1 h-16 bg-slate-600 rounded-r-full"></div>
+                  <div className="absolute right-0 top-32 w-1 h-8 bg-slate-600 rounded-l-full"></div>
+                  <div className="absolute right-0 top-44 w-1 h-8 bg-slate-600 rounded-l-full"></div>
+                </div>
+                
+                {/* Phone Label */}
+                <div className="text-center mt-4">
+                  <div className="text-slate-400 text-xs font-medium">BLAZE Wallet - Mobile</div>
                 </div>
               </motion.div>
             )}
