@@ -1,9 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ExternalLink, Smartphone, Monitor, Play, Zap, Shield, Brain, MessageSquare, PieChart } from 'lucide-react';
+import { ExternalLink, Monitor, Smartphone, Play, Zap, Shield, Brain, MessageSquare, PieChart, Fuel } from 'lucide-react';
 import { useState } from 'react';
-import WalletDemo from './WalletDemo';
 
 export default function Demo() {
   const [isMobile, setIsMobile] = useState(false);
@@ -21,7 +20,7 @@ export default function Demo() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             Zie BLAZE <span className="text-gradient">in actie</span>
@@ -32,7 +31,7 @@ export default function Demo() {
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left: Demo */}
+          {/* Left: Demo Screenshots */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -40,65 +39,8 @@ export default function Demo() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="relative"
           >
-            {/* Desktop Frame */}
-            {!isMobile && (
-              <div className="relative">
-                {/* Monitor Frame */}
-                <div className="bg-gray-800 rounded-t-2xl p-4 pb-2">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                    <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                    <div className="ml-4 text-gray-400 text-sm">BLAZE Wallet - Desktop</div>
-                  </div>
-                  <div className="bg-white rounded-lg overflow-hidden shadow-2xl">
-                    <WalletDemo />
-                  </div>
-                </div>
-                {/* Monitor Stand */}
-                <div className="bg-gray-700 h-8 rounded-b-2xl"></div>
-                <div className="bg-gray-600 h-4 w-32 mx-auto rounded-b-lg"></div>
-              </div>
-            )}
-
-            {/* Mobile Frame */}
-            {isMobile && (
-              <div className="relative mx-auto" style={{ width: '280px' }}>
-                {/* iPhone Frame */}
-                <div className="bg-black rounded-[3rem] p-2 shadow-2xl">
-                  {/* Notch */}
-                  <div className="bg-black h-6 w-32 mx-auto rounded-b-2xl mb-2"></div>
-                  
-                  {/* Screen */}
-                  <div className="bg-white rounded-[2.5rem] overflow-hidden">
-                    <WalletDemo />
-                  </div>
-                  
-                  {/* Home Indicator */}
-                  <div className="bg-gray-800 h-1 w-32 mx-auto rounded-full mt-2"></div>
-                </div>
-              </div>
-            )}
-
-            {/* Live Badge */}
-            <div className="absolute -top-4 -right-4 z-50">
-              <div className="px-4 py-2 rounded-full bg-green-500/20 border border-green-500/30 text-green-400 text-sm font-bold flex items-center gap-2 backdrop-blur-sm">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                LIVE DEMO
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Right: Content */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="space-y-8"
-          >
             {/* View Toggle */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center justify-center gap-4 mb-8">
               <span className="text-gray-400 font-medium">View:</span>
               <div className="flex bg-white/5 rounded-xl p-1">
                 <motion.button
@@ -128,6 +70,116 @@ export default function Demo() {
               </div>
             </div>
 
+            {/* Desktop Frame */}
+            {!isMobile && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3 }}
+                className="relative"
+              >
+                {/* Monitor Frame */}
+                <div className="bg-gray-800 rounded-t-2xl p-4 pb-2">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                    <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                    <div className="ml-4 text-gray-400 text-sm">BLAZE Wallet - Desktop</div>
+                  </div>
+                  <div className="bg-white rounded-lg overflow-hidden shadow-2xl">
+                    {/* Desktop screenshot */}
+                    <div className="aspect-[16/10] bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center">
+                      <img 
+                        src="/screenshots/desktop-wallet.png" 
+                        alt="BLAZE Wallet Desktop Screenshot"
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          // Fallback to placeholder if image doesn't exist
+                          e.currentTarget.style.display = 'none';
+                          e.currentTarget.nextElementSibling.style.display = 'flex';
+                        }}
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100" style={{ display: 'none' }}>
+                        <div className="text-center">
+                          <div className="w-16 h-16 bg-gradient-blaze rounded-xl flex items-center justify-center mb-4 mx-auto">
+                            <Monitor className="w-8 h-8 text-white" />
+                          </div>
+                          <p className="text-gray-600 font-semibold">Desktop Screenshot</p>
+                          <p className="text-gray-500 text-sm">Upload desktop-wallet.png naar /public/screenshots/</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {/* Monitor Stand */}
+                <div className="bg-gray-700 h-8 rounded-b-2xl"></div>
+                <div className="bg-gray-600 h-4 w-32 mx-auto rounded-b-lg"></div>
+              </motion.div>
+            )}
+
+            {/* Mobile Frame */}
+            {isMobile && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3 }}
+                className="relative mx-auto"
+                style={{ width: '280px' }}
+              >
+                {/* iPhone Frame */}
+                <div className="bg-black rounded-[3rem] p-2 shadow-2xl">
+                  {/* Notch */}
+                  <div className="bg-black h-6 w-32 mx-auto rounded-b-2xl mb-2"></div>
+                  
+                  {/* Screen */}
+                  <div className="bg-white rounded-[2.5rem] overflow-hidden">
+                    {/* Mobile screenshot */}
+                    <div className="aspect-[9/19.5] bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center">
+                      <img 
+                        src="/screenshots/mobile-wallet.png" 
+                        alt="BLAZE Wallet Mobile Screenshot"
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          // Fallback to placeholder if image doesn't exist
+                          e.currentTarget.style.display = 'none';
+                          e.currentTarget.nextElementSibling.style.display = 'flex';
+                        }}
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100" style={{ display: 'none' }}>
+                        <div className="text-center">
+                          <div className="w-12 h-12 bg-gradient-blaze rounded-xl flex items-center justify-center mb-3 mx-auto">
+                            <Smartphone className="w-6 h-6 text-white" />
+                          </div>
+                          <p className="text-gray-600 font-semibold text-sm">Mobile Screenshot</p>
+                          <p className="text-gray-500 text-xs">Upload mobile-wallet.png naar /public/screenshots/</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Home Indicator */}
+                  <div className="bg-gray-800 h-1 w-32 mx-auto rounded-full mt-2"></div>
+                </div>
+              </motion.div>
+            )}
+
+            {/* Live Badge */}
+            <div className="absolute -top-4 -right-4 z-50">
+              <div className="px-4 py-2 rounded-full bg-green-500/20 border border-green-500/30 text-green-400 text-sm font-bold flex items-center gap-2 backdrop-blur-sm">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                LIVE DEMO
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Right: Content */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="space-y-8"
+          >
             {/* Features List */}
             <div className="space-y-6">
               <h3 className="text-2xl font-bold text-white">
@@ -137,7 +189,7 @@ export default function Demo() {
               <div className="space-y-4">
                 {[
                   {
-                    icon: Zap,
+                    icon: Brain,
                     title: 'AI Transaction Assistant',
                     description: 'Typ "Stuur 50 USDC naar 0x..." en de AI doet de rest'
                   },
@@ -152,7 +204,12 @@ export default function Demo() {
                     description: 'Krijg gepersonaliseerde tips voor je portfolio optimalisatie'
                   },
                   {
-                    icon: Brain,
+                    icon: Fuel,
+                    title: 'Gas Optimizer',
+                    description: 'Bespaar geld door te transacteren op optimale tijden'
+                  },
+                  {
+                    icon: MessageSquare,
                     title: 'Crypto Expert AI',
                     description: 'Stel vragen over DeFi, gas, slippage en meer'
                   }
@@ -183,10 +240,10 @@ export default function Demo() {
               <div className="grid grid-cols-2 gap-3">
                 {[
                   'Quick Actions (Buy, Send, Receive, Swap)',
-                  'Staking Dashboard',
-                  'NFT Marketplace',
+                  'Staking Dashboard (8-20% APY)',
+                  'NFT Marketplace & Minting',
                   'Governance Voting',
-                  'AI Tools',
+                  'AI Tools (5 features)',
                   'Settings & Security'
                 ].map((feature, index) => (
                   <div key={index} className="flex items-center gap-2 text-sm text-gray-400">
