@@ -48,7 +48,7 @@ npm start
 ## 📝 Content
 
 Alle content is gebaseerd op echte data van:
-- `/Users/rickschlimback/Desktop/Blaze Wallet` - De wallet app
+- BLAZE Wallet repository - De wallet app
 - `contracts/` - Smart contracts
 - Token economics en presale details
 

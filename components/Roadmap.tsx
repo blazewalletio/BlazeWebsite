@@ -171,7 +171,7 @@ export default function Roadmap() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                name: 'Rick',
+                name: 'Founder',
                 role: 'Founder & CEO',
                 icon: UserCircle,
                 bio: 'Crypto entrepreneur met 5+ jaar ervaring in DeFi',
