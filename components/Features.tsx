@@ -3,81 +3,133 @@
 import { motion } from 'framer-motion';
 import { 
   Wallet, Lock, Repeat, TrendingUp, Users, Rocket, 
-  Palette, Gift, Shield, Zap, Globe, Award 
+  Palette, Gift, Shield, Zap, Globe, Award, Brain, 
+  ScanEye, PieChart, Fuel, MessageSquare, Smartphone,
+  Languages, QrCode, Fingerprint, DollarSign, Vote
 } from 'lucide-react';
 
-const features = [
+const aiFeatures = [
+  {
+    icon: Brain,
+    title: 'AI Transaction Assistant',
+    description: 'Natuurlijke taal interface: typ "Stuur 50 USDC naar 0x..." en de AI doet de rest. Offline + OpenAI powered.',
+    gradient: 'from-purple-600 to-pink-600',
+    badge: 'AI',
+  },
+  {
+    icon: ScanEye,
+    title: 'Smart Scam Detector',
+    description: 'Real-time security scanning van adressen en contracts. Krijg een risico score voordat je interacteert.',
+    gradient: 'from-red-600 to-orange-600',
+    badge: 'AI',
+  },
+  {
+    icon: PieChart,
+    title: 'AI Portfolio Advisor',
+    description: 'Gepersonaliseerde portfolio analyse met diversificatie score en actionable recommendations.',
+    gradient: 'from-blue-600 to-cyan-600',
+    badge: 'AI',
+  },
+  {
+    icon: Fuel,
+    title: 'Predictive Gas Optimizer',
+    description: 'ML-based gas price voorspelling. Bespaar geld door te transacteren op optimale tijden.',
+    gradient: 'from-green-600 to-emerald-600',
+    badge: 'AI',
+  },
+  {
+    icon: MessageSquare,
+    title: 'Conversational Crypto Assistant',
+    description: '24/7 AI crypto expert. Stel vragen over DeFi, gas, slippage en meer. Context-aware antwoorden.',
+    gradient: 'from-indigo-600 to-purple-600',
+    badge: 'AI',
+  },
+];
+
+const coreFeatures = [
   {
     icon: Wallet,
     title: 'Multi-chain wallet',
-    description: 'Support voor Ethereum, BSC, Polygon, Arbitrum, Base en meer. Één wallet voor alle chains.',
+    description: 'Support voor Ethereum, BSC, Polygon, Arbitrum, Base. Één wallet voor alle chains met real-time switching.',
     gradient: 'from-blue-500 to-cyan-500',
   },
   {
-    icon: Lock,
-    title: 'Non-custodial & secure',
-    description: 'Jouw keys, jouw crypto. AES-256 encryptie en biometric authentication voor maximale veiligheid.',
-    gradient: 'from-green-500 to-emerald-500',
-  },
-  {
-    icon: Repeat,
-    title: 'Token swaps',
-    description: 'Swap tokens direct in-app via 1inch DEX aggregator. Altijd de beste rates.',
-    gradient: 'from-purple-500 to-pink-500',
-  },
-  {
     icon: TrendingUp,
-    title: 'Staking (8-20% APY)',
-    description: 'Stake BLAZE tokens en earn passief inkomen. Flexible, 6 maanden of 1 jaar lock periodes.',
+    title: 'Advanced staking',
+    description: '8% APY flexible, 15% APY 6-maanden lock, 20% APY 1-jaar lock. Earn passief inkomen met je BLAZE tokens.',
     gradient: 'from-orange-500 to-red-500',
   },
   {
-    icon: Users,
+    icon: Vote,
     title: 'DAO governance',
-    description: 'Stem mee over de toekomst van BLAZE. Één token = één stem. True decentralization.',
+    description: 'Stem over proposals, suggest wijzigingen en help de toekomst bepalen. 1 token = 1 stem.',
     gradient: 'from-indigo-500 to-purple-500',
   },
   {
     icon: Rocket,
-    title: 'Launchpad',
-    description: 'Early access tot nieuwe crypto projects. BLAZE holders krijgen exclusieve deals.',
+    title: 'Project launchpad',
+    description: 'Early access tot nieuwe crypto projects. BLAZE stakers krijgen exclusieve allocations en discounts.',
     gradient: 'from-yellow-500 to-orange-500',
   },
   {
     icon: Palette,
-    title: 'NFT wallet skins',
-    description: 'Personaliseer je wallet met unieke NFT skins. Collect, trade en flex.',
+    title: 'NFT marketplace',
+    description: 'Mint, trade en collect NFTs. Plus: personaliseer je wallet met unieke NFT skins.',
     gradient: 'from-pink-500 to-rose-500',
+  },
+  {
+    icon: Repeat,
+    title: 'Instant swaps',
+    description: 'Swap tokens via 1inch DEX aggregator. Altijd de beste rates, lage slippage, live gas estimates.',
+    gradient: 'from-purple-500 to-pink-500',
   },
   {
     icon: Gift,
     title: 'Cashback rewards',
-    description: 'Earn BLAZE tokens bij elke transactie. Meer je gebruikt, meer je verdient.',
+    description: 'Earn BLAZE tokens bij elke transactie. Meer je gebruikt, meer je verdient. Auto-compounding mogelijk.',
     gradient: 'from-teal-500 to-cyan-500',
-  },
-  {
-    icon: Shield,
-    title: 'Verified contracts',
-    description: 'Alle smart contracts zijn verified op BscScan. Transparant en trustworthy.',
-    gradient: 'from-red-500 to-orange-500',
-  },
-  {
-    icon: Zap,
-    title: 'Lightning fast',
-    description: 'Optimized voor snelheid. Transactions in seconden, niet minuten.',
-    gradient: 'from-yellow-400 to-yellow-600',
-  },
-  {
-    icon: Globe,
-    title: 'PWA support',
-    description: 'Installeer als app op je phone. Works offline, native feel.',
-    gradient: 'from-blue-400 to-blue-600',
   },
   {
     icon: Award,
     title: 'Premium membership',
-    description: 'Stake 10,000+ BLAZE voor lifetime premium. Fee discounts en exclusive features.',
+    description: 'Stake 10,000+ BLAZE voor premium status: tot 75% fee discount, exclusive features en premium support.',
     gradient: 'from-purple-400 to-pink-500',
+  },
+  {
+    icon: Fingerprint,
+    title: 'Biometric security',
+    description: 'WebAuthn biometric authentication, hardware key support, en encrypted local storage voor maximale veiligheid.',
+    gradient: 'from-green-500 to-emerald-500',
+  },
+  {
+    icon: QrCode,
+    title: 'QR login & payments',
+    description: 'Instant QR code payments, cross-device login, en merchant payment support. Crypto gebruiken zoals cash.',
+    gradient: 'from-blue-400 to-indigo-500',
+  },
+  {
+    icon: Languages,
+    title: 'Multi-language',
+    description: 'Volledig vertaald naar Nederlands, Engels, Spaans, Frans en Duits. More languages coming soon.',
+    gradient: 'from-orange-400 to-red-500',
+  },
+  {
+    icon: Smartphone,
+    title: 'Progressive Web App',
+    description: 'Installeer als native app op iOS/Android. Works offline, push notifications, native feel.',
+    gradient: 'from-blue-400 to-blue-600',
+  },
+  {
+    icon: Shield,
+    title: 'Verified & audited',
+    description: 'Smart contracts verified op BSCScan. Audit door CertiK. 100% transparant en open-source.',
+    gradient: 'from-red-500 to-orange-500',
+  },
+  {
+    icon: Zap,
+    title: 'Lightning performance',
+    description: '60fps animaties, instant updates, sub-second transactions. Buttery smooth op alle devices.',
+    gradient: 'from-yellow-400 to-yellow-600',
   },
 ];
 
@@ -95,31 +147,92 @@ export default function Features() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Packed with <span className="text-gradient">features</span>
+            De meest <span className="text-gradient">intelligente</span> crypto wallet
           </h2>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Meer dan alleen een wallet. BLAZE is een complete DeFi ecosystem.
+            BLAZE combineert geavanceerde AI met complete DeFi functionaliteit. Jouw persoonlijke crypto assistent.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map((feature, index) => (
-            <motion.div
-              key={feature.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.05 }}
-              whileHover={{ scale: 1.05, y: -5 }}
-              className="card-glass p-6 hover:bg-white/10 transition-all group cursor-pointer"
-            >
-              <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${feature.gradient} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                <feature.icon className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
-              <p className="text-gray-400">{feature.description}</p>
-            </motion.div>
-          ))}
+        {/* AI Features Section */}
+        <div className="mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-8"
+          >
+            <h3 className="text-3xl font-bold mb-3">
+              <span className="text-gradient">5 Geavanceerde AI Features</span>
+            </h3>
+            <p className="text-gray-400">
+              Artificiële intelligentie die je wallet slimmer, veiliger en makkelijker maakt
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {aiFeatures.map((feature, index) => (
+              <motion.div
+                key={feature.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.05 }}
+                whileHover={{ scale: 1.05, y: -5 }}
+                className="card-glass p-6 hover:bg-white/10 transition-all group cursor-pointer border-2 border-purple-500/30"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${feature.gradient} flex items-center justify-center group-hover:scale-110 transition-transform`}>
+                    <feature.icon className="w-6 h-6 text-white" />
+                  </div>
+                  <span className="px-3 py-1 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-bold">
+                    AI
+                  </span>
+                </div>
+                <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
+                <p className="text-gray-400 text-sm">{feature.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* Core Features Section */}
+        <div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-8"
+          >
+            <h3 className="text-3xl font-bold mb-3">
+              Complete <span className="text-gradient">DeFi Platform</span>
+            </h3>
+            <p className="text-gray-400">
+              Alles wat je nodig hebt voor crypto: staking, swaps, governance, NFTs en meer
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {coreFeatures.map((feature, index) => (
+              <motion.div
+                key={feature.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.05 }}
+                whileHover={{ scale: 1.05, y: -5 }}
+                className="card-glass p-6 hover:bg-white/10 transition-all group cursor-pointer"
+              >
+                <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${feature.gradient} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                  <feature.icon className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
+                <p className="text-gray-400">{feature.description}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -187,8 +187,8 @@ export default function Tokenomics() {
                 <div className="text-sm text-gray-400">15% (150M tokens)</div>
               </div>
               <div className="text-right">
-                <div className="text-orange-400 font-bold">Linear unlock</div>
-                <div className="text-sm text-gray-400">Over 2 years</div>
+                <div className="text-orange-400 font-bold">6-month cliff</div>
+                <div className="text-sm text-gray-400">Linear over 4 years</div>
               </div>
             </div>
             <div className="flex items-center justify-between p-4 rounded-xl bg-white/5">
@@ -209,6 +209,40 @@ export default function Tokenomics() {
               <div className="text-right">
                 <div className="text-orange-400 font-bold">Linear unlock</div>
                 <div className="text-sm text-gray-400">Over 2 years</div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Fee Discount Tiers */}
+          <div className="mt-12 card-glass p-8 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border-purple-500/30">
+            <h3 className="text-2xl font-bold mb-6 text-center">Fee Discount Tiers</h3>
+            <p className="text-center text-gray-400 mb-8">Stake meer BLAZE voor hogere fee discounts op alle transacties</p>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div className="bg-white/5 p-6 rounded-xl text-center">
+                <div className="text-3xl font-bold text-gradient mb-2">10%</div>
+                <div className="text-sm text-gray-400 mb-2">Discount</div>
+                <div className="text-white font-bold">1,000 - 9,999</div>
+                <div className="text-sm text-gray-400">BLAZE staked</div>
+              </div>
+              <div className="bg-white/5 p-6 rounded-xl text-center border-2 border-blue-500/30">
+                <div className="text-3xl font-bold text-gradient mb-2">25%</div>
+                <div className="text-sm text-gray-400 mb-2">Discount</div>
+                <div className="text-white font-bold">10,000 - 49,999</div>
+                <div className="text-sm text-gray-400">BLAZE staked</div>
+                <div className="text-xs text-blue-400 mt-2">+ Premium Status</div>
+              </div>
+              <div className="bg-white/5 p-6 rounded-xl text-center border-2 border-purple-500/30">
+                <div className="text-3xl font-bold text-gradient mb-2">50%</div>
+                <div className="text-sm text-gray-400 mb-2">Discount</div>
+                <div className="text-white font-bold">50,000 - 99,999</div>
+                <div className="text-sm text-gray-400">BLAZE staked</div>
+              </div>
+              <div className="bg-white/5 p-6 rounded-xl text-center border-2 border-orange-500/30">
+                <div className="text-3xl font-bold text-gradient mb-2">75%</div>
+                <div className="text-sm text-gray-400 mb-2">Discount</div>
+                <div className="text-white font-bold">100,000+</div>
+                <div className="text-sm text-gray-400">BLAZE staked</div>
+                <div className="text-xs text-orange-400 mt-2">VIP Status</div>
               </div>
             </div>
           </div>

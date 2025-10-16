@@ -72,11 +72,34 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto"
+          className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto"
         >
-          De revolutionaire crypto wallet met DeFi features. Staking, Governance, 
-          Launchpad en meer. Join the presale en wordt early adopter!
+          De meest intelligente crypto wallet met 5 geavanceerde AI features. 
+          Staking, Governance, NFTs, Launchpad en meer. Join the presale nu!
         </motion.p>
+
+        {/* AI Badge */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="flex flex-wrap justify-center gap-3 mb-12 max-w-4xl mx-auto"
+        >
+          {[
+            '🤖 AI Transaction Assistant',
+            '🛡️ Smart Scam Detector',
+            '📊 AI Portfolio Advisor',
+            '⚡ Gas Optimizer',
+            '💬 Crypto Expert AI'
+          ].map((feature, index) => (
+            <span 
+              key={index}
+              className="px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 text-sm font-medium backdrop-blur-sm"
+            >
+              {feature}
+            </span>
+          ))}
+        </motion.div>
 
         {/* Presale Card */}
         <motion.div

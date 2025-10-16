@@ -26,7 +26,7 @@ export default function Demo() {
             Zie BLAZE <span className="text-gradient">in actie</span>
           </h2>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Test de wallet live. Geen download nodig, direct in je browser.
+            Test de meest intelligente crypto wallet. Met AI, NFTs, Staking, Governance en meer. Volledig gratis.
           </p>
         </motion.div>
 
@@ -83,10 +83,10 @@ export default function Demo() {
             className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8"
           >
             {[
-              { label: 'Supported chains', value: '7+' },
-              { label: 'Active users', value: '10K+' },
-              { label: 'Total staked', value: '$2M+' },
-              { label: 'Avg APY', value: '15%' },
+              { label: 'AI Features', value: '5' },
+              { label: 'Supported chains', value: '5' },
+              { label: 'Max APY', value: '20%' },
+              { label: 'Fee discount', value: '75%' },
             ].map((stat, index) => (
               <div key={index} className="card-glass p-4 text-center">
                 <div className="text-2xl md:text-3xl font-bold text-gradient mb-1">
