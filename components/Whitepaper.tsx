@@ -17,14 +17,14 @@ const sections = [
 ];
 
 const highlights = [
-  'Non-custodial architecture',
-  'Multi-chain support (7+ chains)',
-  'Deflationary tokenomics',
-  'DAO governance model',
-  'Staking rewards (8-20% APY)',
-  'Smart contract verified',
-  'Transparent team',
-  'Community-driven development',
+  '5 Revolutionary AI Features',
+  'Multi-chain support (5 chains)',
+  'Deflationary tokenomics (0.10% burn)',
+  'Advanced staking (8-20% APY)',
+  'Premium membership system',
+  'Smart contract verified & audited',
+  'Biometric authentication',
+  'NFT marketplace & launchpad',
 ];
 
 export default function Whitepaper() {
@@ -85,10 +85,13 @@ export default function Whitepaper() {
                   <Download className="w-5 h-5" />
                   Download PDF
                 </button>
-                <button className="flex-1 px-6 py-3 card-glass rounded-xl font-bold hover:scale-105 transition-transform flex items-center justify-center gap-2">
+                <a 
+                  href="/whitepaper"
+                  className="flex-1 px-6 py-3 card-glass rounded-xl font-bold hover:scale-105 transition-transform flex items-center justify-center gap-2 hover:bg-white/10"
+                >
                   <ExternalLink className="w-5 h-5" />
                   Lees online
-                </button>
+                </a>
               </div>
             </div>
 
