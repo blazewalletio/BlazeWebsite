@@ -46,6 +46,39 @@ const aiFeatures = [
   },
 ];
 
+const defiFeatures = [
+  {
+    icon: TrendingUp,
+    title: 'Staking Dashboard',
+    description: '8% APY flexible, 15% APY 6-maanden lock, 20% APY 1-jaar lock. Earn passief inkomen met je BLAZE tokens.',
+    gradient: 'from-orange-500 to-red-500',
+  },
+  {
+    icon: Vote,
+    title: 'DAO Governance',
+    description: 'Stem over proposals, suggest wijzigingen en help de toekomst bepalen. 1 token = 1 stem.',
+    gradient: 'from-indigo-500 to-purple-500',
+  },
+  {
+    icon: Palette,
+    title: 'NFT Marketplace',
+    description: 'Mint, trade en collect NFTs. Plus: personaliseer je wallet met unieke NFT skins.',
+    gradient: 'from-pink-500 to-rose-500',
+  },
+  {
+    icon: Rocket,
+    title: 'Launchpad Platform',
+    description: 'Early access tot nieuwe crypto projects. BLAZE stakers krijgen exclusieve allocations en discounts.',
+    gradient: 'from-yellow-500 to-orange-500',
+  },
+  {
+    icon: Gift,
+    title: 'Cashback Rewards',
+    description: 'Earn BLAZE tokens bij elke transactie. Meer je gebruikt, meer je verdient. Auto-compounding mogelijk.',
+    gradient: 'from-teal-500 to-cyan-500',
+  },
+];
+
 const coreFeatures = [
   {
     icon: Wallet,
@@ -54,34 +87,10 @@ const coreFeatures = [
     gradient: 'from-blue-500 to-cyan-500',
   },
   {
-    icon: Brain,
-    title: '5 AI Features',
-    description: 'Transaction Assistant, Scam Detector, Portfolio Advisor, Gas Optimizer en Crypto Expert. De meest intelligente wallet.',
-    gradient: 'from-purple-600 to-pink-600',
-  },
-  {
-    icon: TrendingUp,
-    title: 'Advanced staking',
-    description: '8% APY flexible, 15% APY 6-maanden lock, 20% APY 1-jaar lock. Earn passief inkomen met je BLAZE tokens.',
-    gradient: 'from-orange-500 to-red-500',
-  },
-  {
     icon: Fingerprint,
     title: 'Biometric security',
     description: 'WebAuthn biometric authentication, hardware key support, en encrypted local storage voor maximale veiligheid.',
     gradient: 'from-green-500 to-emerald-500',
-  },
-  {
-    icon: Palette,
-    title: 'NFT marketplace',
-    description: 'Mint, trade en collect NFTs. Plus: personaliseer je wallet met unieke NFT skins.',
-    gradient: 'from-pink-500 to-rose-500',
-  },
-  {
-    icon: Vote,
-    title: 'DAO governance',
-    description: 'Stem over proposals, suggest wijzigingen en help de toekomst bepalen. 1 token = 1 stem.',
-    gradient: 'from-indigo-500 to-purple-500',
   },
   {
     icon: Award,
@@ -156,6 +165,44 @@ export default function Features() {
                 </div>
                 <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
                 <p className="text-gray-400 text-sm">{feature.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* DeFi Ecosystem Section */}
+        <div className="mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-12"
+          >
+            <h3 className="text-3xl font-bold mb-3">
+              <span className="text-gradient">DeFi Ecosystem</span>
+            </h3>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              Complete decentralized finance platform. Staking, governance, NFTs en meer in één wallet.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+            {defiFeatures.map((feature, index) => (
+              <motion.div
+                key={feature.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{ scale: 1.05, y: -5 }}
+                className="card-glass p-6 hover:bg-white/10 transition-all group cursor-pointer text-center"
+              >
+                <div className={`w-14 h-14 rounded-xl bg-gradient-to-r ${feature.gradient} flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform shadow-lg`}>
+                  <feature.icon className="w-7 h-7 text-white" />
+                </div>
+                <h3 className="text-lg font-bold mb-3">{feature.title}</h3>
+                <p className="text-gray-400 text-sm leading-relaxed">{feature.description}</p>
               </motion.div>
             ))}
           </div>
