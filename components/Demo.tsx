@@ -96,7 +96,10 @@ export default function Demo() {
                         onError={(e) => {
                           // Fallback to placeholder if image doesn't exist
                           e.currentTarget.style.display = 'none';
-                          e.currentTarget.nextElementSibling.style.display = 'flex';
+                          const nextElement = e.currentTarget.nextElementSibling as HTMLElement;
+                          if (nextElement) {
+                            nextElement.style.display = 'flex';
+                          }
                         }}
                       />
                       <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100" style={{ display: 'none' }}>
@@ -142,7 +145,10 @@ export default function Demo() {
                         onError={(e) => {
                           // Fallback to placeholder if image doesn't exist
                           e.currentTarget.style.display = 'none';
-                          e.currentTarget.nextElementSibling.style.display = 'flex';
+                          const nextElement = e.currentTarget.nextElementSibling as HTMLElement;
+                          if (nextElement) {
+                            nextElement.style.display = 'flex';
+                          }
                         }}
                       />
                       <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100" style={{ display: 'none' }}>
