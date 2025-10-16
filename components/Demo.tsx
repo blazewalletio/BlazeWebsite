@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { ExternalLink, Play } from 'lucide-react';
 import { useState } from 'react';
+import WalletDemo from './WalletDemo';
 
 export default function Demo() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -35,13 +36,13 @@ export default function Demo() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="max-w-5xl mx-auto"
+          className="max-w-7xl mx-auto"
         >
           {/* Demo container */}
-          <div className="relative aspect-[16/10] rounded-2xl overflow-hidden card-glass border-2 border-orange-500/30 glow-orange">
+          <div className="relative rounded-2xl overflow-hidden card-glass border-2 border-orange-500/30 glow-orange">
             {!isPlaying ? (
               // Placeholder with play button
-              <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800">
+              <div className="aspect-[16/10] flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800">
                 <div className="text-center">
                   <motion.button
                     whileHover={{ scale: 1.1 }}
@@ -56,22 +57,19 @@ export default function Demo() {
                 </div>
               </div>
             ) : (
-              // Live demo iframe
-              <iframe
-                src="https://my.blazewallet.io"
-                className="w-full h-full"
-                allow="clipboard-read; clipboard-write"
-                title="BLAZE Wallet Demo"
-              />
-            )}
-            
-            {/* Corner badges */}
-            <div className="absolute top-4 right-4 flex gap-2">
-              <div className="px-3 py-1 rounded-full bg-green-500/20 border border-green-500/30 text-green-400 text-sm font-bold flex items-center gap-1">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                LIVE
+              // Live wallet demo
+              <div className="relative">
+                <WalletDemo />
+                
+                {/* Corner badges */}
+                <div className="absolute top-4 right-4 z-50 flex gap-2">
+                  <div className="px-3 py-1 rounded-full bg-green-500/20 border border-green-500/30 text-green-400 text-sm font-bold flex items-center gap-1">
+                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                    LIVE DEMO
+                  </div>
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
           {/* Quick stats below demo */}
