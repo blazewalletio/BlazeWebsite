@@ -1,10 +1,13 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, Smartphone, Monitor, Play, Zap, Shield, Brain, MessageSquare, PieChart } from 'lucide-react';
+import { useState } from 'react';
 import WalletDemo from './WalletDemo';
 
 export default function Demo() {
+  const [isMobile, setIsMobile] = useState(false);
+
   return (
     <section id="demo" className="relative py-20 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
@@ -18,7 +21,7 @@ export default function Demo() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12"
+          className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             Zie BLAZE <span className="text-gradient">in actie</span>
@@ -28,68 +31,215 @@ export default function Demo() {
           </p>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="max-w-7xl mx-auto"
-        >
-          {/* Demo container */}
-          <div className="relative rounded-2xl overflow-hidden card-glass border-2 border-orange-500/30 glow-orange bg-white">
-            {/* Corner badges */}
-            <div className="absolute top-4 right-4 z-50 flex gap-2">
-              <div className="px-3 py-1 rounded-full bg-green-500/20 border border-green-500/30 text-green-400 text-sm font-bold flex items-center gap-1">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Left: Demo */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="relative"
+          >
+            {/* Desktop Frame */}
+            {!isMobile && (
+              <div className="relative">
+                {/* Monitor Frame */}
+                <div className="bg-gray-800 rounded-t-2xl p-4 pb-2">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                    <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                    <div className="ml-4 text-gray-400 text-sm">BLAZE Wallet - Desktop</div>
+                  </div>
+                  <div className="bg-white rounded-lg overflow-hidden shadow-2xl">
+                    <WalletDemo />
+                  </div>
+                </div>
+                {/* Monitor Stand */}
+                <div className="bg-gray-700 h-8 rounded-b-2xl"></div>
+                <div className="bg-gray-600 h-4 w-32 mx-auto rounded-b-lg"></div>
+              </div>
+            )}
+
+            {/* Mobile Frame */}
+            {isMobile && (
+              <div className="relative mx-auto" style={{ width: '280px' }}>
+                {/* iPhone Frame */}
+                <div className="bg-black rounded-[3rem] p-2 shadow-2xl">
+                  {/* Notch */}
+                  <div className="bg-black h-6 w-32 mx-auto rounded-b-2xl mb-2"></div>
+                  
+                  {/* Screen */}
+                  <div className="bg-white rounded-[2.5rem] overflow-hidden">
+                    <WalletDemo />
+                  </div>
+                  
+                  {/* Home Indicator */}
+                  <div className="bg-gray-800 h-1 w-32 mx-auto rounded-full mt-2"></div>
+                </div>
+              </div>
+            )}
+
+            {/* Live Badge */}
+            <div className="absolute -top-4 -right-4 z-50">
+              <div className="px-4 py-2 rounded-full bg-green-500/20 border border-green-500/30 text-green-400 text-sm font-bold flex items-center gap-2 backdrop-blur-sm">
                 <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
                 LIVE DEMO
               </div>
             </div>
-            
-            {/* Wallet Demo Component */}
-            <WalletDemo />
-          </div>
+          </motion.div>
 
-          {/* Quick stats below demo */}
+          {/* Right: Content */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8"
+            className="space-y-8"
           >
-            {[
-              { label: 'AI Features', value: '5' },
-              { label: 'Supported chains', value: '5' },
-              { label: 'Max APY', value: '20%' },
-              { label: 'Fee discount', value: '75%' },
-            ].map((stat, index) => (
-              <div key={index} className="card-glass p-4 text-center">
-                <div className="text-2xl md:text-3xl font-bold text-gradient mb-1">
-                  {stat.value}
-                </div>
-                <div className="text-sm text-gray-400">{stat.label}</div>
+            {/* View Toggle */}
+            <div className="flex items-center gap-4">
+              <span className="text-gray-400 font-medium">View:</span>
+              <div className="flex bg-white/5 rounded-xl p-1">
+                <motion.button
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setIsMobile(false)}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${
+                    !isMobile 
+                      ? 'bg-gradient-blaze text-white shadow-lg' 
+                      : 'text-gray-400 hover:text-white'
+                  }`}
+                >
+                  <Monitor className="w-4 h-4" />
+                  Desktop
+                </motion.button>
+                <motion.button
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setIsMobile(true)}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${
+                    isMobile 
+                      ? 'bg-gradient-blaze text-white shadow-lg' 
+                      : 'text-gray-400 hover:text-white'
+                  }`}
+                >
+                  <Smartphone className="w-4 h-4" />
+                  Mobile
+                </motion.button>
               </div>
-            ))}
-          </motion.div>
+            </div>
 
-          {/* CTA */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-            className="text-center mt-8"
-          >
-            <a
-              href="https://my.blazewallet.io"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-blaze rounded-xl font-bold text-lg hover:scale-105 transition-transform glow-orange"
+            {/* Features List */}
+            <div className="space-y-6">
+              <h3 className="text-2xl font-bold text-white">
+                Wat je kunt testen:
+              </h3>
+              
+              <div className="space-y-4">
+                {[
+                  {
+                    icon: Zap,
+                    title: 'AI Transaction Assistant',
+                    description: 'Typ "Stuur 50 USDC naar 0x..." en de AI doet de rest'
+                  },
+                  {
+                    icon: Shield,
+                    title: 'Smart Scam Detector',
+                    description: 'Scan adressen en krijg een risico score voordat je interacteert'
+                  },
+                  {
+                    icon: PieChart,
+                    title: 'AI Portfolio Advisor',
+                    description: 'Krijg gepersonaliseerde tips voor je portfolio optimalisatie'
+                  },
+                  {
+                    icon: Brain,
+                    title: 'Crypto Expert AI',
+                    description: 'Stel vragen over DeFi, gas, slippage en meer'
+                  }
+                ].map((feature, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: index * 0.1 }}
+                    className="flex items-start gap-4 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors"
+                  >
+                    <div className="w-10 h-10 bg-gradient-blaze rounded-lg flex items-center justify-center flex-shrink-0">
+                      <feature.icon className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-white mb-1">{feature.title}</h4>
+                      <p className="text-gray-400 text-sm">{feature.description}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* Interactive Elements */}
+            <div className="space-y-4">
+              <h4 className="text-lg font-semibold text-white">Interactieve features:</h4>
+              <div className="grid grid-cols-2 gap-3">
+                {[
+                  'Quick Actions (Buy, Send, Receive, Swap)',
+                  'Staking Dashboard',
+                  'NFT Marketplace',
+                  'Governance Voting',
+                  'AI Tools',
+                  'Settings & Security'
+                ].map((feature, index) => (
+                  <div key={index} className="flex items-center gap-2 text-sm text-gray-400">
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    {feature}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* CTA */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+              className="pt-4"
             >
-              Open de wallet
-              <ExternalLink className="w-5 h-5" />
-            </a>
+              <a
+                href="https://my.blazewallet.io"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-blaze rounded-xl font-bold text-lg hover:scale-105 transition-transform glow-orange"
+              >
+                <Play className="w-5 h-5" />
+                Open de wallet
+                <ExternalLink className="w-5 h-5" />
+              </a>
+            </motion.div>
           </motion.div>
+        </div>
+
+        {/* Quick stats below */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.8 }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16"
+        >
+          {[
+            { label: 'AI Features', value: '5' },
+            { label: 'Supported chains', value: '5' },
+            { label: 'Max APY', value: '20%' },
+            { label: 'Fee discount', value: '75%' },
+          ].map((stat, index) => (
+            <div key={index} className="card-glass p-4 text-center">
+              <div className="text-2xl md:text-3xl font-bold text-gradient mb-1">
+                {stat.value}
+              </div>
+              <div className="text-sm text-gray-400">{stat.label}</div>
+            </div>
+          ))}
         </motion.div>
       </div>
     </section>

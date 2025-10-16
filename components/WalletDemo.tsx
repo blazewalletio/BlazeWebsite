@@ -63,7 +63,6 @@ const mockTokens = [
 ];
 
 export default function WalletDemo() {
-  const [isMobile, setIsMobile] = useState(false);
   const [showBalance, setShowBalance] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [currentChain, setCurrentChain] = useState('ethereum');
@@ -71,6 +70,15 @@ export default function WalletDemo() {
   const [change24h, setChange24h] = useState(2.5);
   const [balance, setBalance] = useState('2.4567');
   const [chartData, setChartData] = useState([100, 105, 98, 112, 108, 115, 120, 118, 125, 130, 128, 135, 132, 140, 138, 145, 142, 150, 148, 155]);
+  
+  // Modal states
+  const [showSendModal, setShowSendModal] = useState(false);
+  const [showReceiveModal, setShowReceiveModal] = useState(false);
+  const [showSwapModal, setShowSwapModal] = useState(false);
+  const [showBuyModal, setShowBuyModal] = useState(false);
+  const [showStakingModal, setShowStakingModal] = useState(false);
+  const [showAIModal, setShowAIModal] = useState(false);
+  const [showSettingsModal, setShowSettingsModal] = useState(false);
 
   const chain = mockChains[currentChain as keyof typeof mockChains];
   const formattedAddress = '0x1834...5a24d';
@@ -101,24 +109,7 @@ export default function WalletDemo() {
   }, []);
 
   return (
-    <div className={`${isMobile ? 'w-[375px]' : 'w-[1200px]'} mx-auto bg-gray-50 min-h-screen relative overflow-hidden`}>
-      {/* View Toggle */}
-      <div className="absolute top-4 right-4 z-50 flex gap-2">
-        <motion.button
-          whileTap={{ scale: 0.95 }}
-          onClick={() => setIsMobile(false)}
-          className={`p-2 rounded-lg ${!isMobile ? 'bg-blue-500 text-white' : 'bg-white text-gray-600'}`}
-        >
-          <Monitor className="w-4 h-4" />
-        </motion.button>
-        <motion.button
-          whileTap={{ scale: 0.95 }}
-          onClick={() => setIsMobile(true)}
-          className={`p-2 rounded-lg ${isMobile ? 'bg-blue-500 text-white' : 'bg-white text-gray-600'}`}
-        >
-          <Smartphone className="w-4 h-4" />
-        </motion.button>
-      </div>
+    <div className="w-full bg-gray-50 min-h-screen relative overflow-hidden">
 
       {/* Header with Network Selector */}
       <div className="sticky top-0 z-30 backdrop-blur-xl bg-white/95 border-b border-gray-200 shadow-sm">
@@ -162,6 +153,7 @@ export default function WalletDemo() {
               </motion.button>
               <motion.button
                 whileTap={{ scale: 0.95 }}
+                onClick={() => setShowSettingsModal(true)}
                 className="glass-card p-2.5 sm:p-3 rounded-xl hover:bg-gray-50"
               >
                 <Settings className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
@@ -309,6 +301,7 @@ export default function WalletDemo() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.1 }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => setShowBuyModal(true)}
             className="glass-card card-hover p-4 text-center"
           >
             <div className="w-12 h-12 mx-auto bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center mb-2">
@@ -322,6 +315,7 @@ export default function WalletDemo() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.15 }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => setShowSendModal(true)}
             className="glass-card card-hover p-4 text-center"
           >
             <div className="w-12 h-12 mx-auto bg-gradient-to-br from-rose-500 to-orange-500 rounded-xl flex items-center justify-center mb-2">
@@ -335,6 +329,7 @@ export default function WalletDemo() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2 }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => setShowReceiveModal(true)}
             className="glass-card card-hover p-4 text-center"
           >
             <div className="w-12 h-12 mx-auto bg-gradient-to-br from-emerald-500 to-teal-500 rounded-xl flex items-center justify-center mb-2">
@@ -348,6 +343,7 @@ export default function WalletDemo() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.25 }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => setShowSwapModal(true)}
             className="glass-card card-hover p-4 text-center"
           >
             <div className="w-12 h-12 mx-auto bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mb-2">
@@ -453,6 +449,7 @@ export default function WalletDemo() {
               {/* AI Brain - All Features */}
               <motion.button
                 whileTap={{ scale: 0.95 }}
+                onClick={() => setShowAIModal(true)}
                 className="glass p-4 rounded-xl hover:bg-white/10 transition-colors text-left bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/20"
               >
                 <div className="w-10 h-10 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-lg flex items-center justify-center mb-3">
@@ -485,6 +482,7 @@ export default function WalletDemo() {
             {/* Staking */}
             <motion.button
               whileTap={{ scale: 0.95 }}
+              onClick={() => setShowStakingModal(true)}
               className="glass p-4 rounded-xl hover:bg-white/10 transition-colors text-left"
             >
               <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg flex items-center justify-center mb-3">
@@ -640,6 +638,306 @@ export default function WalletDemo() {
       >
         <Zap className="w-8 h-8 text-white" />
       </motion.button>
+
+      {/* Modals */}
+      <AnimatePresence>
+        {showSendModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+            onClick={() => setShowSendModal(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              className="w-full max-w-md bg-white rounded-2xl p-6 shadow-2xl"
+            >
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-xl font-bold text-gray-900">Send Crypto</h3>
+                <button onClick={() => setShowSendModal(false)} className="text-gray-500 hover:text-gray-700">✕</button>
+              </div>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Amount</label>
+                  <input type="number" placeholder="0.00" className="w-full p-3 border border-gray-300 rounded-xl" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">To Address</label>
+                  <input type="text" placeholder="0x..." className="w-full p-3 border border-gray-300 rounded-xl" />
+                </div>
+                <button className="w-full bg-gradient-blaze text-white py-3 rounded-xl font-semibold">
+                  Send Transaction
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+
+        {showReceiveModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+            onClick={() => setShowReceiveModal(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              className="w-full max-w-md bg-white rounded-2xl p-6 shadow-2xl"
+            >
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-xl font-bold text-gray-900">Receive Crypto</h3>
+                <button onClick={() => setShowReceiveModal(false)} className="text-gray-500 hover:text-gray-700">✕</button>
+              </div>
+              <div className="text-center space-y-4">
+                <div className="w-48 h-48 bg-gray-100 rounded-xl mx-auto flex items-center justify-center">
+                  <div className="text-gray-400">QR Code</div>
+                </div>
+                <div className="p-3 bg-gray-50 rounded-xl">
+                  <div className="text-sm text-gray-600 mb-1">Your Address</div>
+                  <div className="font-mono text-sm">{formattedAddress}</div>
+                </div>
+                <button className="w-full bg-gradient-blaze text-white py-3 rounded-xl font-semibold">
+                  Copy Address
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+
+        {showSwapModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+            onClick={() => setShowSwapModal(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              className="w-full max-w-md bg-white rounded-2xl p-6 shadow-2xl"
+            >
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-xl font-bold text-gray-900">Swap Tokens</h3>
+                <button onClick={() => setShowSwapModal(false)} className="text-gray-500 hover:text-gray-700">✕</button>
+              </div>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">From</label>
+                  <div className="flex gap-2">
+                    <select className="flex-1 p-3 border border-gray-300 rounded-xl">
+                      <option>ETH</option>
+                      <option>USDT</option>
+                      <option>BLAZE</option>
+                    </select>
+                    <input type="number" placeholder="0.00" className="flex-1 p-3 border border-gray-300 rounded-xl" />
+                  </div>
+                </div>
+                <div className="text-center">
+                  <button className="p-2 bg-gray-100 rounded-full">⇅</button>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">To</label>
+                  <div className="flex gap-2">
+                    <select className="flex-1 p-3 border border-gray-300 rounded-xl">
+                      <option>USDT</option>
+                      <option>ETH</option>
+                      <option>BLAZE</option>
+                    </select>
+                    <input type="number" placeholder="0.00" className="flex-1 p-3 border border-gray-300 rounded-xl" />
+                  </div>
+                </div>
+                <button className="w-full bg-gradient-blaze text-white py-3 rounded-xl font-semibold">
+                  Swap Tokens
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+
+        {showBuyModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+            onClick={() => setShowBuyModal(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              className="w-full max-w-md bg-white rounded-2xl p-6 shadow-2xl"
+            >
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-xl font-bold text-gray-900">Buy Crypto</h3>
+                <button onClick={() => setShowBuyModal(false)} className="text-gray-500 hover:text-gray-700">✕</button>
+              </div>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Amount (EUR)</label>
+                  <input type="number" placeholder="100" className="w-full p-3 border border-gray-300 rounded-xl" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Buy</label>
+                  <select className="w-full p-3 border border-gray-300 rounded-xl">
+                    <option>ETH</option>
+                    <option>BLAZE</option>
+                    <option>USDT</option>
+                  </select>
+                </div>
+                <div className="p-3 bg-gray-50 rounded-xl">
+                  <div className="text-sm text-gray-600">You will receive: ~0.04 ETH</div>
+                  <div className="text-xs text-gray-500">Fee: €2.50</div>
+                </div>
+                <button className="w-full bg-gradient-blaze text-white py-3 rounded-xl font-semibold">
+                  Buy with Card
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+
+        {showStakingModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+            onClick={() => setShowStakingModal(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              className="w-full max-w-md bg-white rounded-2xl p-6 shadow-2xl"
+            >
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-xl font-bold text-gray-900">Stake BLAZE</h3>
+                <button onClick={() => setShowStakingModal(false)} className="text-gray-500 hover:text-gray-700">✕</button>
+              </div>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Amount to Stake</label>
+                  <input type="number" placeholder="1000" className="w-full p-3 border border-gray-300 rounded-xl" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Lock Period</label>
+                  <select className="w-full p-3 border border-gray-300 rounded-xl">
+                    <option>Flexible (8% APY)</option>
+                    <option>6 Months (15% APY)</option>
+                    <option>1 Year (20% APY)</option>
+                  </select>
+                </div>
+                <div className="p-3 bg-green-50 rounded-xl">
+                  <div className="text-sm text-green-700">Estimated Annual Reward: 200 BLAZE</div>
+                </div>
+                <button className="w-full bg-gradient-blaze text-white py-3 rounded-xl font-semibold">
+                  Stake Tokens
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+
+        {showAIModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+            onClick={() => setShowAIModal(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              className="w-full max-w-lg bg-white rounded-2xl p-6 shadow-2xl"
+            >
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+                  <Brain className="w-6 h-6 text-purple-500" />
+                  AI Brain Assistant
+                </h3>
+                <button onClick={() => setShowAIModal(false)} className="text-gray-500 hover:text-gray-700">✕</button>
+              </div>
+              <div className="space-y-4">
+                <div className="p-4 bg-purple-50 rounded-xl">
+                  <div className="text-sm text-gray-600 mb-2">AI Response:</div>
+                  <div className="text-gray-900">Hallo! Ik ben je AI assistent. Ik kan je helpen met transacties, portfolio advies, gas optimalisatie en meer. Wat wil je doen?</div>
+                </div>
+                <div className="space-y-2">
+                  <input type="text" placeholder="Typ je vraag hier..." className="w-full p-3 border border-gray-300 rounded-xl" />
+                  <button className="w-full bg-gradient-blaze text-white py-3 rounded-xl font-semibold">
+                    Send Message
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+
+        {showSettingsModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+            onClick={() => setShowSettingsModal(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              className="w-full max-w-md bg-white rounded-2xl p-6 shadow-2xl"
+            >
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-xl font-bold text-gray-900">Settings</h3>
+                <button onClick={() => setShowSettingsModal(false)} className="text-gray-500 hover:text-gray-700">✕</button>
+              </div>
+              <div className="space-y-4">
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-700">Dark Mode</span>
+                  <button className="w-12 h-6 bg-gray-300 rounded-full relative">
+                    <div className="w-5 h-5 bg-white rounded-full absolute top-0.5 left-0.5"></div>
+                  </button>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-700">Notifications</span>
+                  <button className="w-12 h-6 bg-blue-500 rounded-full relative">
+                    <div className="w-5 h-5 bg-white rounded-full absolute top-0.5 right-0.5"></div>
+                  </button>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-700">Biometric Auth</span>
+                  <button className="w-12 h-6 bg-blue-500 rounded-full relative">
+                    <div className="w-5 h-5 bg-white rounded-full absolute top-0.5 right-0.5"></div>
+                  </button>
+                </div>
+                <div className="pt-4 border-t">
+                  <button className="w-full text-red-600 py-2 font-semibold">
+                    Export Private Key
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
