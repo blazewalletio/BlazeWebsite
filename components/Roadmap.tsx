@@ -11,7 +11,7 @@ const roadmapPhases = [
     items: [
       'Smart contracts development (39/39 tests passed)',
       'Security architecture & ReentrancyGuard',
-      'Multi-chain wallet (5 chains)',
+      'Multi-chain wallet (7 chains: ETH, BSC, Polygon, Arbitrum, Base, Sepolia, BSC Testnet)',
       'Advanced staking system (8-20% APY)',
       'Testnet deployment & verification',
     ],
@@ -21,11 +21,15 @@ const roadmapPhases = [
     title: 'AI Integration & Launch',
     status: 'completed',
     items: [
-      '5 AI features geïmplementeerd',
-      'Biometric authentication (WebAuthn)',
-      'NFT marketplace & minting',
-      'Governance DAO system',
-      'Launchpad platform',
+      '5 AI features geïmplementeerd (Transaction Assistant, Scam Detector, Portfolio Advisor, Gas Optimizer, Crypto Expert)',
+      'Biometric authentication (WebAuthn) & QR login',
+      'NFT marketplace & minting (Common, Rare, Epic, Legendary)',
+      'Governance DAO system (1 token = 1 vote)',
+      'Launchpad platform met early access',
+      'Cashback & Referral system',
+      'Token Swap (1inch aggregator)',
+      'PWA support & Mobile-first design',
+      'Multi-language support (NL & EN)',
     ],
   },
   {
@@ -33,11 +37,12 @@ const roadmapPhases = [
     title: 'Presale & Mainnet',
     status: 'active',
     items: [
-      'Public presale launch (LIVE)',
-      'Mainnet deployment (BSC)',
+      'Public presale launch (LIVE op BSC Testnet)',
+      'Mainnet deployment (BSC) - Ready',
       'DEX listings (PancakeSwap, Uniswap)',
       'CertiK audit completion',
       'Marketing campaign start',
+      'Launch-ready status: Alle features geïmplementeerd',
     ],
   },
   {
@@ -91,10 +96,10 @@ export default function Roadmap() {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 px-4">
             Product <span className="text-gradient">roadmap</span>
           </h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto px-4">
             Van MVP tot global scale. Transparante planning voor de komende jaren.
           </p>
         </motion.div>
@@ -120,7 +125,7 @@ export default function Roadmap() {
                 <div className="absolute left-4 md:left-auto md:right-[-1.75rem] top-8 md:top-8 w-4 h-4 rounded-full bg-gradient-blaze border-4 border-slate-900 z-10" />
 
                 <div
-                  className={`ml-12 md:ml-0 card-glass p-6 ${
+                  className={`ml-12 md:ml-0 card-glass p-4 sm:p-6 ${
                     phase.status === 'active'
                       ? 'border-2 border-orange-500 glow-orange'
                       : phase.status === 'completed'
@@ -164,11 +169,11 @@ export default function Roadmap() {
           transition={{ duration: 0.5 }}
           className="mt-20"
         >
-          <h3 className="text-3xl font-bold mb-12 text-center">
+          <h3 className="text-2xl sm:text-3xl font-bold mb-8 sm:mb-12 text-center px-4">
             Meet the <span className="text-gradient">team</span>
           </h3>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 px-4">
             {[
               {
                 name: 'Founder',
@@ -216,5 +221,6 @@ export default function Roadmap() {
     </section>
   );
 }
+
 
 

@@ -55,10 +55,10 @@ export default function Tokenomics() {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 px-4">
             BLAZE <span className="text-gradient">tokenomics</span>
           </h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto px-4">
             Transparante en faire distributie. Designed voor long-term growth.
           </p>
         </motion.div>
@@ -73,7 +73,7 @@ export default function Tokenomics() {
             className="card-glass p-8"
           >
             <h3 className="text-2xl font-bold mb-6 text-center">Token distributie</h3>
-            <ResponsiveContainer width="100%" height={350}>
+            <ResponsiveContainer width="100%" height={300}>
               <PieChart>
                 <Pie
                   data={distributionData}
@@ -108,27 +108,27 @@ export default function Tokenomics() {
             transition={{ duration: 0.5 }}
             className="space-y-6"
           >
-            <div className="card-glass p-6">
-              <div className="text-gray-400 text-sm mb-1">Total supply</div>
-              <div className="text-4xl font-bold text-gradient">1,000,000,000</div>
-              <div className="text-gray-400 text-sm mt-1">1 billion BLAZE</div>
+            <div className="card-glass p-4 sm:p-6">
+              <div className="text-gray-400 text-xs sm:text-sm mb-1">Total supply</div>
+              <div className="text-3xl sm:text-4xl font-bold text-gradient">1,000,000,000</div>
+              <div className="text-gray-400 text-xs sm:text-sm mt-1">1 billion BLAZE</div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div className="card-glass p-6">
-                <div className="text-gray-400 text-sm mb-1">Presale prijs</div>
-                <div className="text-2xl font-bold text-green-400">$0.00417</div>
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
+              <div className="card-glass p-4 sm:p-6">
+                <div className="text-gray-400 text-xs sm:text-sm mb-1">Presale prijs</div>
+                <div className="text-xl sm:text-2xl font-bold text-green-400">$0.00417</div>
               </div>
-              <div className="card-glass p-6">
-                <div className="text-gray-400 text-sm mb-1">Launch prijs</div>
-                <div className="text-2xl font-bold text-orange-400">$0.01</div>
+              <div className="card-glass p-4 sm:p-6">
+                <div className="text-gray-400 text-xs sm:text-sm mb-1">Launch prijs</div>
+                <div className="text-xl sm:text-2xl font-bold text-orange-400">$0.01</div>
               </div>
             </div>
 
-            <div className="card-glass p-6">
-              <div className="text-gray-400 text-sm mb-1">Market cap bij launch (circulating)</div>
-              <div className="text-3xl font-bold">$2.5M</div>
-              <div className="text-gray-400 text-sm mt-1">250M tokens in circulatie</div>
+            <div className="card-glass p-4 sm:p-6">
+              <div className="text-gray-400 text-xs sm:text-sm mb-1">Market cap bij launch (circulating)</div>
+              <div className="text-2xl sm:text-3xl font-bold">$2.5M</div>
+              <div className="text-gray-400 text-xs sm:text-sm mt-1">250M tokens in circulatie</div>
             </div>
 
             <div className="card-glass p-6 bg-gradient-to-r from-orange-500/10 to-red-500/10 border-orange-500/30">
@@ -217,31 +217,31 @@ export default function Tokenomics() {
           <div className="mt-12 card-glass p-8 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border-purple-500/30">
             <h3 className="text-2xl font-bold mb-6 text-center">Fee Discount Tiers</h3>
             <p className="text-center text-gray-400 mb-8">Stake meer BLAZE voor hogere fee discounts op alle transacties</p>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <div className="bg-white/5 p-6 rounded-xl text-center">
-                <div className="text-3xl font-bold text-gradient mb-2">10%</div>
-                <div className="text-sm text-gray-400 mb-2">Discount</div>
-                <div className="text-white font-bold">1,000 - 9,999</div>
-                <div className="text-sm text-gray-400">BLAZE staked</div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+              <div className="bg-white/5 p-4 sm:p-6 rounded-xl text-center">
+                <div className="text-2xl sm:text-3xl font-bold text-gradient mb-2">10%</div>
+                <div className="text-xs sm:text-sm text-gray-400 mb-2">Discount</div>
+                <div className="text-white font-bold text-sm sm:text-base">1,000 - 9,999</div>
+                <div className="text-xs sm:text-sm text-gray-400">BLAZE staked</div>
               </div>
-              <div className="bg-white/5 p-6 rounded-xl text-center border-2 border-blue-500/30">
-                <div className="text-3xl font-bold text-gradient mb-2">25%</div>
-                <div className="text-sm text-gray-400 mb-2">Discount</div>
-                <div className="text-white font-bold">10,000 - 49,999</div>
-                <div className="text-sm text-gray-400">BLAZE staked</div>
+              <div className="bg-white/5 p-4 sm:p-6 rounded-xl text-center border-2 border-blue-500/30">
+                <div className="text-2xl sm:text-3xl font-bold text-gradient mb-2">25%</div>
+                <div className="text-xs sm:text-sm text-gray-400 mb-2">Discount</div>
+                <div className="text-white font-bold text-sm sm:text-base">10,000 - 49,999</div>
+                <div className="text-xs sm:text-sm text-gray-400">BLAZE staked</div>
                 <div className="text-xs text-blue-400 mt-2">+ Premium Status</div>
               </div>
-              <div className="bg-white/5 p-6 rounded-xl text-center border-2 border-purple-500/30">
-                <div className="text-3xl font-bold text-gradient mb-2">50%</div>
-                <div className="text-sm text-gray-400 mb-2">Discount</div>
-                <div className="text-white font-bold">50,000 - 99,999</div>
-                <div className="text-sm text-gray-400">BLAZE staked</div>
+              <div className="bg-white/5 p-4 sm:p-6 rounded-xl text-center border-2 border-purple-500/30">
+                <div className="text-2xl sm:text-3xl font-bold text-gradient mb-2">50%</div>
+                <div className="text-xs sm:text-sm text-gray-400 mb-2">Discount</div>
+                <div className="text-white font-bold text-sm sm:text-base">50,000 - 99,999</div>
+                <div className="text-xs sm:text-sm text-gray-400">BLAZE staked</div>
               </div>
-              <div className="bg-white/5 p-6 rounded-xl text-center border-2 border-orange-500/30">
-                <div className="text-3xl font-bold text-gradient mb-2">75%</div>
-                <div className="text-sm text-gray-400 mb-2">Discount</div>
-                <div className="text-white font-bold">100,000+</div>
-                <div className="text-sm text-gray-400">BLAZE staked</div>
+              <div className="bg-white/5 p-4 sm:p-6 rounded-xl text-center border-2 border-orange-500/30">
+                <div className="text-2xl sm:text-3xl font-bold text-gradient mb-2">75%</div>
+                <div className="text-xs sm:text-sm text-gray-400 mb-2">Discount</div>
+                <div className="text-white font-bold text-sm sm:text-base">100,000+</div>
+                <div className="text-xs sm:text-sm text-gray-400">BLAZE staked</div>
                 <div className="text-xs text-orange-400 mt-2">VIP Status</div>
               </div>
             </div>
@@ -251,5 +251,6 @@ export default function Tokenomics() {
     </section>
   );
 }
+
 
 

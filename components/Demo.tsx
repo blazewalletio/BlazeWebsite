@@ -22,10 +22,10 @@ export default function Demo() {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 px-4">
             Zie BLAZE <span className="text-gradient">in actie</span>
           </h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto px-4">
             Test de meest intelligente crypto wallet. Met AI, NFTs, Staking, Governance en meer. Volledig gratis.
           </p>
         </motion.div>
@@ -272,7 +272,9 @@ export default function Demo() {
                   'Staking Dashboard (8-20% APY)',
                   'NFT Marketplace & Minting',
                   'Governance Voting',
+                  'Launchpad Projects',
                   'AI Tools (5 features)',
+                  'Cashback & Referral',
                   'Settings & Security'
                 ].map((feature, index) => (
                   <div key={index} className="flex items-center gap-2 text-sm text-gray-400">
@@ -311,19 +313,19 @@ export default function Demo() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.8 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16"
+          className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mt-12 sm:mt-16 px-4"
         >
           {[
             { label: 'AI Features', value: '5' },
-            { label: 'Supported chains', value: '5' },
+            { label: 'Supported chains', value: '7' },
             { label: 'Max APY', value: '20%' },
             { label: 'Fee discount', value: '75%' },
           ].map((stat, index) => (
-            <div key={index} className="card-glass p-4 text-center">
-              <div className="text-2xl md:text-3xl font-bold text-gradient mb-1">
+            <div key={index} className="card-glass p-3 sm:p-4 text-center">
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-gradient mb-1">
                 {stat.value}
               </div>
-              <div className="text-sm text-gray-400">{stat.label}</div>
+              <div className="text-xs sm:text-sm text-gray-400">{stat.label}</div>
             </div>
           ))}
         </motion.div>
@@ -331,5 +333,6 @@ export default function Demo() {
     </section>
   );
 }
+
 
 

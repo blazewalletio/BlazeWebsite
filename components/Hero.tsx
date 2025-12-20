@@ -58,12 +58,12 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-5xl md:text-7xl font-bold mb-6"
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 px-4"
         >
           Set Your Finances
           <br />
-          <span className="text-gradient animate-bg inline-flex items-center gap-3">
-            Ablaze <Flame className="w-12 h-12 md:w-16 md:h-16 inline-block" />
+          <span className="text-gradient animate-bg inline-flex items-center gap-2 sm:gap-3">
+            Ablaze <Flame className="w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 inline-block" />
           </span>
         </motion.h1>
 
@@ -72,10 +72,10 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto"
+          className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto px-4"
         >
           De meest intelligente crypto wallet met 5 geavanceerde AI features. 
-          Staking, Governance, NFTs, Launchpad en meer. Join the presale nu!
+          Multi-chain (7 chains), Staking (8-20% APY), Governance, NFTs, Launchpad, Cashback, Referral en meer. Join the presale nu!
         </motion.p>
 
         {/* AI Badge */}
@@ -83,7 +83,7 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="flex flex-wrap justify-center gap-3 mb-12 max-w-4xl mx-auto"
+          className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-12 max-w-4xl mx-auto px-4"
         >
           {[
             '🤖 AI Transaction Assistant',
@@ -94,7 +94,7 @@ export default function Hero() {
           ].map((feature, index) => (
             <span 
               key={index}
-              className="px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 text-sm font-medium backdrop-blur-sm"
+              className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 text-xs sm:text-sm font-medium backdrop-blur-sm"
             >
               {feature}
             </span>
@@ -106,43 +106,43 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="card-glass p-8 max-w-4xl mx-auto mb-8 glow-orange"
+          className="card-glass p-4 sm:p-6 md:p-8 max-w-4xl mx-auto mb-8 glow-orange"
         >
           <div className="flex items-center justify-center gap-2 mb-4">
-            <Rocket className="w-6 h-6 text-orange-500" />
-            <h2 className="text-2xl font-bold text-gradient">PRESALE LIVE NOW</h2>
+            <Rocket className="w-5 h-5 sm:w-6 sm:h-6 text-orange-500" />
+            <h2 className="text-xl sm:text-2xl font-bold text-gradient">PRESALE LIVE NOW</h2>
           </div>
           
           {/* Countdown */}
-          <div className="grid grid-cols-4 gap-4 mb-6">
+          <div className="grid grid-cols-4 gap-2 sm:gap-4 mb-4 sm:mb-6">
             {[
               { label: 'Dagen', value: timeLeft.days },
               { label: 'Uren', value: timeLeft.hours },
               { label: 'Minuten', value: timeLeft.minutes },
               { label: 'Seconden', value: timeLeft.seconds },
             ].map((item) => (
-              <div key={item.label} className="card-glass p-4">
-                <div className="text-3xl md:text-4xl font-bold text-gradient">
+              <div key={item.label} className="card-glass p-2 sm:p-3 md:p-4">
+                <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-gradient">
                   {String(item.value).padStart(2, '0')}
                 </div>
-                <div className="text-sm text-gray-400 mt-1">{item.label}</div>
+                <div className="text-xs sm:text-sm text-gray-400 mt-1">{item.label}</div>
               </div>
             ))}
           </div>
 
           {/* Presale stats */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
             <div className="text-center">
-              <div className="text-gray-400 text-sm mb-1">Token prijs</div>
-              <div className="text-2xl font-bold text-green-400">$0.00417</div>
+              <div className="text-gray-400 text-xs sm:text-sm mb-1">Token prijs</div>
+              <div className="text-xl sm:text-2xl font-bold text-green-400">$0.00417</div>
             </div>
             <div className="text-center">
-              <div className="text-gray-400 text-sm mb-1">Launch prijs</div>
-              <div className="text-2xl font-bold text-orange-400">$0.01</div>
+              <div className="text-gray-400 text-xs sm:text-sm mb-1">Launch prijs</div>
+              <div className="text-xl sm:text-2xl font-bold text-orange-400">$0.01</div>
             </div>
             <div className="text-center">
-              <div className="text-gray-400 text-sm mb-1">ROI bij launch</div>
-              <div className="text-2xl font-bold text-gradient">2.4x</div>
+              <div className="text-gray-400 text-xs sm:text-sm mb-1">ROI bij launch</div>
+              <div className="text-xl sm:text-2xl font-bold text-gradient">2.4x</div>
             </div>
           </div>
 
@@ -163,19 +163,19 @@ export default function Hero() {
           </div>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
             <a
               href="https://my.blazewallet.io"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-8 py-4 bg-gradient-blaze rounded-xl font-bold text-lg hover:scale-105 transition-transform flex items-center justify-center gap-2 glow-orange"
+              className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-blaze rounded-xl font-bold text-base sm:text-lg hover:scale-105 transition-transform flex items-center justify-center gap-2 glow-orange"
             >
               Join presale nu
-              <ArrowRight className="w-5 h-5" />
+              <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
             </a>
             <a
               href="#demo"
-              className="px-8 py-4 card-glass rounded-xl font-bold text-lg hover:scale-105 transition-transform"
+              className="px-6 sm:px-8 py-3 sm:py-4 card-glass rounded-xl font-bold text-base sm:text-lg hover:scale-105 transition-transform text-center"
             >
               Bekijk demo
             </a>
@@ -187,7 +187,7 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.5 }}
-          className="flex flex-wrap justify-center gap-8 text-sm text-gray-400"
+          className="flex flex-wrap justify-center gap-4 sm:gap-8 text-xs sm:text-sm text-gray-400 px-4"
         >
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
@@ -199,12 +199,17 @@ export default function Hero() {
           </div>
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-            <span>Multi-chain support</span>
+            <span>7 chains supported</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+            <span>Launch-ready</span>
           </div>
         </motion.div>
       </div>
     </section>
   );
 }
+
 
 

@@ -18,13 +18,13 @@ const sections = [
 
 const highlights = [
   '5 Revolutionary AI Features',
-  'Multi-chain support (5 chains)',
+  'Multi-chain support (7 chains: ETH, BSC, Polygon, Arbitrum, Base, Sepolia, BSC Testnet)',
   'Deflationary tokenomics (0.10% burn)',
   'Advanced staking (8-20% APY)',
-  'Premium membership system',
-  'Smart contract verified & audited',
-  'Biometric authentication',
-  'NFT marketplace & launchpad',
+  'Premium membership system (10,000+ BLAZE)',
+  'Smart contract verified & audited (39/39 tests passed)',
+  'Biometric authentication & QR login',
+  'NFT marketplace, Launchpad, Cashback & Referral',
 ];
 
 export default function Whitepaper() {
@@ -43,10 +43,10 @@ export default function Whitepaper() {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 px-4">
             <span className="text-gradient">Whitepaper</span>
           </h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto px-4">
             Diepgaande technische documentatie en vision voor de toekomst van BLAZE.
           </p>
         </motion.div>
@@ -60,14 +60,14 @@ export default function Whitepaper() {
             transition={{ duration: 0.5 }}
             className="space-y-6"
           >
-            <div className="card-glass p-8 border-2 border-orange-500/30 glow-orange">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-16 h-16 rounded-xl bg-gradient-blaze flex items-center justify-center">
-                  <FileText className="w-8 h-8 text-white" />
+            <div className="card-glass p-6 sm:p-8 border-2 border-orange-500/30 glow-orange">
+              <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl bg-gradient-blaze flex items-center justify-center flex-shrink-0">
+                  <FileText className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold">BLAZE Whitepaper</h3>
-                  <p className="text-gray-400">Version 2.0 • 32 paginas</p>
+                  <h3 className="text-xl sm:text-2xl font-bold">BLAZE Whitepaper</h3>
+                  <p className="text-gray-400 text-sm sm:text-base">Version 2.0 • 32 paginas</p>
                 </div>
               </div>
 
@@ -96,22 +96,22 @@ export default function Whitepaper() {
             </div>
 
             {/* Quick stats */}
-            <div className="grid grid-cols-2 gap-4">
-              <div className="card-glass p-6 text-center">
-                <div className="text-3xl font-bold text-gradient mb-1">32</div>
-                <div className="text-sm text-gray-400">Paginas</div>
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
+              <div className="card-glass p-4 sm:p-6 text-center">
+                <div className="text-2xl sm:text-3xl font-bold text-gradient mb-1">32</div>
+                <div className="text-xs sm:text-sm text-gray-400">Paginas</div>
               </div>
-              <div className="card-glass p-6 text-center">
-                <div className="text-3xl font-bold text-gradient mb-1">10+</div>
-                <div className="text-sm text-gray-400">Secties</div>
+              <div className="card-glass p-4 sm:p-6 text-center">
+                <div className="text-2xl sm:text-3xl font-bold text-gradient mb-1">10+</div>
+                <div className="text-xs sm:text-sm text-gray-400">Secties</div>
               </div>
-              <div className="card-glass p-6 text-center">
-                <div className="text-3xl font-bold text-gradient mb-1">5K+</div>
-                <div className="text-sm text-gray-400">Downloads</div>
+              <div className="card-glass p-4 sm:p-6 text-center">
+                <div className="text-2xl sm:text-3xl font-bold text-gradient mb-1">5K+</div>
+                <div className="text-xs sm:text-sm text-gray-400">Downloads</div>
               </div>
-              <div className="card-glass p-6 text-center">
-                <div className="text-3xl font-bold text-gradient mb-1">v2.0</div>
-                <div className="text-sm text-gray-400">Latest</div>
+              <div className="card-glass p-4 sm:p-6 text-center">
+                <div className="text-2xl sm:text-3xl font-bold text-gradient mb-1">v2.0</div>
+                <div className="text-xs sm:text-sm text-gray-400">Latest</div>
               </div>
             </div>
           </motion.div>
@@ -122,9 +122,9 @@ export default function Whitepaper() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="card-glass p-8"
+            className="card-glass p-6 sm:p-8"
           >
-            <h3 className="text-2xl font-bold mb-6">Inhoudsopgave</h3>
+            <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Inhoudsopgave</h3>
             <div className="space-y-2">
               {sections.map((section, index) => (
                 <motion.div
@@ -175,8 +175,8 @@ export default function Whitepaper() {
           transition={{ duration: 0.5 }}
           className="mt-16"
         >
-          <h3 className="text-2xl font-bold mb-6 text-center">Aanvullende documentatie</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <h3 className="text-xl sm:text-2xl font-bold mb-6 text-center px-4">Aanvullende documentatie</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 px-4">
             {[
               {
                 title: 'Technical specs',
@@ -222,5 +222,6 @@ export default function Whitepaper() {
     </section>
   );
 }
+
 
 

@@ -50,7 +50,7 @@ const coreFeatures = [
   {
     icon: Wallet,
     title: 'Multi-chain wallet',
-    description: 'Support voor Ethereum, BSC, Polygon, Arbitrum, Base. Één wallet voor alle chains met real-time switching.',
+    description: 'Support voor 7 chains: Ethereum, BSC, Polygon, Arbitrum, Base, Sepolia, BSC Testnet. Één wallet voor alle chains met real-time switching.',
     gradient: 'from-blue-500 to-cyan-500',
   },
   {
@@ -68,31 +68,61 @@ const coreFeatures = [
   {
     icon: Fingerprint,
     title: 'Biometric security',
-    description: 'WebAuthn biometric authentication, hardware key support, en encrypted local storage voor maximale veiligheid.',
+    description: 'WebAuthn biometric authentication, QR login, hardware key support, en encrypted local storage voor maximale veiligheid.',
     gradient: 'from-green-500 to-emerald-500',
   },
   {
     icon: Palette,
     title: 'NFT marketplace',
-    description: 'Mint, trade en collect NFTs. Plus: personaliseer je wallet met unieke NFT skins.',
+    description: 'Mint, trade en collect NFTs. Plus: personaliseer je wallet met unieke NFT skins (Common, Rare, Epic, Legendary).',
     gradient: 'from-pink-500 to-rose-500',
   },
   {
     icon: Vote,
     title: 'DAO governance',
-    description: 'Stem over proposals, suggest wijzigingen en help de toekomst bepalen. 1 token = 1 stem.',
+    description: 'Stem over proposals, suggest wijzigingen en help de toekomst bepalen. 1 token = 1 stem. Create proposals vanaf 10,000 BLAZE.',
     gradient: 'from-indigo-500 to-purple-500',
+  },
+  {
+    icon: Rocket,
+    title: 'Launchpad',
+    description: 'Investeer in nieuwe projecten via de BLAZE Launchpad. Early access voor premium holders. Soft cap / Hard cap systeem.',
+    gradient: 'from-purple-500 to-indigo-500',
+  },
+  {
+    icon: Repeat,
+    title: 'Token Swap',
+    description: '1inch DEX aggregator integratie voor beste rates. Swap tussen alle tokens op alle chains. Live exchange rates.',
+    gradient: 'from-cyan-500 to-blue-500',
+  },
+  {
+    icon: Gift,
+    title: 'Cashback & Referral',
+    description: 'Earn cashback op swaps, sends, buys, stakes. Referral programma met signup rewards en fee sharing. Lifetime earnings tracking.',
+    gradient: 'from-green-500 to-teal-500',
   },
   {
     icon: Award,
     title: 'Premium membership',
-    description: 'Stake 10,000+ BLAZE voor premium status: tot 75% fee discount, exclusive features en premium support.',
+    description: 'Stake 10,000+ BLAZE voor premium status: tot 75% fee discount, exclusive features, early access en premium support.',
     gradient: 'from-purple-400 to-pink-500',
+  },
+  {
+    icon: Smartphone,
+    title: 'PWA & Mobile',
+    description: 'Installable als native app. Offline support, push notifications ready. Mobile-first design met bottom navigation.',
+    gradient: 'from-blue-400 to-indigo-500',
+  },
+  {
+    icon: Globe,
+    title: 'Multi-language',
+    description: 'Nederlands & Engels support. Uitbreidbaar naar meer talen. next-intl integratie voor volledige localisatie.',
+    gradient: 'from-teal-500 to-cyan-500',
   },
   {
     icon: Zap,
     title: 'Lightning performance',
-    description: '60fps animaties, instant updates, sub-second transactions. Buttery smooth op alle devices.',
+    description: '60fps animaties, instant updates, sub-second transactions. Buttery smooth op alle devices. Optimized gas usage.',
     gradient: 'from-yellow-400 to-yellow-600',
   },
 ];
@@ -110,10 +140,10 @@ export default function Features() {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 px-4">
             De meest <span className="text-gradient">intelligente</span> crypto wallet
           </h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto px-4">
             BLAZE combineert geavanceerde AI met complete DeFi functionaliteit. Jouw persoonlijke crypto assistent.
           </p>
         </motion.div>
@@ -127,15 +157,15 @@ export default function Features() {
             transition={{ duration: 0.5 }}
             className="text-center mb-8"
           >
-            <h3 className="text-3xl font-bold mb-3">
+            <h3 className="text-2xl sm:text-3xl font-bold mb-3 px-4">
               <span className="text-gradient">5 Geavanceerde AI Features</span>
             </h3>
-            <p className="text-gray-400">
+            <p className="text-gray-400 px-4 text-sm sm:text-base">
               Artificiële intelligentie die je wallet slimmer, veiliger en makkelijker maakt
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {aiFeatures.map((feature, index) => (
               <motion.div
                 key={feature.title}
@@ -144,7 +174,7 @@ export default function Features() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.05 }}
                 whileHover={{ scale: 1.05, y: -5 }}
-                className="card-glass p-6 hover:bg-white/10 transition-all group cursor-pointer border-2 border-purple-500/30"
+                className="card-glass p-4 sm:p-6 hover:bg-white/10 transition-all group cursor-pointer border-2 border-purple-500/30"
               >
                 <div className="flex items-center justify-between mb-4">
                   <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${feature.gradient} flex items-center justify-center group-hover:scale-110 transition-transform`}>
@@ -170,10 +200,10 @@ export default function Features() {
             transition={{ duration: 0.5 }}
             className="text-center mb-12"
           >
-            <h3 className="text-3xl font-bold mb-3">
+            <h3 className="text-2xl sm:text-3xl font-bold mb-3 px-4">
               BLAZE vs <span className="text-gradient">Traditional Wallets</span>
             </h3>
-            <p className="text-gray-400 max-w-2xl mx-auto">
+            <p className="text-gray-400 max-w-2xl mx-auto px-4 text-sm sm:text-base">
               Ontdek waarom BLAZE de toekomst van crypto wallets is
             </p>
           </motion.div>
@@ -183,9 +213,9 @@ export default function Features() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="card-glass p-8 max-w-5xl mx-auto"
+            className="card-glass p-4 sm:p-6 lg:p-8 max-w-5xl mx-auto"
           >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
               {/* Traditional Wallets */}
               <div>
                 <div className="flex items-center gap-3 mb-6">
@@ -292,15 +322,15 @@ export default function Features() {
             transition={{ duration: 0.5 }}
             className="text-center mb-12"
           >
-            <h3 className="text-3xl font-bold mb-3">
+            <h3 className="text-2xl sm:text-3xl font-bold mb-3 px-4">
               Core <span className="text-gradient">Features</span>
             </h3>
-            <p className="text-gray-400 max-w-2xl mx-auto">
+            <p className="text-gray-400 max-w-2xl mx-auto px-4 text-sm sm:text-base">
               De belangrijkste features die BLAZE uniek maken. Krachtig, veilig en gebruiksvriendelijk.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
             {coreFeatures.map((feature, index) => (
               <motion.div
                 key={feature.title}
@@ -309,13 +339,13 @@ export default function Features() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 whileHover={{ scale: 1.05, y: -5 }}
-                className="card-glass p-8 hover:bg-white/10 transition-all group cursor-pointer text-center"
+                className="card-glass p-6 sm:p-8 hover:bg-white/10 transition-all group cursor-pointer text-center"
               >
-                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${feature.gradient} flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform shadow-lg`}>
-                  <feature.icon className="w-8 h-8 text-white" />
+                <div className={`w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-r ${feature.gradient} flex items-center justify-center mb-4 sm:mb-6 mx-auto group-hover:scale-110 transition-transform shadow-lg`}>
+                  <feature.icon className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-4">{feature.title}</h3>
-                <p className="text-gray-400 text-sm leading-relaxed">{feature.description}</p>
+                <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4">{feature.title}</h3>
+                <p className="text-gray-400 text-xs sm:text-sm leading-relaxed">{feature.description}</p>
               </motion.div>
             ))}
           </div>
@@ -324,5 +354,6 @@ export default function Features() {
     </section>
   );
 }
+
 
 
