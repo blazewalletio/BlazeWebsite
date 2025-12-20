@@ -74,8 +74,8 @@ export default function Hero() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto px-4"
         >
-          De meest intelligente crypto wallet met 5 geavanceerde AI features. 
-          Multi-chain (7 chains), Staking (8-20% APY), Governance, NFTs, Launchpad, Cashback, Referral en meer. Join the presale nu!
+          The most intelligent crypto wallet with 5 advanced AI features. 
+          Multi-chain (7 chains), Staking (8-20% APY), Governance, NFTs, Launchpad, Cashback, Referral and more. Join the presale now!
         </motion.p>
 
         {/* AI Badge */}
@@ -116,10 +116,10 @@ export default function Hero() {
           {/* Countdown */}
           <div className="grid grid-cols-4 gap-2 sm:gap-4 mb-4 sm:mb-6">
             {[
-              { label: 'Dagen', value: timeLeft.days },
-              { label: 'Uren', value: timeLeft.hours },
-              { label: 'Minuten', value: timeLeft.minutes },
-              { label: 'Seconden', value: timeLeft.seconds },
+              { label: 'Days', value: timeLeft.days },
+              { label: 'Hours', value: timeLeft.hours },
+              { label: 'Minutes', value: timeLeft.minutes },
+              { label: 'Seconds', value: timeLeft.seconds },
             ].map((item) => (
               <div key={item.label} className="card-glass p-2 sm:p-3 md:p-4">
                 <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-gradient">
@@ -133,15 +133,15 @@ export default function Hero() {
           {/* Presale stats */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
             <div className="text-center">
-              <div className="text-gray-400 text-xs sm:text-sm mb-1">Token prijs</div>
+              <div className="text-gray-400 text-xs sm:text-sm mb-1">Token price</div>
               <div className="text-xl sm:text-2xl font-bold text-green-400">$0.00417</div>
             </div>
             <div className="text-center">
-              <div className="text-gray-400 text-xs sm:text-sm mb-1">Launch prijs</div>
+              <div className="text-gray-400 text-xs sm:text-sm mb-1">Launch price</div>
               <div className="text-xl sm:text-2xl font-bold text-orange-400">$0.01</div>
             </div>
             <div className="text-center">
-              <div className="text-gray-400 text-xs sm:text-sm mb-1">ROI bij launch</div>
+              <div className="text-gray-400 text-xs sm:text-sm mb-1">ROI at launch</div>
               <div className="text-xl sm:text-2xl font-bold text-gradient">2.4x</div>
             </div>
           </div>
@@ -170,14 +170,14 @@ export default function Hero() {
               rel="noopener noreferrer"
               className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-blaze rounded-xl font-bold text-base sm:text-lg hover:scale-105 transition-transform flex items-center justify-center gap-2 glow-orange"
             >
-              Join presale nu
+              Join presale now
               <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
             </a>
             <a
               href="#demo"
               className="px-6 sm:px-8 py-3 sm:py-4 card-glass rounded-xl font-bold text-base sm:text-lg hover:scale-105 transition-transform text-center"
             >
-              Bekijk demo
+              View demo
             </a>
           </div>
         </motion.div>

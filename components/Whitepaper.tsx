@@ -47,7 +47,7 @@ export default function Whitepaper() {
             <span className="text-gradient">Whitepaper</span>
           </h2>
           <p className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto px-4">
-            Diepgaande technische documentatie en vision voor de toekomst van BLAZE.
+            In-depth technical documentation and vision for the future of BLAZE.
           </p>
         </motion.div>
 
@@ -67,7 +67,7 @@ export default function Whitepaper() {
                 </div>
                 <div>
                   <h3 className="text-xl sm:text-2xl font-bold">BLAZE Whitepaper</h3>
-                  <p className="text-gray-400 text-sm sm:text-base">Version 2.0 • 32 paginas</p>
+                  <p className="text-gray-400 text-sm sm:text-base">Version 2.0 • 32 pages</p>
                 </div>
               </div>
 
@@ -90,7 +90,7 @@ export default function Whitepaper() {
                   className="flex-1 px-6 py-3 card-glass rounded-xl font-bold hover:scale-105 transition-transform flex items-center justify-center gap-2 hover:bg-white/10"
                 >
                   <ExternalLink className="w-5 h-5" />
-                  Lees online
+                  Read online
                 </a>
               </div>
             </div>
@@ -99,11 +99,11 @@ export default function Whitepaper() {
             <div className="grid grid-cols-2 gap-3 sm:gap-4">
               <div className="card-glass p-4 sm:p-6 text-center">
                 <div className="text-2xl sm:text-3xl font-bold text-gradient mb-1">32</div>
-                <div className="text-xs sm:text-sm text-gray-400">Paginas</div>
+                <div className="text-xs sm:text-sm text-gray-400">Pages</div>
               </div>
               <div className="card-glass p-4 sm:p-6 text-center">
                 <div className="text-2xl sm:text-3xl font-bold text-gradient mb-1">10+</div>
-                <div className="text-xs sm:text-sm text-gray-400">Secties</div>
+                <div className="text-xs sm:text-sm text-gray-400">Sections</div>
               </div>
               <div className="card-glass p-4 sm:p-6 text-center">
                 <div className="text-2xl sm:text-3xl font-bold text-gradient mb-1">5K+</div>
@@ -124,7 +124,7 @@ export default function Whitepaper() {
             transition={{ duration: 0.5 }}
             className="card-glass p-6 sm:p-8"
           >
-            <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Inhoudsopgave</h3>
+            <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Table of Contents</h3>
             <div className="space-y-2">
               {sections.map((section, index) => (
                 <motion.div
@@ -152,7 +152,7 @@ export default function Whitepaper() {
               <div className="space-y-2 text-sm text-gray-300">
                 <div className="flex items-center gap-2">
                   <Calendar className="w-4 h-4 text-orange-400" />
-                  <span><strong>Laatst bijgewerkt:</strong> December 2024</span>
+                  <span><strong>Last updated:</strong> December 2024</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Lock className="w-4 h-4 text-orange-400" />
@@ -160,7 +160,7 @@ export default function Whitepaper() {
                 </div>
                 <div className="flex items-center gap-2">
                   <PenTool className="w-4 h-4 text-orange-400" />
-                  <span><strong>Auteurs:</strong> BLAZE Core Team</span>
+                  <span><strong>Authors:</strong> BLAZE Core Team</span>
                 </div>
               </div>
             </div>
@@ -175,22 +175,22 @@ export default function Whitepaper() {
           transition={{ duration: 0.5 }}
           className="mt-16"
         >
-          <h3 className="text-xl sm:text-2xl font-bold mb-6 text-center px-4">Aanvullende documentatie</h3>
+          <h3 className="text-xl sm:text-2xl font-bold mb-6 text-center px-4">Additional Documentation</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 px-4">
             {[
               {
                 title: 'Technical specs',
-                description: 'Smart contract architectuur en API docs',
+                description: 'Smart contract architecture and API docs',
                 icon: Settings,
               },
               {
                 title: 'Audit report',
-                description: 'Security audit door CertiK',
+                description: 'Security audit by CertiK',
                 icon: ShieldCheck,
               },
               {
                 title: 'Tokenomics model',
-                description: 'Gedetailleerde financiële projecties',
+                description: 'Detailed financial projections',
                 icon: BarChart3,
               },
             ].map((doc, index) => {

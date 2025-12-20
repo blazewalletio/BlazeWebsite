@@ -21,11 +21,11 @@ const roadmapPhases = [
     title: 'AI Integration & Launch',
     status: 'completed',
     items: [
-      '5 AI features geïmplementeerd (Transaction Assistant, Scam Detector, Portfolio Advisor, Gas Optimizer, Crypto Expert)',
+      '5 AI features implemented (Transaction Assistant, Scam Detector, Portfolio Advisor, Gas Optimizer, Crypto Expert)',
       'Biometric authentication (WebAuthn) & QR login',
       'NFT marketplace & minting (Common, Rare, Epic, Legendary)',
       'Governance DAO system (1 token = 1 vote)',
-      'Launchpad platform met early access',
+      'Launchpad platform with early access',
       'Cashback & Referral system',
       'Token Swap (1inch aggregator)',
       'PWA support & Mobile-first design',
@@ -37,12 +37,12 @@ const roadmapPhases = [
     title: 'Presale & Mainnet',
     status: 'active',
     items: [
-      'Public presale launch (LIVE op BSC Testnet)',
+      'Public presale launch (LIVE on BSC Testnet)',
       'Mainnet deployment (BSC) - Ready',
       'DEX listings (PancakeSwap, Uniswap)',
       'CertiK audit completion',
       'Marketing campaign start',
-      'Launch-ready status: Alle features geïmplementeerd',
+      'Launch-ready status: All features implemented',
     ],
   },
   {
@@ -100,7 +100,7 @@ export default function Roadmap() {
             Product <span className="text-gradient">roadmap</span>
           </h2>
           <p className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto px-4">
-            Van MVP tot global scale. Transparante planning voor de komende jaren.
+            From MVP to global scale. Transparent planning for the coming years.
           </p>
         </motion.div>
 
@@ -179,19 +179,19 @@ export default function Roadmap() {
                 name: 'Founder',
                 role: 'Founder & CEO',
                 icon: UserCircle,
-                bio: 'Crypto entrepreneur met 5+ jaar ervaring in DeFi',
+                bio: 'Crypto entrepreneur with 5+ years of experience in DeFi',
               },
               {
                 name: 'Core Team',
                 role: 'Development',
                 icon: Code,
-                bio: 'Full-stack developers gespecialiseerd in blockchain',
+                bio: 'Full-stack developers specialized in blockchain',
               },
               {
                 name: 'Community',
                 role: 'Advisors',
                 icon: Handshake,
-                bio: 'Ervaren crypto advisors en marketing experts',
+                bio: 'Experienced crypto advisors and marketing experts',
               },
             ].map((member, index) => {
               const IconComponent = member.icon;

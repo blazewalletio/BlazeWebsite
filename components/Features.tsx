@@ -12,35 +12,35 @@ const aiFeatures = [
   {
     icon: Brain,
     title: 'AI Transaction Assistant',
-    description: 'Natuurlijke taal interface: typ "Stuur 50 USDC naar 0x..." en de AI doet de rest. Offline + OpenAI powered.',
+    description: 'Natural language interface: type "Send 50 USDC to 0x..." and AI does the rest. Offline + OpenAI powered.',
     gradient: 'from-purple-600 to-pink-600',
     badge: 'AI',
   },
   {
     icon: ScanEye,
     title: 'Smart Scam Detector',
-    description: 'Real-time security scanning van adressen en contracts. Krijg een risico score voordat je interacteert.',
+    description: 'Real-time security scanning of addresses and contracts. Get a risk score before you interact.',
     gradient: 'from-red-600 to-orange-600',
     badge: 'AI',
   },
   {
     icon: PieChart,
     title: 'AI Portfolio Advisor',
-    description: 'Gepersonaliseerde portfolio analyse met diversificatie score en actionable recommendations.',
+    description: 'Personalized portfolio analysis with diversification score and actionable recommendations.',
     gradient: 'from-blue-600 to-cyan-600',
     badge: 'AI',
   },
   {
     icon: Fuel,
     title: 'Predictive Gas Optimizer',
-    description: 'ML-based gas price voorspelling. Bespaar geld door te transacteren op optimale tijden.',
+    description: 'ML-based gas price prediction. Save money by transacting at optimal times.',
     gradient: 'from-green-600 to-emerald-600',
     badge: 'AI',
   },
   {
     icon: MessageSquare,
     title: 'Conversational Crypto Assistant',
-    description: '24/7 AI crypto expert. Stel vragen over DeFi, gas, slippage en meer. Context-aware antwoorden.',
+    description: '24/7 AI crypto expert. Ask questions about DeFi, gas, slippage and more. Context-aware answers.',
     gradient: 'from-indigo-600 to-purple-600',
     badge: 'AI',
   },
@@ -50,79 +50,79 @@ const coreFeatures = [
   {
     icon: Wallet,
     title: 'Multi-chain wallet',
-    description: 'Support voor 7 chains: Ethereum, BSC, Polygon, Arbitrum, Base, Sepolia, BSC Testnet. Één wallet voor alle chains met real-time switching.',
+    description: 'Support for 7 chains: Ethereum, BSC, Polygon, Arbitrum, Base, Sepolia, BSC Testnet. One wallet for all chains with real-time switching.',
     gradient: 'from-blue-500 to-cyan-500',
   },
   {
     icon: Brain,
     title: '5 AI Features',
-    description: 'Transaction Assistant, Scam Detector, Portfolio Advisor, Gas Optimizer en Crypto Expert. De meest intelligente wallet.',
+    description: 'Transaction Assistant, Scam Detector, Portfolio Advisor, Gas Optimizer and Crypto Expert. The most intelligent wallet.',
     gradient: 'from-purple-600 to-pink-600',
   },
   {
     icon: TrendingUp,
     title: 'Advanced staking',
-    description: '8% APY flexible, 15% APY 6-maanden lock, 20% APY 1-jaar lock. Earn passief inkomen met je BLAZE tokens.',
+    description: '8% APY flexible, 15% APY 6-month lock, 20% APY 1-year lock. Earn passive income with your BLAZE tokens.',
     gradient: 'from-orange-500 to-red-500',
   },
   {
     icon: Fingerprint,
     title: 'Biometric security',
-    description: 'WebAuthn biometric authentication, QR login, hardware key support, en encrypted local storage voor maximale veiligheid.',
+    description: 'WebAuthn biometric authentication, QR login, hardware key support, and encrypted local storage for maximum security.',
     gradient: 'from-green-500 to-emerald-500',
   },
   {
     icon: Palette,
     title: 'NFT marketplace',
-    description: 'Mint, trade en collect NFTs. Plus: personaliseer je wallet met unieke NFT skins (Common, Rare, Epic, Legendary).',
+    description: 'Mint, trade and collect NFTs. Plus: personalize your wallet with unique NFT skins (Common, Rare, Epic, Legendary).',
     gradient: 'from-pink-500 to-rose-500',
   },
   {
     icon: Vote,
     title: 'DAO governance',
-    description: 'Stem over proposals, suggest wijzigingen en help de toekomst bepalen. 1 token = 1 stem. Create proposals vanaf 10,000 BLAZE.',
+    description: 'Vote on proposals, suggest changes and help determine the future. 1 token = 1 vote. Create proposals from 10,000 BLAZE.',
     gradient: 'from-indigo-500 to-purple-500',
   },
   {
     icon: Rocket,
     title: 'Launchpad',
-    description: 'Investeer in nieuwe projecten via de BLAZE Launchpad. Early access voor premium holders. Soft cap / Hard cap systeem.',
+    description: 'Invest in new projects via the BLAZE Launchpad. Early access for premium holders. Soft cap / Hard cap system.',
     gradient: 'from-purple-500 to-indigo-500',
   },
   {
     icon: Repeat,
     title: 'Token Swap',
-    description: '1inch DEX aggregator integratie voor beste rates. Swap tussen alle tokens op alle chains. Live exchange rates.',
+    description: '1inch DEX aggregator integration for best rates. Swap between all tokens on all chains. Live exchange rates.',
     gradient: 'from-cyan-500 to-blue-500',
   },
   {
     icon: Gift,
     title: 'Cashback & Referral',
-    description: 'Earn cashback op swaps, sends, buys, stakes. Referral programma met signup rewards en fee sharing. Lifetime earnings tracking.',
+    description: 'Earn cashback on swaps, sends, buys, stakes. Referral program with signup rewards and fee sharing. Lifetime earnings tracking.',
     gradient: 'from-green-500 to-teal-500',
   },
   {
     icon: Award,
     title: 'Premium membership',
-    description: 'Stake 10,000+ BLAZE voor premium status: tot 75% fee discount, exclusive features, early access en premium support.',
+    description: 'Stake 10,000+ BLAZE for premium status: up to 75% fee discount, exclusive features, early access and premium support.',
     gradient: 'from-purple-400 to-pink-500',
   },
   {
     icon: Smartphone,
     title: 'PWA & Mobile',
-    description: 'Installable als native app. Offline support, push notifications ready. Mobile-first design met bottom navigation.',
+    description: 'Installable as native app. Offline support, push notifications ready. Mobile-first design with bottom navigation.',
     gradient: 'from-blue-400 to-indigo-500',
   },
   {
     icon: Globe,
     title: 'Multi-language',
-    description: 'Nederlands & Engels support. Uitbreidbaar naar meer talen. next-intl integratie voor volledige localisatie.',
+    description: 'Dutch & English support. Expandable to more languages. next-intl integration for full localization.',
     gradient: 'from-teal-500 to-cyan-500',
   },
   {
     icon: Zap,
     title: 'Lightning performance',
-    description: '60fps animaties, instant updates, sub-second transactions. Buttery smooth op alle devices. Optimized gas usage.',
+    description: '60fps animations, instant updates, sub-second transactions. Buttery smooth on all devices. Optimized gas usage.',
     gradient: 'from-yellow-400 to-yellow-600',
   },
 ];
@@ -141,10 +141,10 @@ export default function Features() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 px-4">
-            De meest <span className="text-gradient">intelligente</span> crypto wallet
+            The most <span className="text-gradient">intelligent</span> crypto wallet
           </h2>
           <p className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto px-4">
-            BLAZE combineert geavanceerde AI met complete DeFi functionaliteit. Jouw persoonlijke crypto assistent.
+            BLAZE combines advanced AI with complete DeFi functionality. Your personal crypto assistant.
           </p>
         </motion.div>
 
@@ -158,10 +158,10 @@ export default function Features() {
             className="text-center mb-8"
           >
             <h3 className="text-2xl sm:text-3xl font-bold mb-3 px-4">
-              <span className="text-gradient">5 Geavanceerde AI Features</span>
+              <span className="text-gradient">5 Advanced AI Features</span>
             </h3>
             <p className="text-gray-400 px-4 text-sm sm:text-base">
-              Artificiële intelligentie die je wallet slimmer, veiliger en makkelijker maakt
+              Artificial intelligence that makes your wallet smarter, safer and easier to use
             </p>
           </motion.div>
 
@@ -204,7 +204,7 @@ export default function Features() {
               BLAZE vs <span className="text-gradient">Traditional Wallets</span>
             </h3>
             <p className="text-gray-400 max-w-2xl mx-auto px-4 text-sm sm:text-base">
-              Ontdek waarom BLAZE de toekomst van crypto wallets is
+              Discover why BLAZE is the future of crypto wallets
             </p>
           </motion.div>
 
@@ -326,7 +326,7 @@ export default function Features() {
               Core <span className="text-gradient">Features</span>
             </h3>
             <p className="text-gray-400 max-w-2xl mx-auto px-4 text-sm sm:text-base">
-              De belangrijkste features die BLAZE uniek maken. Krachtig, veilig en gebruiksvriendelijk.
+              The key features that make BLAZE unique. Powerful, secure and user-friendly.
             </p>
           </motion.div>
 

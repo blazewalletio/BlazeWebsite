@@ -17,8 +17,8 @@ export default function Footer() {
               <span className="text-2xl font-bold">BLAZE</span>
             </div>
             <p className="text-gray-400 mb-4 max-w-md">
-              Set your finances ablaze. De revolutionaire crypto wallet met DeFi features 
-              voor de next generation van crypto users.
+              Set your finances ablaze. The revolutionary crypto wallet with DeFi features 
+              for the next generation of crypto users.
             </p>
             <div className="flex gap-4">
               <a

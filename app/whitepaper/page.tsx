@@ -16,7 +16,7 @@ export default function WhitepaperPage() {
               className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
             >
               <ArrowLeft className="w-5 h-5" />
-              <span>Terug naar website</span>
+              <span>Back to website</span>
             </Link>
             <div className="flex items-center gap-4">
               <button className="flex items-center gap-2 px-4 py-2 bg-gradient-blaze rounded-lg font-medium hover:scale-105 transition-transform">
@@ -25,7 +25,7 @@ export default function WhitepaperPage() {
               </button>
               <button className="flex items-center gap-2 px-4 py-2 card-glass rounded-lg font-medium hover:bg-white/10 transition-colors">
                 <Share2 className="w-4 h-4" />
-                Deel
+                Share
               </button>
             </div>
           </div>
@@ -68,7 +68,7 @@ export default function WhitepaperPage() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="card-glass p-8 mb-16"
         >
-          <h2 className="text-3xl font-bold mb-6">Inhoudsopgave</h2>
+          <h2 className="text-3xl font-bold mb-6">Table of Contents</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {[
               { title: 'Executive Summary', page: 1 },

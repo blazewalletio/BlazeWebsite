@@ -59,7 +59,7 @@ export default function Tokenomics() {
             BLAZE <span className="text-gradient">tokenomics</span>
           </h2>
           <p className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto px-4">
-            Transparante en faire distributie. Designed voor long-term growth.
+            Transparent and fair distribution. Designed for long-term growth.
           </p>
         </motion.div>
 
@@ -72,7 +72,7 @@ export default function Tokenomics() {
             transition={{ duration: 0.5 }}
             className="card-glass p-8"
           >
-            <h3 className="text-2xl font-bold mb-6 text-center">Token distributie</h3>
+            <h3 className="text-2xl font-bold mb-6 text-center">Token Distribution</h3>
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
                 <Pie
@@ -116,19 +116,19 @@ export default function Tokenomics() {
 
             <div className="grid grid-cols-2 gap-3 sm:gap-4">
               <div className="card-glass p-4 sm:p-6">
-                <div className="text-gray-400 text-xs sm:text-sm mb-1">Presale prijs</div>
+                <div className="text-gray-400 text-xs sm:text-sm mb-1">Presale price</div>
                 <div className="text-xl sm:text-2xl font-bold text-green-400">$0.00417</div>
               </div>
               <div className="card-glass p-4 sm:p-6">
-                <div className="text-gray-400 text-xs sm:text-sm mb-1">Launch prijs</div>
+                <div className="text-gray-400 text-xs sm:text-sm mb-1">Launch price</div>
                 <div className="text-xl sm:text-2xl font-bold text-orange-400">$0.01</div>
               </div>
             </div>
 
             <div className="card-glass p-4 sm:p-6">
-              <div className="text-gray-400 text-xs sm:text-sm mb-1">Market cap bij launch (circulating)</div>
+              <div className="text-gray-400 text-xs sm:text-sm mb-1">Market cap at launch (circulating)</div>
               <div className="text-2xl sm:text-3xl font-bold">$2.5M</div>
-              <div className="text-gray-400 text-xs sm:text-sm mt-1">250M tokens in circulatie</div>
+              <div className="text-gray-400 text-xs sm:text-sm mt-1">250M tokens in circulation</div>
             </div>
 
             <div className="card-glass p-6 bg-gradient-to-r from-orange-500/10 to-red-500/10 border-orange-500/30">
@@ -216,7 +216,7 @@ export default function Tokenomics() {
           {/* Fee Discount Tiers */}
           <div className="mt-12 card-glass p-8 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border-purple-500/30">
             <h3 className="text-2xl font-bold mb-6 text-center">Fee Discount Tiers</h3>
-            <p className="text-center text-gray-400 mb-8">Stake meer BLAZE voor hogere fee discounts op alle transacties</p>
+            <p className="text-center text-gray-400 mb-8">Stake more BLAZE for higher fee discounts on all transactions</p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
               <div className="bg-white/5 p-4 sm:p-6 rounded-xl text-center">
                 <div className="text-2xl sm:text-3xl font-bold text-gradient mb-2">10%</div>

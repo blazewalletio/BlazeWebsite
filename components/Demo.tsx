@@ -23,10 +23,10 @@ export default function Demo() {
           className="text-center mb-12"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 px-4">
-            Zie BLAZE <span className="text-gradient">in actie</span>
+            See BLAZE <span className="text-gradient">in action</span>
           </h2>
           <p className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto px-4">
-            Test de meest intelligente crypto wallet. Met AI, NFTs, Staking, Governance en meer. Volledig gratis.
+            Test the most intelligent crypto wallet. With AI, NFTs, Staking, Governance and more. Completely free.
           </p>
         </motion.div>
 
@@ -103,7 +103,7 @@ export default function Demo() {
                             <Monitor className="w-8 h-8 text-white" />
                           </div>
                           <p className="text-gray-300 font-semibold">Desktop Screenshot</p>
-                          <p className="text-gray-500 text-sm">Upload desktop-wallet.png naar /public/screenshots/</p>
+                          <p className="text-gray-500 text-sm">Upload desktop-wallet.png to /public/screenshots/</p>
                         </div>
                       </div>
                     </div>
@@ -168,7 +168,7 @@ export default function Demo() {
                             <Smartphone className="w-6 h-6 text-white" />
                           </div>
                           <p className="text-gray-300 font-semibold text-sm">Mobile Screenshot</p>
-                          <p className="text-gray-500 text-xs">Upload mobile-wallet.png naar /public/screenshots/</p>
+                          <p className="text-gray-500 text-xs">Upload mobile-wallet.png to /public/screenshots/</p>
                         </div>
                       </div>
                     </div>
@@ -212,7 +212,7 @@ export default function Demo() {
             {/* Features List */}
             <div className="space-y-6">
               <h3 className="text-2xl font-bold text-white">
-                Wat je kunt testen:
+                What you can test:
               </h3>
               
               <div className="space-y-4">
@@ -220,27 +220,27 @@ export default function Demo() {
                   {
                     icon: Brain,
                     title: 'AI Transaction Assistant',
-                    description: 'Typ "Stuur 50 USDC naar 0x..." en de AI doet de rest'
+                    description: 'Type "Send 50 USDC to 0x..." and AI does the rest'
                   },
                   {
                     icon: Shield,
                     title: 'Smart Scam Detector',
-                    description: 'Scan adressen en krijg een risico score voordat je interacteert'
+                    description: 'Scan addresses and get a risk score before you interact'
                   },
                   {
                     icon: PieChart,
                     title: 'AI Portfolio Advisor',
-                    description: 'Krijg gepersonaliseerde tips voor je portfolio optimalisatie'
+                    description: 'Get personalized tips for your portfolio optimization'
                   },
                   {
                     icon: Fuel,
                     title: 'Gas Optimizer',
-                    description: 'Bespaar geld door te transacteren op optimale tijden'
+                    description: 'Save money by transacting at optimal times'
                   },
                   {
                     icon: MessageSquare,
                     title: 'Crypto Expert AI',
-                    description: 'Stel vragen over DeFi, gas, slippage en meer'
+                    description: 'Ask questions about DeFi, gas, slippage and more'
                   }
                 ].map((feature, index) => (
                   <motion.div
@@ -300,7 +300,7 @@ export default function Demo() {
                 className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-blaze rounded-xl font-bold text-lg hover:scale-105 transition-transform glow-orange"
               >
                 <Play className="w-5 h-5" />
-                Open de wallet
+                Open the wallet
                 <ExternalLink className="w-5 h-5" />
               </a>
             </motion.div>
