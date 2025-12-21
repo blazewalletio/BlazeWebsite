@@ -122,59 +122,42 @@ export default function Navbar() {
                 {/* Menu items - Scrollable area */}
                 <div className="flex-1 overflow-y-auto px-6 py-6">
                   <div className="space-y-3">
-                    {links && links.length > 0 ? (
-                      links.map((link, index) => {
-                        const IconComponent = link.icon;
-                        return (
-                          <motion.a
-                            key={link.href || index}
-                            href={link.href}
-                            onClick={() => setIsOpen(false)}
-                            initial={{ opacity: 1, x: 0 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ 
-                              duration: 0.2, 
-                              delay: index * 0.03,
-                              ease: "easeOut"
-                            }}
-                            whileHover={{ x: -4 }}
-                            className="flex items-center gap-4 px-5 py-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-orange-500/30 transition-all group w-full"
-                          >
-                            <div className="w-12 h-12 rounded-xl bg-gradient-blaze/20 group-hover:bg-gradient-blaze flex items-center justify-center transition-all flex-shrink-0">
-                              {IconComponent && <IconComponent className="w-6 h-6 text-white group-hover:scale-110 transition-transform" />}
-                            </div>
-                            <span className="text-lg font-semibold text-white group-hover:text-orange-400 transition-colors flex-1">
-                              {link.label}
-                            </span>
-                            <div className="flex-shrink-0">
-                              <Rocket className="w-5 h-5 text-gray-500 group-hover:text-orange-400 transition-colors" />
-                            </div>
-                          </motion.a>
-                        );
-                      })
-                    ) : (
-                      <div className="text-white p-4">No menu items available</div>
-                    )}
+                    {links.map((link, index) => {
+                      const IconComponent = link.icon;
+                      return (
+                        <a
+                          key={link.href || index}
+                          href={link.href}
+                          onClick={() => setIsOpen(false)}
+                          className="flex items-center gap-4 px-5 py-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-orange-500/30 transition-all group w-full"
+                        >
+                          <div className="w-12 h-12 rounded-xl bg-gradient-blaze/20 group-hover:bg-gradient-blaze flex items-center justify-center transition-all flex-shrink-0">
+                            {IconComponent && <IconComponent className="w-6 h-6 text-white group-hover:scale-110 transition-transform" />}
+                          </div>
+                          <span className="text-lg font-semibold text-white group-hover:text-orange-400 transition-colors flex-1">
+                            {link.label}
+                          </span>
+                          <div className="flex-shrink-0">
+                            <Rocket className="w-5 h-5 text-gray-500 group-hover:text-orange-400 transition-colors" />
+                          </div>
+                        </a>
+                      );
+                    })}
                   </div>
                 </div>
 
                 {/* CTA Button - Fixed at bottom */}
                 <div className="px-6 py-6 border-t border-white/10 bg-slate-900/50">
-                  <motion.a
+                  <a
                     href="https://my.blazewallet.io"
                     target="_blank"
                     rel="noopener noreferrer"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 0.3 }}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
                     onClick={() => setIsOpen(false)}
-                    className="block w-full px-6 py-4 bg-gradient-blaze rounded-xl font-bold text-lg text-center glow-orange shadow-lg flex items-center justify-center gap-2 text-white"
+                    className="block w-full px-6 py-4 bg-gradient-blaze rounded-xl font-bold text-lg text-center glow-orange shadow-lg flex items-center justify-center gap-2 text-white hover:scale-105 transition-transform"
                   >
                     <Rocket className="w-5 h-5" />
                     Launch Wallet
-                  </motion.a>
+                  </a>
                 </div>
               </div>
             </motion.div>
