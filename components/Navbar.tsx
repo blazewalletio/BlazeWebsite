@@ -78,32 +78,36 @@ export default function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Solid backdrop with maximum blur */}
+            {/* Dark overlay - makes background darker */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 bg-slate-950 z-40 md:hidden"
+              className="fixed inset-0 bg-black/70 z-40 md:hidden"
               onClick={() => setIsOpen(false)}
+            />
+            
+            {/* Maximum blur for background content */}
+            <motion.div
+              initial={{ backdropFilter: 'blur(0px)', WebkitBackdropFilter: 'blur(0px)' }}
+              animate={{ backdropFilter: 'blur(30px)', WebkitBackdropFilter: 'blur(30px)' }}
+              exit={{ backdropFilter: 'blur(0px)', WebkitBackdropFilter: 'blur(0px)' }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 z-40 md:hidden pointer-events-none"
               style={{ 
-                backdropFilter: 'blur(40px)',
-                WebkitBackdropFilter: 'blur(40px)'
+                backdropFilter: 'blur(30px)',
+                WebkitBackdropFilter: 'blur(30px)'
               }}
             />
             
-            {/* Blur overlay for content behind */}
+            {/* Additional dark layer for extra darkness */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 z-39 md:hidden pointer-events-none"
-              style={{ 
-                backdropFilter: 'blur(50px) saturate(180%)',
-                WebkitBackdropFilter: 'blur(50px) saturate(180%)',
-                backgroundColor: 'rgba(2, 6, 23, 0.85)'
-              }}
+              className="fixed inset-0 bg-slate-950/90 z-40 md:hidden pointer-events-none"
             />
 
             {/* Menu content */}
