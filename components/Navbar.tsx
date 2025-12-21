@@ -101,9 +101,9 @@ export default function Navbar() {
               }}
               className="fixed top-0 right-0 bottom-0 z-[60] md:hidden w-full max-w-sm"
             >
-              <div className="h-full w-full bg-slate-950/98 backdrop-blur-2xl border-l border-white/10 shadow-2xl flex flex-col overflow-hidden">
+              <div className="h-full w-full bg-slate-950/98 backdrop-blur-2xl border-l border-white/10 shadow-2xl flex flex-col">
                 {/* Header */}
-                <div className="flex items-center justify-between px-6 py-5 border-b border-white/10 flex-shrink-0">
+                <div className="flex items-center justify-between px-6 py-5 border-b border-white/10">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl bg-gradient-blaze flex items-center justify-center">
                       <Flame className="w-6 h-6 text-white" />
@@ -120,45 +120,46 @@ export default function Navbar() {
                 </div>
 
                 {/* Menu items - Scrollable area */}
-                <div className="flex-1 overflow-y-auto px-6 py-6 space-y-3 min-h-0">
-                  {links.map((link, index) => {
-                    const IconComponent = link.icon;
-                    return (
-                      <motion.a
-                        key={link.href}
-                        href={link.href}
-                        onClick={() => setIsOpen(false)}
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ 
-                          duration: 0.3, 
-                          delay: index * 0.05,
-                          ease: "easeOut"
-                        }}
-                        whileHover={{ x: -4 }}
-                        className="flex items-center gap-4 px-5 py-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-orange-500/30 transition-all group w-full"
-                      >
-                        <div className="w-12 h-12 rounded-xl bg-gradient-blaze/20 group-hover:bg-gradient-blaze flex items-center justify-center transition-all flex-shrink-0">
-                          <IconComponent className="w-6 h-6 text-white group-hover:scale-110 transition-transform" />
-                        </div>
-                        <span className="text-lg font-semibold text-white group-hover:text-orange-400 transition-colors flex-1">
-                          {link.label}
-                        </span>
-                        <motion.div
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ delay: index * 0.05 + 0.2 }}
-                          className="flex-shrink-0"
-                        >
-                          <Rocket className="w-5 h-5 text-gray-500 group-hover:text-orange-400 transition-colors" />
-                        </motion.div>
-                      </motion.a>
-                    );
-                  })}
+                <div className="flex-1 overflow-y-auto px-6 py-6">
+                  <div className="space-y-3">
+                    {links && links.length > 0 ? (
+                      links.map((link, index) => {
+                        const IconComponent = link.icon;
+                        return (
+                          <motion.a
+                            key={link.href || index}
+                            href={link.href}
+                            onClick={() => setIsOpen(false)}
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ 
+                              duration: 0.3, 
+                              delay: index * 0.05,
+                              ease: "easeOut"
+                            }}
+                            whileHover={{ x: -4 }}
+                            className="flex items-center gap-4 px-5 py-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-orange-500/30 transition-all group w-full"
+                          >
+                            <div className="w-12 h-12 rounded-xl bg-gradient-blaze/20 group-hover:bg-gradient-blaze flex items-center justify-center transition-all flex-shrink-0">
+                              {IconComponent && <IconComponent className="w-6 h-6 text-white group-hover:scale-110 transition-transform" />}
+                            </div>
+                            <span className="text-lg font-semibold text-white group-hover:text-orange-400 transition-colors flex-1">
+                              {link.label}
+                            </span>
+                            <div className="flex-shrink-0">
+                              <Rocket className="w-5 h-5 text-gray-500 group-hover:text-orange-400 transition-colors" />
+                            </div>
+                          </motion.a>
+                        );
+                      })
+                    ) : (
+                      <div className="text-white p-4">No menu items available</div>
+                    )}
+                  </div>
                 </div>
 
                 {/* CTA Button - Fixed at bottom */}
-                <div className="px-6 py-6 border-t border-white/10 bg-slate-900/50 flex-shrink-0">
+                <div className="px-6 py-6 border-t border-white/10 bg-slate-900/50">
                   <motion.a
                     href="https://my.blazewallet.io"
                     target="_blank"
