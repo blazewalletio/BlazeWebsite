@@ -136,18 +136,18 @@ export default function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ 
-                type: 'spring', 
-                damping: 25, 
-                stiffness: 200,
-                duration: 0.3
+                type: 'tween',
+                duration: 0.3,
+                ease: [0.4, 0, 0.2, 1]
               }}
-              className="fixed top-0 right-0 bottom-0 z-[60] md:hidden w-full max-w-sm"
+              className="fixed top-0 right-0 z-[60] md:hidden w-full max-w-sm"
+              style={{ height: '100vh' }}
             >
               {(() => {
                 console.log('🟢 Rendering drawer container');
                 return null;
               })()}
-              <div className="h-full w-full bg-slate-950/98 backdrop-blur-2xl border-l border-white/10 shadow-2xl flex flex-col">
+              <div className="h-full w-full bg-slate-950/98 backdrop-blur-2xl border-l border-white/10 shadow-2xl flex flex-col" style={{ height: '100%' }}>
                 {/* Header */}
                 <div className="flex items-center justify-between px-6 py-5 border-b border-white/10">
                   {(() => {
