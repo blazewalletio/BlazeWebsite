@@ -130,11 +130,11 @@ export default function Navbar() {
                             key={link.href || index}
                             href={link.href}
                             onClick={() => setIsOpen(false)}
-                            initial={{ opacity: 0, x: 20 }}
+                            initial={{ opacity: 1, x: 0 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ 
-                              duration: 0.3, 
-                              delay: index * 0.05,
+                              duration: 0.2, 
+                              delay: index * 0.03,
                               ease: "easeOut"
                             }}
                             whileHover={{ x: -4 }}
