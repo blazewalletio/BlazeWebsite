@@ -37,6 +37,18 @@
     background-size: 200% 200%;
     animation: gradient 3s ease infinite;
   }
+  
+  /* Performance optimizations */
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* GPU acceleration for animations */
+  [data-framer-component] {
+    transform: translateZ(0);
+    will-change: transform;
+  }
 }
 
 

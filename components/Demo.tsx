@@ -19,7 +19,7 @@ export default function Demo() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
           className="text-center mb-12"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 px-4">
@@ -36,7 +36,7 @@ export default function Demo() {
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={{ duration: 0.4, delay: 0.15, ease: "easeOut" }}
             className="relative"
           >
             {/* View Toggle */}
@@ -75,7 +75,7 @@ export default function Demo() {
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.3 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
                 className="relative"
               >
                 {/* Realistic Monitor Frame */}
@@ -133,7 +133,7 @@ export default function Demo() {
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.3 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
                 className="relative mx-auto"
                 style={{ width: '320px' }}
               >
@@ -206,7 +206,7 @@ export default function Demo() {
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.4 }}
+            transition={{ duration: 0.4, delay: 0.25, ease: "easeOut" }}
             className="space-y-8"
           >
             {/* Features List */}
@@ -248,7 +248,7 @@ export default function Demo() {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: index * 0.1 }}
+                    transition={{ duration: 0.25, delay: index * 0.05, ease: "easeOut" }}
                     className="flex items-start gap-4 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors"
                   >
                     <div className="w-10 h-10 bg-gradient-blaze rounded-lg flex items-center justify-center flex-shrink-0">
@@ -312,12 +312,12 @@ export default function Demo() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.8 }}
+          transition={{ duration: 0.4, delay: 0.35, ease: "easeOut" }}
           className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mt-12 sm:mt-16 px-4"
         >
           {[
             { label: 'AI Features', value: '5' },
-            { label: 'Supported chains', value: '7' },
+            { label: 'Supported chains', value: '18' },
             { label: 'Max APY', value: '20%' },
             { label: 'Fee discount', value: '75%' },
           ].map((stat, index) => (

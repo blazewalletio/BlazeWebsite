@@ -38,7 +38,7 @@ export default function WhitepaperPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
           className="text-center mb-16"
         >
           <div className="mb-8">
@@ -127,7 +127,7 @@ export default function WhitepaperPage() {
               <div className="card-glass p-6 text-center">
                 <Globe className="w-12 h-12 text-blue-400 mx-auto mb-4" />
                 <h3 className="text-xl font-bold mb-2">Multi-Chain</h3>
-                <p className="text-gray-400">Support for 5 major blockchain networks</p>
+                <p className="text-gray-400">Support for 18 blockchain networks</p>
               </div>
             </div>
           </div>
@@ -137,7 +137,7 @@ export default function WhitepaperPage() {
         <motion.section
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
+          transition={{ duration: 0.4, delay: 0.2, ease: "easeOut" }}
           className="mb-16"
         >
           <h2 className="text-4xl font-bold mb-6">2. Problem Statement</h2>
@@ -185,7 +185,7 @@ export default function WhitepaperPage() {
         <motion.section
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
+          transition={{ duration: 0.4, delay: 0.25, ease: "easeOut" }}
           className="mb-16"
         >
           <h2 className="text-4xl font-bold mb-6">3. BLAZE Solution</h2>
@@ -233,7 +233,7 @@ export default function WhitepaperPage() {
         <motion.section
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
+          transition={{ duration: 0.4, delay: 0.3, ease: "easeOut" }}
           className="mb-16"
         >
           <h2 className="text-4xl font-bold mb-6">4. AI Features Overview</h2>
@@ -726,7 +726,7 @@ export default function WhitepaperPage() {
                 <ul className="space-y-2 text-gray-300 text-sm ml-16">
                   <li>• Smart contracts development (39/39 tests passed)</li>
                   <li>• Security architecture & ReentrancyGuard</li>
-                  <li>• Multi-chain wallet (5 chains)</li>
+                  <li>• Multi-chain wallet (18 blockchain networks)</li>
                   <li>• Advanced staking system (8-20% APY)</li>
                   <li>• Testnet deployment & verification</li>
                 </ul>

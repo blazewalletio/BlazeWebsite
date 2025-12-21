@@ -52,7 +52,7 @@ export default function Tokenomics() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
           className="text-center mb-16"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 px-4">
@@ -69,7 +69,7 @@ export default function Tokenomics() {
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
             className="card-glass p-8"
           >
             <h3 className="text-2xl font-bold mb-6 text-center">Token Distribution</h3>
@@ -105,7 +105,7 @@ export default function Tokenomics() {
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
             className="space-y-6"
           >
             <div className="card-glass p-4 sm:p-6">
@@ -147,7 +147,7 @@ export default function Tokenomics() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
         >
           <h3 className="text-3xl font-bold mb-8 text-center">Token utility</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -157,7 +157,7 @@ export default function Tokenomics() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.3, delay: index * 0.05, ease: "easeOut" }}
                 className="card-glass p-6 text-center hover:bg-white/10 transition-all group"
               >
                 <div className="w-12 h-12 rounded-xl bg-gradient-blaze flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform">
@@ -176,7 +176,7 @@ export default function Tokenomics() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
           className="mt-16 card-glass p-8"
         >
           <h3 className="text-2xl font-bold mb-6 text-center">Vesting schedule</h3>

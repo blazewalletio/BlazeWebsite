@@ -50,7 +50,7 @@ const coreFeatures = [
   {
     icon: Wallet,
     title: 'Multi-chain wallet',
-    description: 'Support for 7 chains: Ethereum, BSC, Polygon, Arbitrum, Base, Sepolia, BSC Testnet. One wallet for all chains with real-time switching.',
+    description: 'Support for 18 blockchain networks. One wallet for all chains with real-time switching. Universal DeFi access.',
     gradient: 'from-blue-500 to-cyan-500',
   },
   {
@@ -137,7 +137,7 @@ export default function Features() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
           className="text-center mb-16"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 px-4">
@@ -154,7 +154,7 @@ export default function Features() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
             className="text-center mb-8"
           >
             <h3 className="text-2xl sm:text-3xl font-bold mb-3 px-4">
@@ -172,8 +172,9 @@ export default function Features() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.05 }}
-                whileHover={{ scale: 1.05, y: -5 }}
+                transition={{ duration: 0.3, delay: index * 0.03, ease: "easeOut" }}
+                whileHover={{ scale: 1.03, y: -3 }}
+                style={{ willChange: 'transform' }}
                 className="card-glass p-4 sm:p-6 hover:bg-white/10 transition-all group cursor-pointer border-2 border-purple-500/30"
               >
                 <div className="flex items-center justify-between mb-4">
@@ -197,7 +198,7 @@ export default function Features() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
             className="text-center mb-12"
           >
             <h3 className="text-2xl sm:text-3xl font-bold mb-3 px-4">
@@ -319,7 +320,7 @@ export default function Features() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
             className="text-center mb-12"
           >
             <h3 className="text-2xl sm:text-3xl font-bold mb-3 px-4">
@@ -337,8 +338,9 @@ export default function Features() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ scale: 1.05, y: -5 }}
+                transition={{ duration: 0.3, delay: index * 0.05, ease: "easeOut" }}
+                whileHover={{ scale: 1.03, y: -3 }}
+                style={{ willChange: 'transform' }}
                 className="card-glass p-6 sm:p-8 hover:bg-white/10 transition-all group cursor-pointer text-center"
               >
                 <div className={`w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-r ${feature.gradient} flex items-center justify-center mb-4 sm:mb-6 mx-auto group-hover:scale-110 transition-transform shadow-lg`}>

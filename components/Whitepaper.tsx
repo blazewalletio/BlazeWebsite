@@ -18,7 +18,7 @@ const sections = [
 
 const highlights = [
   '5 Revolutionary AI Features',
-  'Multi-chain support (7 chains: ETH, BSC, Polygon, Arbitrum, Base, Sepolia, BSC Testnet)',
+  'Multi-chain support (18 blockchain networks)',
   'Deflationary tokenomics (0.10% burn)',
   'Advanced staking (8-20% APY)',
   'Premium membership system (10,000+ BLAZE)',
@@ -40,7 +40,7 @@ export default function Whitepaper() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
           className="text-center mb-16"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 px-4">
@@ -57,7 +57,7 @@ export default function Whitepaper() {
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
             className="space-y-6"
           >
             <div className="card-glass p-6 sm:p-8 border-2 border-orange-500/30 glow-orange">
@@ -121,7 +121,7 @@ export default function Whitepaper() {
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
             className="card-glass p-6 sm:p-8"
           >
             <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Table of Contents</h3>
@@ -132,7 +132,7 @@ export default function Whitepaper() {
                   initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.3, delay: index * 0.05 }}
+                  transition={{ duration: 0.25, delay: index * 0.03, ease: "easeOut" }}
                   className="flex items-center justify-between p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-all cursor-pointer group"
                 >
                   <div className="flex items-center gap-3">
@@ -172,7 +172,7 @@ export default function Whitepaper() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
           className="mt-16"
         >
           <h3 className="text-xl sm:text-2xl font-bold mb-6 text-center px-4">Additional Documentation</h3>
@@ -201,7 +201,7 @@ export default function Whitepaper() {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  transition={{ duration: 0.3, delay: index * 0.05, ease: "easeOut" }}
                   className="card-glass p-6 hover:bg-white/10 transition-all cursor-pointer group"
                 >
                   <div className="flex justify-center mb-3">

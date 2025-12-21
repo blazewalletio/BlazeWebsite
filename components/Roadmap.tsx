@@ -11,7 +11,7 @@ const roadmapPhases = [
     items: [
       'Smart contracts development (39/39 tests passed)',
       'Security architecture & ReentrancyGuard',
-      'Multi-chain wallet (7 chains: ETH, BSC, Polygon, Arbitrum, Base, Sepolia, BSC Testnet)',
+      'Multi-chain wallet (18 blockchain networks)',
       'Advanced staking system (8-20% APY)',
       'Testnet deployment & verification',
     ],
@@ -35,32 +35,32 @@ const roadmapPhases = [
   {
     phase: 'Q2 2025',
     title: 'Presale & Mainnet',
-    status: 'active',
+    status: 'completed',
     items: [
-      'Public presale launch (LIVE on BSC Testnet)',
-      'Mainnet deployment (BSC) - Ready',
+      'Public presale launch (BSC Testnet)',
+      'Mainnet deployment (BSC)',
       'DEX listings (PancakeSwap, Uniswap)',
       'CertiK audit completion',
-      'Marketing campaign start',
+      'Marketing campaign launch',
       'Launch-ready status: All features implemented',
     ],
   },
   {
     phase: 'Q3 2025',
     title: 'Exchange Listings',
-    status: 'upcoming',
+    status: 'completed',
     items: [
       'Gate.io listing',
       'MEXC listing',
       'KuCoin application',
       'CoinGecko & CMC tracking',
-      '10,000+ holders target',
+      '10,000+ holders milestone',
     ],
   },
   {
     phase: 'Q4 2025',
     title: 'Ecosystem Expansion',
-    status: 'upcoming',
+    status: 'active',
     items: [
       'Cross-chain bridges',
       'Fiat on/off ramps (MoonPay)',
@@ -70,7 +70,7 @@ const roadmapPhases = [
     ],
   },
   {
-    phase: '2026',
+    phase: 'Q1 2026',
     title: 'Global Scale',
     status: 'upcoming',
     items: [
@@ -93,7 +93,7 @@ export default function Roadmap() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
           className="text-center mb-16"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 px-4">
@@ -116,7 +116,7 @@ export default function Roadmap() {
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.4, delay: index * 0.05, ease: "easeOut" }}
                 className={`relative ${
                   index % 2 === 0 ? 'md:pr-1/2 md:text-right' : 'md:pl-1/2 md:ml-auto'
                 } md:w-[calc(50%+2rem)]`}
@@ -166,7 +166,7 @@ export default function Roadmap() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
           className="mt-20"
         >
           <h3 className="text-2xl sm:text-3xl font-bold mb-8 sm:mb-12 text-center px-4">

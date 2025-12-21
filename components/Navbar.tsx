@@ -1,18 +1,18 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { Flame, Menu, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Flame, Menu, X, Sparkles, Zap, Coins, FileText, Map, Rocket } from 'lucide-react';
 import { useState } from 'react';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   const links = [
-    { label: 'Features', href: '#features' },
-    { label: 'Demo', href: '#demo' },
-    { label: 'Tokenomics', href: '#tokenomics' },
-    { label: 'Whitepaper', href: '#whitepaper' },
-    { label: 'Roadmap', href: '#roadmap' },
+    { label: 'Features', href: '#features', icon: Sparkles },
+    { label: 'Demo', href: '#demo', icon: Zap },
+    { label: 'Tokenomics', href: '#tokenomics', icon: Coins },
+    { label: 'Whitepaper', href: '#whitepaper', icon: FileText },
+    { label: 'Roadmap', href: '#roadmap', icon: Map },
   ];
 
   return (
@@ -62,36 +62,131 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile menu */}
-      {isOpen && (
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          className="md:hidden bg-slate-900 border-t border-white/10"
-        >
-          <div className="px-4 py-4 space-y-3">
-            {links.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setIsOpen(false)}
-                className="block py-2 text-gray-300 hover:text-orange-400 transition-colors"
-              >
-                {link.label}
-              </a>
-            ))}
-            <a
-              href="https://my.blazewallet.io"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block w-full px-6 py-3 bg-gradient-blaze rounded-lg font-bold text-center"
+      {/* Mobile menu - Full screen overlay */}
+      <AnimatePresence>
+        {isOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 bg-slate-950/95 backdrop-blur-xl z-40 md:hidden"
+              onClick={() => setIsOpen(false)}
+            />
+            
+            {/* Animated gradient orbs background */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4 }}
+              className="fixed inset-0 z-50 md:hidden pointer-events-none"
             >
-              Launch app
-            </a>
-          </div>
-        </motion.div>
-      )}
+              <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-orange-500/20 rounded-full blur-3xl animate-pulse" />
+              <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-red-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-yellow-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '0.5s' }} />
+            </motion.div>
+
+            {/* Menu content */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3, delay: 0.1 }}
+              className="fixed inset-0 z-50 md:hidden flex flex-col"
+            >
+              {/* Close button */}
+              <div className="absolute top-4 right-4 z-60">
+                <motion.button
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0.8, opacity: 0 }}
+                  transition={{ duration: 0.2, delay: 0.2 }}
+                  onClick={() => setIsOpen(false)}
+                  className="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center hover:bg-white/20 transition-colors"
+                >
+                  <X className="w-6 h-6 text-white" />
+                </motion.button>
+              </div>
+
+              {/* Menu items */}
+              <div className="flex-1 flex flex-col items-center justify-center px-6 py-20 space-y-4">
+                {links.map((link, index) => {
+                  const IconComponent = link.icon;
+                  return (
+                    <motion.a
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setIsOpen(false)}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 20 }}
+                      transition={{ duration: 0.3, delay: 0.2 + index * 0.1 }}
+                      whileHover={{ scale: 1.05, x: 5 }}
+                      className="w-full max-w-sm card-glass p-6 hover:bg-white/10 transition-all group cursor-pointer border-2 border-white/10 hover:border-orange-500/50 hover:glow-orange"
+                    >
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 rounded-xl bg-gradient-blaze flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg">
+                          <IconComponent className="w-6 h-6 text-white" />
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="text-xl font-bold text-white group-hover:text-gradient transition-colors">
+                            {link.label}
+                          </h3>
+                          <div className="w-0 group-hover:w-full h-0.5 bg-gradient-blaze transition-all duration-300 mt-1" />
+                        </div>
+                        <motion.div
+                          initial={{ x: -10, opacity: 0 }}
+                          whileHover={{ x: 0, opacity: 1 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <Rocket className="w-5 h-5 text-gray-400 group-hover:text-orange-400 transition-colors" />
+                        </motion.div>
+                      </div>
+                    </motion.a>
+                  );
+                })}
+
+                {/* CTA Button */}
+                <motion.a
+                  href="https://my.blazewallet.io"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 20 }}
+                  transition={{ duration: 0.3, delay: 0.7 }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="w-full max-w-sm px-8 py-4 bg-gradient-blaze rounded-xl font-bold text-lg text-center glow-orange shadow-2xl flex items-center justify-center gap-2"
+                >
+                  <Rocket className="w-5 h-5" />
+                  Launch Wallet
+                </motion.a>
+              </div>
+
+              {/* Footer branding */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3, delay: 0.8 }}
+                className="pb-8 text-center"
+              >
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <div className="w-8 h-8 rounded-lg bg-gradient-blaze flex items-center justify-center">
+                    <Flame className="w-5 h-5 text-white" />
+                  </div>
+                  <span className="text-xl font-bold">BLAZE</span>
+                </div>
+                <p className="text-gray-400 text-sm">The Future of Intelligent Crypto Wallets</p>
+              </motion.div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </nav>
   );
 }

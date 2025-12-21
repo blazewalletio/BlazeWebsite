@@ -1,37 +1,9 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Flame, ArrowRight, Rocket } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { Flame, ArrowRight } from 'lucide-react';
 
 export default function Hero() {
-  const [timeLeft, setTimeLeft] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  });
-
-  useEffect(() => {
-    // Presale end date (30 days from now - adjust as needed)
-    const endDate = new Date();
-    endDate.setDate(endDate.getDate() + 30);
-
-    const timer = setInterval(() => {
-      const now = new Date().getTime();
-      const distance = endDate.getTime() - now;
-
-      setTimeLeft({
-        days: Math.floor(distance / (1000 * 60 * 60 * 24)),
-        hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-        minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
-        seconds: Math.floor((distance % (1000 * 60)) / 1000),
-      });
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
-
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Animated background */}
@@ -46,7 +18,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-blaze text-white font-bold mb-8"
         >
           <Flame className="w-5 h-5" />
@@ -57,7 +29,7 @@ export default function Hero() {
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
+          transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }}
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 px-4"
         >
           Set Your Finances
@@ -71,18 +43,18 @@ export default function Hero() {
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          transition={{ duration: 0.4, delay: 0.15, ease: "easeOut" }}
           className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto px-4"
         >
           The most intelligent crypto wallet with 5 advanced AI features. 
-          Multi-chain (7 chains), Staking (8-20% APY), Governance, NFTs, Launchpad, Cashback, Referral and more. Join the presale now!
+          Multi-chain (18 chains), Staking (8-20% APY), Governance, NFTs, Launchpad, Cashback, Referral and more. Experience the future of DeFi.
         </motion.p>
 
         {/* AI Badge */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
+          transition={{ duration: 0.4, delay: 0.2, ease: "easeOut" }}
           className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-12 max-w-4xl mx-auto px-4"
         >
           {[
@@ -101,65 +73,34 @@ export default function Hero() {
           ))}
         </motion.div>
 
-        {/* Presale Card */}
+        {/* Key Features Showcase */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="card-glass p-4 sm:p-6 md:p-8 max-w-4xl mx-auto mb-8 glow-orange"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="max-w-5xl mx-auto mb-8"
         >
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <Rocket className="w-5 h-5 sm:w-6 sm:h-6 text-orange-500" />
-            <h2 className="text-xl sm:text-2xl font-bold text-gradient">PRESALE LIVE NOW</h2>
-          </div>
-          
-          {/* Countdown */}
-          <div className="grid grid-cols-4 gap-2 sm:gap-4 mb-4 sm:mb-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
             {[
-              { label: 'Days', value: timeLeft.days },
-              { label: 'Hours', value: timeLeft.hours },
-              { label: 'Minutes', value: timeLeft.minutes },
-              { label: 'Seconds', value: timeLeft.seconds },
-            ].map((item) => (
-              <div key={item.label} className="card-glass p-2 sm:p-3 md:p-4">
-                <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-gradient">
-                  {String(item.value).padStart(2, '0')}
-                </div>
-                <div className="text-xs sm:text-sm text-gray-400 mt-1">{item.label}</div>
-              </div>
-            ))}
-          </div>
-
-          {/* Presale stats */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
-            <div className="text-center">
-              <div className="text-gray-400 text-xs sm:text-sm mb-1">Token price</div>
-              <div className="text-xl sm:text-2xl font-bold text-green-400">$0.00417</div>
-            </div>
-            <div className="text-center">
-              <div className="text-gray-400 text-xs sm:text-sm mb-1">Launch price</div>
-              <div className="text-xl sm:text-2xl font-bold text-orange-400">$0.01</div>
-            </div>
-            <div className="text-center">
-              <div className="text-gray-400 text-xs sm:text-sm mb-1">ROI at launch</div>
-              <div className="text-xl sm:text-2xl font-bold text-gradient">2.4x</div>
-            </div>
-          </div>
-
-          {/* Progress bar */}
-          <div className="mb-6">
-            <div className="flex justify-between text-sm text-gray-400 mb-2">
-              <span>$125,000 raised</span>
-              <span>$500,000 hard cap</span>
-            </div>
-            <div className="w-full bg-gray-800 rounded-full h-4 overflow-hidden">
+              { icon: '🤖', label: '5 AI Features', value: 'Revolutionary' },
+              { icon: '⛓️', label: '18 Chains', value: 'Universal' },
+              { icon: '📈', label: 'Up to 20% APY', value: 'Staking' },
+              { icon: '🛡️', label: '100% Secure', value: 'Non-custodial' },
+            ].map((stat, index) => (
               <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: '25%' }}
-                transition={{ duration: 1, delay: 0.5 }}
-                className="h-full bg-gradient-blaze"
-              />
-            </div>
+                key={stat.label}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3, delay: 0.2 + index * 0.05, ease: "easeOut" }}
+                whileHover={{ scale: 1.03, y: -3 }}
+                style={{ willChange: 'transform' }}
+                className="card-glass p-4 sm:p-6 text-center hover:bg-white/10 transition-all cursor-pointer"
+              >
+                <div className="text-3xl sm:text-4xl mb-2">{stat.icon}</div>
+                <div className="text-lg sm:text-xl font-bold text-gradient mb-1">{stat.value}</div>
+                <div className="text-xs sm:text-sm text-gray-400">{stat.label}</div>
+              </motion.div>
+            ))}
           </div>
 
           {/* CTA Buttons */}
@@ -170,14 +111,14 @@ export default function Hero() {
               rel="noopener noreferrer"
               className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-blaze rounded-xl font-bold text-base sm:text-lg hover:scale-105 transition-transform flex items-center justify-center gap-2 glow-orange"
             >
-              Join presale now
+              Launch Wallet
               <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
             </a>
             <a
               href="#demo"
               className="px-6 sm:px-8 py-3 sm:py-4 card-glass rounded-xl font-bold text-base sm:text-lg hover:scale-105 transition-transform text-center"
             >
-              View demo
+              View Demo
             </a>
           </div>
         </motion.div>
@@ -186,7 +127,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
+          transition={{ duration: 0.4, delay: 0.3, ease: "easeOut" }}
           className="flex flex-wrap justify-center gap-4 sm:gap-8 text-xs sm:text-sm text-gray-400 px-4"
         >
           <div className="flex items-center gap-2">
@@ -199,7 +140,7 @@ export default function Hero() {
           </div>
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-            <span>7 chains supported</span>
+            <span>18 chains supported</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
