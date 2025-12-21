@@ -66,23 +66,34 @@ export default function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Backdrop - Solid background for better readability */}
+            {/* Backdrop with strong blur */}
+            <motion.div
+              initial={{ opacity: 0, backdropFilter: 'blur(0px)' }}
+              animate={{ opacity: 1, backdropFilter: 'blur(20px)' }}
+              exit={{ opacity: 0, backdropFilter: 'blur(0px)' }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 bg-slate-950/80 z-40 md:hidden"
+              onClick={() => setIsOpen(false)}
+              style={{ backdropFilter: 'blur(20px)' }}
+            />
+            
+            {/* Additional blur layer for extra effect */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="fixed inset-0 bg-slate-950 z-40 md:hidden"
-              onClick={() => setIsOpen(false)}
+              className="fixed inset-0 bg-slate-950/60 z-41 md:hidden pointer-events-none"
+              style={{ backdropFilter: 'blur(10px)' }}
             />
             
-            {/* Subtle animated gradient orbs background - much more subtle */}
+            {/* Subtle animated gradient orbs background */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.4 }}
-              className="fixed inset-0 z-45 md:hidden pointer-events-none"
+              className="fixed inset-0 z-42 md:hidden pointer-events-none"
             >
               <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-orange-500/5 rounded-full blur-3xl animate-pulse" />
               <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-red-500/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
