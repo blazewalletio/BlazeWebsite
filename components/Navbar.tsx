@@ -173,13 +173,20 @@ export default function Navbar() {
                 </div>
 
                 {/* Menu items - Scrollable area */}
-                <div className="flex-1 overflow-y-auto px-6 py-6">
+                <div 
+                  className="flex-1 overflow-y-auto px-6 py-6"
+                  style={{
+                    minHeight: '200px',
+                    position: 'relative',
+                    zIndex: 1
+                  }}
+                >
                   {(() => {
                     console.log('🟢 Rendering menu items container');
                     console.log('🟢 About to map links:', links);
                     return null;
                   })()}
-                  <div className="space-y-3">
+                  <div className="space-y-3" style={{ position: 'relative', zIndex: 1 }}>
                     {links.map((link, index) => {
                       console.log(`🟢 Mapping link ${index}:`, link);
                       const IconComponent = link.icon;
@@ -198,21 +205,33 @@ export default function Navbar() {
                             display: 'flex',
                             visibility: 'visible',
                             opacity: 1,
-                            minHeight: '60px'
+                            minHeight: '60px',
+                            position: 'relative',
+                            zIndex: 10,
+                            backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                            color: 'white',
+                            marginBottom: '12px'
+                          } as React.CSSProperties}
+                          ref={(el) => {
+                            if (el) {
+                              console.log(`🟢 DOM element for ${link.label}:`, el);
+                              console.log(`🟢 Computed styles for ${link.label}:`, window.getComputedStyle(el));
+                              console.log(`🟢 Element visible: ${el.offsetWidth > 0 && el.offsetHeight > 0}`);
+                            }
                           }}
                         >
-                          <div className="w-12 h-12 rounded-xl bg-gradient-blaze/20 group-hover:bg-gradient-blaze flex items-center justify-center transition-all flex-shrink-0">
+                          <div className="w-12 h-12 rounded-xl bg-gradient-blaze/20 group-hover:bg-gradient-blaze flex items-center justify-center transition-all flex-shrink-0" style={{ backgroundColor: 'rgba(249, 115, 22, 0.2)' }}>
                             {IconComponent ? (
-                              <IconComponent className="w-6 h-6 text-white group-hover:scale-110 transition-transform" />
+                              <IconComponent className="w-6 h-6 text-white group-hover:scale-110 transition-transform" style={{ color: 'white' }} />
                             ) : (
                               <span className="text-white">?</span>
                             )}
                           </div>
-                          <span className="text-lg font-semibold text-white group-hover:text-orange-400 transition-colors flex-1">
+                          <span className="text-lg font-semibold text-white group-hover:text-orange-400 transition-colors flex-1" style={{ color: 'white !important' }}>
                             {link.label}
                           </span>
                           <div className="flex-shrink-0">
-                            <Rocket className="w-5 h-5 text-gray-500 group-hover:text-orange-400 transition-colors" />
+                            <Rocket className="w-5 h-5 text-gray-500 group-hover:text-orange-400 transition-colors" style={{ color: 'rgb(107, 114, 128)' }} />
                           </div>
                         </a>
                       );
@@ -220,6 +239,83 @@ export default function Navbar() {
                   </div>
                   {(() => {
                     console.log('🟢 Finished mapping links');
+                    // Comprehensive DOM inspection after render
+                    setTimeout(() => {
+                      console.log('🔍 ========== COMPREHENSIVE DOM INSPECTION ==========');
+                      
+                      // Find drawer
+                      const drawer = document.querySelector('[class*="fixed top-0 right-0 bottom-0 z-[60]"]') as HTMLElement;
+                      console.log('🔍 Drawer element:', drawer);
+                      if (drawer) {
+                        const drawerStyles = window.getComputedStyle(drawer);
+                        console.log('🔍 Drawer display:', drawerStyles.display);
+                        console.log('🔍 Drawer visibility:', drawerStyles.visibility);
+                        console.log('🔍 Drawer opacity:', drawerStyles.opacity);
+                        console.log('🔍 Drawer transform:', drawerStyles.transform);
+                        console.log('🔍 Drawer width:', drawer.offsetWidth);
+                        console.log('🔍 Drawer height:', drawer.offsetHeight);
+                        console.log('🔍 Drawer position:', drawerStyles.position);
+                        console.log('🔍 Drawer z-index:', drawerStyles.zIndex);
+                      }
+                      
+                      // Find inner container
+                      const innerContainer = drawer?.querySelector('[class*="h-full w-full bg-slate-950"]') as HTMLElement;
+                      console.log('🔍 Inner container:', innerContainer);
+                      if (innerContainer) {
+                        const innerStyles = window.getComputedStyle(innerContainer);
+                        console.log('🔍 Inner container display:', innerStyles.display);
+                        console.log('🔍 Inner container height:', innerContainer.offsetHeight);
+                        console.log('🔍 Inner container flex:', innerStyles.display);
+                      }
+                      
+                      // Find menu items container
+                      const menuContainer = drawer?.querySelector('[class*="flex-1 overflow-y-auto"]') as HTMLElement;
+                      console.log('🔍 Menu container element:', menuContainer);
+                      if (menuContainer) {
+                        const containerStyles = window.getComputedStyle(menuContainer);
+                        console.log('🔍 Container display:', containerStyles.display);
+                        console.log('🔍 Container visibility:', containerStyles.visibility);
+                        console.log('🔍 Container opacity:', containerStyles.opacity);
+                        console.log('🔍 Container height:', menuContainer.offsetHeight);
+                        console.log('🔍 Container scrollHeight:', menuContainer.scrollHeight);
+                        console.log('🔍 Container overflow:', containerStyles.overflow);
+                        console.log('🔍 Container flex:', containerStyles.flex);
+                        console.log('🔍 Container children count:', menuContainer.children.length);
+                        
+                        // Find all menu items
+                        const menuItems = menuContainer.querySelectorAll('a');
+                        console.log('🔍 Found menu items in DOM:', menuItems.length);
+                        
+                        if (menuItems.length === 0) {
+                          console.log('🔴 CRITICAL: No menu items found in DOM!');
+                          console.log('🔍 Container innerHTML length:', menuContainer.innerHTML.length);
+                          console.log('🔍 Container textContent:', menuContainer.textContent?.substring(0, 100));
+                        } else {
+                          menuItems.forEach((item, idx) => {
+                            const htmlItem = item as HTMLElement;
+                            const itemStyles = window.getComputedStyle(htmlItem);
+                            console.log(`🔍 Menu item ${idx} (${htmlItem.textContent?.trim()}):`);
+                            console.log(`  - Element:`, htmlItem);
+                            console.log(`  - Display:`, itemStyles.display);
+                            console.log(`  - Visibility:`, itemStyles.visibility);
+                            console.log(`  - Opacity:`, itemStyles.opacity);
+                            console.log(`  - Width:`, htmlItem.offsetWidth);
+                            console.log(`  - Height:`, htmlItem.offsetHeight);
+                            console.log(`  - Position:`, itemStyles.position);
+                            console.log(`  - Z-index:`, itemStyles.zIndex);
+                            console.log(`  - Background:`, itemStyles.backgroundColor);
+                            console.log(`  - Color:`, itemStyles.color);
+                            console.log(`  - Transform:`, itemStyles.transform);
+                            console.log(`  - Is visible:`, htmlItem.offsetWidth > 0 && htmlItem.offsetHeight > 0);
+                            console.log(`  - Bounding rect:`, htmlItem.getBoundingClientRect());
+                          });
+                        }
+                      } else {
+                        console.log('🔴 CRITICAL: Menu container NOT found in DOM!');
+                      }
+                      
+                      console.log('🔍 ========== END DOM INSPECTION ==========');
+                    }, 200);
                     return null;
                   })()}
                 </div>
