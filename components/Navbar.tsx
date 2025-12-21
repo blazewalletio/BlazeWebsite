@@ -66,27 +66,26 @@ export default function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Backdrop */}
+            {/* Backdrop - Solid background for better readability */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="fixed inset-0 bg-slate-950/95 backdrop-blur-xl z-40 md:hidden"
+              className="fixed inset-0 bg-slate-950 z-40 md:hidden"
               onClick={() => setIsOpen(false)}
             />
             
-            {/* Animated gradient orbs background */}
+            {/* Subtle animated gradient orbs background - much more subtle */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.4 }}
-              className="fixed inset-0 z-50 md:hidden pointer-events-none"
+              className="fixed inset-0 z-45 md:hidden pointer-events-none"
             >
-              <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-orange-500/20 rounded-full blur-3xl animate-pulse" />
-              <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-red-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-yellow-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '0.5s' }} />
+              <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-orange-500/5 rounded-full blur-3xl animate-pulse" />
+              <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-red-500/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
             </motion.div>
 
             {/* Menu content */}
@@ -105,7 +104,7 @@ export default function Navbar() {
                   exit={{ scale: 0.8, opacity: 0 }}
                   transition={{ duration: 0.2, delay: 0.2 }}
                   onClick={() => setIsOpen(false)}
-                  className="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center hover:bg-white/20 transition-colors"
+                  className="w-12 h-12 rounded-xl bg-slate-800/90 backdrop-blur-xl border border-white/30 flex items-center justify-center hover:bg-slate-700/90 transition-colors shadow-lg"
                 >
                   <X className="w-6 h-6 text-white" />
                 </motion.button>
@@ -124,8 +123,8 @@ export default function Navbar() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 20 }}
                       transition={{ duration: 0.3, delay: 0.2 + index * 0.1 }}
-                      whileHover={{ scale: 1.05, x: 5 }}
-                      className="w-full max-w-sm card-glass p-6 hover:bg-white/10 transition-all group cursor-pointer border-2 border-white/10 hover:border-orange-500/50 hover:glow-orange"
+                      whileHover={{ scale: 1.02, x: 3 }}
+                      className="w-full max-w-sm bg-slate-900/95 backdrop-blur-xl p-6 hover:bg-slate-800/95 transition-all group cursor-pointer border-2 border-white/20 hover:border-orange-500/70 hover:glow-orange shadow-2xl"
                     >
                       <div className="flex items-center gap-4">
                         <div className="w-12 h-12 rounded-xl bg-gradient-blaze flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg">
