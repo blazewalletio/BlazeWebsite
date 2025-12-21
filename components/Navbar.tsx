@@ -2,10 +2,22 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { Flame, Menu, X, Sparkles, Zap, Coins, FileText, Map, Rocket } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+
+  // Lock body scroll when menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
 
   const links = [
     { label: 'Features', href: '#features', icon: Sparkles },
@@ -66,38 +78,33 @@ export default function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Backdrop with strong blur */}
+            {/* Solid backdrop with maximum blur */}
             <motion.div
-              initial={{ opacity: 0, backdropFilter: 'blur(0px)' }}
-              animate={{ opacity: 1, backdropFilter: 'blur(20px)' }}
-              exit={{ opacity: 0, backdropFilter: 'blur(0px)' }}
-              transition={{ duration: 0.3 }}
-              className="fixed inset-0 bg-slate-950/80 z-40 md:hidden"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 bg-slate-950 z-40 md:hidden"
               onClick={() => setIsOpen(false)}
-              style={{ backdropFilter: 'blur(20px)' }}
+              style={{ 
+                backdropFilter: 'blur(40px)',
+                WebkitBackdropFilter: 'blur(40px)'
+              }}
             />
             
-            {/* Additional blur layer for extra effect */}
+            {/* Blur overlay for content behind */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="fixed inset-0 bg-slate-950/60 z-41 md:hidden pointer-events-none"
-              style={{ backdropFilter: 'blur(10px)' }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 z-39 md:hidden pointer-events-none"
+              style={{ 
+                backdropFilter: 'blur(50px) saturate(180%)',
+                WebkitBackdropFilter: 'blur(50px) saturate(180%)',
+                backgroundColor: 'rgba(2, 6, 23, 0.85)'
+              }}
             />
-            
-            {/* Subtle animated gradient orbs background */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4 }}
-              className="fixed inset-0 z-42 md:hidden pointer-events-none"
-            >
-              <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-orange-500/5 rounded-full blur-3xl animate-pulse" />
-              <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-red-500/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-            </motion.div>
 
             {/* Menu content */}
             <motion.div
@@ -115,7 +122,7 @@ export default function Navbar() {
                   exit={{ scale: 0.8, opacity: 0 }}
                   transition={{ duration: 0.2, delay: 0.2 }}
                   onClick={() => setIsOpen(false)}
-                  className="w-12 h-12 rounded-xl bg-slate-800/90 backdrop-blur-xl border border-white/30 flex items-center justify-center hover:bg-slate-700/90 transition-colors shadow-lg"
+                  className="w-12 h-12 rounded-xl bg-slate-800 border-2 border-white/40 flex items-center justify-center hover:bg-slate-700 transition-colors shadow-xl"
                 >
                   <X className="w-6 h-6 text-white" />
                 </motion.button>
@@ -135,7 +142,7 @@ export default function Navbar() {
                       exit={{ opacity: 0, y: 20 }}
                       transition={{ duration: 0.3, delay: 0.2 + index * 0.1 }}
                       whileHover={{ scale: 1.02, x: 3 }}
-                      className="w-full max-w-sm bg-slate-900/95 backdrop-blur-xl p-6 hover:bg-slate-800/95 transition-all group cursor-pointer border-2 border-white/20 hover:border-orange-500/70 hover:glow-orange shadow-2xl"
+                      className="w-full max-w-sm bg-slate-900 p-6 hover:bg-slate-800 transition-all group cursor-pointer border-2 border-white/30 hover:border-orange-500/80 hover:glow-orange shadow-2xl backdrop-blur-sm"
                     >
                       <div className="flex items-center gap-4">
                         <div className="w-12 h-12 rounded-xl bg-gradient-blaze flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg">
