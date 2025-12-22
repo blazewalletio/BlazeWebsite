@@ -114,12 +114,6 @@ const coreFeatures = [
     gradient: 'from-blue-400 to-indigo-500',
   },
   {
-    icon: Globe,
-    title: 'Multi-language',
-    description: 'Dutch & English support. Expandable to more languages. next-intl integration for full localization.',
-    gradient: 'from-teal-500 to-cyan-500',
-  },
-  {
     icon: Zap,
     title: 'Lightning performance',
     description: '60fps animations, instant updates, sub-second transactions. Buttery smooth on all devices. Optimized gas usage.',
@@ -151,8 +145,8 @@ export default function Features() {
         {/* AI Features Section */}
         <div className="mb-16">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ y: 20 }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, ease: "easeOut" }}
             className="text-center mb-8"
@@ -169,8 +163,8 @@ export default function Features() {
             {aiFeatures.map((feature, index) => (
               <motion.div
                 key={feature.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ y: 20 }}
+                whileInView={{ y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.3, delay: index * 0.03, ease: "easeOut" }}
                 whileHover={{ scale: 1.03, y: -3 }}
@@ -195,8 +189,8 @@ export default function Features() {
         {/* Comparison Section */}
         <div className="mb-16">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ y: 20 }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, ease: "easeOut" }}
             className="text-center mb-12"
@@ -210,8 +204,8 @@ export default function Features() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ y: 20 }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
             className="card-glass p-4 sm:p-6 lg:p-8 max-w-5xl mx-auto"
@@ -317,8 +311,8 @@ export default function Features() {
         {/* Core Features Section */}
         <div>
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ y: 20 }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, ease: "easeOut" }}
             className="text-center mb-12"
@@ -335,8 +329,8 @@ export default function Features() {
             {coreFeatures.map((feature, index) => (
               <motion.div
                 key={feature.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ y: 20 }}
+                whileInView={{ y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.3, delay: index * 0.05, ease: "easeOut" }}
                 whileHover={{ scale: 1.03, y: -3 }}

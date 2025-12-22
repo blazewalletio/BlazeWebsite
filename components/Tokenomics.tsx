@@ -154,8 +154,8 @@ export default function Tokenomics() {
             {tokenFeatures.map((feature, index) => (
               <motion.div
                 key={feature.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ y: 20 }}
+                whileInView={{ y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.3, delay: index * 0.05, ease: "easeOut" }}
                 className="card-glass p-6 text-center hover:bg-white/10 transition-all group"
@@ -181,35 +181,65 @@ export default function Tokenomics() {
         >
           <h3 className="text-2xl font-bold mb-6 text-center">Vesting schedule</h3>
           <div className="space-y-4">
-            <div className="flex items-center justify-between p-4 rounded-xl bg-white/5">
-              <div>
-                <div className="font-bold">Founder vesting</div>
-                <div className="text-sm text-gray-400">15% (150M tokens)</div>
+            <div className="p-4 rounded-xl bg-white/5">
+              <div className="flex items-center justify-between mb-3">
+                <div>
+                  <div className="font-bold">Founder vesting</div>
+                  <div className="text-sm text-gray-400">15% (150M tokens)</div>
+                </div>
+                <div className="text-right">
+                  <div className="text-orange-400 font-bold">6-month cliff</div>
+                  <div className="text-sm text-gray-400">Linear over 4 years</div>
+                </div>
               </div>
-              <div className="text-right">
-                <div className="text-orange-400 font-bold">6-month cliff</div>
-                <div className="text-sm text-gray-400">Linear over 4 years</div>
+              <div className="w-full bg-slate-800 rounded-full h-2 mb-2">
+                <div 
+                  className="bg-gradient-to-r from-orange-500 to-red-500 h-2 rounded-full transition-all duration-500"
+                  style={{ width: '25%' }}
+                  aria-label="25% vested"
+                />
               </div>
+              <div className="text-xs text-gray-500">Estimated progress: ~25% after 6 months</div>
             </div>
-            <div className="flex items-center justify-between p-4 rounded-xl bg-white/5">
-              <div>
-                <div className="font-bold">Team vesting</div>
-                <div className="text-sm text-gray-400">10% (100M tokens)</div>
+            <div className="p-4 rounded-xl bg-white/5">
+              <div className="flex items-center justify-between mb-3">
+                <div>
+                  <div className="font-bold">Team vesting</div>
+                  <div className="text-sm text-gray-400">10% (100M tokens)</div>
+                </div>
+                <div className="text-right">
+                  <div className="text-orange-400 font-bold">Linear unlock</div>
+                  <div className="text-sm text-gray-400">Over 3 years</div>
+                </div>
               </div>
-              <div className="text-right">
-                <div className="text-orange-400 font-bold">Linear unlock</div>
-                <div className="text-sm text-gray-400">Over 3 years</div>
+              <div className="w-full bg-slate-800 rounded-full h-2 mb-2">
+                <div 
+                  className="bg-gradient-to-r from-blue-500 to-cyan-500 h-2 rounded-full transition-all duration-500"
+                  style={{ width: '33%' }}
+                  aria-label="33% vested"
+                />
               </div>
+              <div className="text-xs text-gray-500">Estimated progress: ~33% after 1 year</div>
             </div>
-            <div className="flex items-center justify-between p-4 rounded-xl bg-white/5">
-              <div>
-                <div className="font-bold">Strategic vesting</div>
-                <div className="text-sm text-gray-400">5% (50M tokens)</div>
+            <div className="p-4 rounded-xl bg-white/5">
+              <div className="flex items-center justify-between mb-3">
+                <div>
+                  <div className="font-bold">Strategic vesting</div>
+                  <div className="text-sm text-gray-400">5% (50M tokens)</div>
+                </div>
+                <div className="text-right">
+                  <div className="text-orange-400 font-bold">Linear unlock</div>
+                  <div className="text-sm text-gray-400">Over 2 years</div>
+                </div>
               </div>
-              <div className="text-right">
-                <div className="text-orange-400 font-bold">Linear unlock</div>
-                <div className="text-sm text-gray-400">Over 2 years</div>
+              <div className="w-full bg-slate-800 rounded-full h-2 mb-2">
+                <div 
+                  className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full transition-all duration-500"
+                  style={{ width: '50%' }}
+                  aria-label="50% vested"
+                />
               </div>
+              <div className="text-xs text-gray-500">Estimated progress: ~50% after 1 year</div>
             </div>
           </div>
           

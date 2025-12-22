@@ -198,8 +198,8 @@ export default function Whitepaper() {
               return (
                 <motion.div
                   key={doc.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ y: 20 }}
+                  whileInView={{ y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.3, delay: index * 0.05, ease: "easeOut" }}
                   className="card-glass p-6 hover:bg-white/10 transition-all cursor-pointer group"

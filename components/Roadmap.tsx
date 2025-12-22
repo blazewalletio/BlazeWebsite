@@ -197,8 +197,8 @@ export default function Roadmap() {
               return (
                 <motion.div
                   key={member.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ y: 20 }}
+                  whileInView={{ y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="card-glass p-6 text-center hover:bg-white/10 transition-all"

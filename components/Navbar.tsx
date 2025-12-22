@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { Flame, Menu, X, Sparkles, Zap, Coins, FileText, Map, Rocket } from 'lucide-react';
+import { Flame, Menu, X, Sparkles, Zap, Coins, FileText, Map, Rocket, HelpCircle } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 export default function Navbar() {
@@ -13,6 +13,7 @@ export default function Navbar() {
     { label: 'Tokenomics', href: '#tokenomics', icon: Coins },
     { label: 'Whitepaper', href: '#whitepaper', icon: FileText },
     { label: 'Roadmap', href: '#roadmap', icon: Map },
+    { label: 'FAQ', href: '#faq', icon: HelpCircle },
   ];
 
   // Prevent body scroll when menu is open

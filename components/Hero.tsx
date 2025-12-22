@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Flame, ArrowRight } from 'lucide-react';
+import { Flame, ArrowRight, Brain, Shield, PieChart, Zap, MessageSquare } from 'lucide-react';
 
 export default function Hero() {
   return (
@@ -58,17 +58,18 @@ export default function Hero() {
           className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-12 max-w-4xl mx-auto px-4"
         >
           {[
-            '🤖 AI Transaction Assistant',
-            '🛡️ Smart Scam Detector',
-            '📊 AI Portfolio Advisor',
-            '⚡ Gas Optimizer',
-            '💬 Crypto Expert AI'
+            { icon: Brain, text: 'AI Transaction Assistant' },
+            { icon: Shield, text: 'Smart Scam Detector' },
+            { icon: PieChart, text: 'AI Portfolio Advisor' },
+            { icon: Zap, text: 'Gas Optimizer' },
+            { icon: MessageSquare, text: 'Crypto Expert AI' }
           ].map((feature, index) => (
             <span 
               key={index}
-              className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 text-xs sm:text-sm font-medium backdrop-blur-sm"
+              className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 text-xs sm:text-sm font-medium backdrop-blur-sm"
             >
-              {feature}
+              <feature.icon className="w-3 h-3 sm:w-4 sm:h-4" />
+              {feature.text}
             </span>
           ))}
         </motion.div>

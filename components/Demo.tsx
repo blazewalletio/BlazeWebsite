@@ -245,8 +245,8 @@ export default function Demo() {
                 ].map((feature, index) => (
                   <motion.div
                     key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ y: 20 }}
+                    whileInView={{ y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.25, delay: index * 0.05, ease: "easeOut" }}
                     className="flex items-start gap-4 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors"
@@ -265,7 +265,7 @@ export default function Demo() {
 
             {/* Interactive Elements */}
             <div className="space-y-4">
-              <h4 className="text-lg font-semibold text-white">Interactieve features:</h4>
+              <h4 className="text-lg font-semibold text-white">Interactive features:</h4>
               <div className="grid grid-cols-2 gap-3">
                 {[
                   'Quick Actions (Buy, Send, Receive, Swap)',
@@ -287,8 +287,8 @@ export default function Demo() {
 
             {/* CTA */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ y: 20 }}
+              whileInView={{ y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.6 }}
               className="pt-4"
