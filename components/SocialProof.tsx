@@ -128,10 +128,11 @@ export default function SocialProof() {
           transition={{ duration: 0.4, ease: "easeOut" }}
           className="text-center"
         >
-          <h3 className="text-2xl sm:text-3xl font-bold mb-8">
+          <h3 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 px-4">
             Trusted <span className="text-gradient">Partners</span>
           </h3>
-          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
+          {/* Mobile: Grid layout, Desktop: Flex layout */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap lg:justify-center gap-4 sm:gap-6 lg:gap-8 px-4">
             {partners.map((partner, index) => (
               <motion.div
                 key={index}
@@ -139,13 +140,13 @@ export default function SocialProof() {
                 whileInView={{ y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.3, delay: index * 0.1, ease: "easeOut" }}
-                className="card-glass px-6 py-4 hover:bg-white/10 transition-all"
+                className="card-glass px-5 py-4 sm:px-6 sm:py-4 hover:bg-white/10 transition-all w-full sm:w-auto"
               >
-                <div className="flex items-center gap-3">
-                  <Award className="w-6 h-6 text-orange-400" />
-                  <div className="text-left">
-                    <div className="font-bold text-white">{partner.name}</div>
-                    <div className="text-xs text-gray-400">{partner.type}</div>
+                <div className="flex items-center gap-3 sm:gap-3">
+                  <Award className="w-5 h-5 sm:w-6 sm:h-6 text-orange-400 flex-shrink-0" />
+                  <div className="text-left flex-1 min-w-0">
+                    <div className="font-bold text-white text-sm sm:text-base truncate">{partner.name}</div>
+                    <div className="text-xs text-gray-400 truncate">{partner.type}</div>
                   </div>
                 </div>
               </motion.div>
