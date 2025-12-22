@@ -28,8 +28,20 @@ export default function Navbar() {
   }, [isOpen]);
 
   const handleMenuToggle = () => {
+    console.log('🟡 Menu toggle clicked, current state:', isOpen);
     setIsOpen(!isOpen);
+    console.log('🟡 Menu toggle clicked, new state will be:', !isOpen);
   };
+
+  useEffect(() => {
+    console.log('🟢 isOpen state changed to:', isOpen);
+    if (isOpen) {
+      console.log('🟢 Menu is OPEN - rendering menu');
+      console.log('🟢 Links count:', links.length);
+    } else {
+      console.log('🔴 Menu is CLOSED');
+    }
+  }, [isOpen]);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-xl border-b border-white/10">
@@ -79,21 +91,29 @@ export default function Navbar() {
       </div>
 
       {/* Mobile menu - Full screen overlay with black background */}
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {isOpen && (
-          <>
-            {/* Full screen slide-in overlay */}
-            <motion.div
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ 
-                type: 'tween',
-                duration: 0.3,
-                ease: [0.4, 0, 0.2, 1]
-              }}
-              className="fixed inset-0 z-[60] md:hidden bg-black"
-            >
+          <motion.div
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
+            transition={{ 
+              type: 'tween',
+              duration: 0.3,
+              ease: [0.4, 0, 0.2, 1]
+            }}
+            className="fixed inset-0 z-[9999] md:hidden bg-black"
+            style={{ 
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              width: '100%',
+              height: '100%',
+              zIndex: 9999
+            }}
+          >
               <div className="h-full w-full flex flex-col">
                 {/* Header */}
                 <div className="flex items-center justify-between px-6 py-5 border-b border-white/10">
@@ -112,16 +132,26 @@ export default function Navbar() {
                 </div>
 
                 {/* Menu items */}
-                <div className="flex-1 overflow-y-auto px-6 py-8">
+                <div className="flex-1 overflow-y-auto px-6 py-8" style={{ minHeight: 0 }}>
                   <div className="space-y-4">
                     {links.map((link, index) => {
                       const IconComponent = link.icon;
+                      console.log(`🟢 Rendering menu item ${index}: ${link.label}`);
                       return (
                         <a
                           key={link.href || index}
                           href={link.href}
-                          onClick={() => setIsOpen(false)}
+                          onClick={() => {
+                            console.log('🟡 Menu item clicked:', link.label);
+                            setIsOpen(false);
+                          }}
                           className="flex items-center gap-4 px-6 py-5 rounded-xl hover:bg-white/5 transition-all group w-full"
+                          style={{
+                            display: 'flex',
+                            visibility: 'visible',
+                            opacity: 1,
+                            color: 'white'
+                          }}
                         >
                           <div className="w-14 h-14 rounded-xl bg-gradient-blaze/20 group-hover:bg-gradient-blaze flex items-center justify-center transition-all flex-shrink-0">
                             {IconComponent && <IconComponent className="w-7 h-7 text-white" />}
@@ -151,7 +181,6 @@ export default function Navbar() {
                 </div>
               </div>
             </motion.div>
-          </>
         )}
       </AnimatePresence>
     </nav>
