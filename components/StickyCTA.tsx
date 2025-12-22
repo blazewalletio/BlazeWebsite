@@ -7,22 +7,41 @@ import { useState, useEffect } from 'react';
 export default function StickyCTA() {
   const [isVisible, setIsVisible] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
-    // Show CTA after scrolling down 300px
+    // Check if mobile menu is open by checking body overflow
+    // The Navbar sets body.style.overflow = 'hidden' when menu is open
+    const checkMenuState = () => {
+      const bodyOverflow = document.body.style.overflow;
+      const isOpen = bodyOverflow === 'hidden';
+      setIsMenuOpen(isOpen);
+    };
+
+    // Show CTA after scrolling down 300px (only if menu is not open)
     const handleScroll = () => {
-      if (window.scrollY > 300 && !isDismissed) {
+      checkMenuState();
+      if (window.scrollY > 300 && !isDismissed && !isMenuOpen) {
         setIsVisible(true);
-      } else {
+      } else if (isMenuOpen) {
+        setIsVisible(false);
+      } else if (window.scrollY <= 300) {
         setIsVisible(false);
       }
     };
 
+    // Check menu state on scroll and periodically
+    const interval = setInterval(checkMenuState, 200);
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [isDismissed]);
+    checkMenuState(); // Initial check
+    
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [isDismissed, isMenuOpen]);
 
-  if (isDismissed) return null;
+  if (isDismissed || isMenuOpen) return null;
 
   return (
     <AnimatePresence>
@@ -32,7 +51,7 @@ export default function StickyCTA() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
           transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-          className="fixed bottom-0 left-0 right-0 z-50 md:hidden p-4 bg-slate-950/95 backdrop-blur-xl border-t border-white/10 shadow-2xl"
+          className="fixed bottom-0 left-0 right-0 z-40 md:hidden p-4 bg-slate-950/95 backdrop-blur-xl border-t border-white/10 shadow-2xl"
         >
           <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
             <div className="flex-1">
