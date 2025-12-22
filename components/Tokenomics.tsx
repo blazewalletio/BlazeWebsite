@@ -50,10 +50,26 @@ const CustomTooltip = ({ active, payload }: any) => {
   if (active && payload && payload.length) {
     const data = payload[0].payload;
     return (
-      <div className="bg-slate-900/95 backdrop-blur-xl border border-white/20 rounded-xl p-4 shadow-2xl">
-        <p className="text-white font-bold text-base mb-1">{data.name}</p>
-        <p className="text-orange-400 font-semibold text-lg">{data.value}%</p>
-        <p className="text-gray-400 text-sm mt-1">{data.description}</p>
+      <div className="relative z-50 bg-slate-900/98 backdrop-blur-2xl border-2 border-orange-500/50 rounded-2xl p-5 shadow-2xl min-w-[200px] transform -translate-y-2">
+        {/* Arrow pointing down */}
+        <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-slate-900/98 border-r-2 border-b-2 border-orange-500/50 rotate-45"></div>
+        
+        <div className="relative z-10">
+          <div className="flex items-center gap-2 mb-2">
+            <div 
+              className="w-4 h-4 rounded-full flex-shrink-0" 
+              style={{ backgroundColor: data.color }}
+            />
+            <p className="text-white font-bold text-base sm:text-lg">{data.name}</p>
+          </div>
+          <div className="flex items-baseline gap-2 mb-2">
+            <p className="text-orange-400 font-bold text-2xl sm:text-3xl">{data.value}%</p>
+            <p className="text-gray-300 text-sm">of total supply</p>
+          </div>
+          <div className="pt-2 border-t border-white/10">
+            <p className="text-gray-300 text-sm sm:text-base font-medium">{data.description}</p>
+          </div>
+        </div>
       </div>
     );
   }
@@ -202,7 +218,15 @@ export default function Tokenomics() {
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
-                <Tooltip content={<CustomTooltip />} />
+                <Tooltip 
+                  content={<CustomTooltip />}
+                  position={{ x: 'auto', y: 'auto' }}
+                  wrapperStyle={{ 
+                    zIndex: 50,
+                    pointerEvents: 'none',
+                  }}
+                  cursor={{ fill: 'transparent' }}
+                />
               </PieChart>
             </ResponsiveContainer>
             <CustomLegend payload={distributionData.map((entry, index) => ({
