@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Flame, ArrowRight, Brain, Shield, PieChart, Zap, MessageSquare } from 'lucide-react';
+import { Flame, ArrowRight, Brain, Shield, PieChart, Zap, MessageSquare, Sparkles, Link2, TrendingUp } from 'lucide-react';
 
 export default function Hero() {
   return (
@@ -83,25 +83,30 @@ export default function Hero() {
         >
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
             {[
-              { icon: '🤖', label: '5 AI Features', value: 'Revolutionary' },
-              { icon: '⛓️', label: '18 Chains', value: 'Universal' },
-              { icon: '📈', label: 'Up to 20% APY', value: 'Staking' },
-              { icon: '🛡️', label: '100% Secure', value: 'Non-custodial' },
-            ].map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                initial={{ scale: 0.9 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 0.3, delay: 0.2 + index * 0.05, ease: "easeOut" }}
-                whileHover={{ scale: 1.03, y: -3 }}
-                style={{ willChange: 'transform' }}
-                className="card-glass p-4 sm:p-6 text-center hover:bg-white/10 transition-all cursor-pointer"
-              >
-                <div className="text-3xl sm:text-4xl mb-2">{stat.icon}</div>
-                <div className="text-lg sm:text-xl font-bold text-gradient mb-1">{stat.value}</div>
-                <div className="text-xs sm:text-sm text-gray-400">{stat.label}</div>
-              </motion.div>
-            ))}
+              { icon: Sparkles, label: '5 AI Features', value: 'Revolutionary', color: 'from-purple-500 to-pink-500' },
+              { icon: Link2, label: '18 Chains', value: 'Universal', color: 'from-blue-500 to-cyan-500' },
+              { icon: TrendingUp, label: 'Up to 20% APY', value: 'Staking', color: 'from-green-500 to-emerald-500' },
+              { icon: Shield, label: '100% Secure', value: 'Non-custodial', color: 'from-orange-500 to-red-500' },
+            ].map((stat, index) => {
+              const IconComponent = stat.icon;
+              return (
+                <motion.div
+                  key={stat.label}
+                  initial={{ scale: 0.9 }}
+                  animate={{ scale: 1 }}
+                  transition={{ duration: 0.3, delay: 0.2 + index * 0.05, ease: "easeOut" }}
+                  whileHover={{ scale: 1.03, y: -3 }}
+                  style={{ willChange: 'transform' }}
+                  className="card-glass p-4 sm:p-6 text-center hover:bg-white/10 transition-all cursor-pointer"
+                >
+                  <div className={`w-12 h-12 sm:w-16 sm:h-16 rounded-xl bg-gradient-to-r ${stat.color} flex items-center justify-center mb-3 sm:mb-4 mx-auto`}>
+                    <IconComponent className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
+                  </div>
+                  <div className="text-lg sm:text-xl font-bold text-gradient mb-1">{stat.value}</div>
+                  <div className="text-xs sm:text-sm text-gray-400">{stat.label}</div>
+                </motion.div>
+              );
+            })}
           </div>
 
           {/* CTA Buttons */}
