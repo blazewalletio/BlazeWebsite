@@ -28,39 +28,8 @@ export default function Navbar() {
   }, [isOpen]);
 
   const handleMenuToggle = () => {
-    console.log('🟡 Menu toggle clicked, current state:', isOpen);
     setIsOpen(!isOpen);
-    console.log('🟡 Menu toggle clicked, new state will be:', !isOpen);
   };
-
-  useEffect(() => {
-    console.log('🟢 isOpen state changed to:', isOpen);
-    if (isOpen) {
-      console.log('🟢 Menu is OPEN - rendering menu');
-      console.log('🟢 Links count:', links.length);
-      
-      // Check DOM after a short delay
-      setTimeout(() => {
-        const menuElement = document.querySelector('[class*="fixed inset-0 z-[9999]"]') as HTMLElement;
-        if (menuElement) {
-          console.log('🟢 Menu element found in DOM after render');
-          const styles = window.getComputedStyle(menuElement);
-          console.log('🟢 Menu display:', styles.display);
-          console.log('🟢 Menu visibility:', styles.visibility);
-          console.log('🟢 Menu opacity:', styles.opacity);
-          console.log('🟢 Menu transform:', styles.transform);
-          console.log('🟢 Menu width:', menuElement.offsetWidth);
-          console.log('🟢 Menu height:', menuElement.offsetHeight);
-          console.log('🟢 Menu position:', styles.position);
-          console.log('🟢 Menu z-index:', styles.zIndex);
-        } else {
-          console.log('🔴 Menu element NOT found in DOM after render!');
-        }
-      }, 100);
-    } else {
-      console.log('🔴 Menu is CLOSED');
-    }
-  }, [isOpen]);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-xl border-b border-white/10">
@@ -133,21 +102,6 @@ export default function Navbar() {
               zIndex: 9999,
               willChange: 'transform'
             }}
-            onAnimationStart={() => {
-              console.log('🟢 Animation started');
-            }}
-            onAnimationComplete={() => {
-              console.log('🟢 Animation completed');
-              const menuElement = document.querySelector('[class*="fixed inset-0 z-[9999]"]') as HTMLElement;
-              if (menuElement) {
-                console.log('🟢 Menu element found in DOM:', menuElement);
-                console.log('🟢 Menu element styles:', window.getComputedStyle(menuElement));
-                console.log('🟢 Menu element transform:', window.getComputedStyle(menuElement).transform);
-                console.log('🟢 Menu element visible:', menuElement.offsetWidth > 0 && menuElement.offsetHeight > 0);
-              } else {
-                console.log('🔴 Menu element NOT found in DOM!');
-              }
-            }}
           >
               <div className="h-full w-full flex flex-col">
                 {/* Header */}
@@ -171,15 +125,11 @@ export default function Navbar() {
                   <div className="space-y-4">
                     {links.map((link, index) => {
                       const IconComponent = link.icon;
-                      console.log(`🟢 Rendering menu item ${index}: ${link.label}`);
                       return (
                         <a
                           key={link.href || index}
                           href={link.href}
-                          onClick={() => {
-                            console.log('🟡 Menu item clicked:', link.label);
-                            setIsOpen(false);
-                          }}
+                          onClick={() => setIsOpen(false)}
                           className="flex items-center gap-4 px-6 py-5 rounded-xl hover:bg-white/5 transition-all group w-full"
                           style={{
                             display: 'flex',
