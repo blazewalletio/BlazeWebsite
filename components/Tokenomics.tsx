@@ -220,7 +220,6 @@ export default function Tokenomics() {
                 </Pie>
                 <Tooltip 
                   content={<CustomTooltip />}
-                  position={{ x: 'auto', y: 'auto' }}
                   wrapperStyle={{ 
                     zIndex: 50,
                     pointerEvents: 'none',
