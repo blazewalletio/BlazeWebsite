@@ -38,6 +38,25 @@ export default function Navbar() {
     if (isOpen) {
       console.log('🟢 Menu is OPEN - rendering menu');
       console.log('🟢 Links count:', links.length);
+      
+      // Check DOM after a short delay
+      setTimeout(() => {
+        const menuElement = document.querySelector('[class*="fixed inset-0 z-[9999]"]') as HTMLElement;
+        if (menuElement) {
+          console.log('🟢 Menu element found in DOM after render');
+          const styles = window.getComputedStyle(menuElement);
+          console.log('🟢 Menu display:', styles.display);
+          console.log('🟢 Menu visibility:', styles.visibility);
+          console.log('🟢 Menu opacity:', styles.opacity);
+          console.log('🟢 Menu transform:', styles.transform);
+          console.log('🟢 Menu width:', menuElement.offsetWidth);
+          console.log('🟢 Menu height:', menuElement.offsetHeight);
+          console.log('🟢 Menu position:', styles.position);
+          console.log('🟢 Menu z-index:', styles.zIndex);
+        } else {
+          console.log('🔴 Menu element NOT found in DOM after render!');
+        }
+      }, 100);
     } else {
       console.log('🔴 Menu is CLOSED');
     }
@@ -91,7 +110,7 @@ export default function Navbar() {
       </div>
 
       {/* Mobile menu - Full screen overlay with black background */}
-      <AnimatePresence mode="wait">
+      <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ x: '100%' }}
@@ -109,9 +128,25 @@ export default function Navbar() {
               left: 0,
               right: 0,
               bottom: 0,
-              width: '100%',
-              height: '100%',
-              zIndex: 9999
+              width: '100vw',
+              height: '100vh',
+              zIndex: 9999,
+              willChange: 'transform'
+            }}
+            onAnimationStart={() => {
+              console.log('🟢 Animation started');
+            }}
+            onAnimationComplete={() => {
+              console.log('🟢 Animation completed');
+              const menuElement = document.querySelector('[class*="fixed inset-0 z-[9999]"]') as HTMLElement;
+              if (menuElement) {
+                console.log('🟢 Menu element found in DOM:', menuElement);
+                console.log('🟢 Menu element styles:', window.getComputedStyle(menuElement));
+                console.log('🟢 Menu element transform:', window.getComputedStyle(menuElement).transform);
+                console.log('🟢 Menu element visible:', menuElement.offsetWidth > 0 && menuElement.offsetHeight > 0);
+              } else {
+                console.log('🔴 Menu element NOT found in DOM!');
+              }
             }}
           >
               <div className="h-full w-full flex flex-col">
