@@ -5,7 +5,7 @@ import { CheckCircle2, Circle, Rocket, UserCircle, Code, Handshake } from 'lucid
 
 const roadmapPhases = [
   {
-    phase: 'Q4 2024',
+    phase: 'Q3 2025',
     title: 'Foundation',
     status: 'completed',
     items: [
@@ -17,7 +17,7 @@ const roadmapPhases = [
     ],
   },
   {
-    phase: 'Q1 2025',
+    phase: 'Q4 2025',
     title: 'AI Integration & Launch',
     status: 'completed',
     items: [
@@ -29,13 +29,12 @@ const roadmapPhases = [
       'Cashback & Referral system',
       'Token Swap (1inch aggregator)',
       'PWA support & Mobile-first design',
-      'Multi-language support (NL & EN)',
     ],
   },
   {
-    phase: 'Q2 2025',
+    phase: 'Q1 2026',
     title: 'Presale & Mainnet',
-    status: 'completed',
+    status: 'active',
     items: [
       'Public presale launch (BSC Testnet)',
       'Mainnet deployment (BSC)',
@@ -46,9 +45,9 @@ const roadmapPhases = [
     ],
   },
   {
-    phase: 'Q3 2025',
+    phase: 'Q2 2026',
     title: 'Exchange Listings',
-    status: 'completed',
+    status: 'upcoming',
     items: [
       'Gate.io listing',
       'MEXC listing',
@@ -58,9 +57,9 @@ const roadmapPhases = [
     ],
   },
   {
-    phase: 'Q4 2025',
+    phase: 'Q3 2026',
     title: 'Ecosystem Expansion',
-    status: 'active',
+    status: 'upcoming',
     items: [
       'Cross-chain bridges',
       'Fiat on/off ramps (MoonPay)',
@@ -70,7 +69,7 @@ const roadmapPhases = [
     ],
   },
   {
-    phase: 'Q1 2026',
+    phase: 'Q4 2026',
     title: 'Global Scale',
     status: 'upcoming',
     items: [
