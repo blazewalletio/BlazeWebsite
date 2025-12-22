@@ -16,8 +16,8 @@ export default function Hero() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
         {/* Logo/Badge */}
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ y: -20 }}
+          animate={{ y: 0 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-blaze text-white font-bold mb-8"
         >
@@ -27,8 +27,8 @@ export default function Hero() {
 
         {/* Main heading */}
         <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          animate={{ y: 0 }}
           transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }}
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 px-4"
         >
@@ -41,8 +41,8 @@ export default function Hero() {
 
         {/* Subtitle */}
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          animate={{ y: 0 }}
           transition={{ duration: 0.4, delay: 0.15, ease: "easeOut" }}
           className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto px-4"
         >
@@ -52,8 +52,8 @@ export default function Hero() {
 
         {/* AI Badge */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
+          initial={{ scale: 0.9 }}
+          animate={{ scale: 1 }}
           transition={{ duration: 0.4, delay: 0.2, ease: "easeOut" }}
           className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-12 max-w-4xl mx-auto px-4"
         >
@@ -75,8 +75,8 @@ export default function Hero() {
 
         {/* Key Features Showcase */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          animate={{ y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
           className="max-w-5xl mx-auto mb-8"
         >
@@ -89,8 +89,8 @@ export default function Hero() {
             ].map((stat, index) => (
               <motion.div
                 key={stat.label}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
+                initial={{ scale: 0.9 }}
+                animate={{ scale: 1 }}
                 transition={{ duration: 0.3, delay: 0.2 + index * 0.05, ease: "easeOut" }}
                 whileHover={{ scale: 1.03, y: -3 }}
                 style={{ willChange: 'transform' }}
@@ -125,8 +125,6 @@ export default function Hero() {
 
         {/* Trust indicators */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
           transition={{ duration: 0.4, delay: 0.3, ease: "easeOut" }}
           className="flex flex-wrap justify-center gap-4 sm:gap-8 text-xs sm:text-sm text-gray-400 px-4"
         >

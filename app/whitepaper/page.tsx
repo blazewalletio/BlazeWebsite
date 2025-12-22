@@ -36,8 +36,8 @@ export default function WhitepaperPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Title Page */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          animate={{ y: 0 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
           className="text-center mb-16"
         >
@@ -63,8 +63,8 @@ export default function WhitepaperPage() {
 
         {/* Table of Contents */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          animate={{ y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
           className="card-glass p-8 mb-16"
         >
@@ -94,8 +94,8 @@ export default function WhitepaperPage() {
 
         {/* Executive Summary */}
         <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          animate={{ y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
           className="mb-16"
         >
@@ -135,8 +135,8 @@ export default function WhitepaperPage() {
 
         {/* Problem Statement */}
         <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          animate={{ y: 0 }}
           transition={{ duration: 0.4, delay: 0.2, ease: "easeOut" }}
           className="mb-16"
         >
@@ -183,8 +183,8 @@ export default function WhitepaperPage() {
 
         {/* BLAZE Solution */}
         <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          animate={{ y: 0 }}
           transition={{ duration: 0.4, delay: 0.25, ease: "easeOut" }}
           className="mb-16"
         >
@@ -231,8 +231,8 @@ export default function WhitepaperPage() {
 
         {/* AI Features Overview */}
         <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          animate={{ y: 0 }}
           transition={{ duration: 0.4, delay: 0.3, ease: "easeOut" }}
           className="mb-16"
         >
@@ -414,8 +414,8 @@ export default function WhitepaperPage() {
 
         {/* Technology Stack */}
         <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          animate={{ y: 0 }}
           transition={{ duration: 0.5, delay: 0.6 }}
           className="mb-16"
         >
@@ -476,8 +476,8 @@ export default function WhitepaperPage() {
 
         {/* Smart Contract Architecture */}
         <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          animate={{ y: 0 }}
           transition={{ duration: 0.5, delay: 0.7 }}
           className="mb-16"
         >
@@ -542,8 +542,8 @@ export default function WhitepaperPage() {
 
         {/* Token Economics */}
         <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          animate={{ y: 0 }}
           transition={{ duration: 0.5, delay: 0.8 }}
           className="mb-16"
         >
@@ -632,8 +632,8 @@ export default function WhitepaperPage() {
 
         {/* Security & Audits */}
         <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          animate={{ y: 0 }}
           transition={{ duration: 0.5, delay: 0.9 }}
           className="mb-16"
         >
@@ -700,8 +700,8 @@ export default function WhitepaperPage() {
 
         {/* Roadmap & Milestones */}
         <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          animate={{ y: 0 }}
           transition={{ duration: 0.5, delay: 1.0 }}
           className="mb-16"
         >
@@ -813,8 +813,8 @@ export default function WhitepaperPage() {
 
         {/* Team & Governance */}
         <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          animate={{ y: 0 }}
           transition={{ duration: 0.5, delay: 1.1 }}
           className="mb-16"
         >
@@ -882,8 +882,8 @@ export default function WhitepaperPage() {
 
         {/* Legal & Compliance */}
         <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          animate={{ y: 0 }}
           transition={{ duration: 0.5, delay: 1.2 }}
           className="mb-16"
         >
@@ -920,8 +920,8 @@ export default function WhitepaperPage() {
 
         {/* Conclusion */}
         <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          animate={{ y: 0 }}
           transition={{ duration: 0.5, delay: 1.3 }}
           className="mb-16"
         >
@@ -961,8 +961,6 @@ export default function WhitepaperPage() {
 
         {/* Footer */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 1.4 }}
           className="text-center py-8 border-t border-slate-800"
         >

@@ -16,8 +16,8 @@ export default function Demo() {
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4, ease: "easeOut" }}
           className="text-center mb-12"
@@ -33,8 +33,8 @@ export default function Demo() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left: Demo Screenshots */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ x: -50 }}
+            whileInView={{ x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: 0.15, ease: "easeOut" }}
             className="relative"
@@ -73,8 +73,8 @@ export default function Demo() {
             {/* Desktop Frame */}
             {!isMobile && (
               <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
+                initial={{ scale: 0.9 }}
+                animate={{ scale: 1 }}
                 transition={{ duration: 0.25, ease: "easeOut" }}
                 className="relative"
               >
@@ -131,8 +131,8 @@ export default function Demo() {
             {/* Mobile Frame */}
             {isMobile && (
               <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
+                initial={{ scale: 0.9 }}
+                animate={{ scale: 1 }}
                 transition={{ duration: 0.25, ease: "easeOut" }}
                 className="relative mx-auto"
                 style={{ width: '320px' }}
@@ -203,8 +203,8 @@ export default function Demo() {
 
           {/* Right: Content */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ x: 50 }}
+            whileInView={{ x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: 0.25, ease: "easeOut" }}
             className="space-y-8"
@@ -309,8 +309,8 @@ export default function Demo() {
 
         {/* Quick stats below */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4, delay: 0.35, ease: "easeOut" }}
           className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mt-12 sm:mt-16 px-4"
