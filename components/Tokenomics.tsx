@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
-import { TrendingUp, Users, Lock, Coins, Flame } from 'lucide-react';
+import { TrendingUp, Users, Lock, Coins, Flame, Award, Crown, Star, Sparkles } from 'lucide-react';
 
 const distributionData = [
   { name: 'Public Sale', value: 15, color: '#f97316' },
@@ -244,35 +244,88 @@ export default function Tokenomics() {
           </div>
           
           {/* Fee Discount Tiers */}
-          <div className="mt-12 card-glass p-8 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border-purple-500/30">
-            <h3 className="text-2xl font-bold mb-6 text-center">Fee Discount Tiers</h3>
-            <p className="text-center text-gray-400 mb-8">Stake more BLAZE for higher fee discounts on all transactions</p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
-              <div className="bg-white/5 p-4 sm:p-6 rounded-xl text-center">
-                <div className="text-2xl sm:text-3xl font-bold text-gradient mb-2">10%</div>
-                <div className="text-xs sm:text-sm text-gray-400 mb-2">Discount</div>
-                <div className="text-white font-bold text-sm sm:text-base">1,000 - 9,999</div>
-                <div className="text-xs sm:text-sm text-gray-400">BLAZE staked</div>
+          <div className="mt-12 card-glass p-4 sm:p-6 lg:p-8 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border-purple-500/30">
+            <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-6 text-center">Fee Discount Tiers</h3>
+            <p className="text-center text-gray-400 mb-6 sm:mb-8 text-sm sm:text-base px-2">Stake more BLAZE for higher fee discounts on all transactions</p>
+            
+            {/* Mobile: Single column, Desktop: Grid */}
+            <div className="space-y-4 sm:space-y-0 sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:gap-4">
+              {/* Tier 1: 10% */}
+              <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 p-5 sm:p-6 rounded-2xl border border-white/10 hover:border-purple-500/30 transition-all group">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-r from-gray-500 to-gray-600 flex items-center justify-center">
+                    <Sparkles className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
+                  </div>
+                  <div className="text-right">
+                    <div className="text-3xl sm:text-4xl font-bold text-gradient">10%</div>
+                    <div className="text-xs text-gray-400">Discount</div>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <div className="text-white font-bold text-base sm:text-lg">1,000 - 9,999</div>
+                  <div className="text-xs sm:text-sm text-gray-400">BLAZE staked</div>
+                </div>
               </div>
-              <div className="bg-white/5 p-4 sm:p-6 rounded-xl text-center border-2 border-blue-500/30">
-                <div className="text-2xl sm:text-3xl font-bold text-gradient mb-2">25%</div>
-                <div className="text-xs sm:text-sm text-gray-400 mb-2">Discount</div>
-                <div className="text-white font-bold text-sm sm:text-base">10,000 - 49,999</div>
-                <div className="text-xs sm:text-sm text-gray-400">BLAZE staked</div>
-                <div className="text-xs text-blue-400 mt-2">+ Premium Status</div>
+
+              {/* Tier 2: 25% - Premium */}
+              <div className="bg-gradient-to-br from-blue-500/20 to-cyan-500/20 p-5 sm:p-6 rounded-2xl border-2 border-blue-500/40 hover:border-blue-500/60 transition-all group relative overflow-hidden">
+                <div className="absolute top-2 right-2">
+                  <div className="px-2 py-1 rounded-full bg-blue-500/30 border border-blue-500/50">
+                    <span className="text-[10px] font-bold text-blue-300">PREMIUM</span>
+                  </div>
+                </div>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center">
+                    <Star className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
+                  </div>
+                  <div className="text-right">
+                    <div className="text-3xl sm:text-4xl font-bold text-gradient">25%</div>
+                    <div className="text-xs text-gray-400">Discount</div>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <div className="text-white font-bold text-base sm:text-lg">10,000 - 49,999</div>
+                  <div className="text-xs sm:text-sm text-gray-400">BLAZE staked</div>
+                </div>
               </div>
-              <div className="bg-white/5 p-4 sm:p-6 rounded-xl text-center border-2 border-purple-500/30">
-                <div className="text-2xl sm:text-3xl font-bold text-gradient mb-2">50%</div>
-                <div className="text-xs sm:text-sm text-gray-400 mb-2">Discount</div>
-                <div className="text-white font-bold text-sm sm:text-base">50,000 - 99,999</div>
-                <div className="text-xs sm:text-sm text-gray-400">BLAZE staked</div>
+
+              {/* Tier 3: 50% */}
+              <div className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 p-5 sm:p-6 rounded-2xl border-2 border-purple-500/40 hover:border-purple-500/60 transition-all group">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">
+                    <Award className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
+                  </div>
+                  <div className="text-right">
+                    <div className="text-3xl sm:text-4xl font-bold text-gradient">50%</div>
+                    <div className="text-xs text-gray-400">Discount</div>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <div className="text-white font-bold text-base sm:text-lg">50,000 - 99,999</div>
+                  <div className="text-xs sm:text-sm text-gray-400">BLAZE staked</div>
+                </div>
               </div>
-              <div className="bg-white/5 p-4 sm:p-6 rounded-xl text-center border-2 border-orange-500/30">
-                <div className="text-2xl sm:text-3xl font-bold text-gradient mb-2">75%</div>
-                <div className="text-xs sm:text-sm text-gray-400 mb-2">Discount</div>
-                <div className="text-white font-bold text-sm sm:text-base">100,000+</div>
-                <div className="text-xs sm:text-sm text-gray-400">BLAZE staked</div>
-                <div className="text-xs text-orange-400 mt-2">VIP Status</div>
+
+              {/* Tier 4: 75% - VIP */}
+              <div className="bg-gradient-to-br from-orange-500/20 to-red-500/20 p-5 sm:p-6 rounded-2xl border-2 border-orange-500/40 hover:border-orange-500/60 transition-all group relative overflow-hidden">
+                <div className="absolute top-2 right-2">
+                  <div className="px-2 py-1 rounded-full bg-orange-500/30 border border-orange-500/50">
+                    <span className="text-[10px] font-bold text-orange-300">VIP</span>
+                  </div>
+                </div>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 flex items-center justify-center">
+                    <Crown className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
+                  </div>
+                  <div className="text-right">
+                    <div className="text-3xl sm:text-4xl font-bold text-gradient">75%</div>
+                    <div className="text-xs text-gray-400">Discount</div>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <div className="text-white font-bold text-base sm:text-lg">100,000+</div>
+                  <div className="text-xs sm:text-sm text-gray-400">BLAZE staked</div>
+                </div>
               </div>
             </div>
           </div>
