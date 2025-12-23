@@ -1,0 +1,25 @@
+# BLAZE Wallet - robots.txt
+# https://www.blazewallet.io
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://www.blazewallet.io/sitemap.xml
+
+# Crawl-delay (optional, respectful crawling)
+Crawl-delay: 1
+
+# Disallow admin/api routes if any
+Disallow: /api/
+Disallow: /_next/
+Disallow: /static/
+
+# Allow all important pages
+Allow: /whitepaper
+Allow: /documentation
+Allow: /support
+Allow: /privacy
+Allow: /terms
+Allow: /cookies
+
