@@ -1,20 +1,40 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { Flame, Menu, X, Sparkles, Zap, Coins, FileText, Map, Rocket, HelpCircle } from 'lucide-react';
+import { Menu, X, ArrowRight, Zap, BookOpen, MessageCircle, Twitter, Send, ChevronRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  
+  // Check if we're on a page with a dark hero (only homepage)
+  const hasDarkHero = pathname === '/';
 
-  const links = [
-    { label: 'Features', href: '#features', icon: Sparkles },
-    { label: 'Demo', href: '#demo', icon: Zap },
-    { label: 'Tokenomics', href: '#tokenomics', icon: Coins },
-    { label: 'Whitepaper', href: '#whitepaper', icon: FileText },
-    { label: 'Roadmap', href: '#roadmap', icon: Map },
-    { label: 'FAQ', href: '#faq', icon: HelpCircle },
+  const mainLinks = [
+    { label: 'Features', href: '/#features', icon: Zap },
+    { label: 'How it works', href: '/#demo', icon: null },
+    { label: 'Tokenomics', href: '/#tokenomics', icon: null },
+    { label: 'FAQ', href: '/#faq', icon: null },
   ];
+
+  const secondaryLinks = [
+    { label: 'Whitepaper', href: '/whitepaper', icon: BookOpen },
+    { label: 'Support', href: '/support', icon: MessageCircle },
+  ];
+
+  // Track scroll for navbar background
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Prevent body scroll when menu is open
   useEffect(() => {
@@ -28,29 +48,40 @@ export default function Navbar() {
     };
   }, [isOpen]);
 
-  const handleMenuToggle = () => {
-    setIsOpen(!isOpen);
-  };
+  // Use light theme (dark text) when scrolled OR when not on homepage
+  const useLightTheme = scrolled || !hasDarkHero;
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-xl border-b border-white/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      useLightTheme 
+        ? 'bg-white/95 backdrop-blur-xl border-b border-gray-200 shadow-soft' 
+        : 'bg-transparent'
+    }`}>
+      <div className="container-main">
+        <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <a href="/" className="flex items-center gap-2 font-bold text-xl">
-            <div className="w-8 h-8 rounded-lg bg-gradient-blaze flex items-center justify-center">
-              <Flame className="w-5 h-5 text-white" />
-            </div>
-            <span>BLAZE</span>
+            <Image 
+              src="/blaze-logo.png" 
+              alt="BLAZE" 
+              width={36} 
+              height={36} 
+              className="rounded-lg"
+            />
+            <span className={useLightTheme ? 'text-gray-900' : 'text-white'}>BLAZE</span>
           </a>
 
           {/* Desktop menu */}
           <div className="hidden md:flex items-center gap-8">
-            {links.map((link) => (
+            {mainLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="text-gray-300 hover:text-orange-400 transition-colors"
+                className={`font-medium transition-colors ${
+                  useLightTheme 
+                    ? 'text-gray-600 hover:text-gray-900' 
+                    : 'text-gray-300 hover:text-white'
+                }`}
               >
                 {link.label}
               </a>
@@ -63,115 +94,180 @@ export default function Navbar() {
               href="https://my.blazewallet.io"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-2 bg-gradient-blaze rounded-lg font-bold hover:scale-105 transition-transform"
+              className="btn-brand flex items-center gap-2"
             >
               Launch app
+              <ArrowRight className="w-4 h-4" />
             </a>
           </div>
 
           {/* Mobile menu button */}
           <button
-            onClick={handleMenuToggle}
-            className="md:hidden w-10 h-10 flex items-center justify-center"
+            onClick={() => setIsOpen(!isOpen)}
+            className={`md:hidden w-10 h-10 flex items-center justify-center rounded-xl transition-all ${
+              isOpen
+                ? 'bg-orange-500 text-white'
+                : useLightTheme 
+                  ? 'hover:bg-gray-100 text-gray-900' 
+                  : 'hover:bg-white/10 text-white'
+            }`}
+            aria-label="Toggle menu"
           >
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isOpen ? (
+              <X className="w-5 h-5" />
+            ) : (
+              <Menu className="w-5 h-5" />
+            )}
           </button>
         </div>
       </div>
 
-      {/* Mobile menu - Full screen overlay with black background */}
+      {/* Mobile menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{ 
-              type: 'tween',
-              duration: 0.3,
-              ease: [0.4, 0, 0.2, 1]
-            }}
-            className="fixed inset-0 z-[9999] md:hidden bg-black"
-            style={{ 
-              position: 'fixed',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              width: '100vw',
-              height: '100vh',
-              zIndex: 9999,
-              willChange: 'transform'
-            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 top-16 md:hidden z-50 overflow-hidden"
           >
-              <div className="h-full w-full flex flex-col">
-                {/* Header */}
-                <div className="flex items-center justify-between px-6 py-5 border-b border-white/10">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-blaze flex items-center justify-center">
-                      <Flame className="w-6 h-6 text-white" />
-                    </div>
-                    <span className="text-xl font-bold text-white">BLAZE</span>
+            {/* Background with gradient */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="absolute inset-0 bg-gradient-to-b from-white via-white to-orange-50"
+            />
+            
+            {/* Decorative blur */}
+            <div className="absolute top-20 right-0 w-64 h-64 bg-orange-400/20 rounded-full blur-3xl" />
+            <div className="absolute bottom-32 left-0 w-48 h-48 bg-yellow-400/20 rounded-full blur-3xl" />
+
+            {/* Content */}
+            <div className="relative flex flex-col h-full">
+              {/* Logo section */}
+              <motion.div 
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="px-6 py-6 border-b border-gray-100"
+              >
+                <div className="flex items-center gap-3">
+                  <Image 
+                    src="/blaze-logo.png" 
+                    alt="BLAZE" 
+                    width={48} 
+                    height={48} 
+                    className="rounded-xl"
+                  />
+                  <div>
+                    <div className="font-bold text-gray-900 text-lg">BLAZE Wallet</div>
+                    <div className="text-sm text-orange-500">Crypto for everyday life</div>
                   </div>
-                  <button
-                    onClick={() => setIsOpen(false)}
-                    className="w-10 h-10 rounded-lg hover:bg-white/10 flex items-center justify-center transition-colors"
-                  >
-                    <X className="w-6 h-6 text-white" />
-                  </button>
+                </div>
+              </motion.div>
+
+              {/* Main menu items */}
+              <div className="flex-1 px-4 py-4 overflow-y-auto">
+                <div className="space-y-1">
+                  {mainLinks.map((link, index) => (
+                    <motion.a
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setIsOpen(false)}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.15 + index * 0.05 }}
+                      className="flex items-center justify-between px-4 py-4 text-lg font-medium text-gray-900 rounded-2xl hover:bg-white active:bg-orange-50 transition-colors group"
+                    >
+                      <span>{link.label}</span>
+                      <ChevronRight className="w-5 h-5 text-gray-300 group-hover:text-orange-500 group-hover:translate-x-1 transition-all" />
+                    </motion.a>
+                  ))}
                 </div>
 
-                {/* Menu items */}
-                <div className="flex-1 overflow-y-auto px-6 py-8" style={{ minHeight: 0 }}>
-                  <div className="space-y-4">
-                    {links.map((link, index) => {
-                      const IconComponent = link.icon;
-                      return (
-                        <a
-                          key={link.href || index}
-                          href={link.href}
-                          onClick={() => setIsOpen(false)}
-                          className="flex items-center gap-4 px-6 py-5 rounded-xl hover:bg-white/5 transition-all group w-full"
-                          style={{
-                            display: 'flex',
-                            visibility: 'visible',
-                            opacity: 1,
-                            color: 'white'
-                          }}
-                        >
-                          <div className="w-14 h-14 rounded-xl bg-gradient-blaze/20 group-hover:bg-gradient-blaze flex items-center justify-center transition-all flex-shrink-0">
-                            {IconComponent && <IconComponent className="w-7 h-7 text-white" />}
-                          </div>
-                          <span className="text-xl font-semibold text-white group-hover:text-orange-400 transition-colors flex-1">
-                            {link.label}
-                          </span>
-                          <Rocket className="w-5 h-5 text-gray-500 group-hover:text-orange-400 transition-colors flex-shrink-0" />
-                        </a>
-                      );
-                    })}
-                  </div>
+                {/* Divider */}
+                <motion.div 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.4 }}
+                  className="my-4 border-t border-gray-100"
+                />
+
+                {/* Secondary links */}
+                <div className="space-y-1">
+                  {secondaryLinks.map((link, index) => (
+                    <motion.div
+                      key={link.href}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.45 + index * 0.05 }}
+                    >
+                      <Link
+                        href={link.href}
+                        onClick={() => setIsOpen(false)}
+                        className="flex items-center gap-3 px-4 py-3 text-gray-600 rounded-2xl hover:bg-white hover:text-gray-900 active:bg-orange-50 transition-colors"
+                      >
+                        <div className="w-9 h-9 bg-gray-100 rounded-xl flex items-center justify-center">
+                          <link.icon className="w-4 h-4 text-gray-500" />
+                        </div>
+                        <span className="font-medium">{link.label}</span>
+                      </Link>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Bottom section */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                className="px-4 py-4 bg-white/80 backdrop-blur-sm border-t border-gray-100"
+              >
+                {/* Social links */}
+                <div className="flex justify-center gap-3 mb-4">
+                  <a
+                    href="https://twitter.com/blazewallet_io"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-11 h-11 rounded-xl bg-gray-100 hover:bg-orange-100 flex items-center justify-center transition-colors"
+                  >
+                    <Twitter className="w-5 h-5 text-gray-600" />
+                  </a>
+                  <a
+                    href="https://t.me/blazewallet_io"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-11 h-11 rounded-xl bg-gray-100 hover:bg-orange-100 flex items-center justify-center transition-colors"
+                  >
+                    <Send className="w-5 h-5 text-gray-600" />
+                  </a>
                 </div>
 
                 {/* CTA Button */}
-                <div className="px-6 py-6 border-t border-white/10">
-                  <a
-                    href="https://my.blazewallet.io"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => setIsOpen(false)}
-                    className="block w-full px-6 py-4 bg-gradient-blaze rounded-xl font-bold text-lg text-center glow-orange shadow-lg flex items-center justify-center gap-2 text-white hover:scale-105 transition-transform"
-                  >
-                    <Rocket className="w-5 h-5" />
-                    Launch Wallet
-                  </a>
-                </div>
-              </div>
-            </motion.div>
+                <a
+                  href="https://my.blazewallet.io"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsOpen(false)}
+                  className="w-full flex items-center justify-center gap-2 py-4 text-lg font-semibold text-white rounded-2xl transition-all active:scale-[0.98]"
+                  style={{
+                    background: 'linear-gradient(135deg, #f97316 0%, #fb923c 50%, #fbbf24 100%)',
+                    boxShadow: '0 4px 20px rgba(249, 115, 22, 0.3)'
+                  }}
+                >
+                  <span>Launch app</span>
+                  <ArrowRight className="w-5 h-5" />
+                </a>
+
+                {/* Safe area padding */}
+                <div className="h-safe-area-pb" />
+              </motion.div>
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </nav>
   );
 }
-
-
-

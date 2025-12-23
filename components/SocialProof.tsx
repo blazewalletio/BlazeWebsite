@@ -1,160 +1,164 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Users, TrendingUp, Shield, Zap, Star, Award } from 'lucide-react';
+import { Shield, Wallet, Cpu, TrendingUp, ExternalLink } from 'lucide-react';
+import Image from 'next/image';
 
 const stats = [
-  { icon: Users, value: '10,000+', label: 'Active Users', color: 'from-blue-500 to-cyan-500' },
-  { icon: TrendingUp, value: '$2.5M+', label: 'Market Cap', color: 'from-green-500 to-emerald-500' },
-  { icon: Shield, value: '100%', label: 'Non-Custodial', color: 'from-purple-500 to-pink-500' },
-  { icon: Zap, value: '18', label: 'Blockchains', color: 'from-orange-500 to-red-500' },
-];
-
-const testimonials = [
-  {
-    name: 'Alex M.',
-    role: 'DeFi Enthusiast',
-    content: 'The AI Transaction Assistant is a game-changer. I can finally use crypto without feeling overwhelmed.',
-    rating: 5,
+  { 
+    icon: Wallet, 
+    value: '18', 
+    label: 'Blockchains', 
+    description: 'Multi-chain support',
   },
-  {
-    name: 'Sarah K.',
-    role: 'Crypto Trader',
-    content: 'Best wallet I\'ve used. The scam detector saved me from a phishing attack. Staking rewards are amazing too!',
-    rating: 5,
+  { 
+    icon: Cpu, 
+    value: '5', 
+    label: 'AI features', 
+    description: 'Smart assistance',
   },
-  {
-    name: 'Mike R.',
-    role: 'NFT Collector',
-    content: 'Love the NFT marketplace and wallet skins. The 20% APY staking is incredible. Highly recommend!',
-    rating: 5,
+  { 
+    icon: TrendingUp, 
+    value: '20%', 
+    label: 'Max APY', 
+    description: 'Staking rewards',
+  },
+  { 
+    icon: Shield, 
+    value: '100%', 
+    label: 'Non-custodial', 
+    description: 'Your keys, your crypto',
   },
 ];
 
 const partners = [
-  { name: 'CertiK', type: 'Security Audit' },
-  { name: 'PancakeSwap', type: 'DEX Partner' },
-  { name: '1inch', type: 'DEX Aggregator' },
-  { name: 'MoonPay', type: 'Fiat On-Ramp' },
+  { 
+    name: 'CertiK', 
+    description: 'Security audit (Q1 2026)',
+    logo: '/partners/certik.png',
+    height: 40,
+    invert: false,
+  },
+  { 
+    name: 'Li.Fi', 
+    description: 'Token swaps',
+    logo: '/partners/lifi.png',
+    height: 24,
+    invert: true,
+  },
+  { 
+    name: 'Onramper', 
+    description: 'Fiat on/off ramp',
+    logo: '/partners/onramper.svg',
+    height: 28,
+    invert: false,
+  },
 ];
 
 export default function SocialProof() {
   return (
-    <section id="social-proof" className="relative py-20 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
-      
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Stats Section */}
+    <section className="py-20 lg:py-28 bg-gray-50">
+      <div className="container-main">
+        {/* Header */}
         <motion.div
-          initial={{ y: 20 }}
-          whileInView={{ y: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          className="text-center mb-16"
+          transition={{ duration: 0.5 }}
+          className="text-center mb-12"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 px-4">
-            Trusted by <span className="text-gradient">thousands</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-100 text-emerald-700 font-medium text-sm mb-6">
+            <Shield className="w-4 h-4" />
+            Security first
+          </div>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+            Built for <span className="text-gradient-brand">security</span>
           </h2>
-          <p className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto px-4">
-            Join the growing community of BLAZE users
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Your security is our top priority. Non-custodial means you're always in control.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-20">
-          {stats.map((stat, index) => {
-            const IconComponent = stat.icon;
-            return (
-              <motion.div
-                key={stat.label}
-                initial={{ y: 20 }}
-                whileInView={{ y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: index * 0.1, ease: "easeOut" }}
-                className="card-glass p-6 text-center hover:bg-white/10 transition-all"
-              >
-                <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${stat.color} flex items-center justify-center mb-4 mx-auto`}>
-                  <IconComponent className="w-6 h-6 text-white" />
-                </div>
-                <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-gradient mb-2">
-                  {stat.value}
-                </div>
-                <div className="text-sm text-gray-400">{stat.label}</div>
-              </motion.div>
-            );
-          })}
+        {/* Stats */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-12">
+          {stats.map((stat, index) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="card p-6 text-center"
+            >
+              <div className="icon-box mx-auto mb-4 bg-gray-100">
+                <stat.icon className="w-6 h-6 text-gray-600" />
+              </div>
+              <div className="text-3xl md:text-4xl font-bold text-gray-900 mb-1">
+                {stat.value}
+              </div>
+              <div className="font-medium text-gray-900 mb-1">{stat.label}</div>
+              <div className="text-sm text-gray-500">{stat.description}</div>
+            </motion.div>
+          ))}
         </div>
 
-        {/* Testimonials Section */}
+        {/* Partners */}
         <motion.div
-          initial={{ y: 20 }}
-          whileInView={{ y: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          className="mb-16"
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="card p-8"
         >
-          <h3 className="text-2xl sm:text-3xl font-bold text-center mb-12">
-            What our <span className="text-gradient">users say</span>
+          <h3 className="text-xl font-bold text-gray-900 text-center mb-8">
+            Trusted partners & integrations
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {testimonials.map((testimonial, index) => (
-              <motion.div
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            {partners.map((partner, index) => (
+              <motion.div 
                 key={index}
-                initial={{ y: 20 }}
-                whileInView={{ y: 0 }}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: index * 0.1, ease: "easeOut" }}
-                className="card-glass p-6 hover:bg-white/10 transition-all"
+                transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
+                className="flex flex-col items-center p-6 rounded-2xl bg-gray-50 hover:bg-gray-100 transition-colors"
               >
-                <div className="flex items-center gap-1 mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                  ))}
+                {/* Logo container */}
+                <div className="w-full h-16 bg-white rounded-xl flex items-center justify-center mb-4 px-4">
+                  <Image
+                    src={partner.logo}
+                    alt={`${partner.name} logo`}
+                    width={120}
+                    height={partner.height}
+                    className={`object-contain ${partner.invert ? 'invert' : ''}`}
+                    style={{ height: partner.height, width: 'auto', maxWidth: '100%' }}
+                  />
                 </div>
-                <p className="text-gray-300 mb-4 italic">"{testimonial.content}"</p>
-                <div>
-                  <div className="font-bold text-white">{testimonial.name}</div>
-                  <div className="text-sm text-gray-400">{testimonial.role}</div>
-                </div>
+                <div className="font-bold text-gray-900 text-lg">{partner.name}</div>
+                <div className="text-sm text-gray-500">{partner.description}</div>
               </motion.div>
             ))}
           </div>
         </motion.div>
 
-        {/* Partners Section */}
+        {/* CTA */}
         <motion.div
-          initial={{ y: 20 }}
-          whileInView={{ y: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          className="text-center"
+          transition={{ duration: 0.5, delay: 0.5 }}
+          className="mt-12 text-center"
         >
-          <h3 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 px-4">
-            Trusted <span className="text-gradient">Partners</span>
-          </h3>
-          {/* Mobile: Grid layout, Desktop: Flex layout */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap lg:justify-center gap-4 sm:gap-6 lg:gap-8 px-4">
-            {partners.map((partner, index) => (
-              <motion.div
-                key={index}
-                initial={{ y: 20 }}
-                whileInView={{ y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: index * 0.1, ease: "easeOut" }}
-                className="card-glass px-5 py-4 sm:px-6 sm:py-4 hover:bg-white/10 transition-all w-full sm:w-auto"
-              >
-                <div className="flex items-center gap-3 sm:gap-3">
-                  <Award className="w-5 h-5 sm:w-6 sm:h-6 text-orange-400 flex-shrink-0" />
-                  <div className="text-left flex-1 min-w-0">
-                    <div className="font-bold text-white text-sm sm:text-base truncate">{partner.name}</div>
-                    <div className="text-xs text-gray-400 truncate">{partner.type}</div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          <p className="text-gray-600 mb-4">Want to learn more about our security?</p>
+          <a
+            href="/whitepaper"
+            className="inline-flex items-center gap-2 text-sky-600 font-medium hover:text-sky-700 transition-colors"
+          >
+            Read our whitepaper
+            <ExternalLink className="w-4 h-4" />
+          </a>
         </motion.div>
       </div>
     </section>
   );
 }
-

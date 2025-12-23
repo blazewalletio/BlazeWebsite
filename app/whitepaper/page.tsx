@@ -1,975 +1,1120 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowLeft, Download, Share2, BookOpen, Brain, Shield, Zap, Users, Coins, Rocket, Globe, Lock, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, Download, BookOpen, Brain, Shield, Zap, Users, Coins, Rocket, Globe, Lock, CheckCircle, QrCode, TrendingDown, Coffee, ShoppingCart, Target, BarChart3, Layers, Wallet, ArrowUpRight, Building, PieChart, Clock, Award, Smartphone, CreditCard, TrendingUp, DollarSign, Server, Database, Network, Cpu } from 'lucide-react';
 import Link from 'next/link';
+import Navbar from '@/components/Navbar';
 
 export default function WhitepaperPage() {
+  const sections = [
+    { id: 'summary', title: 'Executive summary', icon: BookOpen },
+    { id: 'market', title: 'Market analysis', icon: BarChart3 },
+    { id: 'problem', title: 'The problem', icon: TrendingDown },
+    { id: 'solution', title: 'Our solution', icon: Target },
+    { id: 'quickpay', title: 'QuickPay', icon: QrCode },
+    { id: 'features', title: 'Features', icon: Brain },
+    { id: 'architecture', title: 'Architecture', icon: Layers },
+    { id: 'tokenomics', title: 'Tokenomics', icon: Coins },
+    { id: 'security', title: 'Security', icon: Shield },
+    { id: 'roadmap', title: 'Roadmap', icon: Rocket },
+    { id: 'team', title: 'Team', icon: Users },
+  ];
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
-      {/* Header */}
-      <div className="sticky top-0 z-50 bg-slate-950/80 backdrop-blur-lg border-b border-slate-800">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
+    <div className="min-h-screen bg-gray-50">
+      <Navbar />
+      
+      {/* Hero */}
+      <section className="pt-32 pb-16 bg-white border-b border-gray-200">
+        <div className="container-main">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="max-w-3xl"
+          >
             <Link 
               href="/" 
-              className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
+              className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-900 mb-6 transition-colors"
             >
-              <ArrowLeft className="w-5 h-5" />
-              <span>Back to website</span>
+              <ArrowLeft className="w-4 h-4" />
+              Back to home
             </Link>
-            <div className="flex items-center gap-4">
-              <button className="flex items-center gap-2 px-4 py-2 bg-gradient-blaze rounded-lg font-medium hover:scale-105 transition-transform">
-                <Download className="w-4 h-4" />
+            
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-2xl flex items-center justify-center">
+                <BookOpen className="w-8 h-8 text-white" />
+              </div>
+              <div>
+                <h1 className="text-4xl md:text-5xl font-bold text-gray-900">
+                  Whitepaper
+                </h1>
+                <p className="text-gray-500">Version 2.1 • December 2025</p>
+              </div>
+            </div>
+            
+            <p className="text-xl text-gray-600 mb-8">
+              A comprehensive overview of BLAZE Wallet's vision, technology, tokenomics, and roadmap. 
+              We're building the future of everyday crypto payments.
+            </p>
+            
+            <div className="flex flex-wrap gap-4">
+              <button className="btn-brand flex items-center gap-2">
+                <Download className="w-5 h-5" />
                 Download PDF
               </button>
-              <button className="flex items-center gap-2 px-4 py-2 card-glass rounded-lg font-medium hover:bg-white/10 transition-colors">
-                <Share2 className="w-4 h-4" />
-                Share
-              </button>
+              <a href="#summary" className="btn-secondary flex items-center gap-2">
+                Start reading
+                <ArrowUpRight className="w-4 h-4" />
+              </a>
             </div>
-          </div>
+          </motion.div>
         </div>
-      </div>
+      </section>
 
-      {/* Content */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Title Page */}
-        <motion.div
-          initial={{ y: 20 }}
-          animate={{ y: 0 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          className="text-center mb-16"
-        >
-          <div className="mb-8">
-            <div className="w-20 h-20 bg-gradient-blaze rounded-2xl flex items-center justify-center mx-auto mb-6">
-              <BookOpen className="w-10 h-10 text-white" />
-            </div>
-            <h1 className="text-5xl md:text-6xl font-bold mb-4">
-              BLAZE <span className="text-gradient">Whitepaper</span>
-            </h1>
-            <p className="text-2xl text-gray-400 mb-8">
-              The Future of Intelligent Crypto Wallets
-            </p>
-            <div className="flex items-center justify-center gap-8 text-gray-500">
-              <span>Version 2.0</span>
-              <span>•</span>
-              <span>December 2024</span>
-              <span>•</span>
-              <span>BLAZE Core Team</span>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Table of Contents */}
-        <motion.div
-          initial={{ y: 20 }}
-          animate={{ y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="card-glass p-8 mb-16"
-        >
-          <h2 className="text-3xl font-bold mb-6">Table of Contents</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {[
-              { title: 'Executive Summary', page: 1 },
-              { title: 'Problem Statement', page: 2 },
-              { title: 'BLAZE Solution', page: 3 },
-              { title: 'AI Features Overview', page: 4 },
-              { title: 'Technology Stack', page: 6 },
-              { title: 'Smart Contract Architecture', page: 8 },
-              { title: 'Token Economics', page: 10 },
-              { title: 'Security & Audits', page: 12 },
-              { title: 'Roadmap & Milestones', page: 14 },
-              { title: 'Team & Governance', page: 16 },
-              { title: 'Legal & Compliance', page: 17 },
-              { title: 'Conclusion', page: 18 },
-            ].map((section, index) => (
-              <div key={index} className="flex items-center justify-between p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors">
-                <span className="font-medium">{section.title}</span>
-                <span className="text-gray-400 text-sm">p.{section.page}</span>
-              </div>
+      {/* Table of Contents */}
+      <section className="py-8 bg-gray-50 sticky top-16 z-30 border-b border-gray-200">
+        <div className="container-main">
+          <div className="flex flex-wrap gap-2 justify-center">
+            {sections.map((section) => (
+              <a
+                key={section.id}
+                href={`#${section.id}`}
+                className="flex items-center gap-1.5 px-3 py-1.5 text-sm bg-white rounded-lg border border-gray-200 hover:border-orange-300 hover:text-orange-600 transition-colors"
+              >
+                <section.icon className="w-4 h-4" />
+                <span className="hidden sm:inline">{section.title}</span>
+              </a>
             ))}
           </div>
-        </motion.div>
+        </div>
+      </section>
 
-        {/* Executive Summary */}
-        <motion.section
-          initial={{ y: 20 }}
-          animate={{ y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="mb-16"
-        >
-          <h2 className="text-4xl font-bold mb-6">1. Executive Summary</h2>
-          <div className="prose prose-lg prose-invert max-w-none">
-            <p className="text-xl text-gray-300 mb-6">
-              BLAZE Wallet represents a paradigm shift in cryptocurrency management, combining 
-              traditional wallet functionality with cutting-edge artificial intelligence to create 
-              the most intelligent and user-friendly crypto experience available.
-            </p>
-            <p className="mb-6">
-              Built on a foundation of security, innovation, and user-centric design, BLAZE 
-              introduces five revolutionary AI features that transform how users interact with 
-              cryptocurrency. From natural language transaction processing to predictive gas 
-              optimization, BLAZE makes crypto accessible to everyone while providing advanced 
-              tools for experienced users.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
-              <div className="card-glass p-6 text-center">
-                <Brain className="w-12 h-12 text-orange-400 mx-auto mb-4" />
-                <h3 className="text-xl font-bold mb-2">5 AI Features</h3>
-                <p className="text-gray-400">Revolutionary artificial intelligence integration</p>
+      {/* Content */}
+      <section className="py-16">
+        <div className="container-main">
+          <div className="max-w-4xl mx-auto space-y-20">
+            
+            {/* Vision Quote */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="card p-8 bg-gradient-to-r from-orange-50 to-yellow-50 border-orange-200"
+            >
+              <p className="text-xl text-gray-700 italic mb-4">
+                "For decades, we've watched money lose value year after year. We believe paying with crypto – 
+                everywhere – is the future. A crypto wallet should be a real wallet you use every day, 
+                not just a place to store assets and hope they go up in value."
+              </p>
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                  R
+                </div>
+                <div>
+                  <div className="font-semibold text-gray-900">Rick Schlimback</div>
+                  <div className="text-sm text-gray-500">Founder & CEO, BLAZE Wallet</div>
+                </div>
               </div>
-              <div className="card-glass p-6 text-center">
-                <Shield className="w-12 h-12 text-green-400 mx-auto mb-4" />
-                <h3 className="text-xl font-bold mb-2">100% Secure</h3>
-                <p className="text-gray-400">Non-custodial architecture with advanced security</p>
-              </div>
-              <div className="card-glass p-6 text-center">
-                <Globe className="w-12 h-12 text-blue-400 mx-auto mb-4" />
-                <h3 className="text-xl font-bold mb-2">Multi-Chain</h3>
-                <p className="text-gray-400">Support for 18 blockchain networks</p>
-              </div>
-            </div>
-          </div>
-        </motion.section>
+            </motion.div>
 
-        {/* Problem Statement */}
-        <motion.section
-          initial={{ y: 20 }}
-          animate={{ y: 0 }}
-          transition={{ duration: 0.4, delay: 0.2, ease: "easeOut" }}
-          className="mb-16"
-        >
-          <h2 className="text-4xl font-bold mb-6">2. Problem Statement</h2>
-          <div className="prose prose-lg prose-invert max-w-none">
-            <p className="mb-6">
-              The cryptocurrency ecosystem has grown exponentially, yet user experience remains 
-              a significant barrier to mainstream adoption. Current wallets suffer from several 
-              critical limitations:
-            </p>
-            <div className="space-y-4 mb-8">
-              <div className="card-glass p-6">
-                <h3 className="text-xl font-bold mb-3 text-red-400">Complex User Interfaces</h3>
+            {/* 1. Executive Summary */}
+            <motion.div
+              id="summary"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">1. Executive summary</h2>
+              <div className="prose prose-lg max-w-none text-gray-600 mb-8">
+                <p>
+                  BLAZE Wallet is a next-generation cryptocurrency wallet designed for everyday payments. 
+                  While the crypto market has matured significantly, with a total market cap exceeding $2 trillion, 
+                  the vast majority of crypto holders still don't use their assets for daily purchases. 
+                  BLAZE changes this paradigm.
+                </p>
+                <p>
+                  Our mission is simple: make crypto payments as fast, easy, and ubiquitous as using cash or a card. 
+                  With our proprietary QuickPay technology, users can complete payments in under 2 seconds by simply 
+                  scanning a QR code. Combined with AI-powered features, multi-chain support across 18+ blockchains, 
+                  and enterprise-grade security, BLAZE is positioned to become the go-to wallet for crypto payments.
+                </p>
+                <p>
+                  The BLAZE token (BSC) serves as the utility token powering our ecosystem, enabling staking rewards 
+                  up to 20% APY (launching Q1 2026), fee discounts, governance participation (Q2 2026), and access to premium features.
+                </p>
+              </div>
+              
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="card p-5 text-center">
+                  <QrCode className="w-8 h-8 text-orange-500 mx-auto mb-2" />
+                  <h3 className="font-bold text-gray-900 text-lg">2s</h3>
+                  <p className="text-sm text-gray-600">Payment time</p>
+                </div>
+                <div className="card p-5 text-center">
+                  <Globe className="w-8 h-8 text-sky-500 mx-auto mb-2" />
+                  <h3 className="font-bold text-gray-900 text-lg">18+</h3>
+                  <p className="text-sm text-gray-600">Blockchains</p>
+                </div>
+                <div className="card p-5 text-center">
+                  <Brain className="w-8 h-8 text-purple-500 mx-auto mb-2" />
+                  <h3 className="font-bold text-gray-900 text-lg">5</h3>
+                  <p className="text-sm text-gray-600">AI features</p>
+                </div>
+                <div className="card p-5 text-center">
+                  <TrendingUp className="w-8 h-8 text-emerald-500 mx-auto mb-2" />
+                  <h3 className="font-bold text-gray-900 text-lg">20%</h3>
+                  <p className="text-sm text-gray-600">Max APY</p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* 2. Market Analysis */}
+            <motion.div
+              id="market"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">2. Market analysis</h2>
+              
+              <div className="prose prose-lg max-w-none text-gray-600 mb-8">
+                <p>
+                  The cryptocurrency market has experienced tremendous growth, yet the payment use case 
+                  remains largely untapped. This represents a significant opportunity for BLAZE Wallet.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div className="card p-6">
+                  <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
+                    <BarChart3 className="w-5 h-5 text-orange-500" />
+                    Market size
+                  </h3>
+                  <div className="space-y-4">
+                    <div>
+                      <div className="flex justify-between text-sm mb-1">
+                        <span className="text-gray-600">Total crypto market cap</span>
+                        <span className="font-semibold text-gray-900">$2.5T+</span>
+                      </div>
+                      <div className="h-2 bg-gray-100 rounded-full">
+                        <div className="h-2 bg-orange-500 rounded-full w-full" />
+                      </div>
+                    </div>
+                    <div>
+                      <div className="flex justify-between text-sm mb-1">
+                        <span className="text-gray-600">Crypto wallet users</span>
+                        <span className="font-semibold text-gray-900">400M+</span>
+                      </div>
+                      <div className="h-2 bg-gray-100 rounded-full">
+                        <div className="h-2 bg-sky-500 rounded-full w-4/5" />
+                      </div>
+                    </div>
+                    <div>
+                      <div className="flex justify-between text-sm mb-1">
+                        <span className="text-gray-600">Using crypto for payments</span>
+                        <span className="font-semibold text-gray-900">&lt;5%</span>
+                      </div>
+                      <div className="h-2 bg-gray-100 rounded-full">
+                        <div className="h-2 bg-red-500 rounded-full w-[5%]" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="card p-6">
+                  <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
+                    <TrendingUp className="w-5 h-5 text-emerald-500" />
+                    Growth drivers
+                  </h3>
+                  <ul className="space-y-3">
+                    {[
+                      'Rising inflation eroding fiat purchasing power',
+                      'Growing merchant adoption of crypto payments',
+                      'Improved blockchain scalability and lower fees',
+                      'Regulatory clarity in key markets',
+                      'Increasing demand for financial sovereignty',
+                    ].map((item, i) => (
+                      <li key={i} className="flex items-start gap-2 text-gray-600">
+                        <CheckCircle className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
+                        <span className="text-sm">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <div className="card p-6 bg-amber-50 border-amber-200">
+                <h3 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
+                  <DollarSign className="w-5 h-5 text-amber-600" />
+                  The inflation problem
+                </h3>
+                <p className="text-gray-700 mb-4">
+                  Traditional fiat currencies have lost significant purchasing power over the past decades. 
+                  The Euro has lost approximately 30% of its value since 2000, while the US Dollar has lost 
+                  over 40%. Crypto offers an alternative store of value – but only if it can also function 
+                  as a medium of exchange.
+                </p>
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="text-center p-3 bg-white rounded-xl">
+                    <div className="text-2xl font-bold text-red-500">-30%</div>
+                    <div className="text-xs text-gray-500">EUR since 2000</div>
+                  </div>
+                  <div className="text-center p-3 bg-white rounded-xl">
+                    <div className="text-2xl font-bold text-red-500">-42%</div>
+                    <div className="text-xs text-gray-500">USD since 2000</div>
+                  </div>
+                  <div className="text-center p-3 bg-white rounded-xl">
+                    <div className="text-2xl font-bold text-emerald-500">+∞</div>
+                    <div className="text-xs text-gray-500">BTC potential</div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* 3. The Problem */}
+            <motion.div
+              id="problem"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">3. The problem: crypto isn't spent</h2>
+              
+              <div className="prose prose-lg max-w-none text-gray-600 mb-8">
+                <p>
+                  Despite the growth of the crypto ecosystem, almost no one actually uses cryptocurrency 
+                  for daily purchases. Current wallets are designed for trading, holding, and DeFi – 
+                  not for real-world payments. This creates a paradox: crypto is meant to be digital 
+                  money, yet it's rarely used as money.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                {[
+                  { 
+                    icon: Wallet, 
+                    title: 'Wallets aren\'t real wallets', 
+                    desc: 'Current crypto wallets are designed for traders and DeFi users, with complex interfaces that intimidate everyday users.' 
+                  },
+                  { 
+                    icon: Clock, 
+                    title: 'Payments take too long', 
+                    desc: 'Waiting minutes for transaction confirmations at checkout is impractical. Traditional cards take seconds.' 
+                  },
+                  { 
+                    icon: Layers, 
+                    title: 'Complexity overwhelms users', 
+                    desc: 'Gas fees, network selection, slippage settings – these concepts confuse new users and create friction.' 
+                  },
+                  { 
+                    icon: Shield, 
+                    title: 'Security concerns', 
+                    desc: 'Scams, phishing, and malicious smart contracts put users at risk. No protection against common threats.' 
+                  },
+                  { 
+                    icon: Building, 
+                    title: 'Limited merchant adoption', 
+                    desc: 'Few merchants accept crypto, and those that do often use clunky third-party processors.' 
+                  },
+                  { 
+                    icon: Globe, 
+                    title: 'Fragmented ecosystem', 
+                    desc: 'Assets spread across multiple chains with no unified experience. Managing multiple wallets is tedious.' 
+                  },
+                ].map((item, i) => (
+                  <div key={i} className="card p-5">
+                    <div className="flex items-start gap-4">
+                      <div className="w-10 h-10 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <item.icon className="w-5 h-5 text-red-600" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-gray-900 mb-1">{item.title}</h4>
+                        <p className="text-sm text-gray-600">{item.desc}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="card p-6 bg-gray-900 text-white">
+                <h3 className="font-bold mb-3">The opportunity</h3>
                 <p className="text-gray-300">
-                  Traditional wallets require users to understand complex technical concepts like 
-                  gas fees, slippage, and contract interactions. This creates a steep learning 
-                  curve that prevents many potential users from entering the crypto space.
+                  If we can solve these problems and make crypto payments as easy as tapping a card, 
+                  we unlock a massive market. With 400+ million crypto holders worldwide and growing 
+                  merchant interest, the timing is perfect for a payment-focused wallet.
                 </p>
               </div>
-              <div className="card-glass p-6">
-                <h3 className="text-xl font-bold mb-3 text-red-400">Security Vulnerabilities</h3>
-                <p className="text-gray-300">
-                  Users frequently fall victim to scams, phishing attacks, and malicious contracts. 
-                  The lack of intelligent security screening leaves users vulnerable to financial loss.
-                </p>
-              </div>
-              <div className="card-glass p-6">
-                <h3 className="text-xl font-bold mb-3 text-red-400">Inefficient Gas Management</h3>
-                <p className="text-gray-300">
-                  Users often overpay for gas fees due to poor timing and lack of optimization 
-                  tools. This results in unnecessary costs and poor user experience.
-                </p>
-              </div>
-              <div className="card-glass p-6">
-                <h3 className="text-xl font-bold mb-3 text-red-400">Limited Portfolio Insights</h3>
-                <p className="text-gray-300">
-                  Most wallets provide basic balance information without actionable insights 
-                  for portfolio optimization and risk management.
-                </p>
-              </div>
-            </div>
-          </div>
-        </motion.section>
+            </motion.div>
 
-        {/* BLAZE Solution */}
-        <motion.section
-          initial={{ y: 20 }}
-          animate={{ y: 0 }}
-          transition={{ duration: 0.4, delay: 0.25, ease: "easeOut" }}
-          className="mb-16"
-        >
-          <h2 className="text-4xl font-bold mb-6">3. BLAZE Solution</h2>
-          <div className="prose prose-lg prose-invert max-w-none">
-            <p className="text-xl text-gray-300 mb-6">
-              BLAZE Wallet addresses these challenges through intelligent automation, 
-              advanced security features, and an intuitive user experience that makes 
-              cryptocurrency accessible to everyone.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-              <div className="card-glass p-6">
-                <h3 className="text-2xl font-bold mb-4 text-orange-400">AI-Powered Experience</h3>
-                <p className="mb-4">
-                  Our five AI features work together to create an intelligent assistant 
-                  that understands user intent and executes complex operations with 
-                  natural language commands.
+            {/* 4. Our Solution */}
+            <motion.div
+              id="solution"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">4. Our solution: BLAZE Wallet</h2>
+              
+              <div className="prose prose-lg max-w-none text-gray-600 mb-8">
+                <p>
+                  BLAZE Wallet is designed from the ground up for payments. Every feature, every design 
+                  decision, every line of code serves one purpose: making crypto payments as fast, easy, 
+                  and secure as possible.
                 </p>
-                <ul className="space-y-2 text-gray-300">
-                  <li>• Natural language transaction processing</li>
-                  <li>• Real-time security scanning</li>
-                  <li>• Predictive gas optimization</li>
-                  <li>• Portfolio analysis and recommendations</li>
-                  <li>• 24/7 crypto expert assistance</li>
-                </ul>
               </div>
-              <div className="card-glass p-6">
-                <h3 className="text-2xl font-bold mb-4 text-green-400">Enterprise-Grade Security</h3>
-                <p className="mb-4">
-                  Built with security-first principles, BLAZE ensures user funds and 
-                  data remain protected through multiple layers of security.
-                </p>
-                <ul className="space-y-2 text-gray-300">
-                  <li>• Non-custodial architecture</li>
-                  <li>• Biometric authentication</li>
-                  <li>• Hardware key support</li>
-                  <li>• Encrypted local storage</li>
-                  <li>• Smart contract verification</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </motion.section>
 
-        {/* AI Features Overview */}
-        <motion.section
-          initial={{ y: 20 }}
-          animate={{ y: 0 }}
-          transition={{ duration: 0.4, delay: 0.3, ease: "easeOut" }}
-          className="mb-16"
-        >
-          <h2 className="text-4xl font-bold mb-6">4. AI Features Overview</h2>
-          <div className="prose prose-lg prose-invert max-w-none">
-            <p className="mb-8">
-              BLAZE's AI features represent the cutting edge of cryptocurrency wallet technology, 
-              providing users with intelligent assistance that learns and adapts to their needs.
-            </p>
-            
-            <div className="space-y-8">
-              <div className="card-glass p-8">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
-                    <Brain className="w-6 h-6 text-white" />
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div className="card p-6 text-center border-orange-200 bg-orange-50">
+                  <div className="w-14 h-14 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <Zap className="w-7 h-7 text-white" />
                   </div>
-                  <h3 className="text-2xl font-bold">AI Transaction Assistant</h3>
+                  <h3 className="font-bold text-gray-900 mb-2">Lightning fast</h3>
+                  <p className="text-sm text-gray-600">
+                    Complete payments in under 2 seconds with QuickPay technology. No waiting, no friction.
+                  </p>
                 </div>
-                <p className="mb-4">
-                  Transform complex blockchain operations into simple natural language commands. 
-                  Users can type "Send 50 USDC to 0x..." and the AI handles all technical details.
-                </p>
+                <div className="card p-6 text-center border-purple-200 bg-purple-50">
+                  <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <Brain className="w-7 h-7 text-white" />
+                  </div>
+                  <h3 className="font-bold text-gray-900 mb-2">AI-powered</h3>
+                  <p className="text-sm text-gray-600">
+                    Smart features that protect you from scams, optimize fees, and simplify transactions.
+                  </p>
+                </div>
+                <div className="card p-6 text-center border-sky-200 bg-sky-50">
+                  <div className="w-14 h-14 bg-gradient-to-br from-sky-500 to-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <Shield className="w-7 h-7 text-white" />
+                  </div>
+                  <h3 className="font-bold text-gray-900 mb-2">Bank-grade security</h3>
+                  <p className="text-sm text-gray-600">
+                    Non-custodial architecture, biometric auth, hardware key support, and AES-256 encryption.
+                  </p>
+                </div>
+              </div>
+
+              <div className="card p-6">
+                <h3 className="font-bold text-gray-900 mb-4">Key differentiators</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <h4 className="font-semibold mb-2">Features:</h4>
-                    <ul className="space-y-1 text-gray-300 text-sm">
-                      <li>• Natural language parsing (Dutch & English)</li>
-                      <li>• Offline pattern matching</li>
-                      <li>• OpenAI integration for advanced queries</li>
-                      <li>• Address validation and verification</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-2">Use Cases:</h4>
-                    <ul className="space-y-1 text-gray-300 text-sm">
-                      <li>• "Swap all my USDT to ETH"</li>
-                      <li>• "What's my biggest holding?"</li>
-                      <li>• "Send 100 BLAZE to my friend"</li>
-                      <li>• "Show me my staking rewards"</li>
-                    </ul>
-                  </div>
+                  {[
+                    { title: 'Payment-first design', desc: 'UI optimized for quick payments, not trading' },
+                    { title: 'Multi-chain unified', desc: '18+ chains, one seamless experience' },
+                    { title: 'Real merchant support', desc: 'QR codes work at any accepting merchant' },
+                    { title: 'Human-friendly', desc: 'No jargon, no complexity, just payments' },
+                    { title: 'Smart security', desc: 'AI detects threats before they harm you' },
+                    { title: 'Earn while you hold', desc: 'Up to 20% APY on staked BLAZE tokens' },
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-orange-500 flex-shrink-0 mt-0.5" />
+                      <div>
+                        <span className="font-medium text-gray-900">{item.title}</span>
+                        <span className="text-gray-600"> – {item.desc}</span>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
+            </motion.div>
 
-              <div className="card-glass p-8">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-red-500 to-orange-500 rounded-xl flex items-center justify-center">
-                    <Shield className="w-6 h-6 text-white" />
-                  </div>
-                  <h3 className="text-2xl font-bold">Smart Scam Detector</h3>
-                </div>
-                <p className="mb-4">
-                  Real-time security scanning that analyzes addresses and smart contracts 
-                  before users interact with them, providing risk scores and warnings.
+            {/* 5. QuickPay */}
+            <motion.div
+              id="quickpay"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">5. QuickPay: instant crypto payments</h2>
+              
+              <div className="prose prose-lg max-w-none text-gray-600 mb-8">
+                <p>
+                  QuickPay is our flagship feature – the technology that transforms crypto from a 
+                  speculative asset into an everyday payment method. It's designed to be faster 
+                  than card payments and simpler than cash.
                 </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <h4 className="font-semibold mb-2">Security Checks:</h4>
-                    <ul className="space-y-1 text-gray-300 text-sm">
-                      <li>• Address validation and checksum verification</li>
-                      <li>• Known scam address database</li>
-                      <li>• Smart contract analysis</li>
-                      <li>• Risk scoring (0-100 scale)</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-2">Risk Levels:</h4>
-                    <ul className="space-y-1 text-gray-300 text-sm">
-                      <li>• 🟢 Low (80-100): Safe to proceed</li>
-                      <li>• 🟡 Medium (60-79): Exercise caution</li>
-                      <li>• 🟠 High (30-59): Consider avoiding</li>
-                      <li>• 🔴 Critical (0-29): STOP - likely scam</li>
-                    </ul>
+              </div>
+              
+              <div className="card p-8 bg-gradient-to-r from-orange-50 to-yellow-50 border-orange-200 mb-8">
+                <h3 className="text-xl font-bold text-gray-900 mb-8 text-center">How QuickPay works</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  {[
+                    { step: '1', title: 'Scan', desc: 'Point your camera at the merchant\'s QR code', icon: QrCode },
+                    { step: '2', title: 'Confirm', desc: 'Review the amount and tap to confirm', icon: CheckCircle },
+                    { step: '3', title: 'Done', desc: 'Payment completes in under 2 seconds', icon: Zap },
+                  ].map((item) => (
+                    <div key={item.step} className="text-center">
+                      <div className="relative inline-block mb-4">
+                        <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-2xl flex items-center justify-center mx-auto">
+                          <item.icon className="w-8 h-8 text-white" />
+                        </div>
+                        <div className="absolute -top-2 -right-2 w-7 h-7 bg-white rounded-full flex items-center justify-center text-sm font-bold text-orange-500 shadow-md">
+                          {item.step}
+                        </div>
+                      </div>
+                      <h4 className="font-bold text-gray-900 mb-2">{item.title}</h4>
+                      <p className="text-sm text-gray-600">{item.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div className="card p-6">
+                  <h3 className="font-bold text-gray-900 mb-4">Technical implementation</h3>
+                  <ul className="space-y-3 text-sm text-gray-600">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
+                      <span>Layer 2 solutions for near-instant finality</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
+                      <span>Optimistic transaction confirmation</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
+                      <span>Auto gas estimation and fee optimization</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
+                      <span>Merchant fraud protection system</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
+                      <span>Multi-currency support with auto-conversion</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="card p-6">
+                  <h3 className="font-bold text-gray-900 mb-4">Use cases</h3>
+                  <div className="grid grid-cols-2 gap-3">
+                    {[
+                      { icon: Coffee, label: 'Coffee shops' },
+                      { icon: ShoppingCart, label: 'Retail stores' },
+                      { icon: Smartphone, label: 'Online shopping' },
+                      { icon: Users, label: 'Restaurants' },
+                      { icon: CreditCard, label: 'Services' },
+                      { icon: Globe, label: 'Travel' },
+                    ].map((item, i) => (
+                      <div key={i} className="flex items-center gap-2 p-2 bg-gray-50 rounded-lg">
+                        <item.icon className="w-4 h-4 text-orange-500" />
+                        <span className="text-sm text-gray-700">{item.label}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
 
-              <div className="card-glass p-8">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
-                    <Users className="w-6 h-6 text-white" />
-                  </div>
-                  <h3 className="text-2xl font-bold">AI Portfolio Advisor</h3>
-                </div>
-                <p className="mb-4">
-                  Comprehensive portfolio analysis with personalized recommendations 
-                  for optimization, diversification, and risk management.
+              <div className="card p-6 bg-emerald-50 border-emerald-200">
+                <h3 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
+                  <Building className="w-5 h-5 text-emerald-600" />
+                  For merchants
+                </h3>
+                <p className="text-gray-700 mb-4">
+                  Accepting BLAZE payments is simple. Generate a QR code, display it at checkout, 
+                  and receive payments directly to your wallet. No intermediaries, no chargebacks, 
+                  minimal fees.
                 </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <h4 className="font-semibold mb-2">Analytics:</h4>
-                    <ul className="space-y-1 text-gray-300 text-sm">
-                      <li>• Diversification score calculation</li>
-                      <li>• Stablecoin allocation analysis</li>
-                      <li>• Risk profile assessment</li>
-                      <li>• Performance tracking</li>
-                    </ul>
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="text-center p-3 bg-white rounded-xl">
+                    <div className="text-xl font-bold text-emerald-600">0.5%</div>
+                    <div className="text-xs text-gray-500">Transaction fee</div>
                   </div>
-                  <div>
-                    <h4 className="font-semibold mb-2">Recommendations:</h4>
-                    <ul className="space-y-1 text-gray-300 text-sm">
-                      <li>• Rebalancing suggestions</li>
-                      <li>• Risk mitigation strategies</li>
-                      <li>• Opportunity identification</li>
-                      <li>• Tax optimization tips</li>
-                    </ul>
+                  <div className="text-center p-3 bg-white rounded-xl">
+                    <div className="text-xl font-bold text-emerald-600">0</div>
+                    <div className="text-xs text-gray-500">Chargebacks</div>
+                  </div>
+                  <div className="text-center p-3 bg-white rounded-xl">
+                    <div className="text-xl font-bold text-emerald-600">24h</div>
+                    <div className="text-xs text-gray-500">Settlement</div>
                   </div>
                 </div>
               </div>
+            </motion.div>
 
-              <div className="card-glass p-8">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center">
-                    <Zap className="w-6 h-6 text-white" />
-                  </div>
-                  <h3 className="text-2xl font-bold">Predictive Gas Optimizer</h3>
-                </div>
-                <p className="mb-4">
-                  Machine learning-based gas price prediction that helps users 
-                  save money by transacting at optimal times.
+            {/* 6. AI Features */}
+            <motion.div
+              id="features"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">6. AI-powered features</h2>
+              
+              <div className="prose prose-lg max-w-none text-gray-600 mb-8">
+                <p>
+                  BLAZE integrates five AI-powered features designed to make crypto simpler, safer, 
+                  and more efficient. These aren't gimmicks – they solve real problems that crypto 
+                  users face every day.
                 </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <h4 className="font-semibold mb-2">Predictions:</h4>
-                    <ul className="space-y-1 text-gray-300 text-sm">
-                      <li>• Gas price trend analysis</li>
-                      <li>• Optimal timing recommendations</li>
-                      <li>• Cost savings estimation</li>
-                      <li>• Historical pattern recognition</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-2">Best Times:</h4>
-                    <ul className="space-y-1 text-gray-300 text-sm">
-                      <li>• 2-6 AM UTC (lowest fees)</li>
-                      <li>• Weekends (reduced activity)</li>
-                      <li>• Avoid US trading hours</li>
-                      <li>• Layer 2 alternatives</li>
-                    </ul>
-                  </div>
-                </div>
               </div>
 
-              <div className="card-glass p-8">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center">
-                    <Brain className="w-6 h-6 text-white" />
+              <div className="space-y-4">
+                {[
+                  { 
+                    icon: Brain, 
+                    title: 'AI transaction assistant', 
+                    desc: 'Send crypto using natural language. Just say "Send 50 USDC to @john" and the AI handles the rest – finding the right address, optimizing the route, and confirming the details.',
+                    color: 'bg-purple-100 text-purple-600',
+                    features: ['Natural language commands', 'Smart address book', 'Transaction history search', 'Voice support']
+                  },
+                  { 
+                    icon: Shield, 
+                    title: 'Smart scam detector', 
+                    desc: 'Real-time security scanning that analyzes addresses, smart contracts, and transaction patterns to identify potential threats before you lose money.',
+                    color: 'bg-red-100 text-red-600',
+                    features: ['Address reputation scoring', 'Contract risk analysis', 'Phishing detection', 'Suspicious pattern alerts']
+                  },
+                  { 
+                    icon: Zap, 
+                    title: 'Gas optimizer with smart scheduling', 
+                    desc: 'Our unique smart scheduling feature analyzes network conditions to automatically find the best time and fee for your transactions. Save up to 40% on gas fees.',
+                    color: 'bg-emerald-100 text-emerald-600',
+                    features: ['Smart scheduling (unique!)', 'Real-time gas predictions', 'Batch transaction optimization', 'Fee comparison']
+                  },
+                  { 
+                    icon: BarChart3, 
+                    title: 'Portfolio advisor', 
+                    desc: 'AI-powered insights into your holdings with personalized recommendations, risk analysis, and market opportunities tailored to your portfolio.',
+                    color: 'bg-sky-100 text-sky-600',
+                    features: ['Portfolio health score', 'Diversification analysis', 'Yield opportunities', 'Risk alerts']
+                  },
+                  { 
+                    icon: TrendingUp, 
+                    title: 'Market analyzer', 
+                    desc: 'Real-time market intelligence that tracks trends, sentiment, and opportunities across the crypto ecosystem to keep you informed.',
+                    color: 'bg-amber-100 text-amber-600',
+                    features: ['Sentiment analysis', 'Trend detection', 'Price alerts', 'News aggregation']
+                  },
+                ].map((feature, i) => (
+                  <div key={i} className="card p-6">
+                    <div className="flex flex-col md:flex-row md:items-start gap-4">
+                      <div className={`w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 ${feature.color}`}>
+                        <feature.icon className="w-7 h-7" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="font-bold text-gray-900 mb-2">{feature.title}</h3>
+                        <p className="text-gray-600 mb-4">{feature.desc}</p>
+                        <div className="flex flex-wrap gap-2">
+                          {feature.features.map((f, j) => (
+                            <span key={j} className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">
+                              {f}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <h3 className="text-2xl font-bold">Conversational Crypto Assistant</h3>
-                </div>
-                <p className="mb-4">
-                  A 24/7 AI crypto expert that answers questions, provides explanations, 
-                  and offers guidance on all aspects of cryptocurrency and DeFi.
+                ))}
+              </div>
+            </motion.div>
+
+            {/* 7. Technical Architecture */}
+            <motion.div
+              id="architecture"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">7. Technical architecture</h2>
+              
+              <div className="prose prose-lg max-w-none text-gray-600 mb-8">
+                <p>
+                  BLAZE Wallet is built on a modern, scalable architecture designed for security, 
+                  performance, and extensibility. Our non-custodial design ensures you always 
+                  maintain full control of your assets.
                 </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <h4 className="font-semibold mb-2">Capabilities:</h4>
-                    <ul className="space-y-1 text-gray-300 text-sm">
-                      <li>• Conversational memory</li>
-                      <li>• Context-aware responses</li>
-                      <li>• Offline mode for common questions</li>
-                      <li>• Multi-language support</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-2">Example Questions:</h4>
-                    <ul className="space-y-1 text-gray-300 text-sm">
-                      <li>• "What is gas?"</li>
-                      <li>• "Explain impermanent loss"</li>
-                      <li>• "Why did my swap fail?"</li>
-                      <li>• "What is slippage?"</li>
-                    </ul>
-                  </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div className="card p-6">
+                  <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
+                    <Server className="w-5 h-5 text-orange-500" />
+                    Frontend
+                  </h3>
+                  <ul className="space-y-2 text-sm text-gray-600">
+                    <li className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-orange-500 rounded-full" />
+                      Progressive Web App (PWA)
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-orange-500 rounded-full" />
+                      React + Next.js framework
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-orange-500 rounded-full" />
+                      WebAuthn biometric authentication
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-orange-500 rounded-full" />
+                      Offline-first architecture
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-orange-500 rounded-full" />
+                      Hardware wallet integration
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="card p-6">
+                  <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
+                    <Database className="w-5 h-5 text-sky-500" />
+                    Backend
+                  </h3>
+                  <ul className="space-y-2 text-sm text-gray-600">
+                    <li className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-sky-500 rounded-full" />
+                      Multi-chain RPC aggregation
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-sky-500 rounded-full" />
+                      Real-time price feeds
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-sky-500 rounded-full" />
+                      AI model serving infrastructure
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-sky-500 rounded-full" />
+                      Transaction indexing
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-sky-500 rounded-full" />
+                      Push notification system
+                    </li>
+                  </ul>
                 </div>
               </div>
-            </div>
-          </div>
-        </motion.section>
 
-        {/* Technology Stack */}
-        <motion.section
-          initial={{ y: 20 }}
-          animate={{ y: 0 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-          className="mb-16"
-        >
-          <h2 className="text-4xl font-bold mb-6">5. Technology Stack</h2>
-          <div className="prose prose-lg prose-invert max-w-none">
-            <p className="mb-8">
-              BLAZE Wallet is built on a modern, scalable technology stack that ensures 
-              performance, security, and maintainability.
-            </p>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="card-glass p-6">
-                <h3 className="text-xl font-bold mb-4 text-blue-400">Frontend</h3>
-                <ul className="space-y-2 text-gray-300">
-                  <li>• <strong>Next.js 14</strong> - React framework with App Router</li>
-                  <li>• <strong>TypeScript</strong> - Type-safe development</li>
-                  <li>• <strong>Tailwind CSS</strong> - Utility-first styling</li>
-                  <li>• <strong>Framer Motion</strong> - Smooth animations</li>
-                  <li>• <strong>Lucide React</strong> - Professional iconography</li>
-                </ul>
+              <div className="card p-6">
+                <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
+                  <Network className="w-5 h-5 text-purple-500" />
+                  Supported blockchains
+                </h3>
+                <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
+                  {[
+                    'Ethereum', 'BSC', 'Polygon', 'Arbitrum', 'Optimism', 'Base',
+                    'Avalanche', 'Solana', 'Fantom', 'Cronos', 'zkSync', 'Linea',
+                    'Scroll', 'Mantle', 'Blast', 'Mode', 'Celo', 'Gnosis'
+                  ].map((chain, i) => (
+                    <div key={i} className="text-center p-2 bg-gray-50 rounded-lg text-xs font-medium text-gray-700">
+                      {chain}
+                    </div>
+                  ))}
+                </div>
               </div>
+            </motion.div>
+
+            {/* 8. Tokenomics */}
+            <motion.div
+              id="tokenomics"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">8. Tokenomics</h2>
               
-              <div className="card-glass p-6">
-                <h3 className="text-xl font-bold mb-4 text-green-400">Blockchain</h3>
-                <ul className="space-y-2 text-gray-300">
-                  <li>• <strong>ethers.js v6</strong> - Ethereum interaction library</li>
-                  <li>• <strong>Web3.js</strong> - Multi-chain support</li>
-                  <li>• <strong>BIP39</strong> - Mnemonic phrase generation</li>
-                  <li>• <strong>OpenZeppelin</strong> - Secure smart contracts</li>
-                  <li>• <strong>Hardhat</strong> - Development environment</li>
-                </ul>
+              <div className="prose prose-lg max-w-none text-gray-600 mb-8">
+                <p>
+                  The BLAZE token is the utility token powering the BLAZE ecosystem. It provides 
+                  holders with staking rewards, fee discounts, governance rights, and access to 
+                  premium features.
+                </p>
               </div>
-              
-              <div className="card-glass p-6">
-                <h3 className="text-xl font-bold mb-4 text-purple-400">AI & Security</h3>
-                <ul className="space-y-2 text-gray-300">
-                  <li>• <strong>OpenAI API</strong> - Advanced AI capabilities</li>
-                  <li>• <strong>WebAuthn</strong> - Biometric authentication</li>
-                  <li>• <strong>Crypto-JS</strong> - Encryption utilities</li>
-                  <li>• <strong>Zustand</strong> - State management</li>
-                  <li>• <strong>PWA</strong> - Progressive web app</li>
-                </ul>
-              </div>
-              
-              <div className="card-glass p-6">
-                <h3 className="text-xl font-bold mb-4 text-orange-400">Infrastructure</h3>
-                <ul className="space-y-2 text-gray-300">
-                  <li>• <strong>Vercel</strong> - Hosting and deployment</li>
-                  <li>• <strong>IPFS</strong> - Decentralized storage</li>
-                  <li>• <strong>1inch API</strong> - DEX aggregation</li>
-                  <li>• <strong>CoinGecko API</strong> - Price data</li>
-                  <li>• <strong>CertiK</strong> - Security audits</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </motion.section>
 
-        {/* Smart Contract Architecture */}
-        <motion.section
-          initial={{ y: 20 }}
-          animate={{ y: 0 }}
-          transition={{ duration: 0.5, delay: 0.7 }}
-          className="mb-16"
-        >
-          <h2 className="text-4xl font-bold mb-6">6. Smart Contract Architecture</h2>
-          <div className="prose prose-lg prose-invert max-w-none">
-            <p className="mb-8">
-              BLAZE's smart contract architecture is designed for security, efficiency, 
-              and scalability, with comprehensive testing and audit procedures.
-            </p>
-            
-            <div className="card-glass p-8 mb-8">
-              <h3 className="text-2xl font-bold mb-4 text-orange-400">BlazeToken Contract</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <h4 className="font-semibold mb-3">Token Specifications:</h4>
-                  <ul className="space-y-2 text-gray-300 text-sm">
-                    <li>• <strong>Name:</strong> Blaze Token</li>
-                    <li>• <strong>Symbol:</strong> BLAZE</li>
-                    <li>• <strong>Decimals:</strong> 18</li>
-                    <li>• <strong>Total Supply:</strong> 1,000,000,000 BLAZE</li>
-                    <li>• <strong>Network:</strong> Binance Smart Chain (BSC)</li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-3">Key Features:</h4>
-                  <ul className="space-y-2 text-gray-300 text-sm">
-                    <li>• <strong>Deflationary:</strong> 0.10% burn per transfer</li>
-                    <li>• <strong>Staking:</strong> 8-20% APY rewards</li>
-                    <li>• <strong>Governance:</strong> 1 token = 1 vote</li>
-                    <li>• <strong>Fee Discounts:</strong> Up to 75% off</li>
-                    <li>• <strong>Premium Status:</strong> 10,000+ BLAZE threshold</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div className="card-glass p-8 mb-8">
-              <h3 className="text-2xl font-bold mb-4 text-green-400">Security Features</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <h4 className="font-semibold mb-3">Access Control:</h4>
-                  <ul className="space-y-2 text-gray-300 text-sm">
-                    <li>• <strong>Ownable:</strong> Owner-only functions</li>
-                    <li>• <strong>Pausable:</strong> Emergency stop capability</li>
-                    <li>• <strong>ReentrancyGuard:</strong> Attack prevention</li>
-                    <li>• <strong>Multi-sig:</strong> Treasury protection</li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-3">Audit Status:</h4>
-                  <ul className="space-y-2 text-gray-300 text-sm">
-                    <li>• <strong>CertiK:</strong> Security audit completed</li>
-                    <li>• <strong>OpenZeppelin:</strong> Standard contracts</li>
-                    <li>• <strong>Test Coverage:</strong> 100% (39/39 tests)</li>
-                    <li>• <strong>Formal Verification:</strong> Mathematical proofs</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </motion.section>
-
-        {/* Token Economics */}
-        <motion.section
-          initial={{ y: 20 }}
-          animate={{ y: 0 }}
-          transition={{ duration: 0.5, delay: 0.8 }}
-          className="mb-16"
-        >
-          <h2 className="text-4xl font-bold mb-6">7. Token Economics</h2>
-          <div className="prose prose-lg prose-invert max-w-none">
-            <p className="mb-8">
-              BLAZE tokenomics are designed for long-term sustainability, user incentives, 
-              and ecosystem growth through carefully balanced distribution and utility mechanisms.
-            </p>
-            
-            <div className="card-glass p-8 mb-8">
-              <h3 className="text-2xl font-bold mb-4 text-orange-400">Token Distribution</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <h4 className="font-semibold mb-3">Allocation Breakdown:</h4>
-                  <ul className="space-y-2 text-gray-300 text-sm">
-                    <li>• <strong>Public Sale:</strong> 15% (150M BLAZE)</li>
-                    <li>• <strong>Liquidity:</strong> 10% (100M BLAZE)</li>
-                    <li>• <strong>Founder (Unlocked):</strong> 10% (100M BLAZE)</li>
-                    <li>• <strong>Founder (Vesting):</strong> 15% (150M BLAZE)</li>
-                    <li>• <strong>Community Rewards:</strong> 20% (200M BLAZE)</li>
-                    <li>• <strong>Treasury:</strong> 15% (150M BLAZE)</li>
-                    <li>• <strong>Team (3yr vest):</strong> 10% (100M BLAZE)</li>
-                    <li>• <strong>Strategic (2yr vest):</strong> 5% (50M BLAZE)</li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-3">Vesting Schedule:</h4>
-                  <ul className="space-y-2 text-gray-300 text-sm">
-                    <li>• <strong>Founder:</strong> 6-month cliff, 4-year linear</li>
-                    <li>• <strong>Team:</strong> 3-year linear vesting</li>
-                    <li>• <strong>Strategic:</strong> 2-year linear vesting</li>
-                    <li>• <strong>Liquidity:</strong> 2-year lock via smart contract</li>
-                    <li>• <strong>Community:</strong> Immediate unlock for rewards</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div className="card-glass p-8 mb-8">
-              <h3 className="text-2xl font-bold mb-4 text-green-400">Staking Rewards</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-orange-400 mb-2">8% APY</div>
-                  <div className="text-gray-400 text-sm">Flexible Staking</div>
-                  <div className="text-gray-500 text-xs mt-1">No lock period</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-orange-400 mb-2">15% APY</div>
-                  <div className="text-gray-400 text-sm">6-Month Lock</div>
-                  <div className="text-gray-500 text-xs mt-1">180 days</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-orange-400 mb-2">20% APY</div>
-                  <div className="text-gray-400 text-sm">1-Year Lock</div>
-                  <div className="text-gray-500 text-xs mt-1">365 days</div>
-                </div>
-              </div>
-            </div>
-
-            <div className="card-glass p-8">
-              <h3 className="text-2xl font-bold mb-4 text-purple-400">Fee Discount Tiers</h3>
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div className="text-center p-4 bg-white/5 rounded-lg">
-                  <div className="text-2xl font-bold text-orange-400 mb-1">10%</div>
-                  <div className="text-gray-400 text-sm">1,000 - 9,999 BLAZE</div>
-                </div>
-                <div className="text-center p-4 bg-white/5 rounded-lg border-2 border-blue-500/30">
-                  <div className="text-2xl font-bold text-orange-400 mb-1">25%</div>
-                  <div className="text-gray-400 text-sm">10,000 - 49,999 BLAZE</div>
-                  <div className="text-blue-400 text-xs mt-1">+ Premium Status</div>
-                </div>
-                <div className="text-center p-4 bg-white/5 rounded-lg border-2 border-purple-500/30">
-                  <div className="text-2xl font-bold text-orange-400 mb-1">50%</div>
-                  <div className="text-gray-400 text-sm">50,000 - 99,999 BLAZE</div>
-                </div>
-                <div className="text-center p-4 bg-white/5 rounded-lg border-2 border-orange-500/30">
-                  <div className="text-2xl font-bold text-orange-400 mb-1">75%</div>
-                  <div className="text-gray-400 text-sm">100,000+ BLAZE</div>
-                  <div className="text-orange-400 text-xs mt-1">VIP Status</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </motion.section>
-
-        {/* Security & Audits */}
-        <motion.section
-          initial={{ y: 20 }}
-          animate={{ y: 0 }}
-          transition={{ duration: 0.5, delay: 0.9 }}
-          className="mb-16"
-        >
-          <h2 className="text-4xl font-bold mb-6">8. Security & Audits</h2>
-          <div className="prose prose-lg prose-invert max-w-none">
-            <p className="mb-8">
-              Security is paramount in the BLAZE ecosystem. We employ multiple layers 
-              of protection and undergo rigorous third-party audits to ensure user funds 
-              and data remain secure.
-            </p>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-              <div className="card-glass p-6">
-                <h3 className="text-xl font-bold mb-4 text-green-400">Smart Contract Security</h3>
-                <ul className="space-y-2 text-gray-300">
-                  <li>• <strong>OpenZeppelin:</strong> Battle-tested contracts</li>
-                  <li>• <strong>ReentrancyGuard:</strong> Attack prevention</li>
-                  <li>• <strong>Pausable:</strong> Emergency controls</li>
-                  <li>• <strong>Access Control:</strong> Role-based permissions</li>
-                  <li>• <strong>Formal Verification:</strong> Mathematical proofs</li>
-                </ul>
-              </div>
-              
-              <div className="card-glass p-6">
-                <h3 className="text-xl font-bold mb-4 text-blue-400">Wallet Security</h3>
-                <ul className="space-y-2 text-gray-300">
-                  <li>• <strong>Non-custodial:</strong> User controls keys</li>
-                  <li>• <strong>Biometric Auth:</strong> WebAuthn support</li>
-                  <li>• <strong>Hardware Keys:</strong> FIDO2 compatible</li>
-                  <li>• <strong>Encrypted Storage:</strong> AES-256 encryption</li>
-                  <li>• <strong>Local Processing:</strong> No server dependencies</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="card-glass p-8">
-              <h3 className="text-2xl font-bold mb-4 text-orange-400">Audit Results</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-green-500/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                    <Shield className="w-8 h-8 text-green-400" />
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                {[
+                  { label: 'Symbol', value: 'BLAZE' },
+                  { label: 'Total supply', value: '1,000,000,000' },
+                  { label: 'Network', value: 'BSC (BEP-20)' },
+                  { label: 'Burn rate', value: '0.1% per tx' },
+                ].map((item, i) => (
+                  <div key={i} className="card p-4 text-center">
+                    <div className="text-sm text-gray-500 mb-1">{item.label}</div>
+                    <div className="text-lg font-bold text-gradient-brand">{item.value}</div>
                   </div>
-                  <h4 className="font-bold mb-2">CertiK Audit</h4>
-                  <p className="text-gray-400 text-sm">Security audit completed with no critical issues found</p>
-                </div>
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-blue-500/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                    <Lock className="w-8 h-8 text-blue-400" />
+                ))}
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div className="card p-6">
+                  <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
+                    <PieChart className="w-5 h-5 text-orange-500" />
+                    Token distribution
+                  </h3>
+                  <div className="space-y-3">
+                    {[
+                      { label: 'Public sale', percent: 40, color: 'bg-orange-500' },
+                      { label: 'Ecosystem & rewards', percent: 25, color: 'bg-sky-500' },
+                      { label: 'Team & advisors', percent: 15, color: 'bg-purple-500' },
+                      { label: 'Liquidity', percent: 10, color: 'bg-emerald-500' },
+                      { label: 'Marketing', percent: 5, color: 'bg-pink-500' },
+                      { label: 'Reserve', percent: 5, color: 'bg-gray-400' },
+                    ].map((item, i) => (
+                      <div key={i}>
+                        <div className="flex justify-between text-sm mb-1">
+                          <span className="text-gray-600">{item.label}</span>
+                          <span className="font-semibold text-gray-900">{item.percent}%</span>
+                        </div>
+                        <div className="h-2 bg-gray-100 rounded-full">
+                          <div className={`h-2 ${item.color} rounded-full`} style={{ width: `${item.percent}%` }} />
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                  <h4 className="font-bold mb-2">Test Coverage</h4>
-                  <p className="text-gray-400 text-sm">100% test coverage with 39/39 tests passing</p>
                 </div>
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-purple-500/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                    <Zap className="w-8 h-8 text-purple-400" />
-                  </div>
-                  <h4 className="font-bold mb-2">Bug Bounty</h4>
-                  <p className="text-gray-400 text-sm">Ongoing bug bounty program with rewards up to $50,000</p>
+
+                <div className="card p-6">
+                  <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
+                    <Award className="w-5 h-5 text-emerald-500" />
+                    Token utility
+                  </h3>
+                  <ul className="space-y-3">
+                    {[
+                      'Staking rewards up to 20% APY (Q1 2026)',
+                      'Transaction fee discounts (up to 50%)',
+                      'Governance voting rights (Q2 2026)',
+                      'Premium feature access',
+                      'Merchant partnership benefits',
+                      'Early access to new features',
+                    ].map((item, i) => (
+                      <li key={i} className="flex items-center gap-2 text-gray-600">
+                        <CheckCircle className="w-4 h-4 text-emerald-500" />
+                        <span className="text-sm">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
-            </div>
-          </div>
-        </motion.section>
 
-        {/* Roadmap & Milestones */}
-        <motion.section
-          initial={{ y: 20 }}
-          animate={{ y: 0 }}
-          transition={{ duration: 0.5, delay: 1.0 }}
-          className="mb-16"
-        >
-          <h2 className="text-4xl font-bold mb-6">9. Roadmap & Milestones</h2>
-          <div className="prose prose-lg prose-invert max-w-none">
-            <p className="mb-8">
-              BLAZE's development roadmap is structured to deliver value incrementally 
-              while building toward a comprehensive DeFi ecosystem.
-            </p>
-            
-            <div className="space-y-8">
-              <div className="card-glass p-6 border-l-4 border-green-500">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center">
-                    <CheckCircle2 className="w-6 h-6 text-green-400" />
+              <div className="card p-6 bg-gradient-to-r from-orange-50 to-yellow-50 border-orange-200">
+                <h3 className="font-bold text-gray-900 mb-4">Staking tiers <span className="text-sm font-normal text-orange-600">(launching Q1 2026)</span></h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {[
+                    { tier: 'Flexible', apy: '8%', lock: 'No lock', min: '100 BLAZE' },
+                    { tier: 'Standard', apy: '15%', lock: '6 months', min: '1,000 BLAZE' },
+                    { tier: 'Premium', apy: '20%', lock: '12 months', min: '10,000 BLAZE' },
+                  ].map((item, i) => (
+                    <div key={i} className="bg-white p-5 rounded-xl text-center">
+                      <div className="text-sm text-gray-500 mb-1">{item.tier}</div>
+                      <div className="text-3xl font-bold text-gradient-brand mb-2">{item.apy}</div>
+                      <div className="text-xs text-gray-500">{item.lock}</div>
+                      <div className="text-xs text-gray-400 mt-2">Min: {item.min}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+
+            {/* 9. Security */}
+            <motion.div
+              id="security"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">9. Security</h2>
+              
+              <div className="prose prose-lg max-w-none text-gray-600 mb-8">
+                <p>
+                  Security is not an afterthought at BLAZE – it's foundational. Our multi-layered 
+                  security architecture protects users at every level, from smart contracts to 
+                  the application layer.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div className="card p-6">
+                  <h3 className="font-bold text-gray-900 mb-4">Smart contract security</h3>
+                  <ul className="space-y-2">
+                    {[
+                      'Built on audited OpenZeppelin contracts',
+                      'ReentrancyGuard on all external calls',
+                      'Comprehensive test coverage (100%)',
+                      'Multi-sig admin controls',
+                      'Time-locked upgrades',
+                      'Bug bounty program',
+                    ].map((item, i) => (
+                      <li key={i} className="flex items-center gap-2 text-gray-600 text-sm">
+                        <CheckCircle className="w-4 h-4 text-emerald-500" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="card p-6">
+                  <h3 className="font-bold text-gray-900 mb-4">Wallet security</h3>
+                  <ul className="space-y-2">
+                    {[
+                      'Non-custodial (you own your keys)',
+                      'AES-256 encryption for stored data',
+                      'Biometric authentication (WebAuthn)',
+                      'Hardware security key support',
+                      'Session timeout protection',
+                      'Transaction signing verification',
+                    ].map((item, i) => (
+                      <li key={i} className="flex items-center gap-2 text-gray-600 text-sm">
+                        <CheckCircle className="w-4 h-4 text-emerald-500" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <div className="card p-6 bg-amber-50 border-amber-200">
+                <div className="flex items-start gap-4">
+                  <Shield className="w-10 h-10 text-amber-600 flex-shrink-0" />
+                  <div>
+                    <h3 className="font-bold text-gray-900 mb-2">Audit status</h3>
+                    <p className="text-gray-700 mb-3">
+                      Our smart contracts will undergo a comprehensive security audit by CertiK, 
+                      a leading blockchain security firm, planned for Q1 2026. The full audit 
+                      report will be published before public beta launch.
+                    </p>
+                    <span className="inline-flex items-center gap-2 px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-sm font-medium">
+                      <Clock className="w-4 h-4" />
+                      Scheduled for Q1 2026
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* 10. Roadmap */}
+            <motion.div
+              id="roadmap"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">10. Roadmap</h2>
+              
+              <div className="prose prose-lg max-w-none text-gray-600 mb-8">
+                <p>
+                  Our development roadmap is designed to deliver value incrementally while building 
+                  toward our vision of making crypto payments ubiquitous.
+                </p>
+              </div>
+
+              <div className="space-y-4">
+                {[
+                  { 
+                    phase: 'Q3 2025', 
+                    title: 'AI & QuickPay', 
+                    status: 'completed', 
+                    items: [
+                      'QuickPay integration (instant QR payments)',
+                      'AI Transaction Assistant',
+                      'Smart Scam Detector',
+                      'Gas Optimizer with Smart Scheduling (unique feature)',
+                      'Portfolio Advisor',
+                      'Market Analyzer',
+                      'Multi-chain wallet foundation',
+                    ] 
+                  },
+                  { 
+                    phase: 'Q4 2025', 
+                    title: 'DEX & fiat integration', 
+                    status: 'active', 
+                    items: [
+                      'Li.Fi integration (token swaps)',
+                      'Onramper integration (fiat on-ramp & off-ramp)',
+                      'Multi-chain support expansion (18+ chains)',
+                      'PWA & mobile-first design',
+                      'Website & branding finalization',
+                    ] 
+                  },
+                  { 
+                    phase: 'Q1 2026', 
+                    title: 'Presale & app launch', 
+                    status: 'upcoming', 
+                    items: [
+                      'BLAZE token presale launch',
+                      'iOS app launch (App Store)',
+                      'Android app launch (Google Play)',
+                      'Public beta release',
+                      'Staking platform goes live',
+                      'CertiK security audit',
+                      'CEX listings (initial)',
+                    ] 
+                  },
+                  { 
+                    phase: 'Q2 2026', 
+                    title: 'Growth & expansion', 
+                    status: 'upcoming', 
+                    items: [
+                      'CEX listings (continued)',
+                      'Merchant partnerships program',
+                      'BLAZE card program launch',
+                      'Governance launch (1 token = 1 vote)',
+                      'Referral & cashback system',
+                    ] 
+                  },
+                  { 
+                    phase: 'Q3 2026', 
+                    title: 'Ecosystem development', 
+                    status: 'upcoming', 
+                    items: [
+                      'Cross-chain bridges',
+                      'Hardware wallet support',
+                      'Advanced AI features',
+                      'Enterprise solutions',
+                      'NFT marketplace expansion',
+                    ] 
+                  },
+                  { 
+                    phase: 'Q4 2026', 
+                    title: 'Global scale', 
+                    status: 'upcoming', 
+                    items: [
+                      'Worldwide merchant adoption',
+                      'Banking partnerships',
+                      'Multi-currency card rollout',
+                      'DAO governance fully active',
+                      'Major exchange listings',
+                    ] 
+                  },
+                ].map((item, i) => (
+                  <div key={i} className={`card p-6 ${item.status === 'active' ? 'border-orange-300 bg-orange-50' : ''}`}>
+                    <div className="flex items-start gap-4">
+                      <div className="flex flex-col items-center">
+                        <div className={`w-4 h-4 rounded-full ${
+                          item.status === 'completed' ? 'bg-emerald-500' :
+                          item.status === 'active' ? 'bg-orange-500' : 'bg-gray-300'
+                        }`} />
+                        {i < 5 && <div className="w-0.5 h-full bg-gray-200 mt-2" />}
+                      </div>
+                      <div className="flex-1 pb-4">
+                        <div className="flex flex-wrap items-center gap-3 mb-3">
+                          <span className="text-sm font-medium text-gray-500">{item.phase}</span>
+                          <h3 className="font-bold text-gray-900">{item.title}</h3>
+                          {item.status === 'completed' && (
+                            <span className="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">Completed</span>
+                          )}
+                          {item.status === 'active' && (
+                            <span className="text-xs bg-orange-100 text-orange-700 px-2 py-0.5 rounded-full">Current</span>
+                          )}
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                          {item.items.map((subitem, j) => (
+                            <span key={j} className="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-lg">
+                              {subitem}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* 11. Team */}
+            <motion.div
+              id="team"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">11. Team</h2>
+              
+              <div className="prose prose-lg max-w-none text-gray-600 mb-8">
+                <p>
+                  BLAZE is built by a dedicated team passionate about making crypto accessible to everyone. 
+                  Based in Groningen, Netherlands, we combine deep technical expertise with a user-first mindset.
+                </p>
+              </div>
+
+              <div className="card p-6 mb-6">
+                <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
+                  <div className="w-24 h-24 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-2xl flex items-center justify-center text-white text-3xl font-bold flex-shrink-0">
+                    R
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold">Q4 2024 - Foundation (Completed)</h3>
-                    <p className="text-gray-400 text-sm">Core infrastructure and security</p>
+                    <h3 className="font-bold text-gray-900 text-xl mb-1">Rick Schlimback</h3>
+                    <p className="text-orange-500 font-medium mb-3">Founder & CEO</p>
+                    <p className="text-gray-600 mb-4">
+                      Crypto enthusiast and entrepreneur with a vision to make digital payments 
+                      accessible to everyone. Passionate about building products that solve real 
+                      problems and bring the benefits of cryptocurrency to everyday users.
+                    </p>
+                    <div className="flex gap-2">
+                      <a href="https://twitter.com/blazewallet_io" className="text-sm text-gray-500 hover:text-orange-500">Twitter</a>
+                      <span className="text-gray-300">•</span>
+                      <a href="https://linkedin.com" className="text-sm text-gray-500 hover:text-orange-500">LinkedIn</a>
+                    </div>
                   </div>
                 </div>
-                <ul className="space-y-2 text-gray-300 text-sm ml-16">
-                  <li>• Smart contracts development (39/39 tests passed)</li>
-                  <li>• Security architecture & ReentrancyGuard</li>
-                  <li>• Multi-chain wallet (18 blockchain networks)</li>
-                  <li>• Advanced staking system (8-20% APY)</li>
-                  <li>• Testnet deployment & verification</li>
-                </ul>
               </div>
 
-              <div className="card-glass p-6 border-l-4 border-green-500">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center">
-                    <CheckCircle2 className="w-6 h-6 text-green-400" />
+              <div className="card p-6 bg-gray-50">
+                <h3 className="font-bold text-gray-900 mb-4">Company information</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                  <div>
+                    <span className="text-gray-500">Company:</span>
+                    <span className="text-gray-900 ml-2">BLAZE</span>
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold">Q1 2025 - AI Integration (Completed)</h3>
-                    <p className="text-gray-400 text-sm">Revolutionary AI features</p>
-                  </div>
-                </div>
-                <ul className="space-y-2 text-gray-300 text-sm ml-16">
-                  <li>• 5 AI features geïmplementeerd</li>
-                  <li>• Biometric authentication (WebAuthn)</li>
-                  <li>• NFT marketplace & minting</li>
-                  <li>• Governance DAO system</li>
-                  <li>• Launchpad platform</li>
-                </ul>
-              </div>
-
-              <div className="card-glass p-6 border-l-4 border-orange-500">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-orange-500/20 rounded-xl flex items-center justify-center">
-                    <Rocket className="w-6 h-6 text-orange-400" />
+                    <span className="text-gray-500">KvK number:</span>
+                    <span className="text-gray-900 ml-2">88929280</span>
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold">Q2 2025 - Presale & Mainnet (Active)</h3>
-                    <p className="text-gray-400 text-sm">Public launch and ecosystem growth</p>
-                  </div>
-                </div>
-                <ul className="space-y-2 text-gray-300 text-sm ml-16">
-                  <li>• Public presale launch (LIVE)</li>
-                  <li>• Mainnet deployment (BSC)</li>
-                  <li>• DEX listings (PancakeSwap, Uniswap)</li>
-                  <li>• CertiK audit completion</li>
-                  <li>• Marketing campaign start</li>
-                </ul>
-              </div>
-
-              <div className="card-glass p-6 border-l-4 border-blue-500">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center">
-                    <Globe className="w-6 h-6 text-blue-400" />
+                    <span className="text-gray-500">Location:</span>
+                    <span className="text-gray-900 ml-2">Groningen, Netherlands</span>
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold">Q3 2025 - Exchange Listings</h3>
-                    <p className="text-gray-400 text-sm">Market expansion and accessibility</p>
+                    <span className="text-gray-500">Email:</span>
+                    <a href="mailto:info@blazewallet.io" className="text-orange-500 ml-2">info@blazewallet.io</a>
                   </div>
                 </div>
-                <ul className="space-y-2 text-gray-300 text-sm ml-16">
-                  <li>• Gate.io listing</li>
-                  <li>• MEXC listing</li>
-                  <li>• KuCoin application</li>
-                  <li>• CoinGecko & CMC tracking</li>
-                  <li>• 10,000+ holders target</li>
-                </ul>
               </div>
+            </motion.div>
 
-              <div className="card-glass p-6 border-l-4 border-purple-500">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center">
-                    <Coins className="w-6 h-6 text-purple-400" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold">Q4 2025 - Ecosystem Expansion</h3>
-                    <p className="text-gray-400 text-sm">Advanced features and integrations</p>
-                  </div>
-                </div>
-                <ul className="space-y-2 text-gray-300 text-sm ml-16">
-                  <li>• Cross-chain bridges</li>
-                  <li>• Fiat on/off ramps (MoonPay)</li>
-                  <li>• Mobile apps (iOS/Android)</li>
-                  <li>• Hardware wallet support</li>
-                  <li>• 50,000+ users milestone</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </motion.section>
-
-        {/* Team & Governance */}
-        <motion.section
-          initial={{ y: 20 }}
-          animate={{ y: 0 }}
-          transition={{ duration: 0.5, delay: 1.1 }}
-          className="mb-16"
-        >
-          <h2 className="text-4xl font-bold mb-6">10. Team & Governance</h2>
-          <div className="prose prose-lg prose-invert max-w-none">
-            <p className="mb-8">
-              BLAZE is built by a dedicated team of crypto enthusiasts and blockchain 
-              experts, with governance transitioning to a decentralized autonomous organization (DAO).
-            </p>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="card-glass p-6 text-center">
-                <div className="w-16 h-16 bg-gradient-blaze rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Users className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-xl font-bold mb-2">Founder</h3>
-                <p className="text-orange-400 text-sm font-medium mb-3">Founder & CEO</p>
-                <p className="text-gray-400 text-sm">Crypto entrepreneur met 5+ jaar ervaring in DeFi</p>
-              </div>
-              
-              <div className="card-glass p-6 text-center">
-                <div className="w-16 h-16 bg-gradient-blaze rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Brain className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-xl font-bold mb-2">Core Team</h3>
-                <p className="text-orange-400 text-sm font-medium mb-3">Development</p>
-                <p className="text-gray-400 text-sm">Full-stack developers gespecialiseerd in blockchain</p>
-              </div>
-              
-              <div className="card-glass p-6 text-center">
-                <div className="w-16 h-16 bg-gradient-blaze rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Users className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-xl font-bold mb-2">Community</h3>
-                <p className="text-orange-400 text-sm font-medium mb-3">Advisors</p>
-                <p className="text-gray-400 text-sm">Ervaren crypto advisors en marketing experts</p>
-              </div>
-            </div>
-
-            <div className="card-glass p-8">
-              <h3 className="text-2xl font-bold mb-4 text-orange-400">DAO Governance</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <h4 className="font-semibold mb-3">Voting System:</h4>
-                  <ul className="space-y-2 text-gray-300 text-sm">
-                    <li>• <strong>1 Token = 1 Vote:</strong> Democratic participation</li>
-                    <li>• <strong>Proposal System:</strong> Community-driven decisions</li>
-                    <li>• <strong>Quorum Requirements:</strong> Minimum participation thresholds</li>
-                    <li>• <strong>Execution Delays:</strong> Time-locked implementations</li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-3">Governance Areas:</h4>
-                  <ul className="space-y-2 text-gray-300 text-sm">
-                    <li>• <strong>Protocol Upgrades:</strong> Technical improvements</li>
-                    <li>• <strong>Treasury Management:</strong> Fund allocation</li>
-                    <li>• <strong>Feature Development:</strong> New functionality</li>
-                    <li>• <strong>Partnership Decisions:</strong> Strategic alliances</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </motion.section>
-
-        {/* Legal & Compliance */}
-        <motion.section
-          initial={{ y: 20 }}
-          animate={{ y: 0 }}
-          transition={{ duration: 0.5, delay: 1.2 }}
-          className="mb-16"
-        >
-          <h2 className="text-4xl font-bold mb-6">11. Legal & Compliance</h2>
-          <div className="prose prose-lg prose-invert max-w-none">
-            <p className="mb-8">
-              BLAZE operates in compliance with applicable laws and regulations, 
-              with a commitment to transparency and user protection.
-            </p>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="card-glass p-6">
-                <h3 className="text-xl font-bold mb-4 text-green-400">Regulatory Compliance</h3>
-                <ul className="space-y-2 text-gray-300">
-                  <li>• <strong>KYC/AML:</strong> Identity verification for fiat services</li>
-                  <li>• <strong>Data Protection:</strong> GDPR compliance</li>
-                  <li>• <strong>Tax Reporting:</strong> Transaction history export</li>
-                  <li>• <strong>Licensing:</strong> Appropriate jurisdiction compliance</li>
-                </ul>
-              </div>
-              
-              <div className="card-glass p-6">
-                <h3 className="text-xl font-bold mb-4 text-blue-400">User Protection</h3>
-                <ul className="space-y-2 text-gray-300">
-                  <li>• <strong>Terms of Service:</strong> Clear usage guidelines</li>
-                  <li>• <strong>Privacy Policy:</strong> Data handling transparency</li>
-                  <li>• <strong>Dispute Resolution:</strong> Fair conflict resolution</li>
-                  <li>• <strong>Insurance:</strong> Smart contract coverage</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </motion.section>
-
-        {/* Conclusion */}
-        <motion.section
-          initial={{ y: 20 }}
-          animate={{ y: 0 }}
-          transition={{ duration: 0.5, delay: 1.3 }}
-          className="mb-16"
-        >
-          <h2 className="text-4xl font-bold mb-6">12. Conclusion</h2>
-          <div className="prose prose-lg prose-invert max-w-none">
-            <p className="text-xl text-gray-300 mb-6">
-              BLAZE Wallet represents the next evolution in cryptocurrency management, 
-              combining cutting-edge AI technology with robust security and user-centric design.
-            </p>
-            <p className="mb-6">
-              With five revolutionary AI features, comprehensive DeFi functionality, and 
-              a commitment to security and transparency, BLAZE is positioned to become 
-              the leading intelligent crypto wallet in the market.
-            </p>
-            <div className="card-glass p-8 bg-gradient-to-r from-orange-500/10 to-red-500/10 border-orange-500/30">
-              <h3 className="text-2xl font-bold mb-4 text-center">Join the BLAZE Revolution</h3>
-              <p className="text-center text-gray-300 mb-6">
-                Experience the future of cryptocurrency with the most intelligent wallet ever created.
+            {/* Conclusion */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="card p-8 bg-gradient-to-r from-orange-500 to-yellow-500 text-center"
+            >
+              <h2 className="text-2xl font-bold text-white mb-4">Join the BLAZE revolution</h2>
+              <p className="text-white/90 mb-6 max-w-xl mx-auto">
+                We're building the future of crypto payments. Join us on this journey and be part 
+                of making cryptocurrency truly usable for everyone, everywhere.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link 
-                  href="https://my.blazewallet.io"
-                  className="px-8 py-4 bg-gradient-blaze rounded-xl font-bold text-lg hover:scale-105 transition-transform text-center"
-                >
+                <a href="https://my.blazewallet.io" className="btn-light">
                   Try BLAZE Wallet
-                </Link>
-                <Link 
-                  href="/"
-                  className="px-8 py-4 card-glass rounded-xl font-bold text-lg hover:bg-white/10 transition-colors text-center"
-                >
-                  Learn More
-                </Link>
+                </a>
+                <a href="https://t.me/blazewallet_io" target="_blank" rel="noopener noreferrer" className="px-6 py-3 bg-white/20 text-white rounded-xl font-semibold hover:bg-white/30 transition-colors">
+                  Join community
+                </a>
               </div>
-            </div>
-          </div>
-        </motion.section>
+            </motion.div>
 
-        {/* Footer */}
-        <motion.div
-          transition={{ duration: 0.5, delay: 1.4 }}
-          className="text-center py-8 border-t border-slate-800"
-        >
-          <p className="text-gray-500 text-sm">
-            © 2024 BLAZE Wallet. All rights reserved. | 
-            <Link href="/" className="text-orange-400 hover:text-orange-300 ml-1">blazewallet.io</Link>
-          </p>
-        </motion.div>
-      </div>
+            {/* Legal disclaimer */}
+            <div className="text-xs text-gray-500 p-6 bg-gray-100 rounded-xl">
+              <h4 className="font-semibold text-gray-700 mb-2">Disclaimer</h4>
+              <p>
+                This whitepaper is for informational purposes only and does not constitute financial, 
+                investment, or legal advice. Cryptocurrency investments carry significant risks, including 
+                the potential loss of principal. Past performance is not indicative of future results. 
+                Always conduct your own research and consult with qualified professionals before making 
+                investment decisions. The information in this document is subject to change without notice. 
+                BLAZE Wallet is a non-custodial service and does not provide custody of user funds.
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-8 border-t border-gray-200 bg-white">
+        <div className="container-main text-center text-gray-500 text-sm">
+          © 2025 BLAZE Wallet. All rights reserved. KvK: 88929280
+        </div>
+      </footer>
     </div>
   );
 }

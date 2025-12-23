@@ -1,0 +1,26 @@
+{
+  "name": "BLAZE Wallet",
+  "short_name": "BLAZE",
+  "description": "The AI-Powered Crypto Wallet - DeFi Made Simple",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#F97316",
+  "icons": [
+    {
+      "src": "/blaze-logo.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "/blaze-logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/blaze-logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

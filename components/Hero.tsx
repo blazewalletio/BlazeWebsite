@@ -1,160 +1,278 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { Flame, ArrowRight, Brain, Shield, PieChart, Zap, MessageSquare, Sparkles, Link2, TrendingUp } from 'lucide-react';
+import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
+import { ArrowRight, Shield, Zap, CheckCircle, QrCode } from 'lucide-react';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
 export default function Hero() {
+  const [isHovering, setIsHovering] = useState(false);
+
+  // Mouse tracking for 3D effect
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  // Smooth spring animation
+  const springConfig = { damping: 25, stiffness: 150 };
+  const rotateX = useSpring(useTransform(mouseY, [-300, 300], [15, -15]), springConfig);
+  const rotateY = useSpring(useTransform(mouseX, [-300, 300], [-15, 15]), springConfig);
+
+  // Auto-animation when not hovering
+  useEffect(() => {
+    if (!isHovering) {
+      const interval = setInterval(() => {
+        const time = Date.now() / 2000;
+        mouseX.set(Math.sin(time) * 100);
+        mouseY.set(Math.cos(time) * 50);
+      }, 16);
+      return () => clearInterval(interval);
+    }
+  }, [isHovering, mouseX, mouseY]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    mouseX.set(e.clientX - centerX);
+    mouseY.set(e.clientY - centerY);
+  };
+
+  const trustBadges = [
+    { text: 'Pay anywhere' },
+    { text: 'Non-custodial' },
+    { text: 'Instant payments' },
+  ];
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Animated background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950" />
+    <section className="relative min-h-screen flex items-center pt-20 md:pt-0 overflow-hidden">
+      {/* Animated gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
       
-      {/* Animated gradient orbs */}
-      <div className="absolute top-20 left-20 w-96 h-96 bg-orange-500/20 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute bottom-20 right-20 w-96 h-96 bg-red-500/20 rounded-full blur-3xl animate-pulse delay-1000" />
+      {/* Decorative blobs */}
+      <div className="absolute top-20 left-10 w-96 h-96 bg-orange-500/20 rounded-full blur-3xl" />
+      <div className="absolute bottom-20 right-10 w-80 h-80 bg-sky-500/10 rounded-full blur-3xl" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-yellow-500/10 rounded-full blur-3xl" />
       
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-        {/* Logo/Badge */}
-        <motion.div
-          initial={{ y: -20 }}
-          animate={{ y: 0 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-blaze text-white font-bold mb-8"
-        >
-          <Flame className="w-5 h-5" />
-          <span>BLAZE WALLET</span>
-        </motion.div>
-
-        {/* Main heading */}
-        <motion.h1
-          initial={{ y: 20 }}
-          animate={{ y: 0 }}
-          transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }}
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 px-4"
-        >
-          Set Your Finances
-          <br />
-          <span className="text-gradient animate-bg inline-flex items-center gap-2 sm:gap-3">
-            Ablaze <Flame className="w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 inline-block" />
-          </span>
-        </motion.h1>
-
-        {/* Subtitle */}
-        <motion.p
-          initial={{ y: 20 }}
-          animate={{ y: 0 }}
-          transition={{ duration: 0.4, delay: 0.15, ease: "easeOut" }}
-          className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto px-4"
-        >
-          The most intelligent crypto wallet with 5 advanced AI features. 
-          Multi-chain (18 chains), Staking (8-20% APY), Governance, NFTs, Launchpad, Cashback, Referral and more. Experience the future of DeFi.
-        </motion.p>
-
-        {/* AI Badge */}
-        <motion.div
-          initial={{ scale: 0.9 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 0.4, delay: 0.2, ease: "easeOut" }}
-          className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-12 max-w-4xl mx-auto px-4"
-        >
-          {[
-            { icon: Brain, text: 'AI Transaction Assistant' },
-            { icon: Shield, text: 'Smart Scam Detector' },
-            { icon: PieChart, text: 'AI Portfolio Advisor' },
-            { icon: Zap, text: 'Gas Optimizer' },
-            { icon: MessageSquare, text: 'Crypto Expert AI' }
-          ].map((feature, index) => (
-            <span 
-              key={index}
-              className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 text-xs sm:text-sm font-medium backdrop-blur-sm"
+      {/* Grid pattern overlay */}
+      <div className="absolute inset-0 opacity-5" style={{
+        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+      }} />
+      
+      <div className="container-main relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center py-12 lg:py-20">
+          {/* Left: Text content */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-center lg:text-left"
+          >
+            {/* Badge */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.1 }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-orange-500/20 to-yellow-500/20 border border-orange-500/30 text-orange-300 font-medium text-sm mb-6"
             >
-              <feature.icon className="w-3 h-3 sm:w-4 sm:h-4" />
-              {feature.text}
-            </span>
-          ))}
-        </motion.div>
+              <QrCode className="w-4 h-4" />
+              Pay with crypto everywhere
+            </motion.div>
 
-        {/* Key Features Showcase */}
-        <motion.div
-          initial={{ y: 20 }}
-          animate={{ y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="max-w-5xl mx-auto mb-8"
-        >
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            {[
-              { icon: Sparkles, label: '5 AI Features', value: 'Revolutionary', color: 'from-purple-500 to-pink-500' },
-              { icon: Link2, label: '18 Chains', value: 'Universal', color: 'from-blue-500 to-cyan-500' },
-              { icon: TrendingUp, label: 'Up to 20% APY', value: 'Staking', color: 'from-green-500 to-emerald-500' },
-              { icon: Shield, label: '100% Secure', value: 'Non-custodial', color: 'from-orange-500 to-red-500' },
-            ].map((stat, index) => {
-              const IconComponent = stat.icon;
-              return (
-                <motion.div
-                  key={stat.label}
-                  initial={{ scale: 0.9 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 0.3, delay: 0.2 + index * 0.05, ease: "easeOut" }}
-                  whileHover={{ scale: 1.03, y: -3 }}
-                  style={{ willChange: 'transform' }}
-                  className="card-glass p-4 sm:p-6 text-center hover:bg-white/10 transition-all cursor-pointer"
+            {/* Heading */}
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight"
+            >
+              Your crypto{' '}
+              <span className="text-gradient-brand">wallet</span>
+              <br />for everyday life
+            </motion.h1>
+
+            {/* Subtitle */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="text-lg sm:text-xl text-gray-300 mb-8 max-w-lg mx-auto lg:mx-0"
+            >
+              Pay at the coffee shop, supermarket, or anywhere – just scan a QR code. Crypto payments in seconds, not minutes.
+            </motion.p>
+
+            {/* CTA Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8"
+            >
+              <a
+                href="https://my.blazewallet.io"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-brand flex items-center justify-center gap-2 px-8 py-4 text-lg"
+              >
+                Start paying with crypto
+                <ArrowRight className="w-5 h-5" />
+              </a>
+              <a
+                href="#quickpay"
+                className="btn-light flex items-center justify-center gap-2 px-8 py-4 text-lg"
+              >
+                <QrCode className="w-5 h-5" />
+                See QuickPay
+              </a>
+            </motion.div>
+
+            {/* Trust badges */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="flex flex-wrap gap-6 justify-center lg:justify-start"
+            >
+              {trustBadges.map((badge, index) => (
+                <div
+                  key={index}
+                  className="flex items-center gap-2 text-gray-400"
                 >
-                  <div className={`w-12 h-12 sm:w-16 sm:h-16 rounded-xl bg-gradient-to-r ${stat.color} flex items-center justify-center mb-3 sm:mb-4 mx-auto`}>
-                    <IconComponent className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
+                  <CheckCircle className="w-5 h-5 text-emerald-400" />
+                  <span className="font-medium">{badge.text}</span>
+                </div>
+              ))}
+            </motion.div>
+          </motion.div>
+
+          {/* Right: 3D iPhone */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+            className="relative flex justify-center lg:justify-end"
+            onMouseMove={handleMouseMove}
+            onMouseEnter={() => setIsHovering(true)}
+            onMouseLeave={() => setIsHovering(false)}
+            style={{ perspective: 1000 }}
+          >
+            {/* 3D iPhone Container */}
+            <motion.div
+              style={{
+                rotateX,
+                rotateY,
+                transformStyle: 'preserve-3d',
+              }}
+              className="relative"
+            >
+              {/* Glow effect behind phone */}
+              <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-yellow-500 rounded-[3rem] blur-2xl opacity-30 scale-90" />
+              
+              {/* iPhone Frame */}
+              <div 
+                className="relative bg-[#1a1a1a] rounded-[3rem] p-[14px] shadow-2xl"
+                style={{
+                  boxShadow: `
+                    0 0 0 1px rgba(255,255,255,0.1),
+                    0 25px 50px -12px rgba(0,0,0,0.8),
+                    0 0 100px rgba(249, 115, 22, 0.2)
+                  `,
+                  transformStyle: 'preserve-3d',
+                }}
+              >
+                {/* iPhone inner bezel */}
+                <div className="relative bg-black rounded-[2.5rem] overflow-hidden"
+                  style={{
+                    width: '280px',
+                    height: '580px',
+                  }}
+                >
+                  {/* Dynamic Island */}
+                  <div className="absolute top-3 left-1/2 -translate-x-1/2 z-20">
+                    <div className="bg-black rounded-full px-6 py-2 flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full bg-[#1a1a1a]" />
+                      <div className="w-2 h-2 rounded-full bg-[#0a3d2e]" />
+                    </div>
                   </div>
-                  <div className="text-lg sm:text-xl font-bold text-gradient mb-1">{stat.value}</div>
-                  <div className="text-xs sm:text-sm text-gray-400">{stat.label}</div>
-                </motion.div>
-              );
-            })}
-          </div>
-
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
-            <a
-              href="https://my.blazewallet.io"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-blaze rounded-xl font-bold text-base sm:text-lg hover:scale-105 transition-transform flex items-center justify-center gap-2 glow-orange"
-            >
-              Launch Wallet
-              <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
-            </a>
-            <a
-              href="#demo"
-              className="px-6 sm:px-8 py-3 sm:py-4 card-glass rounded-xl font-bold text-base sm:text-lg hover:scale-105 transition-transform text-center"
-            >
-              View Demo
-            </a>
-          </div>
-        </motion.div>
-
-        {/* Trust indicators */}
-        <motion.div
-          transition={{ duration: 0.4, delay: 0.3, ease: "easeOut" }}
-          className="flex flex-wrap justify-center gap-4 sm:gap-8 text-xs sm:text-sm text-gray-400 px-4"
+                  
+                  {/* Screen Content - Your screenshot */}
+                  <div className="absolute inset-0">
+                    <Image
+                      src="/iphone_screen.png"
+                      alt="BLAZE Wallet App"
+                      fill
+                      className="object-cover object-top"
+                      priority
+                      sizes="280px"
+                    />
+                  </div>
+                  
+                  {/* Screen reflection */}
+                  <div 
+                    className="absolute inset-0 pointer-events-none z-10"
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%, transparent 100%)',
+                    }}
+                  />
+                </div>
+                
+                {/* Side buttons */}
+                <div className="absolute -left-[2px] top-28 w-[3px] h-8 bg-[#2a2a2a] rounded-l" />
+                <div className="absolute -left-[2px] top-44 w-[3px] h-12 bg-[#2a2a2a] rounded-l" />
+                <div className="absolute -left-[2px] top-60 w-[3px] h-12 bg-[#2a2a2a] rounded-l" />
+                <div className="absolute -right-[2px] top-36 w-[3px] h-16 bg-[#2a2a2a] rounded-r" />
+              </div>
+              
+              {/* Floating badges */}
+              <motion.div
+                animate={{ y: [0, -8, 0] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute -top-2 -right-8 bg-white rounded-2xl shadow-xl p-3 border border-gray-100 hidden lg:block"
+                style={{ transform: 'translateZ(40px)' }}
+              >
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center">
+                    <Zap className="w-4 h-4 text-emerald-600" />
+                  </div>
+                  <div>
+                    <div className="font-semibold text-gray-900 text-xs">2 seconds</div>
+                    <div className="text-[10px] text-gray-500">Payment time</div>
+                  </div>
+                </div>
+              </motion.div>
+              
+              <motion.div
+                animate={{ y: [0, 8, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                className="absolute -bottom-2 -left-8 bg-white rounded-2xl shadow-xl p-3 border border-gray-100 hidden lg:block"
+                style={{ transform: 'translateZ(40px)' }}
+              >
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center">
+                    <Shield className="w-4 h-4 text-orange-600" />
+                  </div>
+                  <div>
+                    <div className="font-semibold text-gray-900 text-xs">Secured</div>
+                    <div className="text-[10px] text-gray-500">Non-custodial</div>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </div>
+      
+      {/* Diagonal slice transition */}
+      <div className="absolute bottom-0 left-0 right-0">
+        <svg 
+          viewBox="0 0 1440 120" 
+          fill="none" 
+          xmlns="http://www.w3.org/2000/svg" 
+          className="w-full"
+          preserveAspectRatio="none"
         >
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-            <span>Smart contract verified</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-            <span>Non-custodial</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-            <span>18 chains supported</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-            <span>Launch-ready</span>
-          </div>
-        </motion.div>
+          <polygon points="0,120 1440,40 1440,120" fill="white"/>
+        </svg>
       </div>
     </section>
   );
 }
-
-
-

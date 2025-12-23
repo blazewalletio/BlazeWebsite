@@ -1,225 +1,178 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { CheckCircle2, Circle, Rocket, UserCircle, Code, Handshake } from 'lucide-react';
+import { CheckCircle, Circle, Rocket, ArrowRight } from 'lucide-react';
 
 const roadmapPhases = [
   {
     phase: 'Q3 2025',
-    title: 'Foundation',
+    title: 'AI & QuickPay',
     status: 'completed',
-    items: [
-      'Smart contracts development (39/39 tests passed)',
-      'Security architecture & ReentrancyGuard',
-      'Multi-chain wallet (18 blockchain networks)',
-      'Advanced staking system (8-20% APY)',
-      'Testnet deployment & verification',
+    highlights: [
+      'QuickPay integration',
+      'AI transaction assistant',
+      'Smart scam detector',
+      'Gas optimizer with smart scheduling',
+      'Portfolio advisor & market analyzer',
     ],
   },
   {
     phase: 'Q4 2025',
-    title: 'AI Integration & Launch',
-    status: 'completed',
-    items: [
-      '5 AI features implemented (Transaction Assistant, Scam Detector, Portfolio Advisor, Gas Optimizer, Crypto Expert)',
-      'Biometric authentication (WebAuthn) & QR login',
-      'NFT marketplace & minting (Common, Rare, Epic, Legendary)',
-      'Governance DAO system (1 token = 1 vote)',
-      'Launchpad platform with early access',
-      'Cashback & Referral system',
-      'Token Swap (1inch aggregator)',
-      'PWA support & Mobile-first design',
+    title: 'DEX & fiat integration',
+    status: 'active',
+    highlights: [
+      'Li.Fi integration (token swaps)',
+      'Onramper integration (fiat on/off ramp)',
+      'Multi-chain support (18+ chains)',
+      'PWA & mobile-first design',
     ],
   },
   {
     phase: 'Q1 2026',
-    title: 'Presale & Mainnet',
-    status: 'active',
-    items: [
-      'Public presale launch (BSC Testnet)',
-      'Mainnet deployment (BSC)',
-      'DEX listings (PancakeSwap, Uniswap)',
-      'CertiK audit completion',
-      'Marketing campaign launch',
-      'Launch-ready status: All features implemented',
+    title: 'Presale & app launch',
+    status: 'upcoming',
+    highlights: [
+      'BLAZE token presale',
+      'iOS & Android app launch',
+      'Public beta release',
+      'Staking platform live',
+      'CertiK security audit',
     ],
   },
   {
     phase: 'Q2 2026',
-    title: 'Exchange Listings',
+    title: 'Growth & expansion',
     status: 'upcoming',
-    items: [
-      'Gate.io listing',
-      'MEXC listing',
-      'KuCoin application',
-      'CoinGecko & CMC tracking',
-      '10,000+ holders milestone',
+    highlights: [
+      'CEX listings (continued)',
+      'Merchant partnerships',
+      'BLAZE card program',
+      'Governance launch',
     ],
   },
   {
     phase: 'Q3 2026',
-    title: 'Ecosystem Expansion',
+    title: 'Ecosystem',
     status: 'upcoming',
-    items: [
+    highlights: [
       'Cross-chain bridges',
-      'Fiat on/off ramps (MoonPay)',
-      'Mobile apps (iOS/Android)',
       'Hardware wallet support',
-      '50,000+ users milestone',
+      'Advanced AI features',
+      'Enterprise solutions',
     ],
   },
   {
     phase: 'Q4 2026',
-    title: 'Global Scale',
+    title: 'Global scale',
     status: 'upcoming',
-    items: [
-      'Binance listing (if metrics met)',
-      'BLAZE debit card',
-      'Enterprise solutions',
-      'Advanced AI predictions',
-      '100,000+ users & $500M+ FDV',
+    highlights: [
+      'Worldwide merchant adoption',
+      'Banking partnerships',
+      'Multi-currency card rollout',
+      'DAO governance active',
     ],
   },
 ];
 
 export default function Roadmap() {
   return (
-    <section id="roadmap" className="relative py-20 overflow-hidden">
-      <div className="absolute inset-0 bg-slate-900/50" />
-      
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="roadmap" className="py-20 lg:py-28 bg-white">
+      <div className="container-main">
+        {/* Header */}
         <motion.div
-          initial={{ y: 20 }}
-          whileInView={{ y: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          className="text-center mb-16"
+          transition={{ duration: 0.5 }}
+          className="text-center mb-12"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 px-4">
-            Product <span className="text-gradient">roadmap</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+            Product <span className="text-gradient-brand">roadmap</span>
           </h2>
-          <p className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto px-4">
-            From MVP to global scale. Transparent planning for the coming years.
+          <p className="text-lg text-gray-600 max-w-xl mx-auto">
+            From foundation to global scale – transparent planning for the future.
           </p>
         </motion.div>
 
-        <div className="relative">
-          {/* Timeline line */}
-          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-orange-500 via-red-500 to-transparent" />
-
-          {/* Phases */}
-          <div className="space-y-12">
-            {roadmapPhases.map((phase, index) => (
-              <motion.div
-                key={phase.phase}
-                initial={{ y: 50 }}
-                whileInView={{ y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.05, ease: "easeOut" }}
-                className={`relative ${
-                  index % 2 === 0 ? 'md:pr-1/2 md:text-right' : 'md:pl-1/2 md:ml-auto'
-                } md:w-[calc(50%+2rem)]`}
-              >
-                {/* Timeline dot */}
-                <div className="absolute left-4 md:left-auto md:right-[-1.75rem] top-8 md:top-8 w-4 h-4 rounded-full bg-gradient-blaze border-4 border-slate-900 z-10" />
-
-                <div
-                  className={`ml-12 md:ml-0 card-glass p-4 sm:p-6 ${
-                    phase.status === 'active'
-                      ? 'border-2 border-orange-500 glow-orange'
-                      : phase.status === 'completed'
-                      ? 'border border-green-500/30'
-                      : 'border border-white/10'
-                  }`}
-                >
-                  {/* Badge */}
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-blaze text-white text-sm font-bold mb-3">
-                    {phase.status === 'completed' && <CheckCircle2 className="w-4 h-4" />}
-                    {phase.status === 'active' && <Rocket className="w-4 h-4" />}
-                    {phase.status === 'upcoming' && <Circle className="w-4 h-4" />}
+        {/* Timeline grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {roadmapPhases.map((phase, index) => (
+            <motion.div
+              key={phase.phase}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: index * 0.1 }}
+            >
+              {/* Card */}
+              <div className={`card p-5 h-full ${
+                phase.status === 'active' 
+                  ? 'border-orange-300 bg-orange-50 ring-2 ring-orange-200' 
+                  : phase.status === 'completed'
+                    ? 'border-emerald-200 bg-emerald-50/50'
+                    : 'border-gray-200'
+              }`}>
+                {/* Status badge */}
+                <div className="flex items-center gap-2 mb-3">
+                  {phase.status === 'completed' && (
+                    <CheckCircle className="w-4 h-4 text-emerald-500" />
+                  )}
+                  {phase.status === 'active' && (
+                    <Rocket className="w-4 h-4 text-orange-500" />
+                  )}
+                  {phase.status === 'upcoming' && (
+                    <Circle className="w-4 h-4 text-gray-400" />
+                  )}
+                  <span className={`text-xs font-semibold uppercase tracking-wide ${
+                    phase.status === 'completed' ? 'text-emerald-600' :
+                    phase.status === 'active' ? 'text-orange-600' : 'text-gray-500'
+                  }`}>
                     {phase.phase}
-                  </div>
-
-                  <h3 className="text-2xl font-bold mb-4">{phase.title}</h3>
-
-                  <ul className="space-y-2">
-                    {phase.items.map((item, itemIndex) => (
-                      <li key={itemIndex} className="flex items-start gap-2 text-gray-300">
-                        {phase.status === 'completed' ? (
-                          <CheckCircle2 className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                        ) : (
-                          <Circle className="w-5 h-5 text-gray-500 flex-shrink-0 mt-0.5" />
-                        )}
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  </span>
+                  {phase.status === 'active' && (
+                    <span className="text-[10px] font-medium text-orange-600 bg-orange-100 px-1.5 py-0.5 rounded-full ml-auto">
+                      Current
+                    </span>
+                  )}
                 </div>
-              </motion.div>
-            ))}
-          </div>
+
+                {/* Title */}
+                <h3 className="font-bold text-gray-900 mb-3">{phase.title}</h3>
+
+                {/* Highlights */}
+                <ul className="space-y-1.5">
+                  {phase.highlights.map((item, i) => (
+                    <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
+                      <div className={`w-1.5 h-1.5 rounded-full flex-shrink-0 mt-1.5 ${
+                        phase.status === 'completed' ? 'bg-emerald-400' :
+                        phase.status === 'active' ? 'bg-orange-400' : 'bg-gray-300'
+                      }`} />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </motion.div>
+          ))}
         </div>
 
-        {/* Team section */}
+        {/* CTA */}
         <motion.div
-          initial={{ y: 20 }}
-          whileInView={{ y: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          className="mt-20"
+          transition={{ duration: 0.5, delay: 0.5 }}
+          className="mt-10 text-center"
         >
-          <h3 className="text-2xl sm:text-3xl font-bold mb-8 sm:mb-12 text-center px-4">
-            Meet the <span className="text-gradient">team</span>
-          </h3>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 px-4">
-            {[
-              {
-                name: 'Founder',
-                role: 'Founder & CEO',
-                icon: UserCircle,
-                bio: 'Crypto entrepreneur with 5+ years of experience in DeFi',
-              },
-              {
-                name: 'Core Team',
-                role: 'Development',
-                icon: Code,
-                bio: 'Full-stack developers specialized in blockchain',
-              },
-              {
-                name: 'Community',
-                role: 'Advisors',
-                icon: Handshake,
-                bio: 'Experienced crypto advisors and marketing experts',
-              },
-            ].map((member, index) => {
-              const IconComponent = member.icon;
-              return (
-                <motion.div
-                  key={member.name}
-                  initial={{ y: 20 }}
-                  whileInView={{ y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="card-glass p-6 text-center hover:bg-white/10 transition-all"
-                >
-                  <div className="flex justify-center mb-4">
-                    <div className="w-20 h-20 rounded-full bg-gradient-blaze flex items-center justify-center">
-                      <IconComponent className="w-10 h-10 text-white" />
-                    </div>
-                  </div>
-                  <h4 className="text-xl font-bold mb-1">{member.name}</h4>
-                  <p className="text-orange-400 text-sm font-medium mb-3">{member.role}</p>
-                  <p className="text-gray-400 text-sm">{member.bio}</p>
-                </motion.div>
-              );
-            })}
-          </div>
+          <a
+            href="/whitepaper#roadmap"
+            className="inline-flex items-center gap-2 text-orange-600 font-medium hover:text-orange-700 transition-colors"
+          >
+            View detailed roadmap
+            <ArrowRight className="w-4 h-4" />
+          </a>
         </motion.div>
       </div>
     </section>
   );
 }
-
-
-

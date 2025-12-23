@@ -1,355 +1,115 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { 
-  Wallet, Lock, Repeat, TrendingUp, Users, Rocket, 
-  Palette, Gift, Shield, Zap, Globe, Award, Brain, 
-  ScanEye, PieChart, Fuel, MessageSquare, Smartphone,
-  Languages, QrCode, Fingerprint, DollarSign, Vote
-} from 'lucide-react';
+import { Brain, Shield, TrendingUp, Wallet, QrCode, Repeat, Sparkles, Image as ImageIcon, Vote } from 'lucide-react';
 
-const aiFeatures = [
+const features = [
   {
-    icon: Brain,
-    title: 'AI Transaction Assistant',
-    description: 'Natural language interface: type "Send 50 USDC to 0x..." and AI does the rest. Offline + OpenAI powered.',
-    gradient: 'from-purple-600 to-pink-600',
-    badge: 'AI',
-  },
-  {
-    icon: ScanEye,
-    title: 'Smart Scam Detector',
-    description: 'Real-time security scanning of addresses and contracts. Get a risk score before you interact.',
-    gradient: 'from-red-600 to-orange-600',
-    badge: 'AI',
-  },
-  {
-    icon: PieChart,
-    title: 'AI Portfolio Advisor',
-    description: 'Personalized portfolio analysis with diversification score and actionable recommendations.',
-    gradient: 'from-blue-600 to-cyan-600',
-    badge: 'AI',
-  },
-  {
-    icon: Fuel,
-    title: 'Predictive Gas Optimizer',
-    description: 'ML-based gas price prediction. Save money by transacting at optimal times.',
-    gradient: 'from-green-600 to-emerald-600',
-    badge: 'AI',
-  },
-  {
-    icon: MessageSquare,
-    title: 'Conversational Crypto Assistant',
-    description: '24/7 AI crypto expert. Ask questions about DeFi, gas, slippage and more. Context-aware answers.',
-    gradient: 'from-indigo-600 to-purple-600',
-    badge: 'AI',
-  },
-];
-
-const coreFeatures = [
-  {
-    icon: Wallet,
-    title: 'Multi-chain wallet',
-    description: 'Support for 18 blockchain networks. One wallet for all chains with real-time switching. Universal DeFi access.',
-    gradient: 'from-blue-500 to-cyan-500',
+    icon: QrCode,
+    title: 'QuickPay',
+    description: 'Scan a QR code and pay in seconds. At the coffee shop, supermarket, anywhere.',
+    color: 'text-orange-500',
+    bg: 'bg-orange-100',
   },
   {
     icon: Brain,
-    title: '5 AI Features',
-    description: 'Transaction Assistant, Scam Detector, Portfolio Advisor, Gas Optimizer and Crypto Expert. The most intelligent wallet.',
-    gradient: 'from-purple-600 to-pink-600',
+    title: 'AI assistant',
+    description: 'Type natural language commands like "Send 50 USDC to..." and let AI handle the rest.',
+    color: 'text-purple-500',
+    bg: 'bg-purple-100',
+  },
+  {
+    icon: Shield,
+    title: 'Scam protection',
+    description: 'Real-time scanning of addresses and contracts. Get a risk score before you interact.',
+    color: 'text-emerald-500',
+    bg: 'bg-emerald-100',
   },
   {
     icon: TrendingUp,
-    title: 'Advanced staking',
-    description: '8% APY flexible, 15% APY 6-month lock, 20% APY 1-year lock. Earn passive income with your BLAZE tokens.',
-    gradient: 'from-orange-500 to-red-500',
+    title: 'Smart gas optimizer',
+    description: 'Unique smart scheduling finds the best time to transact. Save up to 40% on gas fees automatically.',
+    color: 'text-sky-500',
+    bg: 'bg-sky-100',
   },
-  {
-    icon: Fingerprint,
-    title: 'Biometric security',
-    description: 'WebAuthn biometric authentication, QR login, hardware key support, and encrypted local storage for maximum security.',
-    gradient: 'from-green-500 to-emerald-500',
-  },
-  {
-    icon: Palette,
-    title: 'NFT marketplace',
-    description: 'Mint, trade and collect NFTs. Plus: personalize your wallet with unique NFT skins (Common, Rare, Epic, Legendary).',
-    gradient: 'from-pink-500 to-rose-500',
-  },
-  {
-    icon: Vote,
-    title: 'DAO governance',
-    description: 'Vote on proposals, suggest changes and help determine the future. 1 token = 1 vote. Create proposals from 10,000 BLAZE.',
-    gradient: 'from-indigo-500 to-purple-500',
-  },
-  {
-    icon: Rocket,
-    title: 'Launchpad',
-    description: 'Invest in new projects via the BLAZE Launchpad. Early access for premium holders. Soft cap / Hard cap system.',
-    gradient: 'from-purple-500 to-indigo-500',
-  },
-  {
-    icon: Repeat,
-    title: 'Token Swap',
-    description: '1inch DEX aggregator integration for best rates. Swap between all tokens on all chains. Live exchange rates.',
-    gradient: 'from-cyan-500 to-blue-500',
-  },
-  {
-    icon: Gift,
-    title: 'Cashback & Referral',
-    description: 'Earn cashback on swaps, sends, buys, stakes. Referral program with signup rewards and fee sharing. Lifetime earnings tracking.',
-    gradient: 'from-green-500 to-teal-500',
-  },
-  {
-    icon: Award,
-    title: 'Premium membership',
-    description: 'Stake 10,000+ BLAZE for premium status: up to 75% fee discount, exclusive features, early access and premium support.',
-    gradient: 'from-purple-400 to-pink-500',
-  },
-  {
-    icon: Smartphone,
-    title: 'PWA & Mobile',
-    description: 'Installable as native app. Offline support, push notifications ready. Mobile-first design with bottom navigation.',
-    gradient: 'from-blue-400 to-indigo-500',
-  },
-  {
-    icon: Zap,
-    title: 'Lightning performance',
-    description: '60fps animations, instant updates, sub-second transactions. Buttery smooth on all devices. Optimized gas usage.',
-    gradient: 'from-yellow-400 to-yellow-600',
-  },
+];
+
+const additionalFeatures = [
+  { icon: Wallet, text: '18 blockchains' },
+  { icon: Repeat, text: 'Token swaps' },
+  { icon: ImageIcon, text: 'NFT support' },
+  { icon: Vote, text: 'DAO governance' },
 ];
 
 export default function Features() {
   return (
-    <section id="features" className="relative py-20 overflow-hidden">
-      <div className="absolute inset-0 bg-slate-900/50" />
-      
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="features" className="py-20 lg:py-28 bg-gray-50">
+      <div className="container-main">
+        {/* Header */}
         <motion.div
-          initial={{ y: 20 }}
-          whileInView={{ y: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
+          transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 px-4">
-            The most <span className="text-gradient">intelligent</span> crypto wallet
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sky-100 text-sky-700 font-medium text-sm mb-6">
+            <Sparkles className="w-4 h-4" />
+            More than a wallet
+          </div>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+            A wallet for <span className="text-gradient-brand">real life</span>
           </h2>
-          <p className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto px-4">
-            BLAZE combines advanced AI with complete DeFi functionality. Your personal crypto assistant.
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            We believe crypto should be used, not just held. That's why BLAZE comes with everything 
+            you need to pay, save, and grow your crypto.
           </p>
         </motion.div>
 
-        {/* AI Features Section */}
-        <div className="mb-16">
-          <motion.div
-            initial={{ y: 20 }}
-            whileInView={{ y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-            className="text-center mb-8"
-          >
-            <h3 className="text-2xl sm:text-3xl font-bold mb-3 px-4">
-              <span className="text-gradient">5 Advanced AI Features</span>
-            </h3>
-            <p className="text-gray-400 px-4 text-sm sm:text-base">
-              Artificial intelligence that makes your wallet smarter, safer and easier to use
-            </p>
-          </motion.div>
+        {/* Main features grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+          {features.map((feature, index) => (
+            <motion.div
+              key={feature.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="card p-8 hover:shadow-soft-lg transition-all duration-300"
+            >
+              <div className={`icon-box-lg ${feature.bg} mb-6`}>
+                <feature.icon className={`w-8 h-8 ${feature.color}`} />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">
+                {feature.title}
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                {feature.description}
+              </p>
+            </motion.div>
+          ))}
+        </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {aiFeatures.map((feature, index) => (
-              <motion.div
-                key={feature.title}
-                initial={{ y: 20 }}
-                whileInView={{ y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: index * 0.03, ease: "easeOut" }}
-                whileHover={{ scale: 1.03, y: -3 }}
-                style={{ willChange: 'transform' }}
-                className="card-glass p-4 sm:p-6 hover:bg-white/10 transition-all group cursor-pointer border-2 border-purple-500/30"
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${feature.gradient} flex items-center justify-center group-hover:scale-110 transition-transform`}>
-                    <feature.icon className="w-6 h-6 text-white" />
-                  </div>
-                  <span className="px-3 py-1 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-bold">
-                    AI
-                  </span>
+        {/* Additional features bar */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="card p-6"
+        >
+          <div className="flex flex-wrap justify-center gap-6 md:gap-12">
+            {additionalFeatures.map((item, index) => (
+              <div key={index} className="flex items-center gap-2 text-gray-700">
+                <div className="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center">
+                  <item.icon className="w-4 h-4 text-gray-500" />
                 </div>
-                <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
-                <p className="text-gray-400 text-sm">{feature.description}</p>
-              </motion.div>
+                <span className="font-medium">{item.text}</span>
+              </div>
             ))}
           </div>
-        </div>
-
-        {/* Comparison Section */}
-        <div className="mb-16">
-          <motion.div
-            initial={{ y: 20 }}
-            whileInView={{ y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-            className="text-center mb-12"
-          >
-            <h3 className="text-2xl sm:text-3xl font-bold mb-3 px-4">
-              BLAZE vs <span className="text-gradient">Traditional Wallets</span>
-            </h3>
-            <p className="text-gray-400 max-w-2xl mx-auto px-4 text-sm sm:text-base">
-              Discover why BLAZE is the future of crypto wallets
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial={{ y: 20 }}
-            whileInView={{ y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="card-glass p-4 sm:p-6 lg:p-8 max-w-5xl mx-auto"
-          >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-              {/* Traditional Wallets */}
-              <div>
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-gray-500 to-gray-600 flex items-center justify-center">
-                    <Wallet className="w-6 h-6 text-white" />
-                  </div>
-                  <h4 className="text-2xl font-bold text-gray-300">Traditional Wallets</h4>
-                </div>
-                <div className="space-y-4">
-                  <div className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
-                    <div>
-                      <p className="text-gray-300 font-medium">Complex interfaces</p>
-                      <p className="text-gray-500 text-sm">Steep learning curve for beginners</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
-                    <div>
-                      <p className="text-gray-300 font-medium">Manual security checks</p>
-                      <p className="text-gray-500 text-sm">Users vulnerable to scams and phishing</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
-                    <div>
-                      <p className="text-gray-300 font-medium">Basic features only</p>
-                      <p className="text-gray-500 text-sm">Limited to simple send/receive</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
-                    <div>
-                      <p className="text-gray-300 font-medium">No optimization tools</p>
-                      <p className="text-gray-500 text-sm">Overpay for gas fees</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
-                    <div>
-                      <p className="text-gray-300 font-medium">Limited support</p>
-                      <p className="text-gray-500 text-sm">No help when you need it</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* BLAZE Wallet */}
-              <div>
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-blaze flex items-center justify-center">
-                    <Brain className="w-6 h-6 text-white" />
-                  </div>
-                  <h4 className="text-2xl font-bold text-white">BLAZE Wallet</h4>
-                </div>
-                <div className="space-y-4">
-                  <div className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
-                    <div>
-                      <p className="text-white font-medium">AI-powered simplicity</p>
-                      <p className="text-gray-400 text-sm">Natural language commands</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
-                    <div>
-                      <p className="text-white font-medium">Smart scam detection</p>
-                      <p className="text-gray-400 text-sm">Real-time security scanning</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
-                    <div>
-                      <p className="text-white font-medium">Complete DeFi platform</p>
-                      <p className="text-gray-400 text-sm">Staking, NFTs, governance & more</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
-                    <div>
-                      <p className="text-white font-medium">Gas price optimization</p>
-                      <p className="text-gray-400 text-sm">Save money with ML predictions</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
-                    <div>
-                      <p className="text-white font-medium">24/7 AI assistance</p>
-                      <p className="text-gray-400 text-sm">Expert help whenever you need it</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Core Features Section */}
-        <div>
-          <motion.div
-            initial={{ y: 20 }}
-            whileInView={{ y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-            className="text-center mb-12"
-          >
-            <h3 className="text-2xl sm:text-3xl font-bold mb-3 px-4">
-              Core <span className="text-gradient">Features</span>
-            </h3>
-            <p className="text-gray-400 max-w-2xl mx-auto px-4 text-sm sm:text-base">
-              The key features that make BLAZE unique. Powerful, secure and user-friendly.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-            {coreFeatures.map((feature, index) => (
-              <motion.div
-                key={feature.title}
-                initial={{ y: 20 }}
-                whileInView={{ y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: index * 0.05, ease: "easeOut" }}
-                whileHover={{ scale: 1.03, y: -3 }}
-                style={{ willChange: 'transform' }}
-                className="card-glass p-6 sm:p-8 hover:bg-white/10 transition-all group cursor-pointer text-center"
-              >
-                <div className={`w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-r ${feature.gradient} flex items-center justify-center mb-4 sm:mb-6 mx-auto group-hover:scale-110 transition-transform shadow-lg`}>
-                  <feature.icon className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
-                </div>
-                <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4">{feature.title}</h3>
-                <p className="text-gray-400 text-xs sm:text-sm leading-relaxed">{feature.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
 }
-
-
-

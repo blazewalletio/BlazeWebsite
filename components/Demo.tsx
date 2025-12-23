@@ -1,340 +1,178 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ExternalLink, Monitor, Smartphone, Play, Zap, Shield, Brain, MessageSquare, PieChart, Fuel } from 'lucide-react';
+import { ArrowRight, Check, Monitor, Smartphone, Zap } from 'lucide-react';
 import { useState } from 'react';
 
+const steps = [
+  {
+    number: '01',
+    title: 'Create your wallet',
+    description: 'Generate a secure wallet in seconds. Your keys, your crypto – always.',
+  },
+  {
+    number: '02',
+    title: 'Add your assets',
+    description: 'Import existing tokens or buy crypto directly with card or bank transfer.',
+  },
+  {
+    number: '03',
+    title: 'Start using DeFi',
+    description: 'Swap, stake, vote, and explore – all from one simple interface.',
+  },
+];
+
 export default function Demo() {
-  const [isMobile, setIsMobile] = useState(false);
+  const [viewMode, setViewMode] = useState<'desktop' | 'mobile'>('desktop');
 
   return (
-    <section id="demo" className="relative py-20 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
-      
-      {/* Glow effects */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-orange-500/10 rounded-full blur-3xl" />
-      
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="demo" className="py-20 lg:py-28 bg-white">
+      <div className="container-main">
+        {/* Header */}
         <motion.div
-          initial={{ y: 20 }}
-          whileInView={{ y: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          className="text-center mb-12"
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 px-4">
-            See BLAZE <span className="text-gradient">in action</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-100 text-emerald-700 font-medium text-sm mb-6">
+            <Zap className="w-4 h-4" />
+            Get started in minutes
+          </div>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+            How it works
           </h2>
-          <p className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto px-4">
-            Test the most intelligent crypto wallet. With AI, NFTs, Staking, Governance and more. Completely free.
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            No complicated setup, no technical knowledge required.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start lg:items-center">
-          {/* Left: Demo Screenshots */}
-          <motion.div
-            initial={{ x: -50 }}
-            whileInView={{ x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.15, ease: "easeOut" }}
-            className="relative w-full lg:w-auto"
-          >
-            {/* View Toggle */}
-            <div className="flex items-center justify-center gap-2 sm:gap-4 mb-6 sm:mb-8">
-              <span className="text-gray-400 font-medium text-sm sm:text-base">View:</span>
-              <div className="flex bg-white/5 rounded-xl p-1">
-                <motion.button
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => setIsMobile(false)}
-                  className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-lg transition-all text-xs sm:text-sm ${
-                    !isMobile 
-                      ? 'bg-gradient-blaze text-white shadow-lg' 
-                      : 'text-gray-400 hover:text-white'
-                  }`}
-                >
-                  <Monitor className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                  <span className="hidden sm:inline">Desktop</span>
-                  <span className="sm:hidden">DT</span>
-                </motion.button>
-                <motion.button
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => setIsMobile(true)}
-                  className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-lg transition-all text-xs sm:text-sm ${
-                    isMobile 
-                      ? 'bg-gradient-blaze text-white shadow-lg' 
-                      : 'text-gray-400 hover:text-white'
-                  }`}
-                >
-                  <Smartphone className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                  <span className="hidden sm:inline">Mobile</span>
-                  <span className="sm:hidden">MB</span>
-                </motion.button>
-              </div>
-            </div>
-
-            {/* Desktop Frame */}
-            {!isMobile && (
-              <motion.div
-                initial={{ scale: 0.9 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 0.25, ease: "easeOut" }}
-                className="relative max-w-full"
-              >
-                {/* Realistic Monitor Frame */}
-                <div className="bg-gradient-to-b from-slate-800 to-slate-900 rounded-t-2xl sm:rounded-t-3xl p-3 sm:p-6 pb-2 sm:pb-4 shadow-2xl border border-slate-700/50">
-                  {/* Monitor Bezel */}
-                  <div className="bg-black rounded-2xl p-3 shadow-inner">
-                    {/* Screen */}
-                    <div className="bg-slate-900 rounded-xl overflow-hidden shadow-inner border border-slate-700/30">
-                      <img 
-                        src="/screenshots/desktop-wallet.png" 
-                        alt="BLAZE Wallet Desktop Screenshot"
-                        className="w-full h-full object-cover"
-                        onError={(e) => {
-                          // Fallback to placeholder if image doesn't exist
-                          e.currentTarget.style.display = 'none';
-                          const nextElement = e.currentTarget.nextElementSibling as HTMLElement;
-                          if (nextElement) {
-                            nextElement.style.display = 'flex';
-                          }
-                        }}
-                      />
-                      <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800" style={{ display: 'none' }}>
-                        <div className="text-center">
-                          <div className="w-16 h-16 bg-gradient-blaze rounded-xl flex items-center justify-center mb-4 mx-auto">
-                            <Monitor className="w-8 h-8 text-white" />
-                          </div>
-                          <p className="text-gray-300 font-semibold">Desktop Screenshot</p>
-                          <p className="text-gray-500 text-sm">Upload desktop-wallet.png to /public/screenshots/</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Monitor Controls */}
-                  <div className="flex items-center justify-between mt-2 sm:mt-4 px-2">
-                    <div className="flex items-center gap-1.5 sm:gap-2">
-                      <div className="w-2 h-2 sm:w-3 sm:h-3 bg-red-500 rounded-full shadow-lg"></div>
-                      <div className="w-2 h-2 sm:w-3 sm:h-3 bg-yellow-500 rounded-full shadow-lg"></div>
-                      <div className="w-2 h-2 sm:w-3 sm:h-3 bg-green-500 rounded-full shadow-lg"></div>
-                    </div>
-                    <div className="text-slate-400 text-[10px] sm:text-xs font-medium hidden sm:block">BLAZE Wallet - Desktop</div>
-                    <div className="w-6 sm:w-8 h-0.5 sm:h-1 bg-slate-600 rounded-full"></div>
-                  </div>
-                </div>
-                
-                {/* Monitor Stand */}
-                <div className="bg-gradient-to-b from-slate-700 to-slate-800 h-8 sm:h-12 rounded-b-xl sm:rounded-b-2xl shadow-lg border border-slate-600/50">
-                  <div className="bg-gradient-to-b from-slate-600 to-slate-700 h-4 sm:h-6 w-24 sm:w-40 mx-auto rounded-b-lg sm:rounded-b-xl shadow-inner"></div>
-                </div>
-              </motion.div>
-            )}
-
-            {/* Mobile Frame */}
-            {isMobile && (
-              <motion.div
-                initial={{ scale: 0.9 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 0.25, ease: "easeOut" }}
-                className="relative mx-auto w-full max-w-[280px] sm:max-w-[320px]"
-              >
-                {/* Realistic iPhone Frame */}
-                <div className="bg-gradient-to-b from-slate-800 to-slate-900 rounded-[2.5rem] sm:rounded-[3.5rem] p-2 sm:p-3 shadow-2xl border border-slate-700/50">
-                  {/* Top Bezel with Notch */}
-                  <div className="bg-black rounded-t-[2rem] sm:rounded-t-[3rem] h-6 sm:h-8 flex items-center justify-center relative">
-                    <div className="bg-black h-4 sm:h-6 w-28 sm:w-36 rounded-b-xl sm:rounded-b-2xl absolute top-0"></div>
-                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-slate-600 rounded-full"></div>
-                  </div>
-                  
-                  {/* Screen Container */}
-                  <div className="bg-black rounded-[1.8rem] sm:rounded-[2.5rem] p-0.5 sm:p-1 shadow-inner">
-                    {/* Screen */}
-                    <div className="bg-slate-900 rounded-[1.6rem] sm:rounded-[2.2rem] overflow-hidden shadow-inner">
-                      <img 
-                        src="/screenshots/mobile-wallet.png" 
-                        alt="BLAZE Wallet Mobile Screenshot"
-                        className="w-full h-full object-cover"
-                        onError={(e) => {
-                          // Fallback to placeholder if image doesn't exist
-                          e.currentTarget.style.display = 'none';
-                          const nextElement = e.currentTarget.nextElementSibling as HTMLElement;
-                          if (nextElement) {
-                            nextElement.style.display = 'flex';
-                          }
-                        }}
-                      />
-                      <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800" style={{ display: 'none' }}>
-                        <div className="text-center">
-                          <div className="w-12 h-12 bg-gradient-blaze rounded-xl flex items-center justify-center mb-3 mx-auto">
-                            <Smartphone className="w-6 h-6 text-white" />
-                          </div>
-                          <p className="text-gray-300 font-semibold text-sm">Mobile Screenshot</p>
-                          <p className="text-gray-500 text-xs">Upload mobile-wallet.png to /public/screenshots/</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Bottom Bezel with Home Indicator */}
-                  <div className="bg-black rounded-b-[2rem] sm:rounded-b-[3rem] h-6 sm:h-8 flex items-center justify-center relative">
-                    <div className="w-24 sm:w-32 h-0.5 sm:h-1 bg-slate-700 rounded-full"></div>
-                  </div>
-                  
-                  {/* Side Buttons */}
-                  <div className="absolute left-0 top-16 sm:top-20 w-0.5 sm:w-1 h-12 sm:h-16 bg-slate-600 rounded-r-full"></div>
-                  <div className="absolute right-0 top-24 sm:top-32 w-0.5 sm:w-1 h-6 sm:h-8 bg-slate-600 rounded-l-full"></div>
-                  <div className="absolute right-0 top-32 sm:top-44 w-0.5 sm:w-1 h-6 sm:h-8 bg-slate-600 rounded-l-full"></div>
-                </div>
-                
-                {/* Phone Label */}
-                <div className="text-center mt-3 sm:mt-4">
-                  <div className="text-slate-400 text-[10px] sm:text-xs font-medium">BLAZE Wallet - Mobile</div>
-                </div>
-              </motion.div>
-            )}
-
-            {/* Live Badge */}
-            <div className="absolute -top-2 -right-2 sm:-top-4 sm:-right-4 z-50">
-              <div className="px-2 py-1 sm:px-4 sm:py-2 rounded-full bg-green-500/20 border border-green-500/30 text-green-400 text-[10px] sm:text-sm font-bold flex items-center gap-1 sm:gap-2 backdrop-blur-sm">
-                <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-500 rounded-full animate-pulse" />
-                <span className="hidden sm:inline">LIVE DEMO</span>
-                <span className="sm:hidden">LIVE</span>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Right: Content */}
-          <motion.div
-            initial={{ x: 50 }}
-            whileInView={{ x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.25, ease: "easeOut" }}
-            className="space-y-6 sm:space-y-8 mt-8 lg:mt-0"
-          >
-            {/* Features List */}
-            <div className="space-y-4 sm:space-y-6">
-              <h3 className="text-xl sm:text-2xl font-bold text-white px-4 lg:px-0">
-                What you can test:
-              </h3>
-              
-              <div className="space-y-3 sm:space-y-4">
-                {[
-                  {
-                    icon: Brain,
-                    title: 'AI Transaction Assistant',
-                    description: 'Type "Send 50 USDC to 0x..." and AI does the rest'
-                  },
-                  {
-                    icon: Shield,
-                    title: 'Smart Scam Detector',
-                    description: 'Scan addresses and get a risk score before you interact'
-                  },
-                  {
-                    icon: PieChart,
-                    title: 'AI Portfolio Advisor',
-                    description: 'Get personalized tips for your portfolio optimization'
-                  },
-                  {
-                    icon: Fuel,
-                    title: 'Gas Optimizer',
-                    description: 'Save money by transacting at optimal times'
-                  },
-                  {
-                    icon: MessageSquare,
-                    title: 'Crypto Expert AI',
-                    description: 'Ask questions about DeFi, gas, slippage and more'
-                  }
-                ].map((feature, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ y: 20 }}
-                    whileInView={{ y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.25, delay: index * 0.05, ease: "easeOut" }}
-                    className="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors"
-                  >
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-blaze rounded-lg flex items-center justify-center flex-shrink-0">
-                      <feature.icon className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-white mb-1 text-sm sm:text-base">{feature.title}</h4>
-                      <p className="text-gray-400 text-xs sm:text-sm">{feature.description}</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-
-            {/* Interactive Elements */}
-            <div className="space-y-3 sm:space-y-4">
-              <h4 className="text-base sm:text-lg font-semibold text-white px-4 lg:px-0">Interactive features:</h4>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 px-4 lg:px-0">
-                {[
-                  'Quick Actions (Buy, Send, Receive, Swap)',
-                  'Staking Dashboard (8-20% APY)',
-                  'NFT Marketplace & Minting',
-                  'Governance Voting',
-                  'Launchpad Projects',
-                  'AI Tools (5 features)',
-                  'Cashback & Referral',
-                  'Settings & Security'
-                ].map((feature, index) => (
-                  <div key={index} className="flex items-start gap-2 text-xs sm:text-sm text-gray-400">
-                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-500 rounded-full mt-1.5 flex-shrink-0"></div>
-                    <span className="leading-relaxed">{feature}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* CTA */}
+        {/* Steps */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+          {steps.map((step, index) => (
             <motion.div
-              initial={{ y: 20 }}
-              whileInView={{ y: 0 }}
+              key={step.number}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-              className="pt-4 px-4 lg:px-0"
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="relative"
             >
+              {/* Connector line */}
+              {index < steps.length - 1 && (
+                <div className="hidden md:block absolute top-10 left-full w-full h-0.5 bg-gray-200 -z-10" />
+              )}
+              
+              <div className="card p-6 text-center h-full">
+                <div className="w-20 h-20 mx-auto mb-4 bg-gray-100 rounded-2xl flex items-center justify-center">
+                  <span className="text-3xl font-bold text-gray-900">{step.number}</span>
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">{step.title}</h3>
+                <p className="text-gray-600">{step.description}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* App preview */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="card p-6 md:p-8"
+        >
+          <div className="flex flex-col lg:flex-row gap-8 items-center">
+            {/* Preview toggle & image */}
+            <div className="flex-1 w-full">
+              {/* View toggle */}
+              <div className="flex justify-center gap-2 mb-6">
+                <button
+                  onClick={() => setViewMode('desktop')}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
+                    viewMode === 'desktop'
+                      ? 'bg-gray-900 text-white'
+                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  }`}
+                >
+                  <Monitor className="w-4 h-4" />
+                  Desktop
+                </button>
+                <button
+                  onClick={() => setViewMode('mobile')}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
+                    viewMode === 'mobile'
+                      ? 'bg-gray-900 text-white'
+                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  }`}
+                >
+                  <Smartphone className="w-4 h-4" />
+                  Mobile
+                </button>
+              </div>
+
+              {/* Screenshot area */}
+              <div className="relative aspect-video bg-gray-100 rounded-2xl overflow-hidden border border-gray-200">
+                {viewMode === 'desktop' ? (
+                  <img 
+                    src="/screenshots/desktop-wallet.png" 
+                    alt="BLAZE Wallet Desktop Interface"
+                    className="w-full h-full object-cover object-top"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center bg-gray-50">
+                    <img 
+                      src="/screenshots/mobile-wallet.png" 
+                      alt="BLAZE Wallet Mobile Interface"
+                      className="h-full object-contain"
+                    />
+                  </div>
+                )}
+                
+                {/* Live badge */}
+                <div className="absolute top-4 right-4">
+                  <div className="flex items-center gap-2 px-3 py-1.5 bg-emerald-500 text-white text-sm font-medium rounded-full">
+                    <span className="w-2 h-2 bg-white rounded-full animate-pulse" />
+                    Live
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Features list */}
+            <div className="lg:w-80 flex-shrink-0">
+              <h3 className="text-xl font-bold text-gray-900 mb-6">Try it yourself</h3>
+              <ul className="space-y-4 mb-6">
+                {[
+                  'AI transaction assistant',
+                  'Real-time scam detection',
+                  'Multi-chain portfolio',
+                  'Staking dashboard',
+                  'Token swaps',
+                  'NFT gallery',
+                ].map((feature, index) => (
+                  <li key={index} className="flex items-center gap-3">
+                    <div className="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0">
+                      <Check className="w-4 h-4 text-emerald-600" />
+                    </div>
+                    <span className="text-gray-700">{feature}</span>
+                  </li>
+                ))}
+              </ul>
               <a
                 href="https://my.blazewallet.io"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-4 bg-gradient-blaze rounded-xl font-bold text-base sm:text-lg hover:scale-105 transition-transform glow-orange w-full sm:w-auto justify-center"
+                className="btn-primary w-full flex items-center justify-center gap-2"
               >
-                <Play className="w-4 h-4 sm:w-5 sm:h-5" />
                 Open the wallet
-                <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5" />
+                <ArrowRight className="w-4 h-4" />
               </a>
-            </motion.div>
-          </motion.div>
-        </div>
-
-        {/* Quick stats below */}
-        <motion.div
-          initial={{ y: 20 }}
-          whileInView={{ y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.35, ease: "easeOut" }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mt-12 sm:mt-16 px-4"
-        >
-          {[
-            { label: 'AI Features', value: '5' },
-            { label: 'Supported chains', value: '18' },
-            { label: 'Max APY', value: '20%' },
-            { label: 'Fee discount', value: '75%' },
-          ].map((stat, index) => (
-            <div key={index} className="card-glass p-3 sm:p-4 text-center">
-              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-gradient mb-1">
-                {stat.value}
-              </div>
-              <div className="text-xs sm:text-sm text-gray-400">{stat.label}</div>
             </div>
-          ))}
+          </div>
         </motion.div>
       </div>
     </section>
   );
 }
-
-
-

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import CookieConsent from "@/components/CookieConsent";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
     siteName: "BLAZE Wallet",
     images: [
       {
-        url: "https://www.blazewallet.io/og-image.png",
+        url: "https://www.blazewallet.io/blaze-logo.png",
         width: 1200,
         height: 630,
         alt: "BLAZE Wallet - AI-Powered Crypto Wallet",
@@ -32,14 +33,11 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "BLAZE Wallet - The AI-Powered Crypto Wallet",
     description: "The most intelligent crypto wallet with 5 advanced AI features. Multi-chain support, staking rewards, and complete DeFi functionality.",
-    images: ["https://www.blazewallet.io/og-image.png"],
-    creator: "@blazewallet",
+    images: ["https://www.blazewallet.io/blaze-logo.png"],
+    creator: "@blazewallet_io",
   },
   alternates: {
     canonical: "https://www.blazewallet.io",
-  },
-  verification: {
-    google: "your-google-verification-code",
   },
 };
 
@@ -58,11 +56,6 @@ export default function RootLayout({
       "@type": "Offer",
       "price": "0",
       "priceCurrency": "USD"
-    },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "5",
-      "ratingCount": "1000"
     },
     "description": "The most intelligent crypto wallet with 5 advanced AI features. Multi-chain support, staking rewards, and complete DeFi functionality.",
     "url": "https://www.blazewallet.io",
@@ -90,10 +83,10 @@ export default function RootLayout({
     "@type": "Organization",
     "name": "BLAZE Wallet",
     "url": "https://www.blazewallet.io",
-    "logo": "https://www.blazewallet.io/logo.png",
+    "logo": "https://www.blazewallet.io/blaze-logo-official.png",
     "description": "The most intelligent crypto wallet with AI-powered features",
     "sameAs": [
-      "https://twitter.com/blazewallet",
+      "https://twitter.com/blazewallet_io",
       "https://github.com/blazewalletio",
       "https://t.me/blazewallet"
     ],
@@ -107,6 +100,12 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
+        <link rel="icon" href="/blaze-logo.png" type="image/png" />
+        <link rel="icon" href="/blaze-logo.png" sizes="32x32" type="image/png" />
+        <link rel="icon" href="/blaze-logo.png" sizes="16x16" type="image/png" />
+        <link rel="apple-touch-icon" href="/blaze-logo.png" />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#F97316" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
@@ -118,6 +117,7 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         {children}
+        <CookieConsent />
       </body>
     </html>
   );
