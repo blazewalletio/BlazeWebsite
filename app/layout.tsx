@@ -50,9 +50,9 @@ export const metadata: Metadata = {
     siteName: "BLAZE Wallet",
     images: [
       {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
+        url: "/blaze-logo.png",
+        width: 512,
+        height: 512,
         alt: "BLAZE Wallet - AI-Powered Crypto Wallet",
       },
     ],
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "BLAZE Wallet - AI-Powered Crypto Wallet for Everyday Payments",
     description: "Pay with crypto anywhere in 2 seconds. QuickPay, AI assistant, scam protection & 18 blockchains.",
-    images: ["/og-image.png"],
+    images: ["/blaze-logo.png"],
     creator: "@blazewallet_io",
     site: "@blazewallet_io",
   },
