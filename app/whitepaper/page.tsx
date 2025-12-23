@@ -899,6 +899,19 @@ export default function WhitepaperPage() {
               <div className="space-y-4">
                 {[
                   { 
+                    phase: 'Q2 2025', 
+                    title: 'Foundation', 
+                    status: 'completed', 
+                    items: [
+                      'Core wallet architecture & development',
+                      'Multi-chain infrastructure (initial 10 chains)',
+                      'Smart contract development & testing',
+                      'Security framework & encryption design',
+                      'Website & branding development',
+                      'Team formation & seed funding',
+                    ] 
+                  },
+                  { 
                     phase: 'Q3 2025', 
                     title: 'AI & QuickPay', 
                     status: 'completed', 
@@ -909,7 +922,6 @@ export default function WhitepaperPage() {
                       'Gas Optimizer with Smart Scheduling (unique feature)',
                       'Portfolio Advisor',
                       'Market Analyzer',
-                      'Multi-chain wallet foundation',
                     ] 
                   },
                   { 

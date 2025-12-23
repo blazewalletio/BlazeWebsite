@@ -5,6 +5,18 @@ import { CheckCircle, Circle, Rocket, ArrowRight } from 'lucide-react';
 
 const roadmapPhases = [
   {
+    phase: 'Q2 2025',
+    title: 'Foundation',
+    status: 'completed',
+    highlights: [
+      'Core wallet architecture',
+      'Multi-chain infrastructure',
+      'Smart contract development',
+      'Security framework design',
+      'Website & branding',
+    ],
+  },
+  {
     phase: 'Q3 2025',
     title: 'AI & QuickPay',
     status: 'completed',
