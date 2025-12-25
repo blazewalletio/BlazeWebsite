@@ -2,6 +2,7 @@
 
 import { Coins, TrendingUp, Users, Flame, Lock, ArrowRight } from 'lucide-react';
 import { useInView } from '@/hooks/useInView';
+import PresaleCountdown from './PresaleCountdown';
 
 const tokenInfo = [
   { label: 'Total supply', value: '1B', description: '1 billion BLAZE' },
@@ -122,6 +123,11 @@ export default function Tokenomics() {
               <ArrowRight className="w-4 h-4" />
             </a>
           </div>
+        </div>
+
+        {/* Presale Countdown */}
+        <div className={`mt-12 animate-on-scroll delay-4 ${isVisible ? 'is-visible' : ''}`}>
+          <PresaleCountdown />
         </div>
       </div>
     </section>
