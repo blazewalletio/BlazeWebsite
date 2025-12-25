@@ -177,29 +177,10 @@ export default function Navbar() {
           
           {/* Content container */}
           <div className="relative flex flex-col h-full">
-            {/* Header with logo */}
-            <div className="flex items-center gap-3 px-5 py-5 border-b border-gray-100">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-orange-500 to-yellow-500 p-[2px]">
-                <div className="w-full h-full rounded-2xl bg-white flex items-center justify-center overflow-hidden">
-                  <Image 
-                    src="/blaze-logo.png" 
-                    alt="BLAZE" 
-                    width={44} 
-                    height={44} 
-                    className="rounded-xl"
-                  />
-                </div>
-              </div>
-              <div>
-                <div className="font-bold text-gray-900 text-lg">BLAZE Wallet</div>
-                <div className="text-sm text-orange-500 font-medium">Crypto for everyday life</div>
-              </div>
-            </div>
-
             {/* Scrollable menu content */}
             <div className="flex-1 overflow-y-auto overscroll-contain">
               {/* Main navigation */}
-              <div className="px-3 py-3">
+              <div className="px-3 pt-4 pb-3">
                 <div className="text-xs font-semibold text-gray-400 uppercase tracking-wider px-3 mb-2">
                   Navigate
                 </div>
