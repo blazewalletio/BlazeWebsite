@@ -232,23 +232,6 @@ export default function Navbar() {
                 </div>
               </div>
 
-              {/* Quick stats */}
-              <div className="mx-5 my-3 p-4 rounded-2xl bg-gradient-to-r from-gray-50 to-orange-50/50 border border-gray-100">
-                <div className="grid grid-cols-3 gap-4 text-center">
-                  <div>
-                    <div className="text-lg font-bold text-gray-900">18+</div>
-                    <div className="text-xs text-gray-500">Chains</div>
-                  </div>
-                  <div>
-                    <div className="text-lg font-bold text-orange-600">2s</div>
-                    <div className="text-xs text-gray-500">Payments</div>
-                  </div>
-                  <div>
-                    <div className="text-lg font-bold text-gray-900">5</div>
-                    <div className="text-xs text-gray-500">AI features</div>
-                  </div>
-                </div>
-              </div>
             </div>
 
             {/* Fixed bottom section */}
