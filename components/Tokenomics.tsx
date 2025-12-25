@@ -1,7 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { Coins, TrendingUp, Users, Flame, Lock, ArrowRight, Sparkles } from 'lucide-react';
+import { Coins, TrendingUp, Users, Flame, Lock, ArrowRight } from 'lucide-react';
+import { useInView } from '@/hooks/useInView';
 
 const tokenInfo = [
   { label: 'Total supply', value: '1B', description: '1 billion BLAZE' },
@@ -27,17 +27,13 @@ const utilities = [
 ];
 
 export default function Tokenomics() {
+  const [sectionRef, isVisible] = useInView<HTMLElement>({ threshold: 0.1 });
+
   return (
-    <section id="tokenomics" className="py-20 lg:py-28 bg-gray-50">
+    <section id="tokenomics" ref={sectionRef} className="py-20 lg:py-28 bg-gray-50">
       <div className="container-main">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
+        <div className={`text-center mb-16 animate-on-scroll ${isVisible ? 'is-visible' : ''}`}>
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-100 text-purple-700 font-medium text-sm mb-6">
             <Coins className="w-4 h-4" />
             Token economy
@@ -48,35 +44,25 @@ export default function Tokenomics() {
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Transparent and fair distribution. Designed for long-term growth.
           </p>
-        </motion.div>
+        </div>
 
         {/* Key stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           {tokenInfo.map((item, index) => (
-            <motion.div
+            <div
               key={item.label}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="card p-6 text-center"
+              className={`card p-6 text-center animate-on-scroll delay-${index + 1} ${isVisible ? 'is-visible' : ''}`}
             >
               <div className="text-sm text-gray-500 mb-1">{item.label}</div>
               <div className="text-3xl md:text-4xl font-bold text-gradient-brand mb-1">{item.value}</div>
               <div className="text-sm text-gray-600">{item.description}</div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
           {/* Distribution */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="card p-6 md:p-8"
-          >
+          <div className={`card p-6 md:p-8 animate-on-scroll delay-2 ${isVisible ? 'is-visible' : ''}`}>
             <h3 className="text-xl font-bold text-gray-900 mb-6">Token distribution</h3>
             <div className="space-y-4">
               {distribution.map((item) => (
@@ -86,27 +72,21 @@ export default function Tokenomics() {
                     <span className="font-bold text-gray-900">{item.percentage}%</span>
                   </div>
                   <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${item.percentage}%` }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 1, delay: 0.5 }}
-                      className={`h-full ${item.color} rounded-full`}
+                    <div
+                      className={`h-full ${item.color} rounded-full transition-all duration-1000 ease-out`}
+                      style={{ 
+                        width: isVisible ? `${item.percentage}%` : '0%',
+                        transitionDelay: '0.3s'
+                      }}
                     />
                   </div>
                 </div>
               ))}
             </div>
-          </motion.div>
+          </div>
 
           {/* Utilities */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="card p-6 md:p-8"
-          >
+          <div className={`card p-6 md:p-8 animate-on-scroll delay-3 ${isVisible ? 'is-visible' : ''}`}>
             <h3 className="text-xl font-bold text-gray-900 mb-6">Token utility</h3>
             <div className="grid grid-cols-2 gap-4">
               {utilities.map((item, index) => (
@@ -119,17 +99,11 @@ export default function Tokenomics() {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </div>
         </div>
 
         {/* Liquidity lock notice */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="card p-6 md:p-8 bg-orange-50 border-orange-200"
-        >
+        <div className={`card p-6 md:p-8 bg-orange-50 border-orange-200 animate-on-scroll delay-4 ${isVisible ? 'is-visible' : ''}`}>
           <div className="flex flex-col md:flex-row items-center gap-6">
             <div className="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center flex-shrink-0">
               <Lock className="w-8 h-8 text-orange-600" />
@@ -148,7 +122,7 @@ export default function Tokenomics() {
               <ArrowRight className="w-4 h-4" />
             </a>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

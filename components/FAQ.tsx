@@ -1,8 +1,8 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { ChevronDown, HelpCircle } from 'lucide-react';
 import { useState } from 'react';
+import { useInView } from '@/hooks/useInView';
 
 const faqs = [
   {
@@ -33,19 +33,14 @@ const faqs = [
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [sectionRef, isVisible] = useInView<HTMLElement>({ threshold: 0.1 });
 
   return (
-    <section id="faq" className="py-20 lg:py-28 bg-white">
+    <section id="faq" ref={sectionRef} className="py-20 lg:py-28 bg-white">
       <div className="container-main">
         <div className="max-w-3xl mx-auto">
           {/* Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="text-center mb-12"
-          >
+          <div className={`text-center mb-12 animate-on-scroll ${isVisible ? 'is-visible' : ''}`}>
             <div className="icon-box-lg bg-gray-100 mx-auto mb-6">
               <HelpCircle className="w-8 h-8 text-gray-600" />
             </div>
@@ -55,18 +50,14 @@ export default function FAQ() {
             <p className="text-lg text-gray-600">
               Everything you need to know about BLAZE Wallet.
             </p>
-          </motion.div>
+          </div>
 
           {/* FAQ list */}
           <div className="space-y-3">
             {faqs.map((faq, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
-                className="card overflow-hidden"
+                className={`card overflow-hidden animate-on-scroll delay-${Math.min(index + 1, 4)} ${isVisible ? 'is-visible' : ''}`}
               >
                 <button
                   onClick={() => setOpenIndex(openIndex === index ? null : index)}
@@ -97,7 +88,7 @@ export default function FAQ() {
                     {faq.answer}
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
 

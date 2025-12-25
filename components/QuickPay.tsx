@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { QrCode, Zap, Shield, Clock, Coffee, ShoppingCart, Scissors, Car, TrendingDown, Check, Loader2 } from 'lucide-react';
 import { useState } from 'react';
+import { useInView } from '@/hooks/useInView';
 
 const useCases = [
   { icon: Coffee, label: 'Coffee shops', example: '€4.50' },
@@ -35,6 +36,7 @@ type DemoStep = 'idle' | 'scanning' | 'confirming' | 'processing' | 'complete';
 export default function QuickPay() {
   const [demoStep, setDemoStep] = useState<DemoStep>('idle');
   const [isPlaying, setIsPlaying] = useState(false);
+  const [sectionRef, isVisible] = useInView<HTMLElement>({ threshold: 0.1 });
 
   const handleStartDemo = () => {
     if (isPlaying) return; // Prevent multiple clicks during animation
@@ -51,16 +53,10 @@ export default function QuickPay() {
   };
 
   return (
-    <section id="quickpay" className="py-20 lg:py-28 bg-white">
+    <section id="quickpay" ref={sectionRef} className="py-20 lg:py-28 bg-white">
       <div className="container-main">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
+        <div className={`text-center mb-16 animate-on-scroll ${isVisible ? 'is-visible' : ''}`}>
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-100 text-orange-700 font-medium text-sm mb-6">
             <QrCode className="w-4 h-4" />
             Introducing QuickPay
@@ -72,21 +68,18 @@ export default function QuickPay() {
             We believe crypto should be as easy to spend as cash. QuickPay makes that possible – 
             scan a QR code and pay in seconds.
           </p>
-        </motion.div>
+        </div>
 
         {/* Main content grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
-          {/* Left: Interactive Phone demo */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="relative order-2 lg:order-1"
-          >
+          {/* Left: Interactive Phone demo - Keep Framer Motion for interactive animations */}
+          <div className={`relative order-2 lg:order-1 animate-on-scroll delay-1 ${isVisible ? 'is-visible' : ''}`}>
             <div className="relative mx-auto max-w-xs">
               {/* Phone frame */}
-              <div className="bg-gray-900 rounded-[2.5rem] p-3 shadow-2xl">
+              <div 
+                className="bg-gray-900 rounded-[2.5rem] p-3 shadow-2xl cursor-pointer"
+                onClick={handleStartDemo}
+              >
                 <div className="bg-white rounded-[2rem] overflow-hidden" style={{ height: '520px' }}>
                   {/* QuickPay flow */}
                   <div className="h-full flex flex-col">
@@ -102,7 +95,7 @@ export default function QuickPay() {
                       </div>
                     </div>
                     
-                    {/* Dynamic content based on step */}
+                    {/* Dynamic content based on step - Keep AnimatePresence for smooth transitions */}
                     <div className="flex-1 relative overflow-hidden">
                       <AnimatePresence mode="wait">
                         {/* Step 1: Idle - Scan prompt */}
@@ -118,7 +111,6 @@ export default function QuickPay() {
                               className="w-32 h-32 border-4 border-dashed border-orange-300 rounded-2xl flex items-center justify-center mb-4 cursor-pointer hover:border-orange-500 transition-colors"
                               animate={{ scale: [1, 1.02, 1] }}
                               transition={{ duration: 2, repeat: Infinity }}
-                              onClick={handleStartDemo}
                             >
                               <QrCode className="w-16 h-16 text-orange-400" />
                             </motion.div>
@@ -302,46 +294,28 @@ export default function QuickPay() {
               </div>
               
               {/* Time indicator */}
-              <motion.div
-                animate={{ scale: [1, 1.05, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                className="absolute -right-4 top-1/4 bg-white rounded-xl shadow-lg border border-gray-200 p-3"
-              >
+              <div className="absolute -right-4 top-1/4 bg-white rounded-xl shadow-lg border border-gray-200 p-3">
                 <div className="flex items-center gap-2">
                   <Clock className="w-5 h-5 text-orange-500" />
                   <span className="font-bold text-gray-900">1.8s</span>
                 </div>
-              </motion.div>
+              </div>
               
               {/* Click hint */}
               {demoStep === 'idle' && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-gray-400 text-sm flex items-center gap-1"
-                >
+                <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-gray-400 text-sm flex items-center gap-1">
                   <span>👆</span> Tap phone to try demo
-                </motion.div>
+                </div>
               )}
             </div>
-          </motion.div>
+          </div>
 
           {/* Right: Benefits */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="order-1 lg:order-2"
-          >
+          <div className={`order-1 lg:order-2 animate-on-scroll delay-2 ${isVisible ? 'is-visible' : ''}`}>
             <div className="space-y-6">
               {benefits.map((benefit, index) => (
-                <motion.div
+                <div
                   key={benefit.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
                   className="card p-6"
                 >
                   <div className="flex items-start gap-4">
@@ -353,20 +327,14 @@ export default function QuickPay() {
                       <p className="text-gray-600">{benefit.description}</p>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
-          </motion.div>
+          </div>
         </div>
 
         {/* Use cases */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="card p-8"
-        >
+        <div className={`card p-8 animate-on-scroll delay-3 ${isVisible ? 'is-visible' : ''}`}>
           <h3 className="text-xl font-bold text-gray-900 text-center mb-6">
             Use QuickPay anywhere
           </h3>
@@ -384,16 +352,10 @@ export default function QuickPay() {
               </div>
             ))}
           </div>
-        </motion.div>
+        </div>
 
         {/* Vision quote */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="mt-12 text-center max-w-3xl mx-auto"
-        >
+        <div className={`mt-12 text-center max-w-3xl mx-auto animate-on-scroll delay-4 ${isVisible ? 'is-visible' : ''}`}>
           <blockquote className="text-xl text-gray-600 italic mb-4">
             "For decades, we've watched money lose value year after year. We built BLAZE because 
             we believe paying with crypto – everywhere – is the future."
@@ -407,7 +369,7 @@ export default function QuickPay() {
               <div className="text-gray-500 text-sm">Founder, BLAZE Wallet</div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

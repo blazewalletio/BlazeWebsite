@@ -1,21 +1,17 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { Twitter, Send, Github, Mail, MapPin, Building, Target, Heart } from 'lucide-react';
+import { Twitter, Send, Github, Mail, MapPin, Target, Heart } from 'lucide-react';
 import Image from 'next/image';
+import { useInView } from '@/hooks/useInView';
 
 export default function AboutSection() {
+  const [sectionRef, isVisible] = useInView<HTMLElement>({ threshold: 0.1 });
+
   return (
-    <section id="about" className="py-20 lg:py-28 bg-white">
+    <section id="about" ref={sectionRef} className="py-20 lg:py-28 bg-white">
       <div className="container-main">
         <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="card p-8 md:p-12"
-          >
+          <div className={`card p-8 md:p-12 animate-on-scroll ${isVisible ? 'is-visible' : ''}`}>
             <div className="flex flex-col items-center text-center">
               {/* Logo */}
               <div className="mb-6">
@@ -132,7 +128,7 @@ export default function AboutSection() {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

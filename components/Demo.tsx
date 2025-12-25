@@ -1,8 +1,8 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { ArrowRight, Check, Monitor, Smartphone, Zap } from 'lucide-react';
 import { useState } from 'react';
+import { useInView } from '@/hooks/useInView';
 
 const steps = [
   {
@@ -24,18 +24,13 @@ const steps = [
 
 export default function Demo() {
   const [viewMode, setViewMode] = useState<'desktop' | 'mobile'>('desktop');
+  const [sectionRef, isVisible] = useInView<HTMLElement>({ threshold: 0.1 });
 
   return (
-    <section id="demo" className="py-20 lg:py-28 bg-white">
+    <section id="demo" ref={sectionRef} className="py-20 lg:py-28 bg-white">
       <div className="container-main">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
+        <div className={`text-center mb-16 animate-on-scroll ${isVisible ? 'is-visible' : ''}`}>
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-100 text-emerald-700 font-medium text-sm mb-6">
             <Zap className="w-4 h-4" />
             Get started in minutes
@@ -46,18 +41,14 @@ export default function Demo() {
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             No complicated setup, no technical knowledge required.
           </p>
-        </motion.div>
+        </div>
 
         {/* Steps */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
           {steps.map((step, index) => (
-            <motion.div
+            <div
               key={step.number}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="relative"
+              className={`relative animate-on-scroll delay-${index + 1} ${isVisible ? 'is-visible' : ''}`}
             >
               {/* Connector line */}
               {index < steps.length - 1 && (
@@ -71,18 +62,12 @@ export default function Demo() {
                 <h3 className="text-xl font-bold text-gray-900 mb-2">{step.title}</h3>
                 <p className="text-gray-600">{step.description}</p>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* App preview */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="card p-6 md:p-8"
-        >
+        <div className={`card p-6 md:p-8 animate-on-scroll delay-4 ${isVisible ? 'is-visible' : ''}`}>
           <div className="flex flex-col lg:flex-row gap-8 items-center">
             {/* Preview toggle & image */}
             <div className="flex-1 w-full">
@@ -171,7 +156,7 @@ export default function Demo() {
               </a>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

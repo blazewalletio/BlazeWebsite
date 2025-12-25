@@ -1,8 +1,8 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { Shield, Wallet, Cpu, TrendingUp, ExternalLink } from 'lucide-react';
 import Image from 'next/image';
+import { useInView } from '@/hooks/useInView';
 
 const stats = [
   { 
@@ -56,17 +56,13 @@ const partners = [
 ];
 
 export default function SocialProof() {
+  const [sectionRef, isVisible] = useInView<HTMLElement>({ threshold: 0.1 });
+
   return (
-    <section className="py-20 lg:py-28 bg-gray-50">
+    <section ref={sectionRef} className="py-20 lg:py-28 bg-gray-50">
       <div className="container-main">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-12"
-        >
+        <div className={`text-center mb-12 animate-on-scroll ${isVisible ? 'is-visible' : ''}`}>
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-100 text-emerald-700 font-medium text-sm mb-6">
             <Shield className="w-4 h-4" />
             Security first
@@ -77,18 +73,14 @@ export default function SocialProof() {
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Your security is our top priority. Non-custodial means you're always in control.
           </p>
-        </motion.div>
+        </div>
 
         {/* Stats */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-12">
           {stats.map((stat, index) => (
-            <motion.div
+            <div
               key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="card p-6 text-center"
+              className={`card p-6 text-center animate-on-scroll delay-${index + 1} ${isVisible ? 'is-visible' : ''}`}
             >
               <div className="icon-box mx-auto mb-4 bg-gray-100">
                 <stat.icon className="w-6 h-6 text-gray-600" />
@@ -98,29 +90,19 @@ export default function SocialProof() {
               </div>
               <div className="font-medium text-gray-900 mb-1">{stat.label}</div>
               <div className="text-sm text-gray-500">{stat.description}</div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* Partners */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="card p-8"
-        >
+        <div className={`card p-8 animate-on-scroll delay-4 ${isVisible ? 'is-visible' : ''}`}>
           <h3 className="text-xl font-bold text-gray-900 text-center mb-8">
             Trusted partners & integrations
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {partners.map((partner, index) => (
-              <motion.div 
+              <div 
                 key={index}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
                 className="flex flex-col items-center p-6 rounded-2xl bg-gray-50 hover:bg-gray-100 transition-colors"
               >
                 {/* Logo container */}
@@ -136,19 +118,13 @@ export default function SocialProof() {
                 </div>
                 <div className="font-bold text-gray-900 text-lg">{partner.name}</div>
                 <div className="text-sm text-gray-500">{partner.description}</div>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
 
         {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          className="mt-12 text-center"
-        >
+        <div className={`mt-12 text-center animate-on-scroll delay-4 ${isVisible ? 'is-visible' : ''}`}>
           <p className="text-gray-600 mb-4">Want to learn more about our security?</p>
           <a
             href="/whitepaper"
@@ -157,7 +133,7 @@ export default function SocialProof() {
             Read our whitepaper
             <ExternalLink className="w-4 h-4" />
           </a>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

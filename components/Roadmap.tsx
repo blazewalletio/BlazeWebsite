@@ -1,7 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { CheckCircle, Circle, Rocket, ArrowRight } from 'lucide-react';
+import { useInView } from '@/hooks/useInView';
 
 const roadmapPhases = [
   {
@@ -87,35 +87,25 @@ const roadmapPhases = [
 ];
 
 export default function Roadmap() {
+  const [sectionRef, isVisible] = useInView<HTMLElement>({ threshold: 0.05 });
+
   return (
-    <section id="roadmap" className="py-20 lg:py-28 bg-white">
+    <section id="roadmap" ref={sectionRef} className="py-20 lg:py-28 bg-white">
       <div className="container-main">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-12"
-        >
+        <div className={`text-center mb-12 animate-on-scroll ${isVisible ? 'is-visible' : ''}`}>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             Product <span className="text-gradient-brand">roadmap</span>
           </h2>
           <p className="text-lg text-gray-600 max-w-xl mx-auto">
             From foundation to global scale – transparent planning for the future.
           </p>
-        </motion.div>
+        </div>
 
         {/* Timeline grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {roadmapPhases.map((phase, index) => (
-            <motion.div
-              key={phase.phase}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
-            >
+        <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 animate-on-scroll delay-1 ${isVisible ? 'is-visible' : ''}`}>
+          {roadmapPhases.map((phase) => (
+            <div key={phase.phase}>
               {/* Card */}
               <div className={`card p-5 h-full ${
                 phase.status === 'active' 
@@ -164,18 +154,12 @@ export default function Roadmap() {
                   ))}
                 </ul>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          className="mt-10 text-center"
-        >
+        <div className={`mt-10 text-center animate-on-scroll delay-2 ${isVisible ? 'is-visible' : ''}`}>
           <a
             href="/whitepaper#roadmap"
             className="inline-flex items-center gap-2 text-orange-600 font-medium hover:text-orange-700 transition-colors"
@@ -183,7 +167,7 @@ export default function Roadmap() {
             View detailed roadmap
             <ArrowRight className="w-4 h-4" />
           </a>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
