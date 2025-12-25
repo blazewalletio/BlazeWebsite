@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { QrCode, Zap, Shield, Clock, Coffee, ShoppingCart, Scissors, Car, TrendingDown, Check, Loader2 } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 const useCases = [
   { icon: Coffee, label: 'Coffee shops', example: '€4.50' },
@@ -34,40 +34,20 @@ type DemoStep = 'idle' | 'scanning' | 'confirming' | 'processing' | 'complete';
 
 export default function QuickPay() {
   const [demoStep, setDemoStep] = useState<DemoStep>('idle');
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-
-  // Auto-play demo
-  useEffect(() => {
-    if (!isAutoPlaying) return;
-
-    const runDemo = async () => {
-      setDemoStep('idle');
-      await new Promise(r => setTimeout(r, 2000));
-      setDemoStep('scanning');
-      await new Promise(r => setTimeout(r, 1500));
-      setDemoStep('confirming');
-      await new Promise(r => setTimeout(r, 2000));
-      setDemoStep('processing');
-      await new Promise(r => setTimeout(r, 1200));
-      setDemoStep('complete');
-      await new Promise(r => setTimeout(r, 3000));
-    };
-
-    runDemo();
-    const interval = setInterval(runDemo, 10000);
-    return () => clearInterval(interval);
-  }, [isAutoPlaying]);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const handleStartDemo = () => {
-    setIsAutoPlaying(false);
+    if (isPlaying) return; // Prevent multiple clicks during animation
+    
+    setIsPlaying(true);
     setDemoStep('scanning');
     setTimeout(() => setDemoStep('confirming'), 1500);
     setTimeout(() => setDemoStep('processing'), 3500);
     setTimeout(() => setDemoStep('complete'), 4700);
     setTimeout(() => {
       setDemoStep('idle');
-      setIsAutoPlaying(true);
-    }, 8000);
+      setIsPlaying(false);
+    }, 7500);
   };
 
   return (
