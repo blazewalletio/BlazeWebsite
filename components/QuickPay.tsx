@@ -301,12 +301,6 @@ export default function QuickPay() {
                 </div>
               </div>
               
-              {/* Click hint */}
-              {demoStep === 'idle' && (
-                <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-gray-400 text-sm flex items-center gap-1">
-                  <span>👆</span> Tap phone to try demo
-                </div>
-              )}
             </div>
           </div>
 
