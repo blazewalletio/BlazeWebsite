@@ -1,10 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Flame, Bell, Users, ArrowRight, Check, Sparkles } from 'lucide-react';
-
-// Presale target date: February 1, 2026
-const PRESALE_DATE = new Date('2026-02-01T12:00:00Z').getTime();
+import { Flame, Bell, Users, ArrowRight, Check, Sparkles, AlertCircle } from 'lucide-react';
 
 interface TimeLeft {
   days: number;
@@ -14,17 +11,46 @@ interface TimeLeft {
 }
 
 export default function PresaleCountdown() {
+  const [presaleDate, setPresaleDate] = useState<number>(new Date('2026-02-01T12:00:00Z').getTime());
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [email, setEmail] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
   const [waitlistCount, setWaitlistCount] = useState(2847);
+
+  // Fetch settings and waitlist count on mount
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Get settings (including presale date)
+        const settingsRes = await fetch('/api/settings');
+        if (settingsRes.ok) {
+          const settings = await settingsRes.json();
+          if (settings.presale_date) {
+            setPresaleDate(new Date(settings.presale_date).getTime());
+          }
+        }
+
+        // Get waitlist count
+        const countRes = await fetch('/api/waitlist');
+        if (countRes.ok) {
+          const data = await countRes.json();
+          setWaitlistCount(data.count);
+        }
+      } catch (err) {
+        console.error('Error fetching data:', err);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   // Calculate time remaining
   useEffect(() => {
     const calculateTimeLeft = () => {
       const now = new Date().getTime();
-      const difference = PRESALE_DATE - now;
+      const difference = presaleDate - now;
 
       if (difference > 0) {
         setTimeLeft({
@@ -40,24 +66,41 @@ export default function PresaleCountdown() {
     const timer = setInterval(calculateTimeLeft, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [presaleDate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
 
     setIsLoading(true);
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    setIsSubmitted(true);
-    setIsLoading(false);
-    setWaitlistCount(prev => prev + 1);
-    setEmail('');
+    setError('');
 
-    // Reset after 5 seconds
-    setTimeout(() => setIsSubmitted(false), 5000);
+    try {
+      const res = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, source: 'presale_countdown' }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.error || 'Something went wrong');
+        setIsLoading(false);
+        return;
+      }
+
+      setIsSubmitted(true);
+      setIsLoading(false);
+      setWaitlistCount(data.count + 2847); // Add offset
+      setEmail('');
+
+      // Reset after 5 seconds
+      setTimeout(() => setIsSubmitted(false), 5000);
+    } catch (err) {
+      setError('Failed to join waitlist. Please try again.');
+      setIsLoading(false);
+    }
   };
 
   const TimeBlock = ({ value, label }: { value: number; label: string }) => (
@@ -130,6 +173,12 @@ export default function PresaleCountdown() {
         <div className="max-w-md mx-auto">
           {!isSubmitted ? (
             <form onSubmit={handleSubmit} className="relative">
+              {error && (
+                <div className="flex items-center gap-2 p-3 mb-4 bg-red-500/20 border border-red-500/30 rounded-xl text-red-300 text-sm">
+                  <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                  {error}
+                </div>
+              )}
               <div className="flex flex-col sm:flex-row gap-3">
                 <div className="relative flex-1">
                   <Bell className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -195,4 +244,3 @@ export default function PresaleCountdown() {
     </div>
   );
 }
-

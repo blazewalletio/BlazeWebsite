@@ -14,11 +14,36 @@ export default function SupportPage() {
     message: ''
   });
   const [submitted, setSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    setSubmitted(true);
+    setIsLoading(true);
+    setError('');
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.error || 'Something went wrong');
+        setIsLoading(false);
+        return;
+      }
+
+      setSubmitted(true);
+      setIsLoading(false);
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    } catch (err) {
+      setError('Failed to send message. Please try again.');
+      setIsLoading(false);
+    }
   };
 
   const contactMethods = [
@@ -168,6 +193,12 @@ export default function SupportPage() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="card p-6 space-y-4">
+                  {error && (
+                    <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm">
+                      <span>⚠️</span>
+                      {error}
+                    </div>
+                  )}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
                     <input
@@ -221,9 +252,19 @@ export default function SupportPage() {
                     />
                   </div>
                   
-                  <button type="submit" className="btn-brand w-full flex items-center justify-center gap-2">
-                    <Send className="w-4 h-4" />
-                    Send message
+                  <button 
+                    type="submit" 
+                    disabled={isLoading}
+                    className="btn-brand w-full flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isLoading ? (
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4" />
+                        Send message
+                      </>
+                    )}
                   </button>
                 </form>
               )}
