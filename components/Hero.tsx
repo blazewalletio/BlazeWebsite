@@ -5,6 +5,16 @@ import { ArrowRight, Shield, Zap, CheckCircle, QrCode } from 'lucide-react';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
+// Floating crypto icons data
+const floatingIcons = [
+  { symbol: 'BTC', color: '#F7931A', x: '10%', y: '20%', delay: 0, duration: 20 },
+  { symbol: 'ETH', color: '#627EEA', x: '85%', y: '15%', delay: 2, duration: 25 },
+  { symbol: 'SOL', color: '#00FFA3', x: '15%', y: '70%', delay: 4, duration: 22 },
+  { symbol: 'USDC', color: '#2775CA', x: '80%', y: '75%', delay: 1, duration: 18 },
+  { symbol: 'BNB', color: '#F3BA2F', x: '5%', y: '45%', delay: 3, duration: 24 },
+  { symbol: 'MATIC', color: '#8247E5', x: '92%', y: '45%', delay: 5, duration: 21 },
+];
+
 export default function Hero() {
   const [isHovering, setIsHovering] = useState(false);
 
@@ -57,6 +67,47 @@ export default function Hero() {
       <div className="absolute inset-0 opacity-5" style={{
         backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
       }} />
+      
+      {/* Floating Crypto Icons */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {floatingIcons.map((icon, index) => (
+          <motion.div
+            key={icon.symbol}
+            className="absolute"
+            style={{ left: icon.x, top: icon.y }}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ 
+              opacity: [0.15, 0.3, 0.15],
+              scale: [0.8, 1, 0.8],
+              y: [0, -30, 0],
+              x: [0, 15, 0],
+              rotate: [0, 10, -10, 0],
+            }}
+            transition={{
+              duration: icon.duration,
+              delay: icon.delay,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            <div 
+              className="w-12 h-12 md:w-16 md:h-16 rounded-2xl flex items-center justify-center backdrop-blur-sm"
+              style={{ 
+                backgroundColor: `${icon.color}15`,
+                border: `1px solid ${icon.color}30`,
+                boxShadow: `0 0 30px ${icon.color}20`,
+              }}
+            >
+              <span 
+                className="font-bold text-xs md:text-sm"
+                style={{ color: icon.color }}
+              >
+                {icon.symbol}
+              </span>
+            </div>
+          </motion.div>
+        ))}
+      </div>
       
       <div className="container-main relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center py-12 lg:py-20">

@@ -1,7 +1,8 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { QrCode, Zap, Shield, Clock, Coffee, ShoppingCart, Scissors, Car, ArrowRight, TrendingDown } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { QrCode, Zap, Shield, Clock, Coffee, ShoppingCart, Scissors, Car, TrendingDown, Check, Loader2 } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 const useCases = [
   { icon: Coffee, label: 'Coffee shops', example: '€4.50' },
@@ -28,7 +29,47 @@ const benefits = [
   },
 ];
 
+// Demo steps
+type DemoStep = 'idle' | 'scanning' | 'confirming' | 'processing' | 'complete';
+
 export default function QuickPay() {
+  const [demoStep, setDemoStep] = useState<DemoStep>('idle');
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+
+  // Auto-play demo
+  useEffect(() => {
+    if (!isAutoPlaying) return;
+
+    const runDemo = async () => {
+      setDemoStep('idle');
+      await new Promise(r => setTimeout(r, 2000));
+      setDemoStep('scanning');
+      await new Promise(r => setTimeout(r, 1500));
+      setDemoStep('confirming');
+      await new Promise(r => setTimeout(r, 2000));
+      setDemoStep('processing');
+      await new Promise(r => setTimeout(r, 1200));
+      setDemoStep('complete');
+      await new Promise(r => setTimeout(r, 3000));
+    };
+
+    runDemo();
+    const interval = setInterval(runDemo, 10000);
+    return () => clearInterval(interval);
+  }, [isAutoPlaying]);
+
+  const handleStartDemo = () => {
+    setIsAutoPlaying(false);
+    setDemoStep('scanning');
+    setTimeout(() => setDemoStep('confirming'), 1500);
+    setTimeout(() => setDemoStep('processing'), 3500);
+    setTimeout(() => setDemoStep('complete'), 4700);
+    setTimeout(() => {
+      setDemoStep('idle');
+      setIsAutoPlaying(true);
+    }, 8000);
+  };
+
   return (
     <section id="quickpay" className="py-20 lg:py-28 bg-white">
       <div className="container-main">
@@ -55,7 +96,7 @@ export default function QuickPay() {
 
         {/* Main content grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
-          {/* Left: Phone demo */}
+          {/* Left: Interactive Phone demo */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -66,7 +107,7 @@ export default function QuickPay() {
             <div className="relative mx-auto max-w-xs">
               {/* Phone frame */}
               <div className="bg-gray-900 rounded-[2.5rem] p-3 shadow-2xl">
-                <div className="bg-white rounded-[2rem] overflow-hidden aspect-[9/16]">
+                <div className="bg-white rounded-[2rem] overflow-hidden" style={{ height: '520px' }}>
                   {/* QuickPay flow */}
                   <div className="h-full flex flex-col">
                     {/* Step indicator */}
@@ -74,52 +115,207 @@ export default function QuickPay() {
                       <div className="flex items-center justify-between text-white">
                         <span className="text-sm font-medium">QuickPay</span>
                         <div className="flex gap-1">
-                          <div className="w-2 h-2 bg-white rounded-full" />
-                          <div className="w-2 h-2 bg-white/50 rounded-full" />
-                          <div className="w-2 h-2 bg-white/50 rounded-full" />
+                          <div className={`w-2 h-2 rounded-full transition-all ${demoStep !== 'idle' ? 'bg-white' : 'bg-white/50'}`} />
+                          <div className={`w-2 h-2 rounded-full transition-all ${demoStep === 'confirming' || demoStep === 'processing' || demoStep === 'complete' ? 'bg-white' : 'bg-white/50'}`} />
+                          <div className={`w-2 h-2 rounded-full transition-all ${demoStep === 'complete' ? 'bg-white' : 'bg-white/50'}`} />
                         </div>
                       </div>
                     </div>
                     
-                    {/* Payment confirmation */}
-                    <div className="flex-1 p-4 flex flex-col">
-                      <div className="text-center mb-4">
-                        <div className="w-16 h-16 mx-auto bg-emerald-100 rounded-full flex items-center justify-center mb-3">
-                          <svg className="w-8 h-8 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                          </svg>
-                        </div>
-                        <div className="font-bold text-gray-900 text-lg">Payment sent!</div>
-                        <div className="text-gray-500 text-sm">Transaction confirmed</div>
-                      </div>
-                      
-                      <div className="bg-gray-50 rounded-xl p-4 mb-4">
-                        <div className="flex justify-between items-center mb-2">
-                          <span className="text-gray-500 text-sm">Amount</span>
-                          <span className="font-bold text-gray-900">€4.50</span>
-                        </div>
-                        <div className="flex justify-between items-center mb-2">
-                          <span className="text-gray-500 text-sm">Paid with</span>
-                          <span className="text-gray-900">4.52 USDC</span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                          <span className="text-gray-500 text-sm">Time</span>
-                          <span className="text-emerald-500 font-medium">1.8 sec</span>
-                        </div>
-                      </div>
-                      
-                      <div className="text-center text-gray-500 text-xs">
-                        To: Coffee Corner
-                        <br />
-                        <span className="font-mono text-xs">0x7a3B...4f2E</span>
-                      </div>
-                    </div>
-                    
-                    {/* Bottom button */}
-                    <div className="p-4">
-                      <button className="w-full py-3 bg-gray-900 text-white rounded-xl font-medium">
-                        Done
-                      </button>
+                    {/* Dynamic content based on step */}
+                    <div className="flex-1 relative overflow-hidden">
+                      <AnimatePresence mode="wait">
+                        {/* Step 1: Idle - Scan prompt */}
+                        {demoStep === 'idle' && (
+                          <motion.div
+                            key="idle"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            className="absolute inset-0 flex flex-col items-center justify-center p-6"
+                          >
+                            <motion.div 
+                              className="w-32 h-32 border-4 border-dashed border-orange-300 rounded-2xl flex items-center justify-center mb-4 cursor-pointer hover:border-orange-500 transition-colors"
+                              animate={{ scale: [1, 1.02, 1] }}
+                              transition={{ duration: 2, repeat: Infinity }}
+                              onClick={handleStartDemo}
+                            >
+                              <QrCode className="w-16 h-16 text-orange-400" />
+                            </motion.div>
+                            <div className="font-bold text-gray-900 text-lg mb-1">Tap to scan QR</div>
+                            <div className="text-gray-500 text-sm text-center">Point your camera at merchant's QR code</div>
+                          </motion.div>
+                        )}
+
+                        {/* Step 2: Scanning */}
+                        {demoStep === 'scanning' && (
+                          <motion.div
+                            key="scanning"
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 1.1 }}
+                            className="absolute inset-0 flex flex-col items-center justify-center p-6 bg-black"
+                          >
+                            <div className="relative w-48 h-48 mb-4">
+                              {/* Scanner frame */}
+                              <div className="absolute inset-0 border-2 border-white/30 rounded-xl" />
+                              {/* Animated corners */}
+                              <motion.div 
+                                className="absolute top-0 left-0 w-8 h-8 border-t-4 border-l-4 border-orange-500 rounded-tl-lg"
+                                animate={{ opacity: [1, 0.5, 1] }}
+                                transition={{ duration: 1, repeat: Infinity }}
+                              />
+                              <motion.div 
+                                className="absolute top-0 right-0 w-8 h-8 border-t-4 border-r-4 border-orange-500 rounded-tr-lg"
+                                animate={{ opacity: [1, 0.5, 1] }}
+                                transition={{ duration: 1, repeat: Infinity, delay: 0.25 }}
+                              />
+                              <motion.div 
+                                className="absolute bottom-0 left-0 w-8 h-8 border-b-4 border-l-4 border-orange-500 rounded-bl-lg"
+                                animate={{ opacity: [1, 0.5, 1] }}
+                                transition={{ duration: 1, repeat: Infinity, delay: 0.5 }}
+                              />
+                              <motion.div 
+                                className="absolute bottom-0 right-0 w-8 h-8 border-b-4 border-r-4 border-orange-500 rounded-br-lg"
+                                animate={{ opacity: [1, 0.5, 1] }}
+                                transition={{ duration: 1, repeat: Infinity, delay: 0.75 }}
+                              />
+                              {/* Scan line */}
+                              <motion.div
+                                className="absolute left-2 right-2 h-0.5 bg-gradient-to-r from-transparent via-orange-500 to-transparent"
+                                animate={{ top: ['10%', '90%', '10%'] }}
+                                transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
+                              />
+                              {/* QR placeholder */}
+                              <div className="absolute inset-8 grid grid-cols-5 gap-1 opacity-30">
+                                {[...Array(25)].map((_, i) => (
+                                  <div key={i} className={`bg-white rounded-sm ${Math.random() > 0.5 ? 'opacity-100' : 'opacity-30'}`} />
+                                ))}
+                              </div>
+                            </div>
+                            <div className="text-white font-medium">Scanning...</div>
+                          </motion.div>
+                        )}
+
+                        {/* Step 3: Confirming */}
+                        {demoStep === 'confirming' && (
+                          <motion.div
+                            key="confirming"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            className="absolute inset-0 flex flex-col p-4"
+                          >
+                            <div className="text-center mb-4 pt-2">
+                              <div className="font-bold text-gray-900 text-lg">Confirm payment</div>
+                              <div className="text-gray-500 text-sm">Coffee Corner</div>
+                            </div>
+                            
+                            <div className="flex-1 flex flex-col justify-center">
+                              <div className="text-center mb-6">
+                                <div className="text-5xl font-bold text-gray-900 mb-1">€4.50</div>
+                                <div className="text-gray-500">≈ 4.52 USDC</div>
+                              </div>
+                              
+                              <div className="bg-gray-50 rounded-xl p-3 mb-4">
+                                <div className="flex justify-between items-center text-sm">
+                                  <span className="text-gray-500">Network</span>
+                                  <span className="text-gray-900 font-medium">Polygon</span>
+                                </div>
+                                <div className="flex justify-between items-center text-sm mt-2">
+                                  <span className="text-gray-500">Fee</span>
+                                  <span className="text-emerald-500 font-medium">~$0.001</span>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            <motion.button 
+                              className="w-full py-4 bg-gradient-to-r from-orange-500 to-yellow-500 text-white rounded-xl font-bold text-lg shadow-lg shadow-orange-500/30"
+                              animate={{ scale: [1, 1.02, 1] }}
+                              transition={{ duration: 1, repeat: Infinity }}
+                            >
+                              Confirm & Pay
+                            </motion.button>
+                          </motion.div>
+                        )}
+
+                        {/* Step 4: Processing */}
+                        {demoStep === 'processing' && (
+                          <motion.div
+                            key="processing"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="absolute inset-0 flex flex-col items-center justify-center p-6"
+                          >
+                            <motion.div
+                              animate={{ rotate: 360 }}
+                              transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+                              className="mb-4"
+                            >
+                              <Loader2 className="w-16 h-16 text-orange-500" />
+                            </motion.div>
+                            <div className="font-bold text-gray-900 text-lg mb-1">Processing...</div>
+                            <div className="text-gray-500 text-sm">This will only take a moment</div>
+                          </motion.div>
+                        )}
+
+                        {/* Step 5: Complete */}
+                        {demoStep === 'complete' && (
+                          <motion.div
+                            key="complete"
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.8 }}
+                            className="absolute inset-0 flex flex-col p-4"
+                          >
+                            <div className="flex-1 flex flex-col items-center justify-center">
+                              <motion.div 
+                                className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mb-4"
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                transition={{ type: 'spring', delay: 0.2 }}
+                              >
+                                <motion.div
+                                  initial={{ scale: 0 }}
+                                  animate={{ scale: 1 }}
+                                  transition={{ type: 'spring', delay: 0.4 }}
+                                >
+                                  <Check className="w-10 h-10 text-emerald-500" strokeWidth={3} />
+                                </motion.div>
+                              </motion.div>
+                              <motion.div
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.5 }}
+                              >
+                                <div className="font-bold text-gray-900 text-xl mb-1 text-center">Payment sent!</div>
+                                <div className="text-gray-500 text-sm text-center">Transaction confirmed</div>
+                              </motion.div>
+                            </div>
+                            
+                            <motion.div
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: 0.6 }}
+                              className="bg-gray-50 rounded-xl p-4"
+                            >
+                              <div className="flex justify-between items-center mb-2">
+                                <span className="text-gray-500 text-sm">Amount</span>
+                                <span className="font-bold text-gray-900">€4.50</span>
+                              </div>
+                              <div className="flex justify-between items-center mb-2">
+                                <span className="text-gray-500 text-sm">Paid with</span>
+                                <span className="text-gray-900">4.52 USDC</span>
+                              </div>
+                              <div className="flex justify-between items-center">
+                                <span className="text-gray-500 text-sm">Time</span>
+                                <span className="text-emerald-500 font-bold">1.8 sec ⚡</span>
+                              </div>
+                            </motion.div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
                   </div>
                 </div>
@@ -136,6 +332,17 @@ export default function QuickPay() {
                   <span className="font-bold text-gray-900">1.8s</span>
                 </div>
               </motion.div>
+              
+              {/* Click hint */}
+              {demoStep === 'idle' && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-gray-400 text-sm flex items-center gap-1"
+                >
+                  <span>👆</span> Tap phone to try demo
+                </motion.div>
+              )}
             </div>
           </motion.div>
 
