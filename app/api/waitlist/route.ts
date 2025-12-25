@@ -1,14 +1,25 @@
 import { createClient } from '@supabase/supabase-js';
 import { NextRequest, NextResponse } from 'next/server';
+import { sendNewSignupNotification, sendWelcomeEmail } from '@/lib/email';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
+// Generate a unique referral code
+function generateReferralCode(): string {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let code = 'BLAZE';
+  for (let i = 0; i < 6; i++) {
+    code += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return code;
+}
+
 export async function POST(request: NextRequest) {
   try {
-    const { email, source = 'presale_countdown' } = await request.json();
+    const { email, source = 'presale_countdown', ref } = await request.json();
 
     if (!email || !email.includes('@')) {
       return NextResponse.json(
@@ -21,6 +32,9 @@ export async function POST(request: NextRequest) {
     const ip = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown';
     const userAgent = request.headers.get('user-agent') || 'unknown';
 
+    // Generate unique referral code
+    const referralCode = generateReferralCode();
+
     // Insert into waitlist
     const { data, error } = await supabase
       .from('waitlist')
@@ -29,6 +43,8 @@ export async function POST(request: NextRequest) {
         source,
         ip_address: ip,
         user_agent: userAgent,
+        referral_code: referralCode,
+        referred_by: ref || null,
       })
       .select()
       .single();
@@ -36,8 +52,18 @@ export async function POST(request: NextRequest) {
     if (error) {
       // Check for duplicate email
       if (error.code === '23505') {
+        // Get existing referral code for this email
+        const { data: existing } = await supabase
+          .from('waitlist')
+          .select('referral_code')
+          .eq('email', email.toLowerCase().trim())
+          .single();
+
         return NextResponse.json(
-          { error: 'This email is already on the waitlist!' },
+          { 
+            error: 'This email is already on the waitlist!',
+            referralCode: existing?.referral_code 
+          },
           { status: 409 }
         );
       }
@@ -49,10 +75,17 @@ export async function POST(request: NextRequest) {
       .from('waitlist')
       .select('*', { count: 'exact', head: true });
 
+    // Send notification email to admin (non-blocking)
+    sendNewSignupNotification(email, source, ref).catch(console.error);
+
+    // Send welcome email to user (non-blocking)
+    sendWelcomeEmail(email, referralCode).catch(console.error);
+
     return NextResponse.json({
       success: true,
       message: 'Successfully joined the waitlist!',
       count: count || 0,
+      referralCode,
     });
   } catch (error: any) {
     console.error('Waitlist signup error:', error);
@@ -63,9 +96,77 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
-    // Get waitlist count
+    const { searchParams } = new URL(request.url);
+    const action = searchParams.get('action');
+
+    // Get analytics data
+    if (action === 'analytics') {
+      const days = parseInt(searchParams.get('days') || '30');
+      
+      // Get daily signups
+      const { data: dailyData } = await supabase.rpc('get_daily_signups', { days_back: days });
+      
+      // Get source stats
+      const { data: sourceData } = await supabase.rpc('get_source_stats');
+      
+      // Get top referrers
+      const { data: referrerData } = await supabase.rpc('get_top_referrers', { limit_count: 10 });
+
+      return NextResponse.json({
+        daily: dailyData || [],
+        sources: sourceData || [],
+        topReferrers: referrerData || [],
+      });
+    }
+
+    // Get export data
+    if (action === 'export') {
+      const format = searchParams.get('format') || 'json';
+      const startDate = searchParams.get('start');
+      const endDate = searchParams.get('end');
+      const sourceFilter = searchParams.get('source');
+
+      let query = supabase
+        .from('waitlist')
+        .select('email, source, referral_code, referred_by, created_at')
+        .order('created_at', { ascending: false });
+
+      if (startDate) {
+        query = query.gte('created_at', startDate);
+      }
+      if (endDate) {
+        query = query.lte('created_at', endDate);
+      }
+      if (sourceFilter && sourceFilter !== 'all') {
+        query = query.eq('source', sourceFilter);
+      }
+
+      const { data, error } = await query;
+
+      if (error) throw error;
+
+      if (format === 'csv') {
+        const csv = [
+          'Email,Source,Referral Code,Referred By,Date',
+          ...(data || []).map(row => 
+            `${row.email},${row.source || ''},${row.referral_code || ''},${row.referred_by || ''},${row.created_at}`
+          )
+        ].join('\n');
+
+        return new NextResponse(csv, {
+          headers: {
+            'Content-Type': 'text/csv',
+            'Content-Disposition': `attachment; filename=blaze-waitlist-${new Date().toISOString().split('T')[0]}.csv`
+          }
+        });
+      }
+
+      return NextResponse.json({ data });
+    }
+
+    // Default: Get waitlist count
     const { count } = await supabase
       .from('waitlist')
       .select('*', { count: 'exact', head: true });
@@ -83,8 +184,7 @@ export async function GET() {
       count: (count || 0) + offset,
     });
   } catch (error) {
-    console.error('Error getting waitlist count:', error);
+    console.error('Error getting waitlist data:', error);
     return NextResponse.json({ count: 2847 });
   }
 }
-

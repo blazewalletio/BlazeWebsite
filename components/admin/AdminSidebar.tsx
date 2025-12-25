@@ -15,6 +15,9 @@ import {
   X,
   ChevronRight,
   Bell,
+  BarChart3,
+  Download,
+  Gift,
 } from 'lucide-react';
 
 interface NavItem {
@@ -47,7 +50,10 @@ export default function AdminSidebar({ unreadMessages = 0 }: { unreadMessages?: 
 
   const navItems: NavItem[] = [
     { label: 'Dashboard', href: '/admin/dashboard', icon: LayoutDashboard },
+    { label: 'Analytics', href: '/admin/analytics', icon: BarChart3 },
     { label: 'Waitlist', href: '/admin/waitlist', icon: Users },
+    { label: 'Referrals', href: '/admin/referrals', icon: Gift },
+    { label: 'Export', href: '/admin/export', icon: Download },
     { label: 'Messages', href: '/admin/messages', icon: MessageSquare, badge: unreadMessages },
     { label: 'Settings', href: '/admin/settings', icon: Settings },
   ];

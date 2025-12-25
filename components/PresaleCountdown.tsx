@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Flame, Bell, Users, ArrowRight, Check, Sparkles, AlertCircle } from 'lucide-react';
+import { useState, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { Flame, Bell, Users, ArrowRight, Check, Sparkles, AlertCircle, Gift, Copy } from 'lucide-react';
 
 interface TimeLeft {
   days: number;
@@ -10,7 +11,8 @@ interface TimeLeft {
   seconds: number;
 }
 
-export default function PresaleCountdown() {
+// Inner component that uses useSearchParams
+function PresaleCountdownInner() {
   const [presaleDate, setPresaleDate] = useState<number>(new Date('2026-02-01T12:00:00Z').getTime());
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [email, setEmail] = useState('');
@@ -18,6 +20,11 @@ export default function PresaleCountdown() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [waitlistCount, setWaitlistCount] = useState(2847);
+  const [myReferralCode, setMyReferralCode] = useState('');
+  const [copied, setCopied] = useState(false);
+  
+  const searchParams = useSearchParams();
+  const referredBy = searchParams.get('ref');
 
   // Fetch settings and waitlist count on mount
   useEffect(() => {
@@ -79,12 +86,20 @@ export default function PresaleCountdown() {
       const res = await fetch('/api/waitlist', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, source: 'presale_countdown' }),
+        body: JSON.stringify({ 
+          email, 
+          source: referredBy ? 'referral' : 'presale_countdown',
+          ref: referredBy || undefined,
+        }),
       });
 
       const data = await res.json();
 
       if (!res.ok) {
+        // If already on waitlist, still show their referral code
+        if (data.referralCode) {
+          setMyReferralCode(data.referralCode);
+        }
         setError(data.error || 'Something went wrong');
         setIsLoading(false);
         return;
@@ -93,14 +108,18 @@ export default function PresaleCountdown() {
       setIsSubmitted(true);
       setIsLoading(false);
       setWaitlistCount(data.count + 2847); // Add offset
+      setMyReferralCode(data.referralCode);
       setEmail('');
-
-      // Reset after 5 seconds
-      setTimeout(() => setIsSubmitted(false), 5000);
     } catch (err) {
       setError('Failed to join waitlist. Please try again.');
       setIsLoading(false);
     }
+  };
+
+  const copyReferralLink = async () => {
+    await navigator.clipboard.writeText(`https://www.blazewallet.io?ref=${myReferralCode}`);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   const TimeBlock = ({ value, label }: { value: number; label: string }) => (
@@ -208,11 +227,41 @@ export default function PresaleCountdown() {
               </div>
             </form>
           ) : (
-            <div className="flex items-center justify-center gap-3 py-4 px-6 bg-emerald-500/20 border border-emerald-500/30 rounded-xl">
-              <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center">
-                <Check className="w-5 h-5 text-white" />
+            <div className="space-y-4">
+              <div className="flex items-center justify-center gap-3 py-4 px-6 bg-emerald-500/20 border border-emerald-500/30 rounded-xl">
+                <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Check className="w-5 h-5 text-white" />
+                </div>
+                <span className="text-emerald-400 font-medium">You're on the list! Check your email for confirmation.</span>
               </div>
-              <span className="text-emerald-400 font-medium">You're on the list! We'll notify you when presale starts.</span>
+              
+              {/* Referral code box */}
+              {myReferralCode && (
+                <div className="p-4 bg-white/10 border border-white/20 rounded-xl">
+                  <div className="flex items-center gap-2 text-gray-300 text-sm mb-3">
+                    <Gift className="w-4 h-4 text-orange-400" />
+                    <span>Share & earn rewards!</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <code className="flex-1 px-4 py-3 bg-white/10 rounded-lg text-orange-400 font-mono text-center">
+                      {myReferralCode}
+                    </code>
+                    <button
+                      onClick={copyReferralLink}
+                      className="px-4 py-3 bg-orange-500 hover:bg-orange-600 rounded-lg transition-colors"
+                    >
+                      {copied ? (
+                        <Check className="w-5 h-5 text-white" />
+                      ) : (
+                        <Copy className="w-5 h-5 text-white" />
+                      )}
+                    </button>
+                  </div>
+                  <p className="text-xs text-gray-400 mt-2 text-center">
+                    Top referrers get bonus tokens!
+                  </p>
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -242,5 +291,20 @@ export default function PresaleCountdown() {
         </div>
       </div>
     </div>
+  );
+}
+
+// Wrapper component with Suspense boundary
+export default function PresaleCountdown() {
+  return (
+    <Suspense fallback={
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-6 sm:p-8 md:p-10">
+        <div className="flex items-center justify-center py-20">
+          <div className="w-8 h-8 border-2 border-orange-500 border-t-transparent rounded-full animate-spin" />
+        </div>
+      </div>
+    }>
+      <PresaleCountdownInner />
+    </Suspense>
   );
 }
