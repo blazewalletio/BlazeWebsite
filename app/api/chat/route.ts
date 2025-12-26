@@ -106,34 +106,37 @@ export async function POST(request: NextRequest) {
       },
     });
   } catch (error: any) {
-    console.error('Chat API error:', error?.message || error);
+    console.error('Chat API error:', JSON.stringify(error, null, 2));
+    
+    const errorMessage = error?.error?.message || error?.message || 'Unknown error';
+    const errorCode = error?.error?.code || error?.code || '';
     
     // Check if API key is missing
-    if (error?.message?.includes('API key')) {
+    if (errorMessage.includes('API key')) {
       return NextResponse.json(
         { error: 'Chat service not configured.' },
         { status: 503 }
       );
     }
     
-    // Handle specific OpenAI errors
-    if (error?.status === 429 || error?.code === 'rate_limit_exceeded') {
+    // Handle insufficient quota (no credits)
+    if (errorCode === 'insufficient_quota' || errorMessage.includes('quota')) {
       return NextResponse.json(
-        { error: 'Service is busy. Please try again in a moment.' },
-        { status: 429 }
-      );
-    }
-
-    // Handle insufficient quota
-    if (error?.code === 'insufficient_quota') {
-      return NextResponse.json(
-        { error: 'Service temporarily unavailable.' },
+        { error: 'Chat service temporarily unavailable. Please try again later.' },
         { status: 503 }
       );
     }
 
+    // Handle rate limit
+    if (error?.status === 429 || errorCode === 'rate_limit_exceeded') {
+      return NextResponse.json(
+        { error: 'Too many requests. Please wait a moment.' },
+        { status: 429 }
+      );
+    }
+
     return NextResponse.json(
-      { error: error?.message || 'Failed to get response. Please try again.' },
+      { error: 'Something went wrong. Please try again.' },
       { status: 500 }
     );
   }
