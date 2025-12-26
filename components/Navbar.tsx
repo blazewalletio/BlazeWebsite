@@ -11,9 +11,34 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const scrollPositionRef = useRef(0);
+  const menuContentRef = useRef<HTMLDivElement>(null);
   
   // Check if we're on a page with a dark hero (only homepage)
   const hasDarkHero = pathname === '/';
+
+  // Debug logging
+  useEffect(() => {
+    if (isOpen) {
+      console.log('[Navbar Debug] Menu opened');
+      console.log('[Navbar Debug] mainLinks:', mainLinks);
+      console.log('[Navbar Debug] secondaryLinks:', secondaryLinks);
+      
+      // Check DOM after render
+      setTimeout(() => {
+        const menuPanel = document.querySelector('[data-menu-panel]');
+        const scrollContainer = document.querySelector('[data-scroll-container]');
+        const navSection = document.querySelector('[data-nav-section]');
+        
+        console.log('[Navbar Debug] menuPanel:', menuPanel);
+        console.log('[Navbar Debug] menuPanel height:', menuPanel?.getBoundingClientRect().height);
+        console.log('[Navbar Debug] scrollContainer:', scrollContainer);
+        console.log('[Navbar Debug] scrollContainer height:', scrollContainer?.getBoundingClientRect().height);
+        console.log('[Navbar Debug] navSection:', navSection);
+        console.log('[Navbar Debug] navSection height:', navSection?.getBoundingClientRect().height);
+        console.log('[Navbar Debug] navSection children:', navSection?.children.length);
+      }, 100);
+    }
+  }, [isOpen]);
 
   const mainLinks = [
     { label: 'Features', href: '/#features', description: 'What BLAZE offers' },
@@ -157,15 +182,22 @@ export default function Navbar() {
 
       {/* Mobile menu - CSS-based animations for better performance */}
       <div 
-        className={`fixed left-0 right-0 top-16 bottom-0 md:hidden z-[55] transition-all duration-300 ${
+        className={`fixed inset-0 top-16 md:hidden z-[55] transition-all duration-300 ${
           isOpen 
             ? 'opacity-100 pointer-events-auto' 
             : 'opacity-0 pointer-events-none'
         }`}
       >
-        {/* Menu panel - full height */}
+        {/* Backdrop overlay - click to close */}
         <div 
-          className={`h-full bg-white flex flex-col transition-transform duration-300 ease-out ${
+          className="absolute inset-0 bg-black/20 backdrop-blur-sm"
+          onClick={closeMenu}
+        />
+        
+        {/* Menu panel */}
+        <div 
+          data-menu-panel
+          className={`absolute inset-x-0 top-0 bottom-0 bg-white transition-transform duration-300 ease-out ${
             isOpen ? 'translate-y-0' : '-translate-y-4'
           }`}
           style={{
@@ -175,10 +207,12 @@ export default function Navbar() {
           {/* Decorative gradient */}
           <div className="absolute inset-0 bg-gradient-to-b from-orange-50/50 via-transparent to-transparent pointer-events-none" />
           
-          {/* Scrollable menu content */}
-          <div className="relative flex-1 overflow-y-auto overscroll-contain">
+          {/* Content container */}
+          <div className="relative flex flex-col h-full">
+            {/* Scrollable menu content */}
+            <div data-scroll-container className="flex-1 overflow-y-auto overscroll-contain">
               {/* Main navigation */}
-              <div className="px-3 pt-4 pb-3">
+              <div data-nav-section className="px-3 pt-4 pb-3">
                 <div className="text-xs font-semibold text-gray-400 uppercase tracking-wider px-3 mb-2">
                   Navigate
                 </div>
@@ -230,44 +264,45 @@ export default function Navbar() {
                 </div>
               </div>
 
-          </div>
-
-          {/* Fixed bottom section */}
-          <div className="relative border-t border-gray-100 bg-white px-4 py-4 safe-area-pb flex-shrink-0">
-            {/* Social links */}
-            <div className="flex justify-center gap-3 mb-4">
-              <a
-                href="https://twitter.com/blazewallet_io"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-11 h-11 rounded-xl bg-gray-100 hover:bg-gray-200 active:bg-orange-100 flex items-center justify-center transition-colors"
-                aria-label="Twitter"
-              >
-                <Twitter className="w-5 h-5 text-gray-600" />
-              </a>
-              <a
-                href="https://t.me/blazewallet_io"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-11 h-11 rounded-xl bg-gray-100 hover:bg-gray-200 active:bg-orange-100 flex items-center justify-center transition-colors"
-                aria-label="Telegram"
-              >
-                <Send className="w-5 h-5 text-gray-600" />
-              </a>
             </div>
 
-            {/* CTA Button */}
-            <a
-              href="https://my.blazewallet.io"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={closeMenu}
-              className="w-full flex items-center justify-center gap-2 py-4 text-lg font-semibold text-white rounded-2xl transition-all active:scale-[0.98] btn-brand"
-            >
-              <Wallet className="w-5 h-5" />
-              <span>Launch app</span>
-              <ArrowRight className="w-5 h-5" />
-            </a>
+            {/* Fixed bottom section */}
+            <div className="border-t border-gray-100 bg-white px-4 py-4 safe-area-pb">
+              {/* Social links */}
+              <div className="flex justify-center gap-3 mb-4">
+                <a
+                  href="https://twitter.com/blazewallet_io"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-11 h-11 rounded-xl bg-gray-100 hover:bg-gray-200 active:bg-orange-100 flex items-center justify-center transition-colors"
+                  aria-label="Twitter"
+                >
+                  <Twitter className="w-5 h-5 text-gray-600" />
+                </a>
+                <a
+                  href="https://t.me/blazewallet_io"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-11 h-11 rounded-xl bg-gray-100 hover:bg-gray-200 active:bg-orange-100 flex items-center justify-center transition-colors"
+                  aria-label="Telegram"
+                >
+                  <Send className="w-5 h-5 text-gray-600" />
+                </a>
+              </div>
+
+              {/* CTA Button */}
+              <a
+                href="https://my.blazewallet.io"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={closeMenu}
+                className="w-full flex items-center justify-center gap-2 py-4 text-lg font-semibold text-white rounded-2xl transition-all active:scale-[0.98] btn-brand"
+              >
+                <Wallet className="w-5 h-5" />
+                <span>Launch app</span>
+                <ArrowRight className="w-5 h-5" />
+              </a>
+            </div>
           </div>
         </div>
       </div>
