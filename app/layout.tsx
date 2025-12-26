@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import CookieConsent from "@/components/CookieConsent";
 import ScrollProgress from "@/components/ScrollProgress";
+import ChatWidget from "@/components/ChatWidget";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -292,6 +293,7 @@ export default function RootLayout({
         <ScrollProgress />
         {children}
         <CookieConsent />
+        <ChatWidget />
       </body>
     </html>
   );
