@@ -106,18 +106,34 @@ export async function POST(request: NextRequest) {
       },
     });
   } catch (error: any) {
-    console.error('Chat API error:', error);
+    console.error('Chat API error:', error?.message || error);
+    
+    // Check if API key is missing
+    if (error?.message?.includes('API key')) {
+      return NextResponse.json(
+        { error: 'Chat service not configured.' },
+        { status: 503 }
+      );
+    }
     
     // Handle specific OpenAI errors
-    if (error?.status === 429) {
+    if (error?.status === 429 || error?.code === 'rate_limit_exceeded') {
       return NextResponse.json(
         { error: 'Service is busy. Please try again in a moment.' },
         { status: 429 }
       );
     }
 
+    // Handle insufficient quota
+    if (error?.code === 'insufficient_quota') {
+      return NextResponse.json(
+        { error: 'Service temporarily unavailable.' },
+        { status: 503 }
+      );
+    }
+
     return NextResponse.json(
-      { error: 'Failed to get response. Please try again.' },
+      { error: error?.message || 'Failed to get response. Please try again.' },
       { status: 500 }
     );
   }
