@@ -1,7 +1,7 @@
 'use client';
 
 import { Menu, X, ArrowRight, Zap, BookOpen, MessageCircle, Twitter, Send, ChevronRight, Wallet, Info, Map } from 'lucide-react';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -10,6 +10,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const scrollPositionRef = useRef(0);
   
   // Check if we're on a page with a dark hero (only homepage)
   const hasDarkHero = pathname === '/';
@@ -41,24 +42,29 @@ export default function Navbar() {
   useEffect(() => {
     if (isOpen) {
       // Save current scroll position
-      const scrollY = window.scrollY;
+      scrollPositionRef.current = window.scrollY;
       
       // Lock body scroll
       document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollY}px`;
+      document.body.style.top = `-${scrollPositionRef.current}px`;
       document.body.style.left = '0';
       document.body.style.right = '0';
+      document.body.style.width = '100%';
       document.body.style.overflow = 'hidden';
+    } else {
+      // Restore scroll position when menu closes
+      const savedPosition = scrollPositionRef.current;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.width = '';
+      document.body.style.overflow = '';
       
-      return () => {
-        // Restore scroll position
-        document.body.style.position = '';
-        document.body.style.top = '';
-        document.body.style.left = '';
-        document.body.style.right = '';
-        document.body.style.overflow = '';
-        window.scrollTo(0, scrollY);
-      };
+      // Use requestAnimationFrame to ensure smooth restoration
+      requestAnimationFrame(() => {
+        window.scrollTo(0, savedPosition);
+      });
     }
   }, [isOpen]);
 
@@ -74,13 +80,13 @@ export default function Navbar() {
   // Close menu function
   const closeMenu = useCallback(() => setIsOpen(false), []);
 
-  // Use light theme (dark text) when scrolled OR when not on homepage
-  const useLightTheme = scrolled || !hasDarkHero;
+  // Use light theme (dark text) when scrolled OR when not on homepage OR when menu is open
+  const useLightTheme = scrolled || !hasDarkHero || isOpen;
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+    <nav className={`fixed top-0 left-0 right-0 z-[60] transition-all duration-300 ${
       useLightTheme 
-        ? 'bg-white/95 backdrop-blur-xl border-b border-gray-200 shadow-soft' 
+        ? 'bg-white backdrop-blur-xl border-b border-gray-200 shadow-soft' 
         : 'bg-transparent'
     }`}>
       <div className="container-main">
@@ -151,7 +157,7 @@ export default function Navbar() {
 
       {/* Mobile menu - CSS-based animations for better performance */}
       <div 
-        className={`fixed inset-0 top-16 md:hidden z-50 transition-all duration-300 ${
+        className={`fixed inset-0 top-16 md:hidden z-[55] transition-all duration-300 ${
           isOpen 
             ? 'opacity-100 pointer-events-auto' 
             : 'opacity-0 pointer-events-none'
