@@ -75,11 +75,21 @@ export async function POST(request: NextRequest) {
       .from('waitlist')
       .select('*', { count: 'exact', head: true });
 
-    // Send notification email to admin (non-blocking)
-    sendNewSignupNotification(email, source, ref).catch(console.error);
+    // Send notification email to admin
+    try {
+      const adminResult = await sendNewSignupNotification(email, source, ref);
+      console.log('Admin notification result:', adminResult);
+    } catch (emailError) {
+      console.error('Admin notification failed:', emailError);
+    }
 
-    // Send welcome email to user (non-blocking)
-    sendWelcomeEmail(email, referralCode).catch(console.error);
+    // Send welcome email to user
+    try {
+      const welcomeResult = await sendWelcomeEmail(email, referralCode);
+      console.log('Welcome email result:', welcomeResult);
+    } catch (emailError) {
+      console.error('Welcome email failed:', emailError);
+    }
 
     return NextResponse.json({
       success: true,
