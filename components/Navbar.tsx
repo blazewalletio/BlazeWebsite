@@ -182,11 +182,12 @@ export default function Navbar() {
 
       {/* Mobile menu - CSS-based animations for better performance */}
       <div 
-        className={`fixed inset-0 top-16 md:hidden z-[55] transition-all duration-300 ${
+        className={`fixed left-0 right-0 top-16 bottom-0 md:hidden z-[55] transition-all duration-300 ${
           isOpen 
             ? 'opacity-100 pointer-events-auto' 
             : 'opacity-0 pointer-events-none'
         }`}
+        style={{ height: 'calc(100vh - 64px)' }}
       >
         {/* Backdrop overlay - click to close */}
         <div 
@@ -197,11 +198,12 @@ export default function Navbar() {
         {/* Menu panel */}
         <div 
           data-menu-panel
-          className={`absolute inset-x-0 top-0 bottom-0 bg-white transition-transform duration-300 ease-out ${
+          className={`absolute left-0 right-0 top-0 bg-white transition-transform duration-300 ease-out ${
             isOpen ? 'translate-y-0' : '-translate-y-4'
           }`}
           style={{
             boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
+            height: 'calc(100vh - 64px)',
           }}
         >
           {/* Decorative gradient */}
