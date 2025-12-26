@@ -157,21 +157,15 @@ export default function Navbar() {
 
       {/* Mobile menu - CSS-based animations for better performance */}
       <div 
-        className={`fixed inset-0 top-16 md:hidden z-[55] transition-all duration-300 ${
+        className={`fixed left-0 right-0 top-16 bottom-0 md:hidden z-[55] transition-all duration-300 ${
           isOpen 
             ? 'opacity-100 pointer-events-auto' 
             : 'opacity-0 pointer-events-none'
         }`}
       >
-        {/* Backdrop overlay - click to close */}
+        {/* Menu panel - full height */}
         <div 
-          className="absolute inset-0 bg-black/20 backdrop-blur-sm"
-          onClick={closeMenu}
-        />
-        
-        {/* Menu panel */}
-        <div 
-          className={`absolute inset-x-0 top-0 bottom-0 bg-white transition-transform duration-300 ease-out ${
+          className={`h-full bg-white flex flex-col transition-transform duration-300 ease-out ${
             isOpen ? 'translate-y-0' : '-translate-y-4'
           }`}
           style={{
@@ -181,10 +175,8 @@ export default function Navbar() {
           {/* Decorative gradient */}
           <div className="absolute inset-0 bg-gradient-to-b from-orange-50/50 via-transparent to-transparent pointer-events-none" />
           
-          {/* Content container */}
-          <div className="relative flex flex-col h-full">
-            {/* Scrollable menu content */}
-            <div className="flex-1 overflow-y-auto overscroll-contain">
+          {/* Scrollable menu content */}
+          <div className="relative flex-1 overflow-y-auto overscroll-contain">
               {/* Main navigation */}
               <div className="px-3 pt-4 pb-3">
                 <div className="text-xs font-semibold text-gray-400 uppercase tracking-wider px-3 mb-2">
@@ -238,45 +230,44 @@ export default function Navbar() {
                 </div>
               </div>
 
-            </div>
+          </div>
 
-            {/* Fixed bottom section */}
-            <div className="border-t border-gray-100 bg-white px-4 py-4 safe-area-pb">
-              {/* Social links */}
-              <div className="flex justify-center gap-3 mb-4">
-                <a
-                  href="https://twitter.com/blazewallet_io"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-11 h-11 rounded-xl bg-gray-100 hover:bg-gray-200 active:bg-orange-100 flex items-center justify-center transition-colors"
-                  aria-label="Twitter"
-                >
-                  <Twitter className="w-5 h-5 text-gray-600" />
-                </a>
-                <a
-                  href="https://t.me/blazewallet_io"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-11 h-11 rounded-xl bg-gray-100 hover:bg-gray-200 active:bg-orange-100 flex items-center justify-center transition-colors"
-                  aria-label="Telegram"
-                >
-                  <Send className="w-5 h-5 text-gray-600" />
-                </a>
-              </div>
-
-              {/* CTA Button */}
+          {/* Fixed bottom section */}
+          <div className="relative border-t border-gray-100 bg-white px-4 py-4 safe-area-pb flex-shrink-0">
+            {/* Social links */}
+            <div className="flex justify-center gap-3 mb-4">
               <a
-                href="https://my.blazewallet.io"
+                href="https://twitter.com/blazewallet_io"
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={closeMenu}
-                className="w-full flex items-center justify-center gap-2 py-4 text-lg font-semibold text-white rounded-2xl transition-all active:scale-[0.98] btn-brand"
+                className="w-11 h-11 rounded-xl bg-gray-100 hover:bg-gray-200 active:bg-orange-100 flex items-center justify-center transition-colors"
+                aria-label="Twitter"
               >
-                <Wallet className="w-5 h-5" />
-                <span>Launch app</span>
-                <ArrowRight className="w-5 h-5" />
+                <Twitter className="w-5 h-5 text-gray-600" />
+              </a>
+              <a
+                href="https://t.me/blazewallet_io"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-11 h-11 rounded-xl bg-gray-100 hover:bg-gray-200 active:bg-orange-100 flex items-center justify-center transition-colors"
+                aria-label="Telegram"
+              >
+                <Send className="w-5 h-5 text-gray-600" />
               </a>
             </div>
+
+            {/* CTA Button */}
+            <a
+              href="https://my.blazewallet.io"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={closeMenu}
+              className="w-full flex items-center justify-center gap-2 py-4 text-lg font-semibold text-white rounded-2xl transition-all active:scale-[0.98] btn-brand"
+            >
+              <Wallet className="w-5 h-5" />
+              <span>Launch app</span>
+              <ArrowRight className="w-5 h-5" />
+            </a>
           </div>
         </div>
       </div>
