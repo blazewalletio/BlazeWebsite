@@ -202,10 +202,10 @@ export default function QuickPay() {
                                 animate={{ top: ['10%', '90%', '10%'] }}
                                 transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
                               />
-                              {/* QR placeholder */}
+                              {/* QR placeholder - deterministic pattern to avoid hydration mismatch */}
                               <div className="absolute inset-8 grid grid-cols-5 gap-1 opacity-30">
                                 {[...Array(25)].map((_, i) => (
-                                  <div key={i} className={`bg-white rounded-sm ${Math.random() > 0.5 ? 'opacity-100' : 'opacity-30'}`} />
+                                  <div key={i} className={`bg-white rounded-sm ${[0,2,3,5,7,8,10,12,14,16,17,19,21,23,24].includes(i) ? 'opacity-100' : 'opacity-30'}`} />
                                 ))}
                               </div>
                             </div>
