@@ -107,7 +107,7 @@ export async function sendWelcomeEmail(email: string, referralCode: string) {
         <div class="highlight">
           <h3>What you'll get:</h3>
           <p style="margin:0;">
-            ✨ Early access to the presale at <strong>up to 70% off</strong> public price<br>
+            ✨ Early access to the presale at <strong>up to 85% off</strong> launch price ($0.01)<br>
             🔔 Exclusive updates and announcements<br>
             🎁 Special bonuses for early supporters
           </p>
@@ -328,27 +328,27 @@ export async function sendFomoPricingEmail(email: string, referralCode: string, 
           <table style="width: 100%; border-collapse: collapse; margin-top: 12px;">
             <tr style="border-bottom: 1px solid #fed7aa;">
               <td style="padding: 8px 0;"><strong>Founders (1-100)</strong></td>
-              <td style="padding: 8px 0; text-align: right;">$0.0015 <span style="color: #059669;">(70% off)</span></td>
+              <td style="padding: 8px 0; text-align: right;">$0.0015 <span style="color: #059669;">(85% off)</span></td>
             </tr>
             <tr style="border-bottom: 1px solid #fed7aa;">
               <td style="padding: 8px 0;"><strong>Early Birds (101-250)</strong></td>
-              <td style="padding: 8px 0; text-align: right;">$0.00225 <span style="color: #059669;">(55% off)</span></td>
+              <td style="padding: 8px 0; text-align: right;">$0.00225 <span style="color: #059669;">(78% off)</span></td>
             </tr>
             <tr style="border-bottom: 1px solid #fed7aa;">
               <td style="padding: 8px 0;"><strong>Pioneers (251-500)</strong></td>
-              <td style="padding: 8px 0; text-align: right;">$0.003 <span style="color: #059669;">(40% off)</span></td>
+              <td style="padding: 8px 0; text-align: right;">$0.003 <span style="color: #059669;">(70% off)</span></td>
             </tr>
             <tr style="border-bottom: 1px solid #fed7aa;">
               <td style="padding: 8px 0;"><strong>Adopters (501-1000)</strong></td>
-              <td style="padding: 8px 0; text-align: right;">$0.0035 <span style="color: #059669;">(30% off)</span></td>
+              <td style="padding: 8px 0; text-align: right;">$0.0035 <span style="color: #059669;">(65% off)</span></td>
             </tr>
             <tr style="border-bottom: 1px solid #fed7aa;">
               <td style="padding: 8px 0;"><strong>Supporters (1001-2000)</strong></td>
-              <td style="padding: 8px 0; text-align: right;">$0.00425 <span style="color: #059669;">(15% off)</span></td>
+              <td style="padding: 8px 0; text-align: right;">$0.00425 <span style="color: #059669;">(58% off)</span></td>
             </tr>
             <tr>
-              <td style="padding: 8px 0;"><strong>Public (2000+)</strong></td>
-              <td style="padding: 8px 0; text-align: right;">$0.005</td>
+              <td style="padding: 8px 0;"><strong>Launch (Post-presale)</strong></td>
+              <td style="padding: 8px 0; text-align: right;">$0.01</td>
             </tr>
           </table>
         </div>

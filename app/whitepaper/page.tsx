@@ -743,12 +743,13 @@ export default function WhitepaperPage() {
                   </h3>
                   <div className="space-y-3">
                     {[
-                      { label: 'Public sale', percent: 40, color: 'bg-orange-500' },
-                      { label: 'Ecosystem & rewards', percent: 25, color: 'bg-sky-500' },
-                      { label: 'Team & advisors', percent: 15, color: 'bg-purple-500' },
-                      { label: 'Liquidity', percent: 10, color: 'bg-emerald-500' },
-                      { label: 'Marketing', percent: 5, color: 'bg-pink-500' },
-                      { label: 'Reserve', percent: 5, color: 'bg-gray-400' },
+                      { label: 'Community rewards', percent: 20, color: 'bg-emerald-500' },
+                      { label: 'Staking rewards', percent: 16, color: 'bg-yellow-500' },
+                      { label: 'Liquidity pool', percent: 15, color: 'bg-sky-500' },
+                      { label: 'Treasury', percent: 15, color: 'bg-purple-500' },
+                      { label: 'Presale (120M)', percent: 12, color: 'bg-orange-500' },
+                      { label: 'Team (6mo vest)', percent: 12, color: 'bg-pink-500' },
+                      { label: 'Marketing', percent: 10, color: 'bg-red-500' },
                     ].map((item, i) => (
                       <div key={i}>
                         <div className="flex justify-between text-sm mb-1">

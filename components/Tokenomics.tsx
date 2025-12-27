@@ -6,18 +6,18 @@ import PresaleCountdown from './PresaleCountdown';
 
 const tokenInfo = [
   { label: 'Total supply', value: '1B', description: '1 billion BLAZE' },
-  { label: 'Presale price', value: '$0.00417', description: 'Early bird price' },
-  { label: 'Launch price', value: '$0.01', description: 'Public launch' },
+  { label: 'Presale allocation', value: '120M', description: '12% for presale' },
+  { label: 'Launch price', value: '$0.01', description: 'Post-presale price' },
 ];
 
 const distribution = [
   { name: 'Community rewards', percentage: 20, color: 'bg-emerald-500' },
-  { name: 'Public sale', percentage: 15, color: 'bg-orange-500' },
-  { name: 'Treasury', percentage: 15, color: 'bg-sky-500' },
-  { name: 'Founder vesting', percentage: 15, color: 'bg-purple-500' },
-  { name: 'Liquidity', percentage: 10, color: 'bg-red-500' },
-  { name: 'Team (3yr)', percentage: 10, color: 'bg-pink-500' },
-  { name: 'Other', percentage: 15, color: 'bg-gray-400' },
+  { name: 'Staking rewards', percentage: 16, color: 'bg-yellow-500' },
+  { name: 'Liquidity pool', percentage: 15, color: 'bg-sky-500' },
+  { name: 'Treasury', percentage: 15, color: 'bg-purple-500' },
+  { name: 'Presale', percentage: 12, color: 'bg-orange-500' },
+  { name: 'Team (6mo vest)', percentage: 12, color: 'bg-pink-500' },
+  { name: 'Marketing', percentage: 10, color: 'bg-red-500' },
 ];
 
 const utilities = [

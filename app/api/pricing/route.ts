@@ -35,10 +35,10 @@ export async function GET() {
     // Calculate spots remaining in current tier
     const spotsRemaining = currentTier ? currentTier.max_buyers - totalBuyers : 0;
 
-    // Calculate discount from public price ($0.005)
-    const publicPrice = 0.005;
+    // Calculate discount from launch price ($0.01)
+    const launchPrice = 0.01;
     const discountPercentage = currentTier 
-      ? Math.round((1 - currentTier.price_usd / publicPrice) * 100)
+      ? Math.round((1 - currentTier.price_usd / launchPrice) * 100)
       : 0;
 
     return NextResponse.json({

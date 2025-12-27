@@ -124,9 +124,9 @@ export default function PresaleTeaser() {
                   <div className="text-gray-400 text-sm mb-1">Current price</div>
                   <div className="flex items-baseline gap-3">
                     <span className="text-5xl font-bold text-white">${pricePerToken.toFixed(4)}</span>
-                    <span className="text-gray-500 line-through text-lg">$0.005</span>
+                    <span className="text-gray-500 line-through text-lg">$0.01</span>
                   </div>
-                  <div className="text-gray-400 text-sm mt-1">per BLAZE token</div>
+                  <div className="text-gray-400 text-sm mt-1">per BLAZE token • Launch: $0.01</div>
                 </div>
 
                 {/* Spots progress */}

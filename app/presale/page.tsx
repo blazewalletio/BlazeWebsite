@@ -151,7 +151,7 @@ export default function PresalePage() {
   const baseTokens = amount / pricePerToken;
   const bonusTokens = baseTokens * (bonusPercentage / 100);
   const totalTokens = baseTokens + bonusTokens;
-  const publicPrice = 0.005;
+  const launchPrice = 0.01;
 
   const faqs = [
     {
@@ -160,7 +160,7 @@ export default function PresalePage() {
     },
     {
       q: 'How do the pricing tiers work?',
-      a: 'We have 6 pricing tiers based on the number of buyers. The first 100 buyers get the Founders tier at $0.0015 (70% off). As each tier fills up, the price increases. This rewards early supporters with the best deals.',
+      a: 'We have 6 pricing tiers based on the number of buyers. The first 100 buyers get the Founders tier at $0.0015 (85% off the $0.01 launch price). As each tier fills up, the price increases. This rewards early supporters with the best deals.',
     },
     {
       q: 'Is this a commitment or actual payment?',
@@ -226,7 +226,7 @@ export default function PresalePage() {
               transition={{ delay: 0.2 }}
               className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto"
             >
-              Get up to 70% off the public price. The earlier you join, the more you save.
+              Get up to 85% off the launch price of $0.01. The earlier you join, the more you save.
               No payment required to reserve your spot.
             </motion.p>
 
@@ -295,7 +295,7 @@ export default function PresalePage() {
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-12">
             {tiers.map((tier, index) => {
-              const discount = Math.round((1 - tier.price_usd / publicPrice) * 100);
+              const discount = Math.round((1 - tier.price_usd / launchPrice) * 100);
               return (
                 <motion.div
                   key={tier.tier_number}

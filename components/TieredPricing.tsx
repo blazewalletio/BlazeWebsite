@@ -64,7 +64,7 @@ export default function TieredPricing() {
   }
 
   const { currentTier, allTiers, totalBuyers } = pricingData;
-  const publicPrice = 0.005;
+  const launchPrice = 0.01;
 
   return (
     <section id="pricing" className="py-20 lg:py-28 bg-gradient-to-b from-slate-900 to-slate-800 overflow-hidden">
@@ -126,7 +126,7 @@ export default function TieredPricing() {
                       ${currentTier.price_usd.toFixed(4)}
                     </div>
                     <div className="text-gray-400 text-sm line-through">
-                      ${publicPrice.toFixed(3)} public price
+                      ${launchPrice.toFixed(2)} launch price
                     </div>
                   </div>
                   <div className="text-center bg-slate-800/50 rounded-2xl px-6 py-4">
