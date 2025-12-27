@@ -147,8 +147,8 @@ export default function WhitepaperPage() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="card p-5 text-center">
                   <QrCode className="w-8 h-8 text-orange-500 mx-auto mb-2" />
-                  <h3 className="font-bold text-gray-900 text-lg">2s</h3>
-                  <p className="text-sm text-gray-600">Payment time</p>
+                  <h3 className="font-bold text-gray-900 text-lg">3 taps</h3>
+                  <p className="text-sm text-gray-600">To pay</p>
                 </div>
                 <div className="card p-5 text-center">
                   <Globe className="w-8 h-8 text-sky-500 mx-auto mb-2" />
@@ -721,12 +721,13 @@ export default function WhitepaperPage() {
                 </p>
               </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
                 {[
                   { label: 'Symbol', value: 'BLAZE' },
                   { label: 'Total supply', value: '1,000,000,000' },
                   { label: 'Network', value: 'BSC (BEP-20)' },
                   { label: 'Burn rate', value: '0.1% per tx' },
+                  { label: 'Liquidity lock', value: '50% / 1 year' },
                 ].map((item, i) => (
                   <div key={i} className="card p-4 text-center">
                     <div className="text-sm text-gray-500 mb-1">{item.label}</div>
@@ -785,6 +786,28 @@ export default function WhitepaperPage() {
                     ))}
                   </ul>
                 </div>
+              </div>
+
+              <div className="card p-6 bg-gradient-to-r from-orange-50 to-yellow-50 border-orange-200 mb-6">
+                <h3 className="font-bold text-gray-900 mb-4">Presale details</h3>
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                  {[
+                    { label: 'Presale tokens', value: '120,000,000', sub: '12% of supply' },
+                    { label: 'Presale price', value: '$0.00834', sub: 'per token' },
+                    { label: 'Launch price', value: '$0.02', sub: 'per token' },
+                    { label: 'Early bird discount', value: '58%', sub: 'vs launch' },
+                  ].map((item, i) => (
+                    <div key={i} className="bg-white p-4 rounded-xl text-center">
+                      <div className="text-xs text-gray-500 mb-1">{item.label}</div>
+                      <div className="text-xl font-bold text-gradient-brand">{item.value}</div>
+                      <div className="text-xs text-gray-400">{item.sub}</div>
+                    </div>
+                  ))}
+                </div>
+                <p className="text-sm text-gray-600 mt-4">
+                  Early supporters receive bonus tokens: Founders (first 100) get +100%, Early Birds +75%, 
+                  Pioneers +50%, Believers +30%, and Supporters +15%. All bonuses are additional tokens on top of purchase.
+                </p>
               </div>
 
               <div className="card p-6 bg-gradient-to-r from-orange-50 to-yellow-50 border-orange-200">
