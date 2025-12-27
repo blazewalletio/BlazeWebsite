@@ -1,58 +1,64 @@
 import { NextResponse } from 'next/server';
 import { createClient, createAdminClient } from '@/lib/supabase/server';
 
+// Presale constants from wallet (presale-config.ts)
+const PRESALE_PRICE = 0.00417; // Fixed price from wallet
+const LAUNCH_PRICE = 0.01;
+const PRESALE_DISCOUNT = Math.round((1 - PRESALE_PRICE / LAUNCH_PRICE) * 100); // 58%
+
+// Bonus tiers - everyone pays same price, early buyers get bonus tokens
+const BONUS_TIERS = [
+  { tier_number: 1, tier_name: 'Founders', min_buyers: 1, max_buyers: 100, bonus_percentage: 20 },
+  { tier_number: 2, tier_name: 'Early Birds', min_buyers: 101, max_buyers: 250, bonus_percentage: 15 },
+  { tier_number: 3, tier_name: 'Pioneers', min_buyers: 251, max_buyers: 500, bonus_percentage: 10 },
+  { tier_number: 4, tier_name: 'Adopters', min_buyers: 501, max_buyers: 1000, bonus_percentage: 5 },
+  { tier_number: 5, tier_name: 'Supporters', min_buyers: 1001, max_buyers: 2000, bonus_percentage: 2 },
+  { tier_number: 6, tier_name: 'Public', min_buyers: 2001, max_buyers: 999999, bonus_percentage: 0 },
+];
+
 // GET: Fetch current pricing tier and all tiers
 export async function GET() {
   try {
-    const supabase = createClient();
-
-    // Get all pricing tiers
-    const { data: tiers, error: tiersError } = await supabase
-      .from('pricing_tiers')
-      .select('*')
-      .eq('is_active', true)
-      .order('tier_number');
-
-    if (tiersError) {
-      console.error('Error fetching pricing tiers:', tiersError);
-      return NextResponse.json({ error: 'Failed to fetch pricing tiers' }, { status: 500 });
-    }
-
-    // Get current buyer count
+    // Get current buyer count from database
     const adminSupabase = createAdminClient();
-    const { count: buyerCount, error: countError } = await adminSupabase
+    const { count: buyerCount } = await adminSupabase
       .from('presale_buyers')
       .select('*', { count: 'exact', head: true })
       .in('status', ['confirmed', 'completed']);
 
     const totalBuyers = buyerCount || 0;
 
-    // Determine current tier
-    const currentTier = tiers?.find(tier => 
+    // Determine current tier based on buyer count
+    const currentTierData = BONUS_TIERS.find(tier => 
       totalBuyers >= tier.min_buyers - 1 && totalBuyers < tier.max_buyers
-    ) || tiers?.[0];
+    ) || BONUS_TIERS[0];
 
     // Calculate spots remaining in current tier
-    const spotsRemaining = currentTier ? currentTier.max_buyers - totalBuyers : 0;
-
-    // Calculate discount from launch price ($0.01)
-    const launchPrice = 0.01;
-    const discountPercentage = currentTier 
-      ? Math.round((1 - currentTier.price_usd / launchPrice) * 100)
-      : 0;
+    const spotsRemaining = currentTierData.max_buyers - totalBuyers;
 
     return NextResponse.json({
-      currentTier: currentTier ? {
-        ...currentTier,
+      // Presale info from wallet
+      presalePrice: PRESALE_PRICE,
+      launchPrice: LAUNCH_PRICE,
+      presaleDiscount: PRESALE_DISCOUNT,
+      
+      // Current tier with bonus info
+      currentTier: {
+        ...currentTierData,
+        price_usd: PRESALE_PRICE, // Same price for all tiers
         spotsRemaining,
-        discountPercentage,
-      } : null,
-      allTiers: tiers?.map(tier => ({
+        discountPercentage: PRESALE_DISCOUNT,
+      },
+      
+      // All bonus tiers
+      allTiers: BONUS_TIERS.map(tier => ({
         ...tier,
-        isCurrent: tier.tier_number === currentTier?.tier_number,
+        price_usd: PRESALE_PRICE, // Same price for all
+        isCurrent: tier.tier_number === currentTierData.tier_number,
         isPast: tier.max_buyers <= totalBuyers,
         spotsRemaining: Math.max(0, tier.max_buyers - totalBuyers),
       })),
+      
       totalBuyers,
     });
   } catch (error) {

@@ -39,8 +39,9 @@ BLAZE Wallet is an AI-powered, non-custodial crypto wallet that makes managing d
 
 ### Presale & Token
 - **Presale**: Q1 2026 (February 1, 2026)
-- **Tiered pricing**: From $0.0015 (85% off) to $0.00425 (58% off)
+- **Presale price**: $0.00417 per BLAZE (58% off launch price)
 - **Launch price**: $0.01 per BLAZE token
+- **Bonus tiers**: Founders +20%, Early Birds +15%, Pioneers +10%, Adopters +5%, Supporters +2%
 - **Presale allocation**: 120M BLAZE tokens (12% of supply)
 - **Total supply**: 1 billion BLAZE tokens
 - **Hard cap**: $500,000 | **Soft cap**: $100,000

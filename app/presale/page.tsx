@@ -145,13 +145,15 @@ export default function PresalePage() {
     commitmentRef.current?.scrollIntoView({ behavior: 'smooth' });
   }
 
-  // Calculations
-  const pricePerToken = currentTier?.price_usd || 0.0015;
-  const bonusPercentage = currentTier?.bonus_percentage || 50;
-  const baseTokens = amount / pricePerToken;
+  // Calculations - using fixed presale price from wallet ($0.00417)
+  const PRESALE_PRICE = 0.00417; // Fixed price from wallet
+  const LAUNCH_PRICE = 0.01;
+  const bonusPercentage = currentTier?.bonus_percentage || 0;
+  const baseTokens = amount / PRESALE_PRICE;
   const bonusTokens = baseTokens * (bonusPercentage / 100);
   const totalTokens = baseTokens + bonusTokens;
-  const launchPrice = 0.01;
+  const valueAtLaunch = totalTokens * LAUNCH_PRICE;
+  const presaleDiscount = Math.round((1 - PRESALE_PRICE / LAUNCH_PRICE) * 100); // 58%
 
   const faqs = [
     {
@@ -159,8 +161,8 @@ export default function PresalePage() {
       a: 'The BLAZE presale gives early supporters the opportunity to purchase BLAZE tokens at a significant discount before our public launch. The earlier you join, the lower the price you pay.',
     },
     {
-      q: 'How do the pricing tiers work?',
-      a: 'We have 6 pricing tiers based on the number of buyers. The first 100 buyers get the Founders tier at $0.0015 (85% off the $0.01 launch price). As each tier fills up, the price increases. This rewards early supporters with the best deals.',
+      q: 'How do the bonus tiers work?',
+      a: 'Everyone pays the same presale price of $0.00417 per BLAZE (58% off the $0.01 launch price). Early supporters get bonus tokens: Founders get +20%, Early Birds +15%, Pioneers +10%, and so on. The earlier you join, the more bonus tokens you receive!',
     },
     {
       q: 'Is this a commitment or actual payment?',
@@ -226,7 +228,7 @@ export default function PresalePage() {
               transition={{ delay: 0.2 }}
               className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto"
             >
-              Get up to 85% off the launch price of $0.01. The earlier you join, the more you save.
+              Presale price: $0.00417 per BLAZE (58% off $0.01 launch). Early supporters get bonus tokens!
               No payment required to reserve your spot.
             </motion.p>
 
@@ -242,7 +244,7 @@ export default function PresalePage() {
                 <div className="text-gray-500 text-sm">People waiting</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-orange-400">${pricePerToken.toFixed(4)}</div>
+                <div className="text-3xl font-bold text-orange-400">${PRESALE_PRICE.toFixed(5)}</div>
                 <div className="text-gray-500 text-sm">Current price</div>
               </div>
               <div className="text-center">
@@ -281,63 +283,73 @@ export default function PresalePage() {
         </div>
       </section>
 
-      {/* Pricing Tiers */}
+      {/* Early Bird Bonus Tiers */}
       <section id="tiers" className="py-20 relative">
         <div className="container-main">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-              Tiered pricing structure
+              Early bird bonus tiers
             </h2>
             <p className="text-gray-400 max-w-2xl mx-auto">
-              6 tiers, each with limited spots. Prices increase as tiers fill up.
+              Everyone pays the same price of $0.00417 per token.
+              Early supporters get bonus tokens based on their tier!
             </p>
           </div>
 
+          {/* Price banner */}
+          <div className="max-w-2xl mx-auto mb-10 bg-gradient-to-r from-orange-500/20 to-yellow-500/20 border border-orange-500/30 rounded-2xl p-6 text-center">
+            <div className="text-gray-400 text-sm mb-2">Fixed presale price (from wallet)</div>
+            <div className="text-4xl font-bold text-white mb-2">$0.00417 <span className="text-lg text-gray-400">per BLAZE</span></div>
+            <div className="text-emerald-400 font-medium">{presaleDiscount}% off launch price of $0.01</div>
+          </div>
+
+          {/* Bonus tiers grid */}
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-12">
-            {tiers.map((tier, index) => {
-              const discount = Math.round((1 - tier.price_usd / launchPrice) * 100);
+            {[
+              { tier: 'Founders', range: '1-100', bonus: 20 },
+              { tier: 'Early Birds', range: '101-250', bonus: 15 },
+              { tier: 'Pioneers', range: '251-500', bonus: 10 },
+              { tier: 'Adopters', range: '501-1000', bonus: 5 },
+              { tier: 'Supporters', range: '1001-2000', bonus: 2 },
+              { tier: 'Public', range: '2000+', bonus: 0 },
+            ].map((tier, index) => {
+              const isCurrent = currentTier?.tier_name === tier.tier || 
+                (index === 0 && !currentTier);
               return (
                 <motion.div
-                  key={tier.tier_number}
+                  key={tier.tier}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.05 }}
                   className={`relative rounded-2xl p-5 transition-all ${
-                    tier.isCurrent
+                    isCurrent
                       ? 'bg-gradient-to-br from-orange-500/30 to-yellow-500/30 border-2 border-orange-500 scale-105 z-10'
-                      : tier.isPast
-                      ? 'bg-white/5 border border-white/10 opacity-50'
                       : 'bg-white/5 border border-white/10 hover:border-orange-500/50'
                   }`}
                 >
-                  {tier.isCurrent && (
+                  {isCurrent && (
                     <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-orange-500 rounded-full text-white text-xs font-bold whitespace-nowrap">
                       Current tier
                     </div>
                   )}
-                  {tier.isPast && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-slate-900/80 rounded-2xl">
-                      <div className="flex items-center gap-1 text-emerald-400 font-medium text-sm">
-                        <Check className="w-4 h-4" />
-                        Sold out
-                      </div>
-                    </div>
-                  )}
                   <div className="text-center">
-                    <div className="text-xs text-gray-500 mb-1">
-                      #{tier.min_buyers}-{tier.max_buyers}
-                    </div>
-                    <div className="font-bold text-white mb-2 text-sm">{tier.tier_name}</div>
-                    <div className="text-2xl font-bold text-orange-400 mb-1">
-                      ${tier.price_usd.toFixed(4)}
-                    </div>
-                    <div className="text-xs text-emerald-400 mb-2">{discount}% off</div>
-                    {tier.bonus_percentage > 0 && (
-                      <div className="text-xs text-yellow-400 flex items-center justify-center gap-1">
-                        <Gift className="w-3 h-3" />
-                        +{tier.bonus_percentage}%
-                      </div>
+                    <div className="text-xs text-gray-500 mb-1">Buyers #{tier.range}</div>
+                    <div className="font-bold text-white mb-3 text-sm">{tier.tier}</div>
+                    {tier.bonus > 0 ? (
+                      <>
+                        <div className="text-3xl font-bold text-yellow-400 mb-1">
+                          +{tier.bonus}%
+                        </div>
+                        <div className="text-xs text-gray-400">bonus tokens</div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="text-xl font-bold text-gray-400 mb-1">
+                          No bonus
+                        </div>
+                        <div className="text-xs text-gray-500">base price only</div>
+                      </>
                     )}
                   </div>
                 </motion.div>
@@ -345,20 +357,20 @@ export default function PresalePage() {
             })}
           </div>
 
-          {/* Progress bar */}
-          <div className="max-w-3xl mx-auto">
-            <div className="flex justify-between text-sm text-gray-400 mb-2">
-              <span>{totalBuyers} buyers</span>
-              <span>2,000+ public price</span>
-            </div>
-            <div className="h-4 bg-white/10 rounded-full overflow-hidden">
-              <motion.div
-                initial={{ width: 0 }}
-                whileInView={{ width: `${Math.min((totalBuyers / 2000) * 100, 100)}%` }}
-                viewport={{ once: true }}
-                transition={{ duration: 1 }}
-                className="h-full bg-gradient-to-r from-orange-500 to-yellow-500 rounded-full"
-              />
+          {/* Example calculation */}
+          <div className="max-w-xl mx-auto bg-white/5 border border-white/10 rounded-2xl p-6">
+            <h3 className="text-white font-semibold mb-4 text-center">Example: $100 investment</h3>
+            <div className="grid grid-cols-2 gap-4 text-sm">
+              <div className="text-center p-4 bg-white/5 rounded-xl">
+                <div className="text-gray-400 mb-1">As Founder (+20%)</div>
+                <div className="text-2xl font-bold text-white">{Math.floor(100 / 0.00417 * 1.2).toLocaleString()}</div>
+                <div className="text-orange-400 text-xs">BLAZE tokens</div>
+              </div>
+              <div className="text-center p-4 bg-white/5 rounded-xl">
+                <div className="text-gray-400 mb-1">As Public (0%)</div>
+                <div className="text-2xl font-bold text-white">{Math.floor(100 / 0.00417).toLocaleString()}</div>
+                <div className="text-orange-400 text-xs">BLAZE tokens</div>
+              </div>
             </div>
           </div>
         </div>
@@ -497,7 +509,7 @@ export default function PresalePage() {
                   </div>
                   <div className="flex justify-between items-center py-3 border-b border-white/10">
                     <span className="text-gray-400">Price per token</span>
-                    <span className="font-medium text-white">${pricePerToken.toFixed(4)}</span>
+                    <span className="font-medium text-white">${PRESALE_PRICE.toFixed(5)}</span>
                   </div>
                   <div className="flex justify-between items-center py-3 border-b border-white/10">
                     <span className="text-gray-400">Base tokens</span>
