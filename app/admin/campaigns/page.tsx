@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import AdminSidebar from '@/components/admin/AdminSidebar';
-import { Mail, Send, Clock, Check, X, Loader2, Play, Pause, RefreshCw, Calendar, Users, TrendingUp } from 'lucide-react';
+import { Mail, Send, Clock, Check, X, Loader2, Play, Pause, RefreshCw, Calendar, Users, TrendingUp, Megaphone, TestTube } from 'lucide-react';
 
 interface Campaign {
   id: string;
@@ -34,6 +34,11 @@ export default function CampaignsAdminPage() {
     activeSubscribers: 0,
   });
   const [runningCron, setRunningCron] = useState(false);
+  const [testEmail, setTestEmail] = useState('');
+  const [selectedTemplate, setSelectedTemplate] = useState('welcome');
+  const [sendingTest, setSendingTest] = useState(false);
+  const [sendingBroadcast, setSendingBroadcast] = useState(false);
+  const [sendResult, setSendResult] = useState<{ success: boolean; message: string } | null>(null);
 
   const supabase = createClient();
 
@@ -122,6 +127,76 @@ export default function CampaignsAdminPage() {
     presale_countdown: 'Final reminder before presale',
   };
 
+  const templateOptions = [
+    { value: 'welcome', label: '🔥 Welcome to waitlist' },
+    { value: 'why_blaze', label: '💡 Why BLAZE?' },
+    { value: 'social_proof', label: '🚀 Social proof' },
+    { value: 'fomo_pricing', label: '⏰ FOMO pricing' },
+    { value: 'exclusive_bonus', label: '🎁 Exclusive bonus' },
+    { value: 'presale_countdown', label: '📅 Presale countdown' },
+  ];
+
+  async function sendTestEmail() {
+    if (!testEmail) return;
+    setSendingTest(true);
+    setSendResult(null);
+
+    try {
+      const res = await fetch('/api/email/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          template: selectedTemplate,
+          email: testEmail,
+        }),
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        setSendResult({ success: true, message: `Test email sent to ${testEmail}` });
+        await fetchData();
+      } else {
+        setSendResult({ success: false, message: data.error || 'Failed to send' });
+      }
+    } catch (err) {
+      setSendResult({ success: false, message: 'Network error' });
+    }
+
+    setSendingTest(false);
+  }
+
+  async function sendBroadcast() {
+    if (!confirm(`Send "${templateOptions.find(t => t.value === selectedTemplate)?.label}" to ALL ${stats.activeSubscribers} subscribers?`)) {
+      return;
+    }
+
+    setSendingBroadcast(true);
+    setSendResult(null);
+
+    try {
+      const res = await fetch('/api/email/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          template: selectedTemplate,
+          broadcast: true,
+        }),
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        setSendResult({ success: true, message: `Broadcast sent! ${data.sent} successful, ${data.failed} failed` });
+        await fetchData();
+      } else {
+        setSendResult({ success: false, message: data.error || 'Failed to send' });
+      }
+    } catch (err) {
+      setSendResult({ success: false, message: 'Network error' });
+    }
+
+    setSendingBroadcast(false);
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       <AdminSidebar />
@@ -188,6 +263,75 @@ export default function CampaignsAdminPage() {
                 {campaigns.filter(c => c.is_active).length}
               </div>
             </div>
+          </div>
+
+          {/* Send Email Section */}
+          <div className="bg-white rounded-xl border border-gray-200 p-6 mb-8">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-xl flex items-center justify-center">
+                <TestTube className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <h2 className="text-lg font-bold text-gray-900">Send emails</h2>
+                <p className="text-sm text-gray-500">Test emails or broadcast to all subscribers</p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+              {/* Template Selection */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Email template</label>
+                <select
+                  value={selectedTemplate}
+                  onChange={(e) => setSelectedTemplate(e.target.value)}
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white"
+                >
+                  {templateOptions.map(opt => (
+                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Test Email Input */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Test email address</label>
+                <input
+                  type="email"
+                  value={testEmail}
+                  onChange={(e) => setTestEmail(e.target.value)}
+                  placeholder="test@example.com"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500"
+                />
+              </div>
+
+              {/* Buttons */}
+              <div className="flex items-end gap-2">
+                <button
+                  onClick={sendTestEmail}
+                  disabled={!testEmail || sendingTest}
+                  className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gray-900 text-white rounded-xl hover:bg-gray-800 transition-colors disabled:opacity-50"
+                >
+                  {sendingTest ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+                  Test
+                </button>
+                <button
+                  onClick={sendBroadcast}
+                  disabled={sendingBroadcast || stats.activeSubscribers === 0}
+                  className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-orange-500 to-yellow-500 text-white rounded-xl hover:from-orange-600 hover:to-yellow-600 transition-all disabled:opacity-50"
+                >
+                  {sendingBroadcast ? <Loader2 className="w-4 h-4 animate-spin" /> : <Megaphone className="w-4 h-4" />}
+                  Broadcast
+                </button>
+              </div>
+            </div>
+
+            {/* Result Message */}
+            {sendResult && (
+              <div className={`p-4 rounded-xl ${sendResult.success ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-red-700'}`}>
+                {sendResult.success ? <Check className="w-4 h-4 inline mr-2" /> : <X className="w-4 h-4 inline mr-2" />}
+                {sendResult.message}
+              </div>
+            )}
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
