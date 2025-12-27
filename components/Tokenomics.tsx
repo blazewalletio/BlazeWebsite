@@ -112,7 +112,7 @@ export default function Tokenomics() {
             <div className="flex-1 text-center md:text-left">
               <h3 className="text-xl font-bold text-gray-900 mb-1">Liquidity locked</h3>
               <p className="text-gray-600">
-                60% of raised funds locked for 2 years via smart contract for maximum security and trust.
+                50% of raised funds locked for 1 year via smart contract for maximum security and trust.
               </p>
             </div>
             <a
