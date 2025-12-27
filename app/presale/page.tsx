@@ -162,7 +162,7 @@ export default function PresalePage() {
     },
     {
       q: 'How do the bonus tiers work?',
-      a: 'Everyone pays the same presale price of $0.00417 per BLAZE (58% off the $0.01 launch price). Early supporters get bonus tokens: Founders get +20%, Early Birds +15%, Pioneers +10%, and so on. The earlier you join, the more bonus tokens you receive!',
+      a: 'Everyone pays the same presale price of $0.00417 per BLAZE (58% off the $0.01 launch price). Early supporters get massive bonus tokens: Founders get +100% (double tokens!), Early Birds +75%, Pioneers +50%, and so on. The earlier you join, the more bonus tokens you receive!',
     },
     {
       q: 'Is this a commitment or actual payment?',
@@ -306,11 +306,11 @@ export default function PresalePage() {
           {/* Bonus tiers grid */}
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-12">
             {[
-              { tier: 'Founders', range: '1-100', bonus: 20 },
-              { tier: 'Early Birds', range: '101-250', bonus: 15 },
-              { tier: 'Pioneers', range: '251-500', bonus: 10 },
-              { tier: 'Adopters', range: '501-1000', bonus: 5 },
-              { tier: 'Supporters', range: '1001-2000', bonus: 2 },
+              { tier: 'Founders', range: '1-100', bonus: 100 },
+              { tier: 'Early Birds', range: '101-250', bonus: 75 },
+              { tier: 'Pioneers', range: '251-500', bonus: 50 },
+              { tier: 'Adopters', range: '501-1000', bonus: 30 },
+              { tier: 'Supporters', range: '1001-2000', bonus: 15 },
               { tier: 'Public', range: '2000+', bonus: 0 },
             ].map((tier, index) => {
               const isCurrent = currentTier?.tier_name === tier.tier || 
@@ -361,14 +361,15 @@ export default function PresalePage() {
           <div className="max-w-xl mx-auto bg-white/5 border border-white/10 rounded-2xl p-6">
             <h3 className="text-white font-semibold mb-4 text-center">Example: $100 investment</h3>
             <div className="grid grid-cols-2 gap-4 text-sm">
-              <div className="text-center p-4 bg-white/5 rounded-xl">
-                <div className="text-gray-400 mb-1">As Founder (+20%)</div>
-                <div className="text-2xl font-bold text-white">{Math.floor(100 / 0.00417 * 1.2).toLocaleString()}</div>
+              <div className="text-center p-4 bg-gradient-to-br from-orange-500/20 to-yellow-500/20 rounded-xl border border-orange-500/30">
+                <div className="text-orange-300 mb-1">As Founder (+100%)</div>
+                <div className="text-3xl font-bold text-white">{Math.floor(100 / 0.00417 * 2).toLocaleString()}</div>
                 <div className="text-orange-400 text-xs">BLAZE tokens</div>
+                <div className="text-emerald-400 text-xs mt-1">2x tokens!</div>
               </div>
               <div className="text-center p-4 bg-white/5 rounded-xl">
                 <div className="text-gray-400 mb-1">As Public (0%)</div>
-                <div className="text-2xl font-bold text-white">{Math.floor(100 / 0.00417).toLocaleString()}</div>
+                <div className="text-3xl font-bold text-white">{Math.floor(100 / 0.00417).toLocaleString()}</div>
                 <div className="text-orange-400 text-xs">BLAZE tokens</div>
               </div>
             </div>

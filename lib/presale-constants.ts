@@ -36,35 +36,35 @@ export const BONUS_TIERS = [
     tier_name: 'Founders',
     min_buyers: 1,
     max_buyers: 100,
-    bonus_percentage: 20, // +20% bonus tokens
+    bonus_percentage: 100, // +100% bonus = 2x tokens!
   },
   {
     tier_number: 2,
     tier_name: 'Early Birds',
     min_buyers: 101,
     max_buyers: 250,
-    bonus_percentage: 15, // +15% bonus tokens
+    bonus_percentage: 75, // +75% bonus tokens
   },
   {
     tier_number: 3,
     tier_name: 'Pioneers',
     min_buyers: 251,
     max_buyers: 500,
-    bonus_percentage: 10, // +10% bonus tokens
+    bonus_percentage: 50, // +50% bonus tokens
   },
   {
     tier_number: 4,
     tier_name: 'Adopters',
     min_buyers: 501,
     max_buyers: 1000,
-    bonus_percentage: 5, // +5% bonus tokens
+    bonus_percentage: 30, // +30% bonus tokens
   },
   {
     tier_number: 5,
     tier_name: 'Supporters',
     min_buyers: 1001,
     max_buyers: 2000,
-    bonus_percentage: 2, // +2% bonus tokens
+    bonus_percentage: 15, // +15% bonus tokens
   },
   {
     tier_number: 6,

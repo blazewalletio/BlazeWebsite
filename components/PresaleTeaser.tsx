@@ -48,7 +48,7 @@ export default function PresaleTeaser() {
   // Calculate tokens - using fixed presale price from wallet ($0.00417)
   const PRESALE_PRICE = 0.00417; // Fixed price from wallet
   const LAUNCH_PRICE = 0.01;
-  const bonusPercentage = currentTier?.bonus_percentage || 20; // Default to Founders tier
+  const bonusPercentage = currentTier?.bonus_percentage || 100; // Default to Founders tier (100% bonus = 2x tokens)
   const baseTokens = inputAmount / PRESALE_PRICE;
   const bonusTokens = baseTokens * (bonusPercentage / 100);
   const totalTokens = baseTokens + bonusTokens;
