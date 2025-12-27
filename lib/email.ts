@@ -348,7 +348,7 @@ export async function sendFomoPricingEmail(email: string, referralCode: string, 
             </tr>
             <tr>
               <td style="padding: 8px 0;"><strong>Launch price</strong></td>
-              <td style="padding: 8px 0; text-align: right;">$0.01 <span style="color: #6b7280;">no bonus</span></td>
+              <td style="padding: 8px 0; text-align: right;">$0.02 <span style="color: #6b7280;">no bonus</span></td>
             </tr>
           </table>
         </div>
