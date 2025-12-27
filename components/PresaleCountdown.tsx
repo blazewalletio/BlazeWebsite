@@ -173,8 +173,8 @@ function PresaleCountdownInner() {
         {/* Price info */}
         <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-8 mb-8">
           <div className="text-center">
-            <div className="text-gray-400 text-sm mb-1">Starting from</div>
-            <div className="text-2xl font-bold text-orange-400">$0.0015</div>
+            <div className="text-gray-400 text-sm mb-1">Presale price</div>
+            <div className="text-2xl font-bold text-orange-400">$0.00417</div>
           </div>
           <div className="hidden sm:block w-px bg-gray-700" />
           <div className="text-center">
@@ -183,8 +183,8 @@ function PresaleCountdownInner() {
           </div>
           <div className="hidden sm:block w-px bg-gray-700" />
           <div className="text-center">
-            <div className="text-gray-400 text-sm mb-1">Max savings</div>
-            <div className="text-2xl font-bold text-emerald-400">85% off</div>
+            <div className="text-gray-400 text-sm mb-1">Discount</div>
+            <div className="text-2xl font-bold text-emerald-400">58% off</div>
           </div>
         </div>
 
