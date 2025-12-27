@@ -1500,9 +1500,9 @@ function VisualPreview({ visual, postTitle }: { visual: VisualConfig; postTitle:
             {visual.subheadline && (
               <div className="text-lg opacity-70 mb-6">{visual.subheadline}</div>
             )}
-            {visual.steps && (
+            {visual.steps && visual.steps.length > 0 && (
               <div className="flex justify-center items-center gap-2 max-w-lg mx-auto">
-                {visual.steps.map((step, i) => (
+                {visual.steps.map((step, i, arr) => (
                   <div key={i} className="flex items-center">
                     <div className="flex flex-col items-center">
                       <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold ${visual.mode === 'warm' ? 'bg-white/20' : 'bg-orange-500/30 text-orange-400'}`}>
@@ -1510,7 +1510,7 @@ function VisualPreview({ visual, postTitle }: { visual: VisualConfig; postTitle:
                       </div>
                       <div className="text-xs mt-2 max-w-[80px] text-center">{step}</div>
                     </div>
-                    {i < visual.steps.length - 1 && (
+                    {i < arr.length - 1 && (
                       <div className={`w-8 h-0.5 mx-1 ${visual.mode === 'warm' ? 'bg-white/30' : 'bg-orange-500/30'}`} />
                     )}
                   </div>
