@@ -5,6 +5,7 @@ import CookieConsent from "@/components/CookieConsent";
 import ScrollProgress from "@/components/ScrollProgress";
 import ChatWidget from "@/components/ChatWidget";
 import AuthHandler from "@/components/AuthHandler";
+import { HydrationErrorCatcher } from "@/components/HydrationDebug";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -291,6 +292,7 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
+        <HydrationErrorCatcher />
         <AuthHandler />
         <ScrollProgress />
         {children}

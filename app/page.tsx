@@ -10,6 +10,7 @@ import FAQ from '@/components/FAQ';
 import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
 import PresaleTeaser from '@/components/PresaleTeaser';
+import { HydrationDebug } from '@/components/HydrationDebug';
 
 export default function Home() {
   return (
@@ -17,19 +18,43 @@ export default function Home() {
       <a href="#main-content" className="skip-to-content">
         Skip to main content
       </a>
-      <Navbar />
+      <HydrationDebug name="Navbar">
+        <Navbar />
+      </HydrationDebug>
       <div id="main-content" className="sr-only">Main content</div>
-      <Hero />
-      <QuickPay />
-      <Features />
-      <PresaleTeaser />
-      <Demo />
-      <SocialProof />
-      <AboutSection />
-      <Tokenomics />
-      <Roadmap />
-      <FAQ />
-      <Footer />
+      <HydrationDebug name="Hero">
+        <Hero />
+      </HydrationDebug>
+      <HydrationDebug name="QuickPay">
+        <QuickPay />
+      </HydrationDebug>
+      <HydrationDebug name="Features">
+        <Features />
+      </HydrationDebug>
+      <HydrationDebug name="PresaleTeaser">
+        <PresaleTeaser />
+      </HydrationDebug>
+      <HydrationDebug name="Demo">
+        <Demo />
+      </HydrationDebug>
+      <HydrationDebug name="SocialProof">
+        <SocialProof />
+      </HydrationDebug>
+      <HydrationDebug name="AboutSection">
+        <AboutSection />
+      </HydrationDebug>
+      <HydrationDebug name="Tokenomics">
+        <Tokenomics />
+      </HydrationDebug>
+      <HydrationDebug name="Roadmap">
+        <Roadmap />
+      </HydrationDebug>
+      <HydrationDebug name="FAQ">
+        <FAQ />
+      </HydrationDebug>
+      <HydrationDebug name="Footer">
+        <Footer />
+      </HydrationDebug>
     </main>
   );
 }
