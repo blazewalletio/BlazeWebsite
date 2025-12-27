@@ -1,9 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight, CheckCircle, QrCode } from 'lucide-react';
+import { ArrowRight, Shield, Zap, CheckCircle, QrCode } from 'lucide-react';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
 
 // Floating crypto icons data
 const floatingIcons = [
@@ -16,23 +15,6 @@ const floatingIcons = [
 ];
 
 export default function Hero() {
-  const [animationPhase, setAnimationPhase] = useState<'loading' | 'glitch' | 'materialize' | 'complete'>('loading');
-
-  useEffect(() => {
-    // Animation timeline
-    const timeline = [
-      { phase: 'glitch' as const, delay: 300 },
-      { phase: 'materialize' as const, delay: 1500 },
-      { phase: 'complete' as const, delay: 2500 },
-    ];
-
-    const timeouts = timeline.map(({ phase, delay }) => 
-      setTimeout(() => setAnimationPhase(phase), delay)
-    );
-
-    return () => timeouts.forEach(clearTimeout);
-  }, []);
-
   const trustBadges = [
     { text: 'Pay anywhere' },
     { text: 'Non-custodial' },
@@ -101,14 +83,14 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="text-center lg:text-left"
           >
             {/* Badge */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.1 }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1, duration: 0.5 }}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-orange-500/20 to-yellow-500/20 border border-orange-500/30 text-orange-300 font-medium text-sm mb-6"
             >
               <QrCode className="w-4 h-4" />
@@ -119,7 +101,7 @@ export default function Hero() {
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
+              transition={{ delay: 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight"
             >
               Your crypto{' '}
@@ -131,7 +113,7 @@ export default function Hero() {
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
+              transition={{ delay: 0.3, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               className="text-lg sm:text-xl text-gray-300 mb-8 max-w-lg mx-auto lg:mx-0"
             >
               Pay at the coffee shop, supermarket, or anywhere – just scan a QR code. Crypto payments in seconds, not minutes.
@@ -141,7 +123,7 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
+              transition={{ delay: 0.4, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8"
             >
               <a
@@ -166,7 +148,7 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
+              transition={{ delay: 0.5, duration: 0.6 }}
               className="flex flex-wrap gap-6 justify-center lg:justify-start"
             >
               {trustBadges.map((badge, index) => (
@@ -181,42 +163,86 @@ export default function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* Right: Holographic iPhone with Entry Animation */}
+          {/* Right: iPhone with Layered Reveal Animation */}
           <div className="relative flex justify-center lg:justify-end">
-            {/* Holographic container */}
-            <div className={`iphone-hologram ${animationPhase}`}>
+            <div className="relative">
               
-              {/* Scanlines overlay - always visible during loading/glitch */}
-              <div className={`scanlines ${animationPhase === 'complete' ? 'opacity-0' : 'opacity-100'}`} />
+              {/* Layer 1: Ambient glow - appears first */}
+              <motion.div 
+                className="absolute -inset-8 rounded-[4rem] blur-3xl"
+                style={{
+                  background: 'radial-gradient(ellipse at center, rgba(249, 115, 22, 0.4) 0%, rgba(234, 179, 8, 0.2) 50%, transparent 70%)',
+                }}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 0.6, scale: 1 }}
+                transition={{ 
+                  delay: 0.3,
+                  duration: 1.2, 
+                  ease: [0.22, 1, 0.36, 1] 
+                }}
+              />
               
-              {/* RGB Glitch layers */}
-              <div className={`glitch-container ${animationPhase}`}>
-                {/* Red channel */}
-                <div className="glitch-layer glitch-red" />
-                {/* Blue channel */}
-                <div className="glitch-layer glitch-blue" />
-              </div>
-              
-              {/* Main iPhone */}
-              <div className={`iphone-main ${animationPhase}`}>
-                {/* Ambient glow */}
-                <div className={`iphone-glow ${animationPhase === 'complete' ? 'opacity-60' : 'opacity-0'}`} />
-                
+              {/* Layer 2: iPhone - appears second */}
+              <motion.div
+                initial={{ opacity: 0, y: 60, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ 
+                  delay: 0.6,
+                  duration: 1, 
+                  ease: [0.22, 1, 0.36, 1] 
+                }}
+              >
                 {/* iPhone 15 Pro Frame */}
-                <div className="iphone-frame">
+                <div 
+                  className="relative rounded-[3rem] p-[3px]"
+                  style={{
+                    background: 'linear-gradient(145deg, #8a8a8f 0%, #6e6e73 25%, #48484a 50%, #6e6e73 75%, #8a8a8f 100%)',
+                    boxShadow: `
+                      0 0 0 1px rgba(255,255,255,0.1),
+                      0 4px 6px rgba(0,0,0,0.3),
+                      0 10px 20px rgba(0,0,0,0.4),
+                      0 30px 60px rgba(0,0,0,0.5),
+                      inset 0 1px 0 rgba(255,255,255,0.2)
+                    `,
+                  }}
+                >
                   {/* Inner bezel */}
-                  <div className="iphone-bezel">
+                  <div 
+                    className="rounded-[2.85rem] p-[10px]"
+                    style={{
+                      background: 'linear-gradient(180deg, #3a3a3c 0%, #2c2c2e 50%, #1c1c1e 100%)',
+                      boxShadow: 'inset 0 1px 2px rgba(255,255,255,0.1), inset 0 -1px 2px rgba(0,0,0,0.3)',
+                    }}
+                  >
                     {/* Screen */}
-                    <div className="iphone-screen">
+                    <div 
+                      className="relative bg-black rounded-[2.4rem] overflow-hidden"
+                      style={{
+                        width: '280px',
+                        height: '590px',
+                        boxShadow: 'inset 0 0 1px 1px rgba(0,0,0,0.8)',
+                      }}
+                    >
                       {/* Dynamic Island */}
-                      <div className="dynamic-island">
-                        <div className="dynamic-island-inner">
-                          <div className="dynamic-island-camera" />
+                      <div className="absolute top-3 left-1/2 -translate-x-1/2 z-30">
+                        <div 
+                          className="bg-black rounded-full flex items-center justify-center"
+                          style={{
+                            width: '120px',
+                            height: '34px',
+                            boxShadow: '0 0 0 1px rgba(255,255,255,0.05)',
+                          }}
+                        >
+                          <div className="absolute left-5 w-3 h-3 rounded-full bg-[#1a1a2e] ring-1 ring-[#0d0d15]">
+                            <div className="absolute inset-0.5 rounded-full bg-gradient-to-br from-[#2a2a4a] to-[#0a0a15]">
+                              <div className="absolute top-0.5 left-0.5 w-1 h-1 rounded-full bg-[#4a4a6a] opacity-60" />
+                            </div>
+                          </div>
                         </div>
                       </div>
                       
                       {/* Screen Content */}
-                      <div className="screen-content">
+                      <div className="absolute inset-0">
                         <Image
                           src="/iphone_screen.jpeg"
                           alt="BLAZE Wallet App"
@@ -227,32 +253,96 @@ export default function Hero() {
                         />
                       </div>
                       
-                      {/* Power-on flash */}
-                      <div className={`power-flash ${animationPhase === 'materialize' ? 'animate-flash' : ''}`} />
-                      
                       {/* Glass reflection */}
-                      <div className="glass-reflection" />
+                      <div 
+                        className="absolute inset-0 pointer-events-none z-10"
+                        style={{
+                          background: `linear-gradient(125deg, rgba(255,255,255,0.08) 0%, transparent 25%, transparent 60%, rgba(255,255,255,0.02) 100%)`,
+                        }}
+                      />
                     </div>
                   </div>
                   
                   {/* Side buttons */}
-                  <div className="side-button silent-switch" />
-                  <div className="side-button volume-up" />
-                  <div className="side-button volume-down" />
-                  <div className="side-button power" />
+                  <div 
+                    className="absolute -left-[2px] top-[100px] w-[4px] h-[28px] rounded-l-sm"
+                    style={{
+                      background: 'linear-gradient(90deg, #5a5a5c, #7a7a7c, #5a5a5c)',
+                      boxShadow: '-1px 0 2px rgba(0,0,0,0.3)',
+                    }}
+                  />
+                  <div 
+                    className="absolute -left-[2px] top-[145px] w-[4px] h-[50px] rounded-l-sm"
+                    style={{
+                      background: 'linear-gradient(90deg, #5a5a5c, #7a7a7c, #5a5a5c)',
+                      boxShadow: '-1px 0 2px rgba(0,0,0,0.3)',
+                    }}
+                  />
+                  <div 
+                    className="absolute -left-[2px] top-[205px] w-[4px] h-[50px] rounded-l-sm"
+                    style={{
+                      background: 'linear-gradient(90deg, #5a5a5c, #7a7a7c, #5a5a5c)',
+                      boxShadow: '-1px 0 2px rgba(0,0,0,0.3)',
+                    }}
+                  />
+                  <div 
+                    className="absolute -right-[2px] top-[160px] w-[4px] h-[70px] rounded-r-sm"
+                    style={{
+                      background: 'linear-gradient(90deg, #5a5a5c, #7a7a7c, #5a5a5c)',
+                      boxShadow: '1px 0 2px rgba(0,0,0,0.3)',
+                    }}
+                  />
                 </div>
-              </div>
+              </motion.div>
               
-              {/* Data stream particles */}
-              <div className={`data-particles ${animationPhase === 'loading' || animationPhase === 'glitch' ? 'active' : ''}`}>
-                {[...Array(20)].map((_, i) => (
-                  <div key={i} className="particle" style={{ 
-                    '--delay': `${i * 0.1}s`,
-                    '--x': `${Math.random() * 100}%`,
-                    '--duration': `${0.5 + Math.random() * 1}s`
-                  } as React.CSSProperties} />
-                ))}
-              </div>
+              {/* Layer 3: Floating badges - appear last */}
+              <motion.div
+                initial={{ opacity: 0, y: 20, x: 20 }}
+                animate={{ opacity: 1, y: 0, x: 0 }}
+                transition={{ 
+                  delay: 1.2,
+                  duration: 0.8, 
+                  ease: [0.22, 1, 0.36, 1] 
+                }}
+                className="absolute -top-4 -right-6 bg-white rounded-2xl shadow-2xl p-3 border border-gray-100 hidden lg:block"
+                style={{ 
+                  boxShadow: '0 10px 40px rgba(0,0,0,0.15)',
+                }}
+              >
+                <div className="flex items-center gap-2">
+                  <div className="w-9 h-9 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-500/30">
+                    <Zap className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <div className="font-bold text-gray-900 text-sm">2 seconds</div>
+                    <div className="text-[11px] text-gray-500">Payment time</div>
+                  </div>
+                </div>
+              </motion.div>
+              
+              <motion.div
+                initial={{ opacity: 0, y: -20, x: -20 }}
+                animate={{ opacity: 1, y: 0, x: 0 }}
+                transition={{ 
+                  delay: 1.4,
+                  duration: 0.8, 
+                  ease: [0.22, 1, 0.36, 1] 
+                }}
+                className="absolute -bottom-4 -left-6 bg-white rounded-2xl shadow-2xl p-3 border border-gray-100 hidden lg:block"
+                style={{ 
+                  boxShadow: '0 10px 40px rgba(0,0,0,0.15)',
+                }}
+              >
+                <div className="flex items-center gap-2">
+                  <div className="w-9 h-9 bg-gradient-to-br from-orange-400 to-orange-600 rounded-xl flex items-center justify-center shadow-lg shadow-orange-500/30">
+                    <Shield className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <div className="font-bold text-gray-900 text-sm">Secured</div>
+                    <div className="text-[11px] text-gray-500">Non-custodial</div>
+                  </div>
+                </div>
+              </motion.div>
             </div>
           </div>
         </div>
@@ -270,379 +360,6 @@ export default function Hero() {
           <polygon points="0,120 1440,40 1440,120" fill="white"/>
         </svg>
       </div>
-      
-      {/* Holographic Animation Styles */}
-      <style jsx>{`
-        /* Main container */
-        .iphone-hologram {
-          position: relative;
-          width: 306px;
-          height: 630px;
-        }
-        
-        /* Scanlines */
-        .scanlines {
-          position: absolute;
-          inset: -20px;
-          background: repeating-linear-gradient(
-            0deg,
-            transparent,
-            transparent 2px,
-            rgba(0, 255, 255, 0.03) 2px,
-            rgba(0, 255, 255, 0.03) 4px
-          );
-          pointer-events: none;
-          z-index: 100;
-          transition: opacity 0.5s ease-out;
-          animation: scanline-move 0.1s linear infinite;
-        }
-        
-        @keyframes scanline-move {
-          0% { transform: translateY(0); }
-          100% { transform: translateY(4px); }
-        }
-        
-        /* Glitch container */
-        .glitch-container {
-          position: absolute;
-          inset: 0;
-          pointer-events: none;
-          z-index: 50;
-        }
-        
-        .glitch-container.loading,
-        .glitch-container.glitch {
-          animation: glitch-skew 0.5s infinite linear alternate-reverse;
-        }
-        
-        .glitch-container.materialize,
-        .glitch-container.complete {
-          animation: none;
-          opacity: 0;
-        }
-        
-        .glitch-layer {
-          position: absolute;
-          inset: 0;
-          background: inherit;
-          opacity: 0;
-        }
-        
-        .glitch-container.glitch .glitch-red {
-          animation: glitch-red 0.3s infinite linear alternate-reverse;
-        }
-        
-        .glitch-container.glitch .glitch-blue {
-          animation: glitch-blue 0.3s infinite linear alternate-reverse;
-        }
-        
-        @keyframes glitch-skew {
-          0% { transform: skew(0deg); }
-          20% { transform: skew(-2deg); }
-          40% { transform: skew(1deg); }
-          60% { transform: skew(-1deg); }
-          80% { transform: skew(2deg); }
-          100% { transform: skew(0deg); }
-        }
-        
-        @keyframes glitch-red {
-          0%, 100% { 
-            opacity: 0;
-            transform: translate(0, 0);
-          }
-          20% { 
-            opacity: 0.8;
-            transform: translate(-5px, 2px);
-            filter: hue-rotate(-60deg);
-          }
-          40% { 
-            opacity: 0;
-            transform: translate(3px, -1px);
-          }
-          60% { 
-            opacity: 0.6;
-            transform: translate(-3px, 1px);
-            filter: hue-rotate(-60deg);
-          }
-          80% { 
-            opacity: 0;
-            transform: translate(2px, -2px);
-          }
-        }
-        
-        @keyframes glitch-blue {
-          0%, 100% { 
-            opacity: 0;
-            transform: translate(0, 0);
-          }
-          15% { 
-            opacity: 0;
-            transform: translate(2px, -1px);
-          }
-          35% { 
-            opacity: 0.7;
-            transform: translate(4px, 1px);
-            filter: hue-rotate(60deg);
-          }
-          55% { 
-            opacity: 0;
-            transform: translate(-2px, 2px);
-          }
-          75% { 
-            opacity: 0.5;
-            transform: translate(3px, -1px);
-            filter: hue-rotate(60deg);
-          }
-        }
-        
-        /* Main iPhone */
-        .iphone-main {
-          position: relative;
-          transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        
-        .iphone-main.loading {
-          opacity: 0;
-          transform: scale(0.95) translateY(20px);
-          filter: blur(10px);
-        }
-        
-        .iphone-main.glitch {
-          opacity: 0.7;
-          transform: scale(0.98) translateY(10px);
-          filter: blur(2px) saturate(1.5);
-          animation: hologram-flicker 0.15s infinite;
-        }
-        
-        .iphone-main.materialize {
-          opacity: 1;
-          transform: scale(1) translateY(0);
-          filter: blur(0) saturate(1);
-        }
-        
-        .iphone-main.complete {
-          opacity: 1;
-          transform: scale(1) translateY(0);
-          filter: none;
-        }
-        
-        @keyframes hologram-flicker {
-          0%, 100% { opacity: 0.7; }
-          50% { opacity: 0.9; }
-        }
-        
-        /* Glow */
-        .iphone-glow {
-          position: absolute;
-          inset: -32px;
-          background: radial-gradient(ellipse at center, rgba(249, 115, 22, 0.4) 0%, rgba(234, 179, 8, 0.2) 40%, transparent 70%);
-          border-radius: 4rem;
-          filter: blur(40px);
-          transition: opacity 0.8s ease-out;
-          z-index: -1;
-        }
-        
-        /* iPhone Frame */
-        .iphone-frame {
-          position: relative;
-          border-radius: 3rem;
-          padding: 3px;
-          background: linear-gradient(145deg, #8a8a8f 0%, #6e6e73 25%, #48484a 50%, #6e6e73 75%, #8a8a8f 100%);
-          box-shadow: 
-            0 0 0 1px rgba(255,255,255,0.1),
-            0 4px 6px rgba(0,0,0,0.3),
-            0 10px 20px rgba(0,0,0,0.4),
-            0 30px 60px rgba(0,0,0,0.5),
-            inset 0 1px 0 rgba(255,255,255,0.2);
-        }
-        
-        .iphone-bezel {
-          border-radius: 2.85rem;
-          padding: 10px;
-          background: linear-gradient(180deg, #3a3a3c 0%, #2c2c2e 50%, #1c1c1e 100%);
-          box-shadow: inset 0 1px 2px rgba(255,255,255,0.1), inset 0 -1px 2px rgba(0,0,0,0.3);
-        }
-        
-        .iphone-screen {
-          position: relative;
-          width: 280px;
-          height: 590px;
-          background: black;
-          border-radius: 2.4rem;
-          overflow: hidden;
-          box-shadow: inset 0 0 1px 1px rgba(0,0,0,0.8);
-        }
-        
-        /* Dynamic Island */
-        .dynamic-island {
-          position: absolute;
-          top: 12px;
-          left: 50%;
-          transform: translateX(-50%);
-          z-index: 30;
-        }
-        
-        .dynamic-island-inner {
-          width: 120px;
-          height: 34px;
-          background: black;
-          border-radius: 9999px;
-          display: flex;
-          align-items: center;
-          box-shadow: 0 0 0 1px rgba(255,255,255,0.05);
-        }
-        
-        .dynamic-island-camera {
-          position: absolute;
-          left: 20px;
-          width: 12px;
-          height: 12px;
-          border-radius: 50%;
-          background: radial-gradient(circle at 30% 30%, #2a2a4a, #0a0a15);
-          box-shadow: inset 0 0 2px rgba(0,0,0,0.8);
-        }
-        
-        .dynamic-island-camera::after {
-          content: '';
-          position: absolute;
-          top: 2px;
-          left: 2px;
-          width: 4px;
-          height: 4px;
-          border-radius: 50%;
-          background: rgba(74, 74, 106, 0.6);
-        }
-        
-        /* Screen content */
-        .screen-content {
-          position: absolute;
-          inset: 0;
-        }
-        
-        /* Power flash */
-        .power-flash {
-          position: absolute;
-          inset: 0;
-          background: white;
-          opacity: 0;
-          z-index: 20;
-          pointer-events: none;
-        }
-        
-        .power-flash.animate-flash {
-          animation: power-on 0.6s ease-out forwards;
-        }
-        
-        @keyframes power-on {
-          0% { opacity: 0; }
-          10% { opacity: 0.8; }
-          100% { opacity: 0; }
-        }
-        
-        /* Glass reflection */
-        .glass-reflection {
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(
-            125deg, 
-            rgba(255,255,255,0.08) 0%, 
-            transparent 25%,
-            transparent 60%,
-            rgba(255,255,255,0.02) 100%
-          );
-          pointer-events: none;
-          z-index: 10;
-        }
-        
-        /* Side buttons */
-        .side-button {
-          position: absolute;
-          width: 4px;
-          background: linear-gradient(90deg, #5a5a5c, #7a7a7c, #5a5a5c);
-        }
-        
-        .silent-switch {
-          left: -2px;
-          top: 100px;
-          height: 28px;
-          border-radius: 2px 0 0 2px;
-          box-shadow: -1px 0 2px rgba(0,0,0,0.3);
-        }
-        
-        .volume-up {
-          left: -2px;
-          top: 145px;
-          height: 50px;
-          border-radius: 2px 0 0 2px;
-          box-shadow: -1px 0 2px rgba(0,0,0,0.3);
-        }
-        
-        .volume-down {
-          left: -2px;
-          top: 205px;
-          height: 50px;
-          border-radius: 2px 0 0 2px;
-          box-shadow: -1px 0 2px rgba(0,0,0,0.3);
-        }
-        
-        .power {
-          right: -2px;
-          top: 160px;
-          height: 70px;
-          border-radius: 0 2px 2px 0;
-          box-shadow: 1px 0 2px rgba(0,0,0,0.3);
-        }
-        
-        /* Data particles */
-        .data-particles {
-          position: absolute;
-          inset: 0;
-          pointer-events: none;
-          z-index: 60;
-          overflow: hidden;
-          opacity: 0;
-          transition: opacity 0.3s ease;
-        }
-        
-        .data-particles.active {
-          opacity: 1;
-        }
-        
-        .particle {
-          position: absolute;
-          width: 2px;
-          height: 8px;
-          background: linear-gradient(to bottom, transparent, #00ffff, transparent);
-          left: var(--x);
-          animation: particle-fall var(--duration) var(--delay) infinite linear;
-          opacity: 0.6;
-        }
-        
-        @keyframes particle-fall {
-          0% {
-            transform: translateY(-20px);
-            opacity: 0;
-          }
-          10% {
-            opacity: 0.6;
-          }
-          90% {
-            opacity: 0.6;
-          }
-          100% {
-            transform: translateY(650px);
-            opacity: 0;
-          }
-        }
-        
-        /* Mobile adjustments */
-        @media (max-width: 640px) {
-          .iphone-hologram {
-            transform: scale(0.85);
-            transform-origin: center;
-          }
-        }
-      `}</style>
     </section>
   );
 }
