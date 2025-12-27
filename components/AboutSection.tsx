@@ -29,7 +29,6 @@ export default function AboutSection() {
                 <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
                   Hi! We are BLAZE
                 </h2>
-                <span className="text-2xl">🔥</span>
               </div>
               <p className="text-sky-600 font-medium mb-6">
                 Building the future of crypto payments
