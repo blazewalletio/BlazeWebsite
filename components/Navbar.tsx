@@ -1,6 +1,6 @@
 'use client';
 
-import { Menu, X, ArrowRight, Zap, BookOpen, MessageCircle, Twitter, Send, ChevronRight, Wallet, Info, Map } from 'lucide-react';
+import { Menu, X, ArrowRight, Zap, BookOpen, MessageCircle, Twitter, Send, ChevronRight, Wallet, Info, Map, Flame } from 'lucide-react';
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
@@ -11,41 +11,16 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const scrollPositionRef = useRef(0);
-  const menuContentRef = useRef<HTMLDivElement>(null);
   
   // Check if we're on a page with a dark hero (only homepage)
   const hasDarkHero = pathname === '/';
 
-  // Debug logging
-  useEffect(() => {
-    if (isOpen) {
-      console.log('[Navbar Debug] Menu opened');
-      console.log('[Navbar Debug] mainLinks:', mainLinks);
-      console.log('[Navbar Debug] secondaryLinks:', secondaryLinks);
-      
-      // Check DOM after render
-      setTimeout(() => {
-        const menuPanel = document.querySelector('[data-menu-panel]');
-        const scrollContainer = document.querySelector('[data-scroll-container]');
-        const navSection = document.querySelector('[data-nav-section]');
-        
-        console.log('[Navbar Debug] menuPanel:', menuPanel);
-        console.log('[Navbar Debug] menuPanel height:', menuPanel?.getBoundingClientRect().height);
-        console.log('[Navbar Debug] scrollContainer:', scrollContainer);
-        console.log('[Navbar Debug] scrollContainer height:', scrollContainer?.getBoundingClientRect().height);
-        console.log('[Navbar Debug] navSection:', navSection);
-        console.log('[Navbar Debug] navSection height:', navSection?.getBoundingClientRect().height);
-        console.log('[Navbar Debug] navSection children:', navSection?.children.length);
-      }, 100);
-    }
-  }, [isOpen]);
-
   const mainLinks = [
     { label: 'Features', href: '/#features', description: 'What BLAZE offers' },
     { label: 'How it works', href: '/#demo', description: 'Get started in 3 steps' },
+    { label: 'Presale', href: '/presale', description: 'Join the early bird presale', highlight: true },
     { label: 'Tokenomics', href: '/#tokenomics', description: 'BLAZE token economy' },
     { label: 'Roadmap', href: '/#roadmap', description: 'Our development plan' },
-    { label: 'FAQ', href: '/#faq', description: 'Common questions' },
   ];
 
   const secondaryLinks = [
@@ -129,19 +104,22 @@ export default function Navbar() {
           </a>
 
           {/* Desktop menu */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-6">
             {mainLinks.slice(0, 4).map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 className={`font-medium transition-colors ${
-                  useLightTheme 
-                    ? 'text-gray-600 hover:text-gray-900' 
-                    : 'text-gray-300 hover:text-white'
+                  link.highlight
+                    ? 'text-orange-500 hover:text-orange-600 flex items-center gap-1'
+                    : useLightTheme 
+                      ? 'text-gray-600 hover:text-gray-900' 
+                      : 'text-gray-300 hover:text-white'
                 }`}
               >
+                {link.highlight && <Flame className="w-4 h-4" />}
                 {link.label}
-              </a>
+              </Link>
             ))}
           </div>
 
@@ -220,23 +198,38 @@ export default function Navbar() {
                 </div>
                 <div className="space-y-1">
                   {mainLinks.map((link, index) => (
-                    <a
+                    <Link
                       key={link.href}
                       href={link.href}
                       onClick={closeMenu}
-                      className="flex items-center justify-between px-3 py-3.5 rounded-xl hover:bg-gray-50 active:bg-orange-50 transition-colors group"
+                      className={`flex items-center justify-between px-3 py-3.5 rounded-xl transition-colors group ${
+                        link.highlight 
+                          ? 'bg-gradient-to-r from-orange-50 to-yellow-50 border border-orange-200' 
+                          : 'hover:bg-gray-50 active:bg-orange-50'
+                      }`}
                       style={{
                         animationDelay: `${index * 50}ms`,
                       }}
                     >
-                      <div>
-                        <div className="font-semibold text-gray-900 group-hover:text-orange-600 transition-colors">
-                          {link.label}
+                      <div className="flex items-center gap-3">
+                        {link.highlight && (
+                          <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-lg flex items-center justify-center">
+                            <Flame className="w-4 h-4 text-white" />
+                          </div>
+                        )}
+                        <div>
+                          <div className={`font-semibold transition-colors ${
+                            link.highlight ? 'text-orange-600' : 'text-gray-900 group-hover:text-orange-600'
+                          }`}>
+                            {link.label}
+                          </div>
+                          <div className="text-sm text-gray-500">{link.description}</div>
                         </div>
-                        <div className="text-sm text-gray-500">{link.description}</div>
                       </div>
-                      <ChevronRight className="w-5 h-5 text-gray-300 group-hover:text-orange-500 group-hover:translate-x-0.5 transition-all flex-shrink-0" />
-                    </a>
+                      <ChevronRight className={`w-5 h-5 group-hover:translate-x-0.5 transition-all flex-shrink-0 ${
+                        link.highlight ? 'text-orange-500' : 'text-gray-300 group-hover:text-orange-500'
+                      }`} />
+                    </Link>
                   ))}
                 </div>
               </div>
