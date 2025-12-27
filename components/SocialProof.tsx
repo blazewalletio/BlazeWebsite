@@ -1,33 +1,29 @@
 'use client';
 
-import { Shield, Wallet, Cpu, TrendingUp, ExternalLink } from 'lucide-react';
+import { Shield, Lock, ScanSearch, KeyRound, CheckCircle, ExternalLink } from 'lucide-react';
 import Image from 'next/image';
 import { useInView } from '@/hooks/useInView';
 
-const stats = [
+const securityFeatures = [
   { 
-    icon: Wallet, 
-    value: '18', 
-    label: 'Blockchains', 
-    description: 'Multi-chain support',
+    icon: ScanSearch, 
+    title: 'Every transaction scanned', 
+    description: 'Real-time scam detection before you send',
   },
   { 
-    icon: Cpu, 
-    value: '5', 
-    label: 'AI features', 
-    description: 'Smart assistance',
+    icon: KeyRound, 
+    title: 'Your keys, your crypto', 
+    description: 'Non-custodial – we never have access',
   },
   { 
-    icon: TrendingUp, 
-    value: '20%', 
-    label: 'Max APY', 
-    description: 'Staking rewards',
+    icon: Lock, 
+    title: 'Encrypted locally', 
+    description: 'Private keys never leave your device',
   },
   { 
-    icon: Shield, 
-    value: '100%', 
-    label: 'Non-custodial', 
-    description: 'Your keys, your crypto',
+    icon: CheckCircle, 
+    title: 'CertiK audit', 
+    description: 'Professional security audit Q1 2026',
   },
 ];
 
@@ -75,21 +71,18 @@ export default function SocialProof() {
           </p>
         </div>
 
-        {/* Stats */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-12">
-          {stats.map((stat, index) => (
+        {/* Security Features */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-12">
+          {securityFeatures.map((feature, index) => (
             <div
-              key={stat.label}
-              className={`card p-6 text-center animate-on-scroll delay-${index + 1} ${isVisible ? 'is-visible' : ''}`}
+              key={feature.title}
+              className={`card p-6 animate-on-scroll delay-${index + 1} ${isVisible ? 'is-visible' : ''}`}
             >
-              <div className="icon-box mx-auto mb-4 bg-gray-100">
-                <stat.icon className="w-6 h-6 text-gray-600" />
+              <div className="w-12 h-12 rounded-xl bg-emerald-100 flex items-center justify-center mb-4">
+                <feature.icon className="w-6 h-6 text-emerald-600" />
               </div>
-              <div className="text-3xl md:text-4xl font-bold text-gray-900 mb-1">
-                {stat.value}
-              </div>
-              <div className="font-medium text-gray-900 mb-1">{stat.label}</div>
-              <div className="text-sm text-gray-500">{stat.description}</div>
+              <h3 className="font-bold text-gray-900 mb-1">{feature.title}</h3>
+              <p className="text-sm text-gray-500">{feature.description}</p>
             </div>
           ))}
         </div>
