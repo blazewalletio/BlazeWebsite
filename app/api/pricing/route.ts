@@ -2,8 +2,8 @@ import { NextResponse } from 'next/server';
 import { createClient, createAdminClient } from '@/lib/supabase/server';
 
 // Presale constants from wallet (presale-config.ts)
-const PRESALE_PRICE = 0.00417; // Fixed price from wallet
-const LAUNCH_PRICE = 0.01;
+const PRESALE_PRICE = 0.00834; // Fixed presale price
+const LAUNCH_PRICE = 0.02;
 const PRESALE_DISCOUNT = Math.round((1 - PRESALE_PRICE / LAUNCH_PRICE) * 100); // 58%
 
 // Bonus tiers - everyone pays same price, early buyers get bonus tokens

@@ -45,9 +45,9 @@ export default function PresaleTeaser() {
     fetchData();
   }, []);
 
-  // Calculate tokens - using fixed presale price from wallet ($0.00417)
-  const PRESALE_PRICE = 0.00417; // Fixed price from wallet
-  const LAUNCH_PRICE = 0.01;
+  // Calculate tokens - using fixed presale price ($0.00834)
+  const PRESALE_PRICE = 0.00834; // Fixed presale price
+  const LAUNCH_PRICE = 0.02;
   const bonusPercentage = currentTier?.bonus_percentage || 100; // Default to Founders tier (100% bonus = 2x tokens)
   const baseTokens = inputAmount / PRESALE_PRICE;
   const bonusTokens = baseTokens * (bonusPercentage / 100);
@@ -95,7 +95,7 @@ export default function PresaleTeaser() {
               <span className="text-gradient-brand">58% off</span>
             </h2>
             <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-              Fixed presale price of $0.00417 per token. Early supporters get bonus tokens!
+              Fixed presale price of $0.00834 per token. Early supporters get bonus tokens!
             </p>
           </motion.div>
 
@@ -127,7 +127,7 @@ export default function PresaleTeaser() {
                   <div className="text-gray-400 text-sm mb-1">Presale price</div>
                   <div className="flex items-baseline gap-3">
                     <span className="text-5xl font-bold text-white">${PRESALE_PRICE.toFixed(5)}</span>
-                    <span className="text-gray-500 line-through text-lg">$0.01</span>
+                    <span className="text-gray-500 line-through text-lg">$0.02</span>
                   </div>
                   <div className="text-emerald-400 text-sm mt-1">{presaleDiscount}% off launch price</div>
                 </div>

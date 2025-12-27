@@ -3,7 +3,7 @@ import { createAdminClient, createClient } from '@/lib/supabase/server';
 import { sendCommitmentConfirmation, sendCommitmentNotification } from '@/lib/email';
 
 // Presale constants from wallet
-const PRESALE_PRICE = 0.00417;
+const PRESALE_PRICE = 0.00834;
 const BONUS_TIERS = [
   { tier_number: 1, tier_name: 'Founders', min_buyers: 1, max_buyers: 100, bonus_percentage: 100 },
   { tier_number: 2, tier_name: 'Early Birds', min_buyers: 101, max_buyers: 250, bonus_percentage: 75 },

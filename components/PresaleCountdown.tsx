@@ -174,12 +174,12 @@ function PresaleCountdownInner() {
         <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-8 mb-8">
           <div className="text-center">
             <div className="text-gray-400 text-sm mb-1">Presale price</div>
-            <div className="text-2xl font-bold text-orange-400">$0.00417</div>
+            <div className="text-2xl font-bold text-orange-400">$0.00834</div>
           </div>
           <div className="hidden sm:block w-px bg-gray-700" />
           <div className="text-center">
             <div className="text-gray-400 text-sm mb-1">Launch price</div>
-            <div className="text-2xl font-bold text-white">$0.01</div>
+            <div className="text-2xl font-bold text-white">$0.02</div>
           </div>
           <div className="hidden sm:block w-px bg-gray-700" />
           <div className="text-center">

@@ -7,7 +7,7 @@ import PresaleCountdown from './PresaleCountdown';
 const tokenInfo = [
   { label: 'Total supply', value: '1B', description: '1 billion BLAZE' },
   { label: 'Presale allocation', value: '120M', description: '12% for presale' },
-  { label: 'Launch price', value: '$0.01', description: 'Post-presale price' },
+  { label: 'Launch price', value: '$0.02', description: 'Post-presale price' },
 ];
 
 const distribution = [

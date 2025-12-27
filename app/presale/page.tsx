@@ -145,9 +145,9 @@ export default function PresalePage() {
     commitmentRef.current?.scrollIntoView({ behavior: 'smooth' });
   }
 
-  // Calculations - using fixed presale price from wallet ($0.00417)
-  const PRESALE_PRICE = 0.00417; // Fixed price from wallet
-  const LAUNCH_PRICE = 0.01;
+  // Calculations - using fixed presale price ($0.00834)
+  const PRESALE_PRICE = 0.00834; // Fixed presale price
+  const LAUNCH_PRICE = 0.02;
   const bonusPercentage = currentTier?.bonus_percentage || 0;
   const baseTokens = amount / PRESALE_PRICE;
   const bonusTokens = baseTokens * (bonusPercentage / 100);
@@ -162,7 +162,7 @@ export default function PresalePage() {
     },
     {
       q: 'How do the bonus tiers work?',
-      a: 'Everyone pays the same presale price of $0.00417 per BLAZE token (58% off the $0.01 launch price). Early supporters get massive bonus tokens: Founders get +100% (double tokens!), Early Birds +75%, Pioneers +50%, and so on. The earlier you join, the more bonus tokens you receive!',
+      a: 'Everyone pays the same presale price of $0.00834 per BLAZE token (58% off the $0.02 launch price). Early supporters get massive bonus tokens: Founders get +100% (double tokens!), Early Birds +75%, Pioneers +50%, and so on. The earlier you join, the more bonus tokens you receive!',
     },
     {
       q: 'Is this a commitment or actual payment?',
@@ -228,7 +228,7 @@ export default function PresalePage() {
               transition={{ delay: 0.2 }}
               className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto"
             >
-              Presale price: $0.00417 per BLAZE token (58% off $0.01 launch). Early supporters get bonus tokens!
+              Presale price: $0.00834 per BLAZE token (58% off $0.02 launch). Early supporters get bonus tokens!
               No payment required to reserve your spot.
             </motion.p>
 
@@ -291,7 +291,7 @@ export default function PresalePage() {
               Early bird bonus tiers
             </h2>
             <p className="text-gray-400 max-w-2xl mx-auto">
-              Everyone pays the same price of $0.00417 per token.
+              Everyone pays the same price of $0.00834 per token.
               Early supporters get bonus tokens based on their tier!
             </p>
           </div>
@@ -299,8 +299,8 @@ export default function PresalePage() {
           {/* Price banner */}
           <div className="max-w-2xl mx-auto mb-10 bg-gradient-to-r from-orange-500/20 to-yellow-500/20 border border-orange-500/30 rounded-2xl p-6 text-center">
             <div className="text-gray-400 text-sm mb-2">Fixed presale price (from wallet)</div>
-            <div className="text-4xl font-bold text-white mb-2">$0.00417 <span className="text-lg text-gray-400">per BLAZE token</span></div>
-            <div className="text-emerald-400 font-medium">{presaleDiscount}% off launch price of $0.01</div>
+            <div className="text-4xl font-bold text-white mb-2">$0.00834 <span className="text-lg text-gray-400">per BLAZE token</span></div>
+            <div className="text-emerald-400 font-medium">{presaleDiscount}% off launch price of $0.02</div>
           </div>
 
           {/* Bonus tiers grid */}
@@ -363,13 +363,13 @@ export default function PresalePage() {
             <div className="grid grid-cols-2 gap-4 text-sm">
               <div className="text-center p-4 bg-gradient-to-br from-orange-500/20 to-yellow-500/20 rounded-xl border border-orange-500/30">
                 <div className="text-orange-300 mb-1">As Founder (+100%)</div>
-                <div className="text-3xl font-bold text-white">{Math.floor(100 / 0.00417 * 2).toLocaleString()}</div>
+                <div className="text-3xl font-bold text-white">{Math.floor(100 / 0.00834 * 2).toLocaleString()}</div>
                 <div className="text-orange-400 text-xs">BLAZE tokens</div>
                 <div className="text-emerald-400 text-xs mt-1">2x tokens!</div>
               </div>
               <div className="text-center p-4 bg-white/5 rounded-xl">
                 <div className="text-gray-400 mb-1">As Public (0%)</div>
-                <div className="text-3xl font-bold text-white">{Math.floor(100 / 0.00417).toLocaleString()}</div>
+                <div className="text-3xl font-bold text-white">{Math.floor(100 / 0.00834).toLocaleString()}</div>
                 <div className="text-orange-400 text-xs">BLAZE tokens</div>
               </div>
             </div>

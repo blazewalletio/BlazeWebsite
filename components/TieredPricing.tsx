@@ -64,7 +64,7 @@ export default function TieredPricing() {
   }
 
   const { currentTier, allTiers, totalBuyers } = pricingData;
-  const launchPrice = 0.01;
+  const launchPrice = 0.02;
 
   return (
     <section id="pricing" className="py-20 lg:py-28 bg-gradient-to-b from-slate-900 to-slate-800 overflow-hidden">

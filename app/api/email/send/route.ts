@@ -104,7 +104,7 @@ export async function POST(request: Request) {
               recipient.referral_code || 'BLAZE',
               {
                 name: currentTier?.tier_name || 'Founders',
-                price: currentTier?.price_usd || 0.00417,
+                price: currentTier?.price_usd || 0.00834,
                 spotsLeft: currentTier?.max_buyers || 100,
               }
             );
