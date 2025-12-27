@@ -304,7 +304,7 @@ export default function Hero() {
                   duration: 0.8, 
                   ease: [0.22, 1, 0.36, 1] 
                 }}
-                className="absolute -top-4 -right-6 bg-white rounded-2xl shadow-2xl p-3 border border-gray-100 hidden lg:block"
+                className="absolute -top-4 -right-6 bg-white rounded-2xl shadow-2xl p-3 border border-gray-100 hidden lg:block z-50"
                 style={{ 
                   boxShadow: '0 10px 40px rgba(0,0,0,0.15)',
                 }}
@@ -328,7 +328,7 @@ export default function Hero() {
                   duration: 0.8, 
                   ease: [0.22, 1, 0.36, 1] 
                 }}
-                className="absolute -bottom-4 -left-6 bg-white rounded-2xl shadow-2xl p-3 border border-gray-100 hidden lg:block"
+                className="absolute -bottom-4 -left-6 bg-white rounded-2xl shadow-2xl p-3 border border-gray-100 hidden lg:block z-50"
                 style={{ 
                   boxShadow: '0 10px 40px rgba(0,0,0,0.15)',
                 }}
