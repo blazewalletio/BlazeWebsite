@@ -5,7 +5,6 @@ import CookieConsent from "@/components/CookieConsent";
 import ScrollProgress from "@/components/ScrollProgress";
 import ChatWidget from "@/components/ChatWidget";
 import AuthHandler from "@/components/AuthHandler";
-import { HydrationErrorCatcher } from "@/components/HydrationDebug";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -248,7 +247,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <head>
         {/* Preconnect for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -291,8 +290,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
         />
       </head>
-      <body className={inter.className}>
-        <HydrationErrorCatcher />
+      <body className={inter.className} suppressHydrationWarning>
         <AuthHandler />
         <ScrollProgress />
         {children}
