@@ -1,45 +1,25 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import AdminSidebar from '@/components/admin/AdminSidebar';
 import { createClient } from '@/lib/supabase/client';
+import Image from 'next/image';
 import { 
   Calendar, 
-  Image as ImageIcon, 
   Copy, 
   Check, 
   ChevronLeft, 
   ChevronRight,
-  Download,
-  Twitter,
-  Zap,
   Users,
-  TrendingUp,
-  Shield,
-  Clock,
-  Gift,
-  Rocket,
-  Target,
-  Heart,
-  MessageCircle,
-  Repeat2,
-  BarChart3,
-  Flame,
-  Star,
-  AlertCircle,
-  CheckCircle,
-  ArrowRight,
-  QrCode,
-  Brain,
-  Wallet,
   DollarSign,
-  Trophy,
-  Lock,
+  Target,
+  Clock,
   Sparkles,
+  ExternalLink,
 } from 'lucide-react';
 
 // =============================================================================
-// MARKETING CONTENT DATA - 6 WEEKS OF POSTS
+// MARKETING CONTENT - EERLIJKE, PROFESSIONELE CONTENT
 // =============================================================================
 
 interface MarketingPost {
@@ -47,854 +27,698 @@ interface MarketingPost {
   day: number;
   week: number;
   phase: string;
-  type: 'text' | 'thread' | 'image' | 'video' | 'poll';
+  type: 'text' | 'thread' | 'visual' | 'poll';
   title: string;
   content: string;
   hashtags: string[];
-  imageType: 'pain-point' | 'feature' | 'stats' | 'countdown' | 'announcement' | 'testimonial' | 'progress';
-  imageData?: {
+  visual: {
+    style: 'dark' | 'light' | 'gradient';
+    layout: 'stat' | 'comparison' | 'list' | 'quote' | 'simple' | 'countdown';
     headline: string;
     subheadline?: string;
     stat?: string;
     statLabel?: string;
-    icon?: string;
-    gradient?: string;
+    items?: string[];
+    showLogo?: boolean;
   };
-  engagement?: string;
-  cta?: string;
+  tip?: string;
 }
 
 const MARKETING_POSTS: MarketingPost[] = [
   // ==========================================================================
-  // WEEK 1: AWARENESS - THE PROBLEM
+  // WEEK 1-2: EDUCATION - WAT MAAKT BLAZE UNIEK
   // ==========================================================================
   {
     id: 'w1d1',
     day: 1,
     week: 1,
-    phase: 'Awareness',
-    type: 'thread',
-    title: 'The Problem Thread',
-    content: `🧵 Why crypto will NEVER go mainstream... (unless THIS changes)
+    phase: 'Education',
+    type: 'text',
+    title: 'Smart Schedule Intro',
+    content: `Wist je dat gas fees op Ethereum tot 10x kunnen variëren op één dag?
 
-Let me explain 👇
+Smart Schedule analyseert real-time en voert je transactie uit op het goedkoopste moment.
 
-1/ Crypto has been around for 15 years. Yet only 4% of the world uses it daily.
+Automatisch. Tot 40% besparing.
 
-Why? Because it's UNUSABLE for real life.
+Geen enkele andere wallet doet dit.
 
-2/ Try paying for coffee with ETH. 
-- Open wallet
-- Find merchant address  
-- Copy/paste
-- Set gas
-- Wait 2+ minutes
-- Hope it confirms
-
-Meanwhile, the guy behind you paid with Apple Pay in 2 seconds.
-
-3/ The UX is broken.
-
-We've been so focused on "number go up" that we forgot the original vision:
-
-MONEY. That you can SPEND. Anywhere.
-
-4/ This is why we built @BLAZEwallet.
-
-A crypto wallet designed for PAYMENTS first.
-
-Not trading. Not speculation. SPENDING.
-
-🔥 Waitlist open: blazewallet.io`,
-    hashtags: ['crypto', 'Web3', 'DeFi', 'Bitcoin', 'payments'],
-    imageType: 'pain-point',
-    imageData: {
-      headline: 'Crypto is UNUSABLE',
-      subheadline: 'for everyday payments',
-      stat: '4%',
-      statLabel: 'of the world uses crypto daily',
-      gradient: 'dark',
+blazewallet.io`,
+    hashtags: ['BLAZE', 'Ethereum', 'gas', 'DeFi'],
+    visual: {
+      style: 'dark',
+      layout: 'stat',
+      headline: 'Smart Schedule',
+      subheadline: 'Automatische gas optimalisatie',
+      stat: '40%',
+      statLabel: 'gemiddelde besparing op gas fees',
     },
-    engagement: 'Ask followers: "When was the last time you SPENT crypto (not traded)?"',
+    tip: 'Post in de ochtend wanneer gas fees vaak hoger zijn - maakt de boodschap relevanter.',
   },
   {
     id: 'w1d2',
     day: 2,
     week: 1,
-    phase: 'Awareness',
+    phase: 'Education',
     type: 'text',
-    title: 'Pain Point - Waiting',
-    content: `The year is 2025.
+    title: 'AI Assistant',
+    content: `"Stuur 100 USDC naar @vriend"
 
-You can:
-• Video call anyone on Earth instantly
-• Have AI write your emails
-• Order anything to your door in hours
+Dat is het. Geen menu's. Geen adressen zoeken.
 
-But paying with crypto?
+BLAZE AI begrijpt gewoon wat je wilt.
 
-Still takes 2+ minutes and costs $5 in gas.
+De eerste wallet die je verstaat.
 
-Something's broken. We're fixing it.
-
-🔥 blazewallet.io`,
-    hashtags: ['crypto', 'UX', 'Web3', 'future'],
-    imageType: 'pain-point',
-    imageData: {
-      headline: '2025',
-      subheadline: 'Crypto payments still take 2+ minutes',
-      gradient: 'dark',
+blazewallet.io`,
+    hashtags: ['AI', 'BLAZE', 'crypto', 'UX'],
+    visual: {
+      style: 'dark',
+      layout: 'quote',
+      headline: '"Stuur 100 USDC naar mama"',
+      subheadline: 'BLAZE AI begrijpt wat je bedoelt',
     },
+    tip: 'Vraag in de comments: "Wat zou jij tegen je wallet willen zeggen?"',
   },
   {
     id: 'w1d3',
     day: 3,
     week: 1,
-    phase: 'Awareness',
-    type: 'image',
-    title: 'Coffee Shop Scenario',
-    content: `POV: You try to pay for coffee with crypto
+    phase: 'Education',
+    type: 'visual',
+    title: 'QuickPay vs Traditioneel',
+    content: `Crypto betalen bij een winkel:
 
-☕ "That'll be €4.50"
+Traditioneel:
+→ Vraag om wallet adres
+→ Kopieer (hopelijk geen typo)
+→ Kies network
+→ Stel gas in
+→ Wacht op confirmatie
 
-You:
-1. Open wallet app
-2. Ask for their address
-3. They look confused
-4. You explain what crypto is
-5. They write address on napkin
-6. You type it in (typo?)
-7. Calculate gas fees
-8. Transaction pending...
-9. Still pending...
-10. Coffee is cold
+BLAZE QuickPay:
+→ Scan QR
+→ Bevestig
 
-There has to be a better way. 
-
-There is. 🔥
+Niet sneller. Wel veel makkelijker.
 
 blazewallet.io`,
-    hashtags: ['crypto', 'payments', 'UX', 'coffee'],
-    imageType: 'pain-point',
-    imageData: {
-      headline: 'Coffee + Crypto',
-      subheadline: '= 10 step nightmare',
-      icon: 'coffee',
-      gradient: 'dark',
+    hashtags: ['QuickPay', 'BLAZE', 'crypto', 'payments'],
+    visual: {
+      style: 'dark',
+      layout: 'comparison',
+      headline: 'QuickPay',
+      subheadline: 'Betalen zonder gedoe',
+      items: ['Scan QR code', 'Bevestig bedrag', 'Klaar'],
     },
-    engagement: 'Quote tweet with your worst crypto payment experience',
   },
   {
     id: 'w1d4',
     day: 4,
     week: 1,
-    phase: 'Awareness',
-    type: 'poll',
-    title: 'Engagement Poll',
-    content: `Quick poll for Crypto Twitter:
+    phase: 'Education',
+    type: 'text',
+    title: 'Scam Protection',
+    content: `$3.8 miljard verloren aan crypto scams in 2024.
 
-How often do you SPEND crypto in real life?
+BLAZE scant ELKE transactie:
 
-(Not trade, not stake, actually BUY things)`,
-    hashtags: ['crypto', 'poll', 'CryptoTwitter'],
-    imageType: 'stats',
-    imageData: {
-      headline: 'Poll',
-      subheadline: 'How often do you SPEND crypto?',
+✓ Adres reputatie check
+✓ Smart contract analyse
+✓ Real-time risk score
+✓ Waarschuwing voordat je bevestigt
+
+Je ziet het risico vóórdat je je crypto kwijt bent.
+
+blazewallet.io`,
+    hashtags: ['security', 'BLAZE', 'crypto', 'scam'],
+    visual: {
+      style: 'dark',
+      layout: 'stat',
+      headline: 'Scam Protection',
+      subheadline: 'Real-time risico analyse',
+      stat: '$3.8B',
+      statLabel: 'verloren aan scams in 2024',
     },
-    engagement: 'Poll options: Daily / Weekly / Monthly / Never',
+    tip: 'Link naar een recent scam nieuws artikel voor context.',
   },
   {
     id: 'w1d5',
     day: 5,
     week: 1,
-    phase: 'Awareness',
+    phase: 'Education',
     type: 'text',
-    title: 'The Solution Teaser',
-    content: `What if I told you...
+    title: 'All-in-One',
+    content: `Hoeveel crypto apps heb jij?
 
-You could pay with crypto:
-✓ At any store
-✓ By scanning a QR code
-✓ In seconds
-✓ On 18+ blockchains
-✓ With AI assistance
+• Wallet voor storage
+• DEX voor swaps
+• Bridge voor cross-chain
+• Exchange voor on-ramp
+• Andere exchange voor off-ramp
 
-Would you use it?
+BLAZE: Alles in 1 app.
 
-We're building exactly that.
+Swap. Bridge. On-ramp. Off-ramp. 18+ chains.
 
-BLAZE Wallet. Coming Q1 2026.
+Eén wallet. Klaar.
 
-Join 1,000+ on the waitlist 👇
 blazewallet.io`,
-    hashtags: ['BLAZE', 'BLAZEwallet', 'crypto', 'payments'],
-    imageType: 'feature',
-    imageData: {
-      headline: 'What if...',
-      subheadline: 'you could pay with crypto anywhere?',
-      gradient: 'orange',
+    hashtags: ['BLAZE', 'DeFi', 'crypto', 'wallet'],
+    visual: {
+      style: 'dark',
+      layout: 'list',
+      headline: 'Eén wallet. Alles.',
+      items: ['Swap & Bridge', 'On-ramp & Off-ramp', '18+ blockchains', 'Fiat ↔ Crypto'],
     },
+    tip: 'Poll optie: "Hoeveel crypto apps gebruik jij?" met opties 1-3, 4-6, 7+, Te veel',
   },
   {
     id: 'w1d6',
     day: 6,
     week: 1,
-    phase: 'Awareness',
-    type: 'text',
-    title: 'Weekend Recap',
-    content: `This week we talked about why crypto payments are broken.
+    phase: 'Education',
+    type: 'thread',
+    title: 'Smart Schedule Deep Dive',
+    content: `Hoe Smart Schedule werkt 🧵
 
-Next week: How we're fixing it.
+1/ Je maakt een transactie in BLAZE
 
-If you're tired of:
-• Complicated wallets
-• Slow transactions
-• Unusable UX
+2/ Je stelt je maximum gas prijs in
+(bijv. "max 20 gwei")
 
-You'll want to follow along.
+3/ Smart Schedule monitort de chain
 
-🔥 BLAZE Wallet - Making crypto spendable.
+4/ Gas te hoog? → Wachten
+Gas onder je max? → Automatisch uitvoeren
+
+5/ Jij doet niks. Wij besparen je geld.
+
+Gemiddelde besparing: 25-40%
+
+Geen enkele andere wallet heeft dit.
 
 blazewallet.io`,
-    hashtags: ['BLAZE', 'crypto', 'Web3'],
-    imageType: 'announcement',
-    imageData: {
-      headline: 'Week 1 Recap',
-      subheadline: 'The problem with crypto payments',
-      gradient: 'dark',
+    hashtags: ['SmartSchedule', 'BLAZE', 'gas', 'Ethereum'],
+    visual: {
+      style: 'gradient',
+      layout: 'stat',
+      headline: 'Smart Schedule',
+      stat: '25-40%',
+      statLabel: 'besparing op gas fees',
     },
   },
   {
     id: 'w1d7',
     day: 7,
     week: 1,
-    phase: 'Awareness',
-    type: 'image',
-    title: 'Sunday Stats',
-    content: `BLAZE Waitlist Update 📊
+    phase: 'Education',
+    type: 'text',
+    title: 'Week 1 Recap',
+    content: `BLAZE in het kort:
 
-Week 1 stats:
-• Waitlist signups: Growing daily
-• Countries represented: 20+
-• Most requested feature: QuickPay
+✓ Smart Schedule - Automatisch gas besparen
+✓ AI Assistant - Praat tegen je wallet
+✓ QuickPay - Betalen via QR
+✓ Scam Protection - Real-time bescherming
+✓ All-in-One - Swap, bridge, on/off-ramp
 
-Thank you for believing in our vision.
+Dit is geen "nog een wallet".
+Dit is de wallet die crypto simpel maakt.
 
-The revolution starts with spending.
+Volgende week: De BLAZE presale.
 
-🔥 blazewallet.io`,
-    hashtags: ['BLAZE', 'BLAZEwallet', 'update'],
-    imageType: 'stats',
-    imageData: {
-      headline: 'Week 1',
-      stat: '20+',
-      statLabel: 'Countries on waitlist',
-      gradient: 'orange',
+blazewallet.io`,
+    hashtags: ['BLAZE', 'crypto', 'wallet'],
+    visual: {
+      style: 'gradient',
+      layout: 'list',
+      headline: 'BLAZE Wallet',
+      subheadline: 'Crypto simpel gemaakt',
+      items: ['Smart Schedule', 'AI Assistant', 'QuickPay', 'Scam Protection'],
+      showLogo: true,
     },
   },
 
-  // ==========================================================================
-  // WEEK 2: AWARENESS - BLAZE INTRODUCTION
-  // ==========================================================================
+  // Week 2: Meer education + presale teaser
   {
     id: 'w2d1',
     day: 1,
     week: 2,
-    phase: 'Awareness',
-    type: 'thread',
-    title: 'Introducing BLAZE',
-    content: `🔥 Introducing BLAZE Wallet
+    phase: 'Education',
+    type: 'text',
+    title: 'On-ramp & Off-ramp',
+    content: `Crypto kopen met je bankrekening.
+Crypto verkopen naar je bankrekening.
 
-The crypto wallet built for SPENDING, not just holding.
+Allebei in BLAZE. Zonder externe exchanges.
 
-A thread on what makes us different 👇
+Geen:
+❌ Account aanmaken bij Binance
+❌ KYC op 3 verschillende platforms
+❌ Crypto overmaken tussen apps
 
-1/ QUICKPAY
+Gewoon:
+✓ Open BLAZE
+✓ Koop of verkoop
+✓ Klaar
 
-Scan a QR code. Confirm. Done.
-
-Pay with crypto at any store, just like Apple Pay.
-
-No addresses. No copy/paste. No waiting.
-
-2/ AI ASSISTANT
-
-"Send $50 USDC to @friend"
-
-Type natural language. AI handles the rest.
-
-No more navigating confusing menus.
-
-3/ SCAM PROTECTION
-
-Before you interact with any contract or address, we scan it.
-
-Real-time risk score. Warnings. Protection.
-
-Your funds stay safe.
-
-4/ 18+ BLOCKCHAINS
-
-Ethereum, BSC, Polygon, Solana, Arbitrum, Base, and more.
-
-One wallet. All your crypto. Everywhere.
-
-5/ Coming Q1 2026
-
-Join the waitlist for:
-• Early access
-• Presale discounts (up to 58% off!)
-• Founder benefits
-
-🔥 blazewallet.io`,
-    hashtags: ['BLAZE', 'BLAZEwallet', 'crypto', 'Web3', 'DeFi'],
-    imageType: 'feature',
-    imageData: {
-      headline: 'BLAZE Wallet',
-      subheadline: 'Pay with crypto. Anywhere.',
-      gradient: 'orange',
+blazewallet.io`,
+    hashtags: ['onramp', 'offramp', 'BLAZE', 'crypto'],
+    visual: {
+      style: 'dark',
+      layout: 'simple',
+      headline: 'Fiat ↔ Crypto',
+      subheadline: 'Direct in je wallet',
     },
   },
   {
     id: 'w2d2',
     day: 2,
     week: 2,
-    phase: 'Awareness',
-    type: 'image',
-    title: 'QuickPay Feature',
-    content: `QuickPay: The feature that changes everything.
+    phase: 'Education',
+    type: 'text',
+    title: 'Swap & Bridge',
+    content: `ETH op Ethereum.
+USDC nodig op Polygon.
 
-How it works:
-1️⃣ Merchant shows QR code
-2️⃣ You scan it
-3️⃣ Confirm amount
-4️⃣ Payment sent
+Oude manier:
+1. Zoek een bridge
+2. Verbind wallet
+3. Hoop dat het geen scam is
+4. Bridge ETH naar Polygon
+5. Zoek een DEX
+6. Swap ETH naar USDC
 
-That's it. Like Apple Pay, but for crypto.
+BLAZE:
+1. "Swap ETH naar USDC op Polygon"
+2. Bevestig
 
-Works with USDC, USDT, and 50+ tokens.
+Wij regelen de route. Jij betaalt de laagste fees.
 
-This is the future of spending.
-
-🔥 blazewallet.io/#quickpay`,
-    hashtags: ['QuickPay', 'BLAZE', 'crypto', 'payments'],
-    imageType: 'feature',
-    imageData: {
-      headline: 'QuickPay',
-      subheadline: 'Scan. Confirm. Done.',
-      icon: 'qr',
-      gradient: 'orange',
+blazewallet.io`,
+    hashtags: ['swap', 'bridge', 'BLAZE', 'DeFi'],
+    visual: {
+      style: 'dark',
+      layout: 'simple',
+      headline: 'Swap & Bridge',
+      subheadline: 'Cross-chain in één stap',
     },
   },
   {
     id: 'w2d3',
     day: 3,
     week: 2,
-    phase: 'Awareness',
+    phase: 'Education',
     type: 'text',
-    title: 'AI Assistant',
-    content: `"Send 100 USDC to mom"
+    title: '18 Chains',
+    content: `BLAZE ondersteunt 18+ blockchains:
 
-That's it. That's the transaction.
+• Ethereum
+• BSC
+• Polygon
+• Arbitrum
+• Optimism
+• Base
+• Avalanche
+• Solana
+• Fantom
+• Cronos
+• En meer...
 
-BLAZE AI understands natural language.
+Eén wallet. Al je crypto. Overal.
 
-No more:
-❌ Finding the right menu
-❌ Entering long addresses
-❌ Calculating gas manually
-
-Just tell the AI what you want.
-
-🔥 blazewallet.io`,
-    hashtags: ['AI', 'BLAZE', 'crypto', 'UX'],
-    imageType: 'feature',
-    imageData: {
-      headline: 'AI Assistant',
-      subheadline: '"Send 100 USDC to mom"',
-      icon: 'brain',
-      gradient: 'purple',
+blazewallet.io`,
+    hashtags: ['multichain', 'BLAZE', 'crypto'],
+    visual: {
+      style: 'dark',
+      layout: 'stat',
+      headline: '18+ Chains',
+      subheadline: 'Eén wallet voor alles',
+      stat: '18+',
+      statLabel: 'blockchains ondersteund',
     },
   },
   {
     id: 'w2d4',
     day: 4,
     week: 2,
-    phase: 'Awareness',
-    type: 'image',
-    title: 'Scam Protection',
-    content: `Lost $50K to a phishing link?
+    phase: 'Education',
+    type: 'text',
+    title: 'Non-Custodial',
+    content: `"Not your keys, not your crypto."
 
-We've all heard the horror stories.
+BLAZE is 100% non-custodial.
 
-BLAZE Scam Protection:
-✓ Scans every address before you send
-✓ Analyzes smart contracts in real-time
-✓ Shows risk score with warnings
-✓ Blocks known scam addresses
+• Jouw private keys blijven op jouw device
+• Wij kunnen NOOIT bij je funds
+• Alleen JIJ hebt toegang
 
-Your funds. Protected.
+Geen FTX-situaties. Geen "sorry, failliet".
 
-🔥 blazewallet.io`,
-    hashtags: ['security', 'BLAZE', 'crypto', 'scam'],
-    imageType: 'feature',
-    imageData: {
-      headline: 'Scam Protection',
-      subheadline: 'Real-time risk analysis',
-      icon: 'shield',
-      gradient: 'green',
+Jouw crypto. Echt van jou.
+
+blazewallet.io`,
+    hashtags: ['noncustodial', 'BLAZE', 'security', 'crypto'],
+    visual: {
+      style: 'dark',
+      layout: 'simple',
+      headline: 'Non-Custodial',
+      subheadline: 'Jouw keys. Jouw crypto.',
     },
+    tip: 'Refereer naar recente exchange problemen voor context.',
   },
   {
     id: 'w2d5',
     day: 5,
     week: 2,
-    phase: 'Awareness',
-    type: 'image',
-    title: '18 Chains',
-    content: `One wallet. 18+ blockchains.
+    phase: 'Education',
+    type: 'text',
+    title: 'Presale Teaser',
+    content: `Volgende week: BLAZE Token Presale details.
 
-BLAZE supports:
-• Ethereum
-• BSC
-• Polygon
-• Solana
-• Arbitrum
-• Base
-• Optimism
-• Avalanche
-• Fantom
-• Cronos
-• And more...
+Wat je kunt verwachten:
+• Early bird pricing
+• Bonus tiers voor vroege supporters
+• Staking rewards tot 20% APY
 
-No more juggling 10 different wallets.
+Join de waitlist om als eerste te horen.
 
-All your crypto. One place.
-
-🔥 blazewallet.io`,
-    hashtags: ['multichain', 'BLAZE', 'crypto', 'DeFi'],
-    imageType: 'feature',
-    imageData: {
-      headline: '18+ Chains',
-      subheadline: 'One wallet for everything',
-      icon: 'wallet',
-      gradient: 'blue',
+blazewallet.io`,
+    hashtags: ['BLAZE', 'presale', 'crypto'],
+    visual: {
+      style: 'gradient',
+      layout: 'simple',
+      headline: 'Presale Coming',
+      subheadline: 'Details volgende week',
+      showLogo: true,
     },
   },
   {
     id: 'w2d6',
     day: 6,
     week: 2,
-    phase: 'Awareness',
+    phase: 'Education',
     type: 'text',
-    title: 'Founder Vision',
-    content: `"For decades, we've watched money lose value year after year. 
+    title: 'Founder Quote',
+    content: `"We hebben BLAZE niet gebouwd om nóg een wallet te maken.
 
-We built BLAZE because we believe paying with crypto – everywhere – is the future."
+We hebben het gebouwd omdat we zelf gefrustreerd waren. Copy-pasten van adressen. Verkeerde networks. Dure gas fees.
+
+BLAZE is de wallet die wij zelf wilden gebruiken."
 
 - Rick Schlimback, Founder
 
-Join us in making crypto spendable.
-
-🔥 blazewallet.io`,
-    hashtags: ['BLAZE', 'founder', 'vision', 'crypto'],
-    imageType: 'testimonial',
-    imageData: {
-      headline: '"The future of money"',
+blazewallet.io`,
+    hashtags: ['BLAZE', 'founder', 'crypto'],
+    visual: {
+      style: 'dark',
+      layout: 'quote',
+      headline: '"De wallet die wij zelf wilden"',
       subheadline: '- Rick Schlimback, Founder',
-      gradient: 'dark',
     },
   },
   {
     id: 'w2d7',
     day: 7,
     week: 2,
-    phase: 'Awareness',
-    type: 'image',
-    title: 'Week 2 Stats',
-    content: `BLAZE Week 2 Update 📊
+    phase: 'Education',
+    type: 'text',
+    title: 'Waitlist Update',
+    content: `BLAZE Waitlist groeit. 🔥
 
-• Waitlist growth: +45%
-• Twitter followers: Growing
-• Most clicked feature: QuickPay
+Bedankt aan iedereen die zich heeft aangemeld.
 
-Your support means everything.
+Volgende week onthullen we de presale details:
+• Tokenomics
+• Pricing
+• Bonus structuur
 
-Next week: Presale details 👀
+Nog niet op de waitlist? Nu is het moment.
 
-🔥 blazewallet.io`,
-    hashtags: ['BLAZE', 'update', 'crypto'],
-    imageType: 'stats',
-    imageData: {
-      headline: 'Week 2',
-      stat: '+45%',
-      statLabel: 'Waitlist growth',
-      gradient: 'orange',
+blazewallet.io`,
+    hashtags: ['BLAZE', 'waitlist', 'presale'],
+    visual: {
+      style: 'gradient',
+      layout: 'simple',
+      headline: 'Waitlist Growing',
+      subheadline: 'Presale details coming soon',
+      showLogo: true,
     },
   },
 
   // ==========================================================================
-  // WEEK 3: EDUCATION - DEEP DIVES
+  // WEEK 3-4: PRESALE BUILDUP
   // ==========================================================================
   {
     id: 'w3d1',
     day: 1,
     week: 3,
-    phase: 'Education',
+    phase: 'Presale Buildup',
     type: 'thread',
-    title: 'QuickPay Deep Dive',
-    content: `🧵 QuickPay Deep Dive: How BLAZE makes crypto payments work
+    title: 'Tokenomics Reveal',
+    content: `BLAZE Token - Volledige Tokenomics 🧵
 
-Let me show you exactly how it works 👇
+1/ Total Supply: 1.000.000.000 BLAZE
+Vast. Geen inflatie.
 
-1/ THE PROBLEM
+2/ Distributie:
+• Presale: 12%
+• Liquidity: 25%
+• Staking rewards: 20%
+• Development: 15%
+• Marketing: 10%
+• Team: 12% (6 maanden vesting)
+• Reserve: 6%
 
-Current crypto payments:
-- Copy address → Paste → Set gas → Wait → Hope
+3/ Burn Mechanism:
+0.1% van elke transactie wordt verbrand.
+Supply daalt over tijd.
 
-QuickPay:
-- Scan → Confirm → Done
+4/ Presale Prijs: $0.00417
+Launch Prijs: $0.01
 
-2/ THE TECHNOLOGY
+58% korting voor presale deelnemers.
 
-QuickPay uses smart QR codes that encode:
-• Recipient address
-• Amount requested
-• Preferred token
-• Network selection
-
-All you do is scan and confirm.
-
-3/ SETTLEMENT TIME
-
-Here's the honest truth:
-- Polygon: ~2-3 seconds
-- Solana: ~1 second
-- BSC: ~3-5 seconds
-- Ethereum: ~15+ seconds
-
-We support fast chains for fast payments.
-
-4/ TOKEN SUPPORT
-
-Pay with whatever you have:
-• USDC, USDT (stablecoins)
-• ETH, BNB, MATIC
-• Any supported token
-
-Auto-convert coming soon.
-
-5/ TRY IT
-
-See QuickPay demo on our website.
-
-Coming Q1 2026.
-
-🔥 blazewallet.io/#quickpay`,
-    hashtags: ['QuickPay', 'BLAZE', 'crypto', 'tutorial'],
-    imageType: 'feature',
-    imageData: {
-      headline: 'QuickPay',
-      subheadline: 'How it actually works',
-      gradient: 'orange',
+Meer details: blazewallet.io/presale`,
+    hashtags: ['BLAZE', 'tokenomics', 'presale', 'crypto'],
+    visual: {
+      style: 'dark',
+      layout: 'stat',
+      headline: 'BLAZE Tokenomics',
+      stat: '1B',
+      statLabel: 'Total supply - fixed',
     },
   },
   {
     id: 'w3d2',
     day: 2,
     week: 3,
-    phase: 'Education',
-    type: 'image',
-    title: 'Chain Comparison',
-    content: `Which blockchain is fastest for payments? 🏎️
+    phase: 'Presale Buildup',
+    type: 'visual',
+    title: 'Bonus Tiers',
+    content: `BLAZE Presale Bonus Tiers:
 
-Settlement times:
+Founders (eerste 100 kopers): +100% bonus
+Early Birds (101-250): +75% bonus
+Believers (251-500): +50% bonus
+Supporters (501-1000): +35% bonus
+Community (1001-2000): +20% bonus
+Public (2000+): +10% bonus
 
-🥇 Solana: ~1 second
-🥈 Polygon: ~2-3 seconds  
-🥉 BSC: ~3-5 seconds
-4️⃣ Arbitrum: ~5-10 seconds
-5️⃣ Ethereum: ~15+ seconds
+Rekenvoorbeeld Founder tier:
+Investeer €100 → Ontvang 47.962 BLAZE
+Waarde bij launch: €479
 
-BLAZE supports all of them.
-
-Choose the right chain for your needs.
-
-🔥 blazewallet.io`,
-    hashtags: ['blockchain', 'speed', 'crypto', 'BLAZE'],
-    imageType: 'stats',
-    imageData: {
-      headline: 'Chain Speed',
-      subheadline: 'Settlement times compared',
-      gradient: 'blue',
+blazewallet.io/presale`,
+    hashtags: ['BLAZE', 'presale', 'bonus'],
+    visual: {
+      style: 'gradient',
+      layout: 'stat',
+      headline: 'Founder Bonus',
+      stat: '+100%',
+      statLabel: 'voor de eerste 100 kopers',
     },
   },
   {
     id: 'w3d3',
     day: 3,
     week: 3,
-    phase: 'Education',
+    phase: 'Presale Buildup',
     type: 'text',
-    title: 'Why Stablecoins',
-    content: `Why pay with stablecoins?
+    title: 'Staking Rewards',
+    content: `BLAZE Staking (launch Q1 2026):
 
-Your crypto portfolio: 📈📉📈📉📈
+Flexible staking: 8% APY
+→ Unstake wanneer je wilt
 
-Your coffee price: ☕ €4.50
+6 maanden lock: 15% APY
+→ Hogere rewards, vaste periode
 
-When you're SPENDING, you want stability.
+12 maanden lock: 20% APY
+→ Maximum rewards
 
-That's why QuickPay defaults to USDC/USDT.
+Stake je BLAZE. Verdien meer BLAZE.
 
-• No volatility stress
-• Know exactly what you're paying
-• Merchant gets stable value
-
-Spending should be simple.
-
-🔥 blazewallet.io`,
-    hashtags: ['stablecoins', 'USDC', 'crypto', 'payments'],
-    imageType: 'feature',
-    imageData: {
-      headline: 'Stablecoins',
-      subheadline: 'For stable spending',
-      gradient: 'blue',
+blazewallet.io`,
+    hashtags: ['staking', 'BLAZE', 'APY', 'DeFi'],
+    visual: {
+      style: 'dark',
+      layout: 'stat',
+      headline: 'Staking Rewards',
+      stat: '20%',
+      statLabel: 'APY (12 maanden lock)',
     },
   },
   {
     id: 'w3d4',
     day: 4,
     week: 3,
-    phase: 'Education',
-    type: 'thread',
-    title: 'Security Deep Dive',
-    content: `🧵 How BLAZE keeps your crypto safe
+    phase: 'Presale Buildup',
+    type: 'text',
+    title: 'Why BLAZE Token',
+    content: `Waarom een BLAZE token?
 
-Security isn't optional. Here's our approach 👇
+1. Governance
+Token holders stemmen over nieuwe features en richting.
 
-1/ NON-CUSTODIAL
+2. Fee discounts
+Betaal fees met BLAZE voor korting.
 
-Your keys. Your crypto. Always.
+3. Staking rewards
+Verdien passief inkomen op je holdings.
 
-We never store your private keys on our servers.
+4. Ecosystem growth
+Token waarde groeit mee met BLAZE adoptie.
 
-Only YOU control your funds.
+Dit is niet zomaar een token.
+Dit is ownership in het BLAZE ecosysteem.
 
-2/ BIOMETRIC AUTH
-
-WebAuthn + Face ID / Touch ID
-
-No passwords to steal.
-
-3/ SCAM DETECTION
-
-Before every transaction:
-• Address reputation check
-• Contract analysis
-• Risk score calculation
-• Warning display
-
-We catch scams before they catch you.
-
-4/ ENCRYPTED STORAGE
-
-All local data encrypted.
-
-Even if someone gets your phone, they can't access your wallet.
-
-5/ UPCOMING: CERTIK AUDIT
-
-Security audit scheduled Q1 2026.
-
-Professional verification.
-
-🔥 blazewallet.io`,
-    hashtags: ['security', 'BLAZE', 'crypto', 'safety'],
-    imageType: 'feature',
-    imageData: {
-      headline: 'Security First',
-      subheadline: 'Your keys. Your crypto.',
-      icon: 'shield',
-      gradient: 'green',
+blazewallet.io/presale`,
+    hashtags: ['BLAZE', 'token', 'utility', 'crypto'],
+    visual: {
+      style: 'dark',
+      layout: 'list',
+      headline: 'BLAZE Token Utility',
+      items: ['Governance voting', 'Fee discounts', 'Staking rewards', 'Ecosystem ownership'],
     },
   },
   {
     id: 'w3d5',
     day: 5,
     week: 3,
-    phase: 'Education',
-    type: 'image',
-    title: 'BLAZE vs Others',
-    content: `BLAZE vs Traditional Wallets
+    phase: 'Presale Buildup',
+    type: 'text',
+    title: 'Investment Case',
+    content: `Waarom BLAZE?
 
-Feature comparison:
+✓ Unieke features die geen andere wallet heeft
+✓ Werkend product, geen vaporware
+✓ Deflationary tokenomics (0.1% burn)
+✓ Staking tot 20% APY
+✓ 58% presale korting
 
-QuickPay QR payments:
-❌ MetaMask
-❌ Trust Wallet  
-✅ BLAZE
+Plus: Een team dat daadwerkelijk bouwt.
 
-AI Assistant:
-❌ MetaMask
-❌ Trust Wallet
-✅ BLAZE
+Check onze website. Lees de whitepaper. Doe je eigen research.
 
-Scam Protection:
-⚠️ MetaMask (basic)
-⚠️ Trust Wallet (basic)
-✅ BLAZE (advanced)
-
-Payment-first UX:
-❌ MetaMask
-❌ Trust Wallet
-✅ BLAZE
-
-We're not just another wallet.
-
-🔥 blazewallet.io`,
-    hashtags: ['BLAZE', 'wallet', 'comparison', 'crypto'],
-    imageType: 'stats',
-    imageData: {
-      headline: 'BLAZE',
-      subheadline: 'Not just another wallet',
-      gradient: 'orange',
+blazewallet.io/whitepaper`,
+    hashtags: ['BLAZE', 'investment', 'DYOR', 'crypto'],
+    visual: {
+      style: 'dark',
+      layout: 'simple',
+      headline: 'DYOR',
+      subheadline: 'Lees de whitepaper',
     },
+    tip: 'Stimuleer eigen research - bouwt vertrouwen.',
   },
   {
     id: 'w3d6',
     day: 6,
     week: 3,
-    phase: 'Education',
+    phase: 'Presale Buildup',
     type: 'text',
-    title: 'Roadmap Preview',
-    content: `What's coming for BLAZE?
+    title: 'Presale FAQ',
+    content: `BLAZE Presale FAQ:
 
-2025:
-✓ Website live
-✓ Waitlist open
-→ AI features development
-→ QuickPay integration
+Wanneer?
+→ Q1 2026 (exacte datum via waitlist)
 
-Q1 2026:
-• iOS & Android launch
-• BLAZE token presale
-• Staking (up to 20% APY)
+Minimum investering?
+→ $10
 
-Q2 2026:
-• Global merchant partnerships
-• DAO governance launch
-• Advanced DeFi features
+Maximum investering?
+→ $2,500
 
-We're building the future of spending.
+Betaalmethodes?
+→ USDC, BNB, ETH, of creditcard
 
-🔥 blazewallet.io/whitepaper`,
-    hashtags: ['roadmap', 'BLAZE', 'crypto', 'future'],
-    imageType: 'announcement',
-    imageData: {
-      headline: 'Roadmap',
-      subheadline: 'Q1 2026: Launch',
-      gradient: 'orange',
+Wanneer ontvang ik tokens?
+→ Bij Token Generation Event (TGE)
+
+blazewallet.io/presale`,
+    hashtags: ['BLAZE', 'presale', 'FAQ'],
+    visual: {
+      style: 'dark',
+      layout: 'simple',
+      headline: 'Presale FAQ',
+      subheadline: 'Alles wat je moet weten',
     },
   },
   {
     id: 'w3d7',
     day: 7,
     week: 3,
-    phase: 'Education',
-    type: 'image',
-    title: 'Week 3 Milestone',
-    content: `BLAZE Week 3 Update 📊
+    phase: 'Presale Buildup',
+    type: 'text',
+    title: 'Countdown Announcement',
+    content: `BLAZE Presale start over 14 dagen.
 
-Milestone reached: 2,500+ waitlist signups! 🎉
+100 Founder spots.
++100% bonus.
 
-Top countries:
-🇳🇱 Netherlands
-🇺🇸 USA
-🇬🇧 UK
-🇩🇪 Germany
+Duizenden op de waitlist.
 
-Thank you for spreading the word!
+De rekening is simpel.
 
-Next week: PRESALE DETAILS 🔥
+Zet de datum in je agenda.
 
 blazewallet.io`,
-    hashtags: ['BLAZE', 'milestone', 'waitlist'],
-    imageType: 'stats',
-    imageData: {
-      headline: '2,500+',
-      stat: '2,500+',
-      statLabel: 'Waitlist signups',
-      gradient: 'orange',
+    hashtags: ['BLAZE', 'presale', 'countdown'],
+    visual: {
+      style: 'gradient',
+      layout: 'countdown',
+      headline: '14 dagen',
+      subheadline: 'tot BLAZE Presale',
     },
   },
 
-  // ==========================================================================
-  // WEEK 4: PRESALE BUILDUP
-  // ==========================================================================
+  // Week 4: Meer buildup
   {
     id: 'w4d1',
     day: 1,
     week: 4,
     phase: 'Presale Buildup',
-    type: 'thread',
-    title: 'Tokenomics Reveal',
-    content: `🔥 BLAZE TOKEN - Full Tokenomics Reveal
+    type: 'text',
+    title: 'Product vs Token',
+    content: `Veel crypto projecten: token eerst, product later (misschien).
 
-Everything you need to know about $BLAZE 👇
+BLAZE: Product eerst.
 
-1/ TOTAL SUPPLY
+De wallet is gebouwd. De features werken.
+QuickPay, AI Assistant, Smart Schedule - het bestaat.
 
-1,000,000,000 BLAZE tokens
-(1 billion)
+De token komt erbij voor governance en rewards.
 
-Fixed supply. No inflation.
+Geen beloftes. Resultaten.
 
-2/ DISTRIBUTION
-
-• Presale: 12% (120M tokens)
-• Liquidity: 25%
-• Staking rewards: 20%
-• Development: 15%
-• Marketing: 10%
-• Team: 12% (6-month vesting)
-• Reserve: 6%
-
-3/ BURN MECHANISM
-
-0.1% of every transaction is burned.
-
-Over time, supply decreases.
-
-Deflationary by design.
-
-4/ PRESALE PRICE
-
-$0.00417 per token
-(58% discount from launch!)
-
-Launch price: $0.01
-
-5/ BONUS TIERS 🎁
-
-• Founders (first 100): +100% bonus
-• Early Birds (100-250): +75% bonus
-• Believers (250-500): +50% bonus
-• Supporters (500-1000): +35% bonus
-• Community (1000-2000): +20% bonus
-• Public (2000+): +10% bonus
-
-First movers get rewarded.
-
-🔥 blazewallet.io/presale`,
-    hashtags: ['BLAZE', 'tokenomics', 'presale', 'crypto'],
-    imageType: 'announcement',
-    imageData: {
-      headline: '$BLAZE',
-      subheadline: 'Tokenomics revealed',
-      stat: '1B',
-      statLabel: 'Total supply',
-      gradient: 'orange',
+blazewallet.io`,
+    hashtags: ['BLAZE', 'crypto', 'building'],
+    visual: {
+      style: 'dark',
+      layout: 'simple',
+      headline: 'Product First',
+      subheadline: 'Geen beloftes. Resultaten.',
     },
   },
   {
@@ -902,44 +726,26 @@ First movers get rewarded.
     day: 2,
     week: 4,
     phase: 'Presale Buildup',
-    type: 'image',
-    title: 'Bonus Tiers Visual',
-    content: `🎁 BLAZE Presale Bonus Tiers
+    type: 'text',
+    title: 'Referral Program',
+    content: `BLAZE Referral Program is live.
 
-The earlier you join, the more you get:
+Deel je unieke link. Verdien rewards.
 
-🏆 FOUNDERS (spots 1-100)
-+100% BONUS
-Buy 10,000 → Get 20,000 BLAZE
+Top referrers krijgen:
+• Bonus allocatie in de presale
+• Early access tot nieuwe features
+• Exclusive community role
 
-⭐ EARLY BIRDS (101-250)
-+75% BONUS
-Buy 10,000 → Get 17,500 BLAZE
+Je referral link staat in je waitlist email.
 
-🔥 BELIEVERS (251-500)
-+50% BONUS
-Buy 10,000 → Get 15,000 BLAZE
-
-💪 SUPPORTERS (501-1000)
-+35% BONUS
-
-🤝 COMMUNITY (1001-2000)
-+20% BONUS
-
-👥 PUBLIC (2001+)
-+10% BONUS
-
-Don't miss Founder tier.
-
-🔥 blazewallet.io/presale`,
-    hashtags: ['BLAZE', 'presale', 'bonus', 'crypto'],
-    imageType: 'announcement',
-    imageData: {
-      headline: '+100%',
-      subheadline: 'Founder Bonus',
-      stat: '100',
-      statLabel: 'Founder spots',
-      gradient: 'gold',
+Nog niet aangemeld? blazewallet.io`,
+    hashtags: ['BLAZE', 'referral', 'rewards'],
+    visual: {
+      style: 'gradient',
+      layout: 'simple',
+      headline: 'Referral Rewards',
+      subheadline: 'Deel & verdien',
     },
   },
   {
@@ -948,30 +754,25 @@ Don't miss Founder tier.
     week: 4,
     phase: 'Presale Buildup',
     type: 'text',
-    title: 'FOMO Post',
-    content: `Quick math on BLAZE presale:
+    title: '10 Days',
+    content: `10 dagen tot BLAZE presale.
 
-Presale price: $0.00417
-Launch price: $0.01
+Quick recap wat je krijgt:
 
-That's a 58% discount.
+• 58% korting vs launch prijs
+• Tot +100% bonus tokens
+• Governance rights
+• Staking rewards tot 20% APY
 
-With Founder bonus (+100%):
-• Invest $100
-• Get 47,962 BLAZE
-• Worth $479 at launch
+En een wallet die je daadwerkelijk wilt gebruiken.
 
-4.79x potential from day 1.
-
-Only 100 Founder spots.
-
-🔥 blazewallet.io/presale`,
-    hashtags: ['BLAZE', 'presale', 'crypto', 'investment'],
-    imageType: 'stats',
-    imageData: {
-      headline: '4.79x',
-      subheadline: 'Potential for Founders',
-      gradient: 'orange',
+blazewallet.io/presale`,
+    hashtags: ['BLAZE', 'presale', 'countdown'],
+    visual: {
+      style: 'gradient',
+      layout: 'countdown',
+      headline: '10 dagen',
+      subheadline: 'BLAZE Presale',
     },
   },
   {
@@ -979,33 +780,30 @@ Only 100 Founder spots.
     day: 4,
     week: 4,
     phase: 'Presale Buildup',
-    type: 'image',
-    title: 'Staking Preview',
-    content: `BLAZE Staking Rewards (launching Q1 2026)
+    type: 'text',
+    title: 'Community Growth',
+    content: `BLAZE community update:
 
-Earn passive income on your BLAZE:
+De waitlist groeit elke dag. Uit 25+ landen.
 
-🟢 Flexible staking
-• Unstake anytime
-• 8% APY
+Wat mensen zeggen:
 
-🟡 6-month lock
-• Fixed term
-• 15% APY
+"Eindelijk een wallet die niet 10 stappen nodig heeft"
 
-🔴 12-month lock
-• Best returns
-• 20% APY
+"Smart Schedule alleen al is het waard"
 
-Stack your BLAZE. Earn more BLAZE.
+"Non-custodial + goede UX = zeldzaam"
 
-🔥 blazewallet.io`,
-    hashtags: ['staking', 'BLAZE', 'APY', 'passive'],
-    imageType: 'feature',
-    imageData: {
-      headline: 'Up to 20%',
-      subheadline: 'APY on staking',
-      gradient: 'green',
+Bedankt voor de support.
+
+blazewallet.io`,
+    hashtags: ['BLAZE', 'community', 'crypto'],
+    visual: {
+      style: 'dark',
+      layout: 'stat',
+      headline: 'Community',
+      stat: '25+',
+      statLabel: 'landen op de waitlist',
     },
   },
   {
@@ -1014,27 +812,24 @@ Stack your BLAZE. Earn more BLAZE.
     week: 4,
     phase: 'Presale Buildup',
     type: 'text',
-    title: 'Countdown Start',
-    content: `⏰ BLAZE PRESALE
+    title: '7 Days',
+    content: `1 week tot presale.
 
-Opening in 14 days.
+Checklist:
+☐ Op waitlist (wordt als eerste genotified)
+☐ Whitepaper gelezen
+☐ Funds klaar (USDC, BNB, ETH)
 
-What you need to know:
+Founder tier: 100 spots.
+Bonus: +100%.
 
-📅 Date: [TBA - Q1 2026]
-💰 Price: $0.00417
-🎁 Founder bonus: +100%
-📊 Spots: Only 100 at Founder tier
-
-Join the waitlist now to be notified.
-
-🔥 blazewallet.io`,
-    hashtags: ['BLAZE', 'presale', 'countdown'],
-    imageType: 'countdown',
-    imageData: {
-      headline: '14 Days',
-      subheadline: 'Until presale opens',
-      gradient: 'orange',
+blazewallet.io`,
+    hashtags: ['BLAZE', 'presale', '7days'],
+    visual: {
+      style: 'gradient',
+      layout: 'countdown',
+      headline: '7 dagen',
+      subheadline: 'Presale countdown',
     },
   },
   {
@@ -1042,29 +837,30 @@ Join the waitlist now to be notified.
     day: 6,
     week: 4,
     phase: 'Presale Buildup',
-    type: 'image',
-    title: 'Social Proof',
-    content: `BLAZE Community Growing 🚀
+    type: 'text',
+    title: 'Security Note',
+    content: `Security reminder:
 
-This week:
-• 1,000+ new waitlist signups
-• 500+ new Twitter followers
-• 50+ referrals claimed
+De ENIGE officiële BLAZE links:
+• Website: blazewallet.io
+• Twitter: @BLAZEwallet
 
-The word is spreading.
+Wij vragen NOOIT om je:
+• Private keys
+• Seed phrase
+• Wachtwoorden
 
-Founder spots won't last.
+Scammers worden actiever rond presales. Stay safe.
 
-Secure your position 👇
 blazewallet.io`,
-    hashtags: ['BLAZE', 'community', 'growth'],
-    imageType: 'stats',
-    imageData: {
-      headline: '1,000+',
-      stat: '1,000+',
-      statLabel: 'New signups this week',
-      gradient: 'orange',
+    hashtags: ['BLAZE', 'security', 'scam'],
+    visual: {
+      style: 'dark',
+      layout: 'simple',
+      headline: 'Stay Safe',
+      subheadline: 'Alleen blazewallet.io',
     },
+    tip: 'Belangrijke post - pin deze voor de presale week.',
   },
   {
     id: 'w4d7',
@@ -1072,245 +868,202 @@ blazewallet.io`,
     week: 4,
     phase: 'Presale Buildup',
     type: 'text',
-    title: 'Week 4 Summary',
-    content: `Week 4 Recap - Presale reveal edition
+    title: 'Final Week',
+    content: `Volgende week: BLAZE presale gaat live.
 
-This week we shared:
-✓ Full tokenomics (1B supply)
-✓ Bonus tiers (+100% for Founders!)
-✓ Staking rewards (up to 20% APY)
-✓ Presale countdown started
+Wat je moet weten:
+• Maandag: 5 dagen countdown
+• Donderdag: Final prep post
+• Vrijdag: PRESALE LIVE
 
-Next week: Final countdown + presale launch prep.
+Dit wordt de laatste week van educatie.
+Daarna is het tijd om te bouwen.
 
-Are you ready?
-
-🔥 blazewallet.io`,
-    hashtags: ['BLAZE', 'recap', 'presale'],
-    imageType: 'stats',
-    imageData: {
-      headline: 'Week 4',
-      subheadline: 'Presale revealed',
-      gradient: 'dark',
+blazewallet.io`,
+    hashtags: ['BLAZE', 'presale', 'launch'],
+    visual: {
+      style: 'gradient',
+      layout: 'simple',
+      headline: 'Final Week',
+      subheadline: 'Presale incoming',
+      showLogo: true,
     },
   },
 
   // ==========================================================================
-  // WEEK 5: PRESALE COUNTDOWN
+  // WEEK 5: COUNTDOWN
   // ==========================================================================
   {
     id: 'w5d1',
     day: 1,
     week: 5,
-    phase: 'Presale Countdown',
-    type: 'image',
-    title: '7 Days Countdown',
-    content: `🚨 7 DAYS UNTIL BLAZE PRESALE
+    phase: 'Countdown',
+    type: 'text',
+    title: '5 Days',
+    content: `5 dagen.
 
-One week from now, it begins.
+Presale prijs: $0.00417
+Founder bonus: +100%
+Spots: 100
 
-Final checklist:
-☐ On waitlist? (notified first)
-☐ Funds ready? (USDC, BNB, ETH)
-☐ Wallet connected?
-
-First 100 buyers = Founder tier (+100% bonus)
-
-Don't oversleep this one.
-
-🔥 blazewallet.io/presale`,
-    hashtags: ['BLAZE', 'presale', 'countdown', '7days'],
-    imageType: 'countdown',
-    imageData: {
-      headline: '7 Days',
-      subheadline: 'PRESALE COUNTDOWN',
-      gradient: 'orange',
+blazewallet.io/presale`,
+    hashtags: ['BLAZE', 'presale', '5days'],
+    visual: {
+      style: 'gradient',
+      layout: 'countdown',
+      headline: '5',
+      subheadline: 'dagen tot presale',
     },
   },
   {
     id: 'w5d2',
     day: 2,
     week: 5,
-    phase: 'Presale Countdown',
+    phase: 'Countdown',
     type: 'text',
-    title: '6 Days',
-    content: `6 days until BLAZE presale.
+    title: '4 Days',
+    content: `4 dagen.
 
-Founder tier recap:
-• First 100 buyers only
-• +100% bonus tokens
-• $0.00417 per token
-• Maximum allocation: $2,500
+Last minute FAQ:
 
-At launch ($0.01):
-$100 investment → $479 value
+Kan ik meerdere keren kopen?
+→ Ja, tot max $2,500 totaal
 
-The math speaks for itself.
+Welk network?
+→ BSC (BEP-20)
 
-🔥 blazewallet.io/presale`,
-    hashtags: ['BLAZE', 'presale', 'countdown'],
-    imageType: 'countdown',
-    imageData: {
-      headline: '6 Days',
-      subheadline: 'Founder tier: +100%',
-      gradient: 'orange',
+Wanneer trading?
+→ Na TGE, datum volgt
+
+blazewallet.io/presale`,
+    hashtags: ['BLAZE', 'presale', '4days'],
+    visual: {
+      style: 'gradient',
+      layout: 'countdown',
+      headline: '4',
+      subheadline: 'dagen tot presale',
     },
   },
   {
     id: 'w5d3',
     day: 3,
     week: 5,
-    phase: 'Presale Countdown',
-    type: 'image',
-    title: '5 Days',
-    content: `5 DAYS ⏰
+    phase: 'Countdown',
+    type: 'text',
+    title: '3 Days',
+    content: `3 dagen.
 
-Referral leaderboard heating up!
+Referral leaderboard update:
 
-Top referrers will get bonus allocations.
+Top 10 referrers krijgen extra allocatie.
+Je link staat in je waitlist email.
 
-Current leaders:
-🥇 @[user1] - 23 referrals
-🥈 @[user2] - 18 referrals
-🥉 @[user3] - 15 referrals
+Laatste kans om te klimmen.
 
-Your unique referral link is in your email.
-
-Share & earn more BLAZE.
-
-🔥 blazewallet.io`,
-    hashtags: ['BLAZE', 'referral', 'presale'],
-    imageType: 'stats',
-    imageData: {
-      headline: '5 Days',
-      subheadline: 'Referral leaderboard live',
-      gradient: 'orange',
+blazewallet.io`,
+    hashtags: ['BLAZE', 'presale', '3days', 'referral'],
+    visual: {
+      style: 'gradient',
+      layout: 'countdown',
+      headline: '3',
+      subheadline: 'dagen tot presale',
     },
   },
   {
     id: 'w5d4',
     day: 4,
     week: 5,
-    phase: 'Presale Countdown',
+    phase: 'Countdown',
     type: 'text',
-    title: '4 Days',
-    content: `4 days remaining.
+    title: '2 Days',
+    content: `48 uur.
 
-FAQ time:
+Final checklist:
+☐ Wallet ready met USDC/BNB/ETH
+☐ blazewallet.io/presale bookmarked
+☐ Notifications aan voor @BLAZEwallet
 
-Q: What payment methods?
-A: USDC, BNB, ETH, or card
+Founder tier gaat snel.
 
-Q: Minimum investment?
-A: $10
-
-Q: Maximum investment?
-A: $2,500
-
-Q: When do I receive tokens?
-A: At TGE (Q1 2026)
-
-Q: Is this safe?
-A: Smart contract audited. Non-custodial.
-
-🔥 blazewallet.io/presale`,
-    hashtags: ['BLAZE', 'presale', 'FAQ'],
-    imageType: 'announcement',
-    imageData: {
-      headline: '4 Days',
-      subheadline: 'Presale FAQ',
-      gradient: 'orange',
+blazewallet.io`,
+    hashtags: ['BLAZE', 'presale', '48hours'],
+    visual: {
+      style: 'gradient',
+      layout: 'countdown',
+      headline: '48',
+      subheadline: 'uur tot presale',
     },
   },
   {
     id: 'w5d5',
     day: 5,
     week: 5,
-    phase: 'Presale Countdown',
-    type: 'image',
-    title: '3 Days',
-    content: `3 DAYS 🔥
+    phase: 'Countdown',
+    type: 'text',
+    title: '1 Day',
+    content: `Morgen.
 
-Waitlist just crossed 5,000 signups.
+BLAZE Presale - 09:00 UTC
 
-But Founder tier = only 100 spots.
+Wees er op tijd. Founder spots zijn beperkt.
 
-50:1 odds.
+Tot morgen.
 
-Speed matters.
-
-Be ready. Be early. Be a Founder.
-
-🔥 blazewallet.io/presale`,
-    hashtags: ['BLAZE', 'presale', 'countdown'],
-    imageType: 'countdown',
-    imageData: {
-      headline: '3 Days',
-      stat: '5,000+',
-      statLabel: 'Waitlist vs 100 Founder spots',
-      gradient: 'red',
+blazewallet.io/presale`,
+    hashtags: ['BLAZE', 'presale', 'tomorrow'],
+    visual: {
+      style: 'gradient',
+      layout: 'countdown',
+      headline: 'Morgen',
+      subheadline: '09:00 UTC',
     },
   },
   {
     id: 'w5d6',
     day: 6,
     week: 5,
-    phase: 'Presale Countdown',
+    phase: 'Countdown',
     type: 'text',
-    title: '2 Days',
-    content: `48 hours.
+    title: 'Launch Day Eve',
+    content: `Over een paar uur.
 
-Final reminder checklist:
+Alles is klaar. Het team is ready.
 
-✓ Waitlist: blazewallet.io
-✓ Funds ready in wallet
-✓ Browser bookmarked
-✓ Notifications on
+Presale gaat live om 09:00 UTC.
 
-This is it.
+Set your alarms.
 
-Founder tier. +100% bonus.
-
-See you there.
-
-🔥`,
-    hashtags: ['BLAZE', 'presale', '48hours'],
-    imageType: 'countdown',
-    imageData: {
-      headline: '48 Hours',
-      subheadline: 'FINAL COUNTDOWN',
-      gradient: 'red',
+blazewallet.io/presale`,
+    hashtags: ['BLAZE', 'presale', 'launch'],
+    visual: {
+      style: 'gradient',
+      layout: 'simple',
+      headline: 'Ready',
+      subheadline: '09:00 UTC morgen',
+      showLogo: true,
     },
   },
   {
     id: 'w5d7',
     day: 7,
     week: 5,
-    phase: 'Presale Countdown',
-    type: 'image',
-    title: 'Tomorrow',
-    content: `TOMORROW 🚨
+    phase: 'Countdown',
+    type: 'text',
+    title: 'Launch Day Morning',
+    content: `Vandaag is de dag.
 
-BLAZE Presale opens in 24 hours.
+Presale gaat LIVE om 09:00 UTC.
 
-Timeline:
-• 9:00 UTC - Presale goes LIVE
-• First 100 = Founder tier (+100%)
-• Price: $0.00417
+Link: blazewallet.io/presale
 
-We've been building for months.
-
-Tomorrow, you can join us.
-
-Set your alarms.
-
-🔥 blazewallet.io/presale`,
-    hashtags: ['BLAZE', 'presale', 'tomorrow', 'launch'],
-    imageType: 'countdown',
-    imageData: {
-      headline: '24 Hours',
-      subheadline: 'TOMORROW 9:00 UTC',
-      gradient: 'red',
+See you there.`,
+    hashtags: ['BLAZE', 'presale', 'LIVE'],
+    visual: {
+      style: 'gradient',
+      layout: 'simple',
+      headline: 'Launch Day',
+      subheadline: '09:00 UTC',
+      showLogo: true,
     },
   },
 
@@ -1322,71 +1075,20 @@ Set your alarms.
     day: 1,
     week: 6,
     phase: 'Presale Live',
-    type: 'thread',
+    type: 'text',
     title: 'PRESALE LIVE',
-    content: `🔥🔥🔥 BLAZE PRESALE IS LIVE 🔥🔥🔥
+    content: `BLAZE Presale is LIVE.
 
-This is it. The moment we've been building towards.
+blazewallet.io/presale
 
-👇 Everything you need to know:
-
-1/ HOW TO BUY
-
-• Go to blazewallet.io/presale
-• Connect wallet
-• Choose amount
-• Confirm transaction
-
-Simple.
-
-2/ CURRENT STATUS
-
-Founder tier: FILLING FAST
-Price: $0.00417
-Bonus: +100%
-
-3/ LIVE TRACKER
-
-We'll post updates every hour.
-
-Follow along as we build BLAZE together.
-
-Let's go 🚀
-
-🔥 blazewallet.io/presale`,
-    hashtags: ['BLAZE', 'presale', 'LIVE', 'crypto'],
-    imageType: 'announcement',
-    imageData: {
-      headline: '🔥 LIVE',
-      subheadline: 'PRESALE IS OPEN',
-      gradient: 'fire',
-    },
-  },
-  {
-    id: 'w6d1b',
-    day: 1,
-    week: 6,
-    phase: 'Presale Live',
-    type: 'image',
-    title: 'Hour 1 Update',
-    content: `⏰ HOUR 1 UPDATE
-
-Presale stats:
-• Raised: $[AMOUNT]
-• Buyers: [NUMBER]
-• Founder spots remaining: [NUMBER]
-
-Founder tier filling FAST.
-
-Don't wait.
-
-🔥 blazewallet.io/presale`,
-    hashtags: ['BLAZE', 'presale', 'update'],
-    imageType: 'progress',
-    imageData: {
-      headline: 'Hour 1',
-      subheadline: 'PRESALE UPDATE',
-      gradient: 'orange',
+Founder tier beschikbaar.`,
+    hashtags: ['BLAZE', 'presale', 'LIVE'],
+    visual: {
+      style: 'gradient',
+      layout: 'simple',
+      headline: 'LIVE',
+      subheadline: 'Presale is open',
+      showLogo: true,
     },
   },
   {
@@ -1394,29 +1096,24 @@ Don't wait.
     day: 2,
     week: 6,
     phase: 'Presale Live',
-    type: 'image',
-    title: 'Day 2 Update',
-    content: `🔥 PRESALE DAY 2
-
-Stats update:
-💰 Raised: $[AMOUNT]
-👥 Buyers: [NUMBER]
-📊 Progress: [X]%
+    type: 'text',
+    title: 'Update 1',
+    content: `Presale Update:
 
 Founder tier: [STATUS]
+Raised: $[AMOUNT]
+Participants: [NUMBER]
 
-Current tier: [TIER NAME] (+[X]% bonus)
-
-Join now while bonuses last.
-
-🔥 blazewallet.io/presale`,
+blazewallet.io/presale`,
     hashtags: ['BLAZE', 'presale', 'update'],
-    imageType: 'progress',
-    imageData: {
-      headline: 'Day 2',
-      subheadline: 'Presale progress',
-      gradient: 'orange',
+    visual: {
+      style: 'gradient',
+      layout: 'stat',
+      headline: 'Presale Update',
+      stat: 'LIVE',
+      statLabel: 'Check status op website',
     },
+    tip: 'Vul de echte cijfers in uit de admin.',
   },
   {
     id: 'w6d3',
@@ -1424,28 +1121,25 @@ Join now while bonuses last.
     week: 6,
     phase: 'Presale Live',
     type: 'text',
-    title: 'Social Proof',
-    content: `The BLAZE community is amazing.
+    title: 'Thank You',
+    content: `Aan iedereen die heeft deelgenomen:
 
-Messages from buyers:
+Bedankt voor het vertrouwen.
 
-"Finally a wallet for SPENDING crypto" - @user1
+Dit is pas het begin. We bouwen door.
 
-"Founder bonus is insane" - @user2
+Wallet launch: Q1 2026
+Staking: Q1 2026
 
-"This is what crypto needs" - @user3
+Stay tuned.
 
-Thank you for believing in our vision.
-
-Still time to join.
-
-🔥 blazewallet.io/presale`,
-    hashtags: ['BLAZE', 'community', 'presale'],
-    imageType: 'testimonial',
-    imageData: {
-      headline: 'Community',
-      subheadline: 'Voices from buyers',
-      gradient: 'dark',
+blazewallet.io`,
+    hashtags: ['BLAZE', 'thankyou', 'community'],
+    visual: {
+      style: 'dark',
+      layout: 'simple',
+      headline: 'Thank You',
+      subheadline: 'We bouwen door',
     },
   },
   {
@@ -1453,27 +1147,25 @@ Still time to join.
     day: 4,
     week: 6,
     phase: 'Presale Live',
-    type: 'image',
-    title: 'Milestone',
-    content: `🎉 MILESTONE REACHED
+    type: 'text',
+    title: 'Progress Update',
+    content: `Presale voortgang:
 
-$[AMOUNT] RAISED!
+$[AMOUNT] raised
+[NUMBER] deelnemers
 
-Thank you to everyone who believed early.
+Huidige tier: [TIER] (+[X]% bonus)
 
-We're building something special.
+Nog tijd om mee te doen.
 
-Presale continues...
-
-Current tier: [TIER] (+[X]% bonus)
-
-🔥 blazewallet.io/presale`,
-    hashtags: ['BLAZE', 'milestone', 'presale'],
-    imageType: 'stats',
-    imageData: {
-      headline: '$100K+',
-      subheadline: 'MILESTONE REACHED',
-      gradient: 'gold',
+blazewallet.io/presale`,
+    hashtags: ['BLAZE', 'presale', 'progress'],
+    visual: {
+      style: 'gradient',
+      layout: 'stat',
+      headline: 'Progress',
+      stat: '$[X]K',
+      statLabel: 'raised',
     },
   },
   {
@@ -1482,28 +1174,24 @@ Current tier: [TIER] (+[X]% bonus)
     week: 6,
     phase: 'Presale Live',
     type: 'text',
-    title: 'Reminder',
-    content: `Quick reminder:
+    title: 'Referral Winners',
+    content: `Referral Leaderboard - Finale stand:
 
-BLAZE presale is STILL LIVE.
+🥇 @[user1]
+🥈 @[user2]
+🥉 @[user3]
 
-Current bonus: +[X]%
+Bonus allocaties worden toegevoegd.
 
-Why join now:
-✓ 58% below launch price
-✓ Bonus tokens on top
-✓ Staking rewards coming
-✓ Early supporter benefits
+Bedankt aan iedereen die heeft gedeeld.
 
-This window won't last forever.
-
-🔥 blazewallet.io/presale`,
-    hashtags: ['BLAZE', 'presale', 'reminder'],
-    imageType: 'announcement',
-    imageData: {
-      headline: 'Still Live',
-      subheadline: 'Presale open',
-      gradient: 'orange',
+blazewallet.io`,
+    hashtags: ['BLAZE', 'referral', 'winners'],
+    visual: {
+      style: 'gradient',
+      layout: 'simple',
+      headline: 'Top Referrers',
+      subheadline: 'Bedankt voor het delen',
     },
   },
   {
@@ -1511,29 +1199,25 @@ This window won't last forever.
     day: 6,
     week: 6,
     phase: 'Presale Live',
-    type: 'image',
-    title: 'Referral Winners',
-    content: `🏆 REFERRAL LEADERBOARD
+    type: 'text',
+    title: 'Whats Next',
+    content: `Wat komt er na de presale?
 
-Top referrers this week:
+Q1 2026:
+• iOS & Android app launch
+• Token Generation Event (TGE)
+• Staking goes live
+• Exchange listings
 
-🥇 @[user1] - [X] referrals
-🥈 @[user2] - [X] referrals
-🥉 @[user3] - [X] referrals
+We houden jullie op de hoogte.
 
-Bonus allocations incoming!
-
-Your link is in your email.
-
-Keep sharing, keep earning.
-
-🔥 blazewallet.io`,
-    hashtags: ['BLAZE', 'referral', 'leaderboard'],
-    imageType: 'stats',
-    imageData: {
-      headline: 'Top Referrers',
-      subheadline: 'Leaderboard update',
-      gradient: 'gold',
+blazewallet.io`,
+    hashtags: ['BLAZE', 'roadmap', 'future'],
+    visual: {
+      style: 'dark',
+      layout: 'list',
+      headline: "What's Next",
+      items: ['App launch', 'TGE', 'Staking', 'Listings'],
     },
   },
   {
@@ -1541,36 +1225,28 @@ Keep sharing, keep earning.
     day: 7,
     week: 6,
     phase: 'Presale Live',
-    type: 'thread',
-    title: 'Week 1 Presale Recap',
-    content: `🔥 PRESALE WEEK 1 RECAP
+    type: 'text',
+    title: 'Week 1 Recap',
+    content: `Presale Week 1 - Recap
 
-What a week!
+✓ $[AMOUNT] raised
+✓ [NUMBER] deelnemers
+✓ [X] landen
 
-Stats:
-💰 Total raised: $[AMOUNT]
-👥 Total buyers: [NUMBER]
-🌍 Countries: [NUMBER]
-📊 Progress: [X]%
+Dit is nog maar het begin.
 
-Top moments:
-• Founder tier sold out in [TIME]
-• $[X] milestone reached
-• [X] referrals activated
+Volgende week: Development updates.
 
-This is just the beginning.
+Bedankt voor het geloof in BLAZE.
 
-Presale continues.
-
-Thank you for building BLAZE with us.
-
-🔥 blazewallet.io/presale`,
-    hashtags: ['BLAZE', 'presale', 'recap', 'success'],
-    imageType: 'stats',
-    imageData: {
-      headline: 'Week 1',
-      subheadline: 'PRESALE RECAP',
-      gradient: 'orange',
+blazewallet.io`,
+    hashtags: ['BLAZE', 'presale', 'recap'],
+    visual: {
+      style: 'gradient',
+      layout: 'simple',
+      headline: 'Week 1 Done',
+      subheadline: 'We bouwen door',
+      showLogo: true,
     },
   },
 ];
@@ -1584,10 +1260,8 @@ export default function MarketingPage() {
   const [selectedPost, setSelectedPost] = useState<MarketingPost | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [liveStats, setLiveStats] = useState({ waitlist: 0, raised: 0, buyers: 0 });
-  const postRef = useRef<HTMLDivElement>(null);
   const supabase = createClient();
 
-  // Fetch live stats
   useEffect(() => {
     const fetchStats = async () => {
       const { count: waitlistCount } = await supabase
@@ -1617,28 +1291,20 @@ export default function MarketingPage() {
     setTimeout(() => setCopiedId(null), 2000);
   };
 
-  const getGradientClass = (gradient?: string) => {
-    switch (gradient) {
-      case 'orange': return 'from-orange-500 via-yellow-500 to-orange-600';
-      case 'dark': return 'from-slate-900 via-slate-800 to-slate-900';
-      case 'blue': return 'from-blue-600 via-blue-500 to-cyan-500';
-      case 'green': return 'from-emerald-600 via-emerald-500 to-teal-500';
-      case 'purple': return 'from-purple-600 via-purple-500 to-pink-500';
-      case 'gold': return 'from-yellow-500 via-amber-500 to-orange-500';
-      case 'red': return 'from-red-600 via-red-500 to-orange-500';
-      case 'fire': return 'from-orange-600 via-red-500 to-yellow-500';
-      default: return 'from-orange-500 via-yellow-500 to-orange-600';
-    }
-  };
-
-  const getIconComponent = (icon?: string) => {
-    switch (icon) {
-      case 'qr': return <QrCode className="w-16 h-16" />;
-      case 'brain': return <Brain className="w-16 h-16" />;
-      case 'shield': return <Shield className="w-16 h-16" />;
-      case 'wallet': return <Wallet className="w-16 h-16" />;
-      case 'coffee': return <span className="text-6xl">☕</span>;
-      default: return <Flame className="w-16 h-16" />;
+  const getPhaseDescription = (week: number) => {
+    switch (week) {
+      case 1:
+      case 2:
+        return 'Focus op educatie: wat maakt BLAZE uniek?';
+      case 3:
+      case 4:
+        return 'Presale buildup: tokenomics, bonussen, community';
+      case 5:
+        return 'Final countdown: dagelijkse updates';
+      case 6:
+        return 'Presale live: updates en community';
+      default:
+        return '';
     }
   };
 
@@ -1654,7 +1320,7 @@ export default function MarketingPage() {
               Marketing Content
             </h1>
             <p className="text-gray-600">
-              6 weken aan kant-en-klare content voor X. Klik op een post om de visual te zien.
+              6 weken aan content voor X. Eerlijke messaging, professionele uitstraling.
             </p>
           </div>
 
@@ -1696,13 +1362,16 @@ export default function MarketingPage() {
           </div>
 
           {/* Week Selector */}
-          <div className="bg-white rounded-2xl p-4 mb-8 shadow-sm border border-gray-100">
+          <div className="bg-white rounded-2xl p-6 mb-8 shadow-sm border border-gray-100">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="font-semibold text-gray-900">Content calendar</h2>
+              <div>
+                <h2 className="font-semibold text-gray-900">Content Calendar</h2>
+                <p className="text-sm text-gray-500 mt-1">{getPhaseDescription(selectedWeek)}</p>
+              </div>
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setSelectedWeek(Math.max(1, selectedWeek - 1))}
-                  className="p-2 hover:bg-gray-100 rounded-lg disabled:opacity-50"
+                  className="p-2 hover:bg-gray-100 rounded-lg disabled:opacity-50 transition-colors"
                   disabled={selectedWeek === 1}
                 >
                   <ChevronLeft className="w-5 h-5" />
@@ -1712,7 +1381,7 @@ export default function MarketingPage() {
                 </span>
                 <button
                   onClick={() => setSelectedWeek(Math.min(6, selectedWeek + 1))}
-                  className="p-2 hover:bg-gray-100 rounded-lg disabled:opacity-50"
+                  className="p-2 hover:bg-gray-100 rounded-lg disabled:opacity-50 transition-colors"
                   disabled={selectedWeek === 6}
                 >
                   <ChevronRight className="w-5 h-5" />
@@ -1724,19 +1393,17 @@ export default function MarketingPage() {
               {[1, 2, 3, 4, 5, 6].map((week) => (
                 <button
                   key={week}
-                  onClick={() => setSelectedWeek(week)}
+                  onClick={() => { setSelectedWeek(week); setSelectedPost(null); }}
                   className={`p-3 rounded-xl text-center transition-all ${
                     selectedWeek === week
-                      ? 'bg-orange-500 text-white'
+                      ? 'bg-gradient-to-r from-orange-500 to-yellow-500 text-white shadow-lg shadow-orange-500/20'
                       : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
                   }`}
                 >
-                  <div className="font-bold">Week {week}</div>
+                  <div className="font-bold text-sm">Week {week}</div>
                   <div className="text-xs mt-1 opacity-80">
-                    {week === 1 ? 'Awareness' : 
-                     week === 2 ? 'Intro' : 
-                     week === 3 ? 'Education' : 
-                     week === 4 ? 'Buildup' : 
+                    {week <= 2 ? 'Education' : 
+                     week <= 4 ? 'Buildup' : 
                      week === 5 ? 'Countdown' : 
                      'Launch'}
                   </div>
@@ -1746,11 +1413,12 @@ export default function MarketingPage() {
           </div>
 
           {/* Posts Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Left: Post List */}
-            <div className="space-y-4">
-              <h3 className="font-semibold text-gray-900 mb-4">
-                Week {selectedWeek}: {weekPosts[0]?.phase}
+            <div className="space-y-3">
+              <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                <Calendar className="w-5 h-5 text-orange-500" />
+                Week {selectedWeek} Posts
               </h3>
               {weekPosts.map((post) => (
                 <div
@@ -1759,24 +1427,30 @@ export default function MarketingPage() {
                   className={`bg-white rounded-xl p-4 shadow-sm border cursor-pointer transition-all hover:shadow-md ${
                     selectedPost?.id === post.id 
                       ? 'border-orange-500 ring-2 ring-orange-100' 
-                      : 'border-gray-100'
+                      : 'border-gray-100 hover:border-gray-200'
                   }`}
                 >
-                  <div className="flex items-start justify-between mb-2">
-                    <div>
-                      <span className="text-xs font-medium text-orange-500 bg-orange-50 px-2 py-1 rounded-full">
-                        Day {post.day}
-                      </span>
-                      <span className="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded-full ml-2">
-                        {post.type}
-                      </span>
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="text-xs font-semibold text-orange-600 bg-orange-50 px-2 py-1 rounded-md">
+                          Dag {post.day}
+                        </span>
+                        <span className="text-xs text-gray-500">
+                          {post.type === 'thread' ? '🧵 Thread' : post.type === 'visual' ? '🖼️ Visual' : '📝 Post'}
+                        </span>
+                      </div>
+                      <h4 className="font-semibold text-gray-900 mb-1">{post.title}</h4>
+                      <p className="text-sm text-gray-500 line-clamp-2">{post.content.substring(0, 100)}...</p>
                     </div>
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
-                        copyToClipboard(post.content + '\n\n' + post.hashtags.map(h => '#' + h).join(' '), post.id);
+                        const fullText = post.content + '\n\n' + post.hashtags.map(h => '#' + h).join(' ');
+                        copyToClipboard(fullText, post.id);
                       }}
-                      className="p-2 hover:bg-gray-100 rounded-lg"
+                      className="p-2 hover:bg-gray-100 rounded-lg flex-shrink-0 transition-colors"
+                      title="Kopieer tekst"
                     >
                       {copiedId === post.id ? (
                         <Check className="w-4 h-4 text-emerald-500" />
@@ -1785,228 +1459,339 @@ export default function MarketingPage() {
                       )}
                     </button>
                   </div>
-                  <h4 className="font-semibold text-gray-900 mb-2">{post.title}</h4>
-                  <p className="text-sm text-gray-600 line-clamp-3">{post.content.substring(0, 150)}...</p>
-                  <div className="flex flex-wrap gap-1 mt-3">
-                    {post.hashtags.slice(0, 3).map((tag) => (
-                      <span key={tag} className="text-xs text-blue-500">#{tag}</span>
-                    ))}
-                  </div>
                 </div>
               ))}
             </div>
 
             {/* Right: Preview */}
-            <div className="lg:sticky lg:top-8">
+            <div className="lg:sticky lg:top-8 space-y-6">
               {selectedPost ? (
-                <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                  <div className="p-4 border-b border-gray-100 flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Twitter className="w-5 h-5 text-gray-900" />
-                      <span className="font-semibold text-gray-900">X Post Preview</span>
+                <>
+                  {/* Visual Preview */}
+                  <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div className="p-4 border-b border-gray-100">
+                      <h3 className="font-semibold text-gray-900">Visual Preview</h3>
+                      <p className="text-sm text-gray-500">Screenshot voor X (1200x675px)</p>
                     </div>
-                    <span className="text-xs text-gray-500">
-                      Screenshot deze visual voor X
-                    </span>
+                    
+                    {/* The Visual */}
+                    <div className="p-4">
+                      <div 
+                        className={`relative rounded-2xl overflow-hidden ${
+                          selectedPost.visual.style === 'dark' 
+                            ? 'bg-slate-900' 
+                            : selectedPost.visual.style === 'gradient'
+                            ? 'bg-gradient-to-br from-orange-500 via-amber-500 to-yellow-500'
+                            : 'bg-white border border-gray-200'
+                        }`}
+                        style={{ aspectRatio: '1200/675' }}
+                      >
+                        {/* Subtle pattern for dark/gradient */}
+                        {selectedPost.visual.style !== 'light' && (
+                          <div className="absolute inset-0 opacity-[0.03]">
+                            <div className="absolute inset-0" style={{
+                              backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
+                              backgroundSize: '32px 32px'
+                            }} />
+                          </div>
+                        )}
+
+                        {/* Content */}
+                        <div className={`relative h-full flex flex-col items-center justify-center p-8 ${
+                          selectedPost.visual.style === 'light' ? 'text-gray-900' : 'text-white'
+                        }`}>
+                          
+                          {/* Stat layout */}
+                          {selectedPost.visual.layout === 'stat' && (
+                            <>
+                              {selectedPost.visual.stat && (
+                                <div className="text-6xl md:text-7xl font-black mb-2 tracking-tight">
+                                  {selectedPost.visual.stat}
+                                </div>
+                              )}
+                              {selectedPost.visual.statLabel && (
+                                <div className="text-lg md:text-xl opacity-80 mb-4 text-center max-w-md">
+                                  {selectedPost.visual.statLabel}
+                                </div>
+                              )}
+                              <div className="text-2xl md:text-3xl font-bold text-center">
+                                {selectedPost.visual.headline}
+                              </div>
+                              {selectedPost.visual.subheadline && (
+                                <div className="text-lg opacity-80 mt-2 text-center">
+                                  {selectedPost.visual.subheadline}
+                                </div>
+                              )}
+                            </>
+                          )}
+
+                          {/* Simple layout */}
+                          {selectedPost.visual.layout === 'simple' && (
+                            <>
+                              <div className="text-3xl md:text-4xl font-bold text-center mb-2">
+                                {selectedPost.visual.headline}
+                              </div>
+                              {selectedPost.visual.subheadline && (
+                                <div className="text-xl opacity-80 text-center">
+                                  {selectedPost.visual.subheadline}
+                                </div>
+                              )}
+                            </>
+                          )}
+
+                          {/* Quote layout */}
+                          {selectedPost.visual.layout === 'quote' && (
+                            <>
+                              <div className="text-2xl md:text-3xl font-bold text-center italic mb-4 max-w-lg">
+                                {selectedPost.visual.headline}
+                              </div>
+                              {selectedPost.visual.subheadline && (
+                                <div className="text-lg opacity-70 text-center">
+                                  {selectedPost.visual.subheadline}
+                                </div>
+                              )}
+                            </>
+                          )}
+
+                          {/* List layout */}
+                          {selectedPost.visual.layout === 'list' && (
+                            <>
+                              <div className="text-2xl md:text-3xl font-bold text-center mb-6">
+                                {selectedPost.visual.headline}
+                              </div>
+                              {selectedPost.visual.subheadline && (
+                                <div className="text-lg opacity-80 text-center mb-4">
+                                  {selectedPost.visual.subheadline}
+                                </div>
+                              )}
+                              {selectedPost.visual.items && (
+                                <div className="space-y-2">
+                                  {selectedPost.visual.items.map((item, i) => (
+                                    <div key={i} className="flex items-center gap-3 text-lg">
+                                      <div className={`w-2 h-2 rounded-full ${
+                                        selectedPost.visual.style === 'light' ? 'bg-orange-500' : 'bg-white'
+                                      }`} />
+                                      {item}
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+                            </>
+                          )}
+
+                          {/* Comparison layout */}
+                          {selectedPost.visual.layout === 'comparison' && (
+                            <>
+                              <div className="text-2xl md:text-3xl font-bold text-center mb-2">
+                                {selectedPost.visual.headline}
+                              </div>
+                              {selectedPost.visual.subheadline && (
+                                <div className="text-lg opacity-80 text-center mb-6">
+                                  {selectedPost.visual.subheadline}
+                                </div>
+                              )}
+                              {selectedPost.visual.items && (
+                                <div className="flex items-center gap-4">
+                                  {selectedPost.visual.items.map((item, i) => (
+                                    <div key={i} className="flex items-center gap-2 text-lg">
+                                      <span className="font-bold">{i + 1}.</span> {item}
+                                      {i < selectedPost.visual.items!.length - 1 && (
+                                        <span className="mx-2 opacity-50">→</span>
+                                      )}
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+                            </>
+                          )}
+
+                          {/* Countdown layout */}
+                          {selectedPost.visual.layout === 'countdown' && (
+                            <>
+                              <div className="text-7xl md:text-8xl font-black mb-2 tracking-tight">
+                                {selectedPost.visual.headline}
+                              </div>
+                              {selectedPost.visual.subheadline && (
+                                <div className="text-xl md:text-2xl opacity-80 text-center">
+                                  {selectedPost.visual.subheadline}
+                                </div>
+                              )}
+                            </>
+                          )}
+
+                          {/* Logo */}
+                          {selectedPost.visual.showLogo && (
+                            <div className="absolute bottom-6 left-6">
+                              <Image 
+                                src="/blaze-logo.png" 
+                                alt="BLAZE" 
+                                width={40} 
+                                height={40}
+                                className="rounded-xl"
+                              />
+                            </div>
+                          )}
+
+                          {/* URL */}
+                          <div className={`absolute bottom-6 right-6 text-sm font-medium ${
+                            selectedPost.visual.style === 'light' ? 'text-gray-500' : 'text-white/60'
+                          }`}>
+                            blazewallet.io
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
-                  {/* X-Style Visual Post */}
-                  <div ref={postRef} className="p-4">
-                    {/* Visual Card - This is what they screenshot */}
-                    <div 
-                      className={`relative rounded-2xl overflow-hidden bg-gradient-to-br ${getGradientClass(selectedPost.imageData?.gradient)}`}
-                      style={{ aspectRatio: '1200/675' }}
-                    >
-                      {/* Background pattern */}
-                      <div className="absolute inset-0 opacity-10">
-                        <div className="absolute inset-0" style={{
-                          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-                        }} />
-                      </div>
-
-                      {/* Content */}
-                      <div className="relative h-full flex flex-col items-center justify-center p-8 text-center text-white">
-                        {/* Icon */}
-                        <div className="mb-4 opacity-90">
-                          {getIconComponent(selectedPost.imageData?.icon)}
+                  {/* Post Text */}
+                  <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div className="p-4 border-b border-gray-100 flex items-center justify-between">
+                      <h3 className="font-semibold text-gray-900">Post tekst</h3>
+                      <button
+                        onClick={() => {
+                          const fullText = selectedPost.content + '\n\n' + selectedPost.hashtags.map(h => '#' + h).join(' ');
+                          copyToClipboard(fullText, 'full-' + selectedPost.id);
+                        }}
+                        className="flex items-center gap-2 px-3 py-1.5 bg-gray-900 text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors"
+                      >
+                        {copiedId === 'full-' + selectedPost.id ? (
+                          <>
+                            <Check className="w-4 h-4" />
+                            Gekopieerd!
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="w-4 h-4" />
+                            Kopieer
+                          </>
+                        )}
+                      </button>
+                    </div>
+                    <div className="p-4">
+                      <div className="bg-gray-50 rounded-xl p-4">
+                        <p className="text-gray-800 whitespace-pre-wrap text-sm leading-relaxed">
+                          {selectedPost.content}
+                        </p>
+                        <div className="flex flex-wrap gap-1 mt-4 pt-4 border-t border-gray-200">
+                          {selectedPost.hashtags.map((tag) => (
+                            <span key={tag} className="text-sm text-blue-600 font-medium">#{tag}</span>
+                          ))}
                         </div>
-
-                        {/* Stat (if exists) */}
-                        {selectedPost.imageData?.stat && (
-                          <div className="text-6xl md:text-7xl font-black mb-2 drop-shadow-lg">
-                            {selectedPost.imageData.stat}
-                          </div>
-                        )}
-
-                        {/* Headline */}
-                        <h2 className="text-3xl md:text-4xl font-black mb-2 drop-shadow-lg">
-                          {selectedPost.imageData?.headline}
-                        </h2>
-
-                        {/* Subheadline */}
-                        {selectedPost.imageData?.subheadline && (
-                          <p className="text-xl md:text-2xl opacity-90 drop-shadow">
-                            {selectedPost.imageData.subheadline}
-                          </p>
-                        )}
-
-                        {/* Stat label */}
-                        {selectedPost.imageData?.statLabel && (
-                          <p className="text-lg opacity-80 mt-2">
-                            {selectedPost.imageData.statLabel}
-                          </p>
-                        )}
-
-                        {/* BLAZE Logo/Branding */}
-                        <div className="absolute bottom-6 left-6 flex items-center gap-2">
-                          <div className="w-10 h-10 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
-                            <Flame className="w-6 h-6 text-white" />
-                          </div>
-                          <div className="text-left">
-                            <div className="font-bold text-white text-sm">BLAZE</div>
-                            <div className="text-white/80 text-xs">blazewallet.io</div>
-                          </div>
-                        </div>
-
-                        {/* Decorative elements */}
-                        <div className="absolute top-6 right-6 w-20 h-20 bg-white/10 rounded-full blur-2xl" />
-                        <div className="absolute bottom-10 right-10 w-32 h-32 bg-white/5 rounded-full blur-3xl" />
                       </div>
                     </div>
+                  </div>
 
-                    {/* Post Text Preview */}
-                    <div className="mt-4 p-4 bg-gray-50 rounded-xl">
+                  {/* Tip */}
+                  {selectedPost.tip && (
+                    <div className="bg-amber-50 border border-amber-200 rounded-xl p-4">
                       <div className="flex items-start gap-3">
-                        <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-full flex items-center justify-center flex-shrink-0">
-                          <Flame className="w-5 h-5 text-white" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 mb-1">
-                            <span className="font-bold text-gray-900">BLAZE Wallet</span>
-                            <span className="text-gray-500">@BLAZEwallet</span>
-                          </div>
-                          <p className="text-gray-800 whitespace-pre-wrap text-sm">
-                            {selectedPost.content.substring(0, 280)}
-                            {selectedPost.content.length > 280 && '...'}
-                          </p>
-                          <div className="flex flex-wrap gap-1 mt-2">
-                            {selectedPost.hashtags.map((tag) => (
-                              <span key={tag} className="text-sm text-blue-500">#{tag}</span>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Actions */}
-                  <div className="p-4 border-t border-gray-100 flex gap-2">
-                    <button
-                      onClick={() => copyToClipboard(selectedPost.content + '\n\n' + selectedPost.hashtags.map(h => '#' + h).join(' '), 'full-' + selectedPost.id)}
-                      className="flex-1 py-2 px-4 bg-gray-900 text-white rounded-xl font-medium hover:bg-gray-800 transition-colors flex items-center justify-center gap-2"
-                    >
-                      {copiedId === 'full-' + selectedPost.id ? (
-                        <>
-                          <Check className="w-4 h-4" />
-                          Gekopieerd!
-                        </>
-                      ) : (
-                        <>
-                          <Copy className="w-4 h-4" />
-                          Kopieer tekst
-                        </>
-                      )}
-                    </button>
-                  </div>
-
-                  {/* Engagement tip */}
-                  {selectedPost.engagement && (
-                    <div className="px-4 pb-4">
-                      <div className="bg-amber-50 border border-amber-200 rounded-xl p-3">
-                        <div className="flex items-start gap-2">
-                          <Sparkles className="w-4 h-4 text-amber-500 mt-0.5 flex-shrink-0" />
-                          <div>
-                            <p className="text-sm font-medium text-amber-800">Engagement tip</p>
-                            <p className="text-sm text-amber-700">{selectedPost.engagement}</p>
-                          </div>
+                        <Sparkles className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
+                        <div>
+                          <p className="font-medium text-amber-800 mb-1">Tip</p>
+                          <p className="text-sm text-amber-700">{selectedPost.tip}</p>
                         </div>
                       </div>
                     </div>
                   )}
-                </div>
+                </>
               ) : (
                 <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-12 text-center">
                   <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <ImageIcon className="w-8 h-8 text-gray-400" />
+                    <Clock className="w-8 h-8 text-gray-400" />
                   </div>
                   <h3 className="font-semibold text-gray-900 mb-2">Selecteer een post</h3>
                   <p className="text-gray-500">
-                    Klik op een post links om de visual preview te zien
+                    Klik op een post om de preview te zien
                   </p>
                 </div>
               )}
             </div>
           </div>
 
-          {/* Quick Stats Graphic Generator */}
+          {/* Live Stats Graphic */}
           <div className="mt-8 bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-            <h3 className="font-semibold text-gray-900 mb-4">
-              Live Stats Graphic Generator
-            </h3>
-            <p className="text-gray-600 mb-6">
-              Genereer automatisch een graphic met live stats uit Supabase. Perfect voor progress updates.
-            </p>
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <h3 className="font-semibold text-gray-900">Live Stats Graphic</h3>
+                <p className="text-sm text-gray-500">Automatisch gegenereerd met actuele data</p>
+              </div>
+              <a 
+                href="/presale" 
+                target="_blank"
+                className="flex items-center gap-2 text-sm text-orange-600 hover:text-orange-700"
+              >
+                <ExternalLink className="w-4 h-4" />
+                Open presale pagina
+              </a>
+            </div>
             
-            {/* Live Stats Visual */}
             <div 
-              className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-orange-500 via-yellow-500 to-orange-600 max-w-xl"
+              className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-orange-500 via-amber-500 to-yellow-500 max-w-2xl"
               style={{ aspectRatio: '1200/675' }}
             >
-              {/* Background pattern */}
-              <div className="absolute inset-0 opacity-10">
+              <div className="absolute inset-0 opacity-[0.03]">
                 <div className="absolute inset-0" style={{
-                  backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+                  backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
+                  backgroundSize: '32px 32px'
                 }} />
               </div>
 
-              <div className="relative h-full flex flex-col items-center justify-center p-8 text-center text-white">
-                <div className="text-2xl font-bold mb-2 opacity-90">BLAZE Presale Update</div>
+              <div className="relative h-full flex flex-col items-center justify-center p-8 text-white">
+                <div className="text-xl font-bold mb-6 opacity-90">BLAZE Presale Status</div>
                 
-                <div className="grid grid-cols-3 gap-8 mt-4">
-                  <div>
+                <div className="grid grid-cols-3 gap-12">
+                  <div className="text-center">
                     <div className="text-4xl font-black">{liveStats.waitlist.toLocaleString()}</div>
-                    <div className="text-sm opacity-80">Waitlist</div>
+                    <div className="text-sm opacity-80 mt-1">Waitlist</div>
                   </div>
-                  <div>
+                  <div className="text-center">
                     <div className="text-4xl font-black">${liveStats.raised.toLocaleString()}</div>
-                    <div className="text-sm opacity-80">Committed</div>
+                    <div className="text-sm opacity-80 mt-1">Committed</div>
                   </div>
-                  <div>
+                  <div className="text-center">
                     <div className="text-4xl font-black">{liveStats.buyers}</div>
-                    <div className="text-sm opacity-80">Participants</div>
+                    <div className="text-sm opacity-80 mt-1">Participants</div>
                   </div>
                 </div>
 
-                <div className="mt-6 text-lg opacity-90">
-                  blazewallet.io/presale
+                <div className="absolute bottom-6 left-6">
+                  <Image 
+                    src="/blaze-logo.png" 
+                    alt="BLAZE" 
+                    width={36} 
+                    height={36}
+                    className="rounded-lg"
+                  />
                 </div>
 
-                {/* BLAZE branding */}
-                <div className="absolute bottom-6 left-6 flex items-center gap-2">
-                  <div className="w-10 h-10 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
-                    <Flame className="w-6 h-6 text-white" />
-                  </div>
-                  <div className="text-left">
-                    <div className="font-bold text-white text-sm">BLAZE</div>
-                    <div className="text-white/80 text-xs">Live stats</div>
-                  </div>
+                <div className="absolute bottom-6 right-6 text-sm font-medium text-white/60">
+                  blazewallet.io
                 </div>
               </div>
             </div>
+          </div>
 
-            <p className="text-sm text-gray-500 mt-4">
-              Deze graphic update automatisch met live data. Screenshot wanneer je wilt posten.
-            </p>
+          {/* Guidelines */}
+          <div className="mt-8 bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+            <h3 className="font-semibold text-gray-900 mb-4">Posting Guidelines</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <h4 className="font-medium text-gray-900 mb-2">Timing</h4>
+                <ul className="text-sm text-gray-600 space-y-1">
+                  <li>• Primair: 15:00-17:00 CET</li>
+                  <li>• Secundair: 21:00-23:00 CET</li>
+                  <li>• Countdown week: 2x per dag</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-medium text-gray-900 mb-2">Engagement</h4>
+                <ul className="text-sm text-gray-600 space-y-1">
+                  <li>• Reageer op elke reply (eerste uur)</li>
+                  <li>• Retweet community mentions</li>
+                  <li>• Pin security reminder voor presale</li>
+                </ul>
+              </div>
+            </div>
           </div>
 
         </div>
@@ -2014,4 +1799,3 @@ export default function MarketingPage() {
     </div>
   );
 }
-
