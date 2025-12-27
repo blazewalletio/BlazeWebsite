@@ -67,7 +67,8 @@ export async function sendNewSignupNotification(email: string, source: string, r
 
 export async function sendWelcomeEmail(email: string, referralCode: string) {
   try {
-    await resend.emails.send({
+    console.log(`[Welcome Email] Attempting to send to: ${email}`);
+    const result = await resend.emails.send({
       from: 'BLAZE Wallet <info@blazewallet.io>',
       to: email,
       subject: '🔥 Welcome to the BLAZE Waitlist!',
@@ -135,10 +136,16 @@ export async function sendWelcomeEmail(email: string, referralCode: string) {
         </html>
       `,
     });
-    return { success: true };
-  } catch (error) {
-    console.error('Failed to send welcome email:', error);
-    return { success: false, error };
+    console.log(`[Welcome Email] Successfully sent to: ${email}`, result);
+    return { success: true, data: result };
+  } catch (error: any) {
+    console.error('[Welcome Email] Failed to send:', {
+      to: email,
+      error: error?.message || error,
+      statusCode: error?.statusCode,
+      name: error?.name,
+    });
+    return { success: false, error: error?.message || 'Unknown error' };
   }
 }
 
