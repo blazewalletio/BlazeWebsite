@@ -162,7 +162,7 @@ export default function PresalePage() {
     },
     {
       q: 'How do the bonus tiers work?',
-      a: 'Everyone pays the same presale price of $0.00417 per BLAZE (58% off the $0.01 launch price). Early supporters get massive bonus tokens: Founders get +100% (double tokens!), Early Birds +75%, Pioneers +50%, and so on. The earlier you join, the more bonus tokens you receive!',
+      a: 'Everyone pays the same presale price of $0.00417 per BLAZE token (58% off the $0.01 launch price). Early supporters get massive bonus tokens: Founders get +100% (double tokens!), Early Birds +75%, Pioneers +50%, and so on. The earlier you join, the more bonus tokens you receive!',
     },
     {
       q: 'Is this a commitment or actual payment?',
@@ -228,7 +228,7 @@ export default function PresalePage() {
               transition={{ delay: 0.2 }}
               className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto"
             >
-              Presale price: $0.00417 per BLAZE (58% off $0.01 launch). Early supporters get bonus tokens!
+              Presale price: $0.00417 per BLAZE token (58% off $0.01 launch). Early supporters get bonus tokens!
               No payment required to reserve your spot.
             </motion.p>
 
@@ -299,7 +299,7 @@ export default function PresalePage() {
           {/* Price banner */}
           <div className="max-w-2xl mx-auto mb-10 bg-gradient-to-r from-orange-500/20 to-yellow-500/20 border border-orange-500/30 rounded-2xl p-6 text-center">
             <div className="text-gray-400 text-sm mb-2">Fixed presale price (from wallet)</div>
-            <div className="text-4xl font-bold text-white mb-2">$0.00417 <span className="text-lg text-gray-400">per BLAZE</span></div>
+            <div className="text-4xl font-bold text-white mb-2">$0.00417 <span className="text-lg text-gray-400">per BLAZE token</span></div>
             <div className="text-emerald-400 font-medium">{presaleDiscount}% off launch price of $0.01</div>
           </div>
 

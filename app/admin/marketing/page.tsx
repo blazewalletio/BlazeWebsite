@@ -1089,7 +1089,7 @@ blazewallet.io/presale`,
     phase: 'Ongoing',
     type: 'text',
     title: 'What Happens Next',
-    content: `What happens after you buy BLAZE?
+    content: `What happens after you buy BLAZE tokens?
 
 1. Tokens reserved for you
 2. TGE (Token Generation Event) in Q1 2026

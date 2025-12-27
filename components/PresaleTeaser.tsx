@@ -91,7 +91,7 @@ export default function PresaleTeaser() {
             </div>
 
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
-              Get BLAZE at{' '}
+              Get BLAZE tokens at{' '}
               <span className="text-gradient-brand">58% off</span>
             </h2>
             <p className="text-lg text-gray-400 max-w-2xl mx-auto">

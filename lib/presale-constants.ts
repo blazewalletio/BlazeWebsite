@@ -7,8 +7,8 @@ export const PRESALE_CONSTANTS = {
   presaleAllocation: 120_000_000, // 120M BLAZE for presale (12%)
   
   // Pricing
-  presalePrice: 0.00417, // $0.00417 per BLAZE (from wallet)
-  launchPrice: 0.01, // $0.01 per BLAZE after presale
+  presalePrice: 0.00417, // $0.00417 per BLAZE token (from wallet)
+  launchPrice: 0.01, // $0.01 per BLAZE token after presale
   
   // Caps
   hardCap: 500_000, // $500k
