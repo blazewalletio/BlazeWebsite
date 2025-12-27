@@ -18,6 +18,10 @@ import {
   BarChart3,
   Download,
   Gift,
+  Target,
+  Mail,
+  DollarSign,
+  Trophy,
 } from 'lucide-react';
 
 interface NavItem {
@@ -52,7 +56,11 @@ export default function AdminSidebar({ unreadMessages = 0 }: { unreadMessages?: 
     { label: 'Dashboard', href: '/admin/dashboard', icon: LayoutDashboard },
     { label: 'Analytics', href: '/admin/analytics', icon: BarChart3 },
     { label: 'Waitlist', href: '/admin/waitlist', icon: Users },
+    { label: 'Commitments', href: '/admin/commitments', icon: Target },
+    { label: 'Leaderboard', href: '/admin/leaderboard', icon: Trophy },
     { label: 'Referrals', href: '/admin/referrals', icon: Gift },
+    { label: 'Pricing', href: '/admin/pricing', icon: DollarSign },
+    { label: 'Campaigns', href: '/admin/campaigns', icon: Mail },
     { label: 'Export', href: '/admin/export', icon: Download },
     { label: 'Messages', href: '/admin/messages', icon: MessageSquare, badge: unreadMessages },
     { label: 'Settings', href: '/admin/settings', icon: Settings },

@@ -9,6 +9,9 @@ import Roadmap from '@/components/Roadmap';
 import FAQ from '@/components/FAQ';
 import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
+import TieredPricing from '@/components/TieredPricing';
+import Leaderboard from '@/components/Leaderboard';
+import CommitmentForm from '@/components/CommitmentForm';
 
 export default function Home() {
   return (
@@ -21,6 +24,9 @@ export default function Home() {
       <Hero />
       <QuickPay />
       <Features />
+      <TieredPricing />
+      <CommitmentForm />
+      <Leaderboard />
       <Demo />
       <SocialProof />
       <AboutSection />
