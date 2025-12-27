@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import AdminSidebar from '@/components/admin/AdminSidebar';
-import { Target, DollarSign, TrendingUp, Search, Download, Check, X, Loader2, Mail } from 'lucide-react';
+import { Target, DollarSign, TrendingUp, Search, Download, Check, X, Loader2, Mail, Send, RefreshCw } from 'lucide-react';
 
 interface Commitment {
   id: string;
@@ -28,6 +28,8 @@ export default function CommitmentsPage() {
     averageValue: 0,
     convertedCount: 0,
   });
+  const [sendingBulk, setSendingBulk] = useState(false);
+  const [bulkResult, setBulkResult] = useState<{ sent: number; failed: number } | null>(null);
 
   const supabase = createClient();
 
@@ -74,15 +76,57 @@ export default function CommitmentsPage() {
   }
 
   async function sendReminder(commitment: Commitment) {
-    // TODO: Implement reminder email sending
-    const { error } = await supabase
-      .from('commitments')
-      .update({ reminder_sent: true })
-      .eq('id', commitment.id);
-
-    if (!error) {
-      fetchCommitments();
+    try {
+      const res = await fetch('/api/reminder', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ commitmentId: commitment.id }),
+      });
+      
+      if (res.ok) {
+        fetchCommitments();
+      } else {
+        console.error('Failed to send reminder');
+      }
+    } catch (err) {
+      console.error('Error sending reminder:', err);
     }
+  }
+
+  async function sendBulkReminders() {
+    setSendingBulk(true);
+    setBulkResult(null);
+    
+    // Get all commitments that haven't received a reminder and aren't converted
+    const eligibleCommitments = commitments.filter(c => !c.reminder_sent && !c.converted);
+    
+    let sent = 0;
+    let failed = 0;
+    
+    for (const commitment of eligibleCommitments) {
+      try {
+        const res = await fetch('/api/reminder', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ commitmentId: commitment.id }),
+        });
+        
+        if (res.ok) {
+          sent++;
+        } else {
+          failed++;
+        }
+        
+        // Small delay to avoid rate limiting
+        await new Promise(resolve => setTimeout(resolve, 200));
+      } catch {
+        failed++;
+      }
+    }
+    
+    setBulkResult({ sent, failed });
+    setSendingBulk(false);
+    fetchCommitments();
   }
 
   function exportCSV() {
@@ -182,14 +226,44 @@ export default function CommitmentsPage() {
                 className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-orange-500"
               />
             </div>
-            <button
-              onClick={exportCSV}
-              className="flex items-center gap-2 px-6 py-3 bg-gray-900 text-white rounded-xl hover:bg-gray-800 transition-colors"
-            >
-              <Download className="w-5 h-5" />
-              Export CSV
-            </button>
+            <div className="flex gap-2">
+              <button
+                onClick={sendBulkReminders}
+                disabled={sendingBulk}
+                className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-yellow-500 text-white rounded-xl hover:from-orange-600 hover:to-yellow-600 transition-all disabled:opacity-50"
+              >
+                {sendingBulk ? (
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                ) : (
+                  <Send className="w-5 h-5" />
+                )}
+                Send reminders
+              </button>
+              <button
+                onClick={fetchCommitments}
+                className="flex items-center gap-2 px-4 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors"
+              >
+                <RefreshCw className="w-5 h-5" />
+              </button>
+              <button
+                onClick={exportCSV}
+                className="flex items-center gap-2 px-6 py-3 bg-gray-900 text-white rounded-xl hover:bg-gray-800 transition-colors"
+              >
+                <Download className="w-5 h-5" />
+                Export
+              </button>
+            </div>
           </div>
+
+          {/* Bulk Result Message */}
+          {bulkResult && (
+            <div className={`p-4 rounded-xl mb-6 ${bulkResult.failed > 0 ? 'bg-yellow-50 border border-yellow-200' : 'bg-emerald-50 border border-emerald-200'}`}>
+              <p className={bulkResult.failed > 0 ? 'text-yellow-700' : 'text-emerald-700'}>
+                ✅ Sent {bulkResult.sent} reminder emails
+                {bulkResult.failed > 0 && ` | ⚠️ ${bulkResult.failed} failed`}
+              </p>
+            </div>
+          )}
 
           {/* Table */}
           <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">

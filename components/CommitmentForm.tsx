@@ -22,7 +22,7 @@ interface CommitmentResult {
   pricePerToken: number;
 }
 
-const SUGGESTED_AMOUNTS = [50, 100, 250, 500, 1000, 2500];
+const SUGGESTED_AMOUNTS = [100, 250, 500, 1000, 2500, 5000];
 
 export default function CommitmentForm() {
   const [email, setEmail] = useState('');
@@ -64,8 +64,13 @@ export default function CommitmentForm() {
     setLoading(true);
 
     const finalAmount = isCustom ? parseFloat(customAmount) : amount;
-    if (!finalAmount || finalAmount < 10) {
-      setError('Minimum commitment is $10');
+    if (!finalAmount || finalAmount < 100) {
+      setError('Minimum investment is $100');
+      setLoading(false);
+      return;
+    }
+    if (finalAmount > 10000) {
+      setError('Maximum investment is $10,000 per wallet');
       setLoading(false);
       return;
     }
@@ -231,13 +236,14 @@ export default function CommitmentForm() {
                         }}
                         onFocus={() => setIsCustom(true)}
                         placeholder="Custom amount"
-                        min="10"
+                        min="100"
+                        max="10000"
                         className={`w-full pl-8 pr-4 py-3 rounded-xl border transition-all focus:outline-none focus:ring-2 focus:ring-orange-500 text-gray-900 ${
                           isCustom ? 'border-orange-500 ring-2 ring-orange-500' : 'border-gray-200'
                         }`}
                       />
                     </div>
-                    <p className="text-xs text-gray-500 mt-2">Minimum $10</p>
+                    <p className="text-xs text-gray-500 mt-2">Min $100 – Max $10,000</p>
                   </div>
 
                   {/* Error */}
@@ -251,7 +257,7 @@ export default function CommitmentForm() {
                   {/* Submit */}
                   <button
                     type="submit"
-                    disabled={loading || !email || effectiveAmount < 10}
+                    disabled={loading || !email || effectiveAmount < 100 || effectiveAmount > 10000}
                     className="w-full py-4 bg-gradient-to-r from-orange-500 to-yellow-500 text-white rounded-xl font-bold text-lg hover:from-orange-600 hover:to-yellow-600 transition-all shadow-lg shadow-orange-500/30 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
                     {loading ? (
