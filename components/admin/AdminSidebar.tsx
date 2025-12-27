@@ -22,6 +22,7 @@ import {
   Mail,
   DollarSign,
   Trophy,
+  Megaphone,
 } from 'lucide-react';
 
 interface NavItem {
@@ -55,6 +56,7 @@ export default function AdminSidebar({ unreadMessages = 0 }: { unreadMessages?: 
   const navItems: NavItem[] = [
     { label: 'Dashboard', href: '/admin/dashboard', icon: LayoutDashboard },
     { label: 'Analytics', href: '/admin/analytics', icon: BarChart3 },
+    { label: 'Marketing', href: '/admin/marketing', icon: Megaphone },
     { label: 'Waitlist', href: '/admin/waitlist', icon: Users },
     { label: 'Commitments', href: '/admin/commitments', icon: Target },
     { label: 'Leaderboard', href: '/admin/leaderboard', icon: Trophy },
