@@ -1330,9 +1330,9 @@ function VisualPreview({ visual, postTitle }: { visual: VisualConfig; postTitle:
       {visual.mode !== 'warm' && (
         <>
           {/* Orange blur */}
-          <div className="absolute top-0 left-1/4 w-64 h-64 bg-orange-500/20 rounded-full blur-[80px]" />
+          <div className="absolute top-0 left-1/4 w-48 h-48 bg-orange-500/20 rounded-full blur-[60px]" />
           {/* Yellow blur */}
-          <div className="absolute bottom-0 right-1/4 w-48 h-48 bg-yellow-500/15 rounded-full blur-[60px]" />
+          <div className="absolute bottom-0 right-1/4 w-36 h-36 bg-yellow-500/15 rounded-full blur-[50px]" />
           {/* Grid pattern */}
           <div className="absolute inset-0 opacity-[0.03]" style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
@@ -1342,25 +1342,25 @@ function VisualPreview({ visual, postTitle }: { visual: VisualConfig; postTitle:
 
       {/* Warm mode effects */}
       {visual.mode === 'warm' && (
-        <div className="absolute top-1/4 right-1/4 w-32 h-32 bg-white/10 rounded-full blur-[40px]" />
+        <div className="absolute top-1/4 right-1/4 w-24 h-24 bg-white/10 rounded-full blur-[30px]" />
       )}
 
       {/* Content */}
-      <div className="relative h-full flex flex-col justify-center p-8 text-white">
+      <div className="relative h-full flex flex-col justify-center px-6 py-4 text-white">
         
         {/* COUNTDOWN LAYOUT */}
         {visual.layout === 'countdown' && (
           <div className="text-center">
-            <div className={`text-8xl font-black mb-2 ${getStatColor()}`}>
+            <div className={`text-6xl font-black mb-1 ${getStatColor()}`}>
               {visual.headline}
             </div>
-            <div className="text-3xl font-bold mb-6 opacity-90">
+            <div className="text-2xl font-bold mb-3 opacity-90">
               {visual.subheadline}
             </div>
             {visual.bullets && (
-              <div className="flex flex-wrap justify-center gap-4 mt-4">
+              <div className="flex flex-wrap justify-center gap-2 mt-2">
                 {visual.bullets.map((bullet, i) => (
-                  <div key={i} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-4 py-2 text-sm">
+                  <div key={i} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg px-3 py-1.5 text-xs">
                     {bullet}
                   </div>
                 ))}
@@ -1374,24 +1374,24 @@ function VisualPreview({ visual, postTitle }: { visual: VisualConfig; postTitle:
           <div className="flex flex-col items-center text-center">
             {visual.stat && (
               <>
-                <div className={`text-6xl font-black mb-1 ${getStatColor()}`}>
+                <div className={`text-5xl font-black mb-0.5 ${getStatColor()}`}>
                   {visual.stat.value}
                 </div>
-                <div className="text-lg opacity-70 mb-4">
+                <div className="text-sm opacity-70 mb-2">
                   {visual.stat.label}
                 </div>
               </>
             )}
-            <div className="text-2xl font-bold mb-2">{visual.headline}</div>
+            <div className="text-xl font-bold mb-1">{visual.headline}</div>
             {visual.subheadline && (
-              <div className="text-lg opacity-80 mb-4">{visual.subheadline}</div>
+              <div className="text-sm opacity-80 mb-2">{visual.subheadline}</div>
             )}
             {visual.bullets && (
-              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-4 mt-2 max-w-md">
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-3 mt-1 max-w-xs">
                 {visual.bullets.map((bullet, i) => (
-                  <div key={i} className="flex items-center gap-2 py-1">
-                    <div className={`w-1.5 h-1.5 rounded-full ${visual.mode === 'dark-green' ? 'bg-emerald-400' : visual.mode === 'dark-gold' ? 'bg-yellow-400' : 'bg-orange-400'}`} />
-                    <span className="text-sm">{bullet}</span>
+                  <div key={i} className="flex items-center gap-2 py-0.5">
+                    <div className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${visual.mode === 'dark-green' ? 'bg-emerald-400' : visual.mode === 'dark-gold' ? 'bg-yellow-400' : 'bg-orange-400'}`} />
+                    <span className="text-xs">{bullet}</span>
                   </div>
                 ))}
               </div>
@@ -1401,12 +1401,12 @@ function VisualPreview({ visual, postTitle }: { visual: VisualConfig; postTitle:
 
         {/* QUOTE LAYOUT */}
         {visual.layout === 'quote' && (
-          <div className="text-center max-w-lg mx-auto">
-            <div className={`text-5xl font-black mb-4 ${getAccentColor()}`}>
+          <div className="text-center max-w-md mx-auto">
+            <div className={`text-3xl font-black mb-2 ${getAccentColor()}`}>
               {visual.headline}
             </div>
             {visual.subheadline && (
-              <div className="text-xl opacity-80">
+              <div className="text-base opacity-80">
                 {visual.subheadline}
               </div>
             )}
@@ -1416,22 +1416,22 @@ function VisualPreview({ visual, postTitle }: { visual: VisualConfig; postTitle:
         {/* COMPARISON LAYOUT */}
         {visual.layout === 'comparison' && visual.comparison && (
           <div className="text-center">
-            <div className="text-2xl font-bold mb-6">{visual.headline}</div>
-            {visual.subheadline && <div className="text-lg opacity-70 mb-4">{visual.subheadline}</div>}
-            <div className="flex justify-center gap-8">
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-4 min-w-[140px]">
-                <div className="text-sm opacity-50 mb-2">OLD WAY</div>
+            <div className="text-xl font-bold mb-3">{visual.headline}</div>
+            {visual.subheadline && <div className="text-sm opacity-70 mb-2">{visual.subheadline}</div>}
+            <div className="flex justify-center gap-4">
+              <div className="bg-white/5 border border-white/10 rounded-xl p-3 min-w-[100px]">
+                <div className="text-xs opacity-50 mb-1">OLD WAY</div>
                 {visual.comparison.left.map((item, i) => (
-                  <div key={i} className="text-sm opacity-60 py-0.5">{item}</div>
+                  <div key={i} className="text-xs opacity-60 py-0.5">{item}</div>
                 ))}
               </div>
               <div className="flex items-center">
-                <ArrowRight className={`w-6 h-6 ${getAccentColor()}`} />
+                <ArrowRight className={`w-5 h-5 ${getAccentColor()}`} />
               </div>
-              <div className={`bg-white/10 border rounded-2xl p-4 min-w-[140px] ${visual.mode === 'warm' ? 'border-white/30' : 'border-orange-500/30'}`}>
-                <div className={`text-sm mb-2 ${getAccentColor()}`}>BLAZE</div>
+              <div className={`bg-white/10 border rounded-xl p-3 min-w-[100px] ${visual.mode === 'warm' ? 'border-white/30' : 'border-orange-500/30'}`}>
+                <div className={`text-xs mb-1 ${getAccentColor()}`}>BLAZE</div>
                 {visual.comparison.right.map((item, i) => (
-                  <div key={i} className="text-sm font-medium py-0.5">{item}</div>
+                  <div key={i} className="text-xs font-medium py-0.5">{item}</div>
                 ))}
               </div>
             </div>
@@ -1441,16 +1441,16 @@ function VisualPreview({ visual, postTitle }: { visual: VisualConfig; postTitle:
         {/* LIST LAYOUT */}
         {visual.layout === 'list' && (
           <div className="text-center">
-            <div className="text-3xl font-bold mb-2">{visual.headline}</div>
+            <div className="text-2xl font-bold mb-1">{visual.headline}</div>
             {visual.subheadline && (
-              <div className="text-lg opacity-70 mb-4">{visual.subheadline}</div>
+              <div className="text-sm opacity-70 mb-2">{visual.subheadline}</div>
             )}
             {visual.bullets && (
-              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-5 max-w-sm mx-auto">
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-3 max-w-xs mx-auto">
                 {visual.bullets.map((bullet, i) => (
-                  <div key={i} className="flex items-center gap-3 py-1.5 text-left">
-                    <CheckCircle className={`w-5 h-5 flex-shrink-0 ${visual.mode === 'dark-green' ? 'text-emerald-400' : 'text-orange-400'}`} />
-                    <span>{bullet}</span>
+                  <div key={i} className="flex items-center gap-2 py-0.5 text-left">
+                    <CheckCircle className={`w-4 h-4 flex-shrink-0 ${visual.mode === 'dark-green' ? 'text-emerald-400' : 'text-orange-400'}`} />
+                    <span className="text-xs">{bullet}</span>
                   </div>
                 ))}
               </div>
@@ -1461,31 +1461,31 @@ function VisualPreview({ visual, postTitle }: { visual: VisualConfig; postTitle:
         {/* GRID LAYOUT */}
         {visual.layout === 'grid' && (
           <div className="text-center">
-            <div className="text-3xl font-bold mb-2">{visual.headline}</div>
+            <div className="text-2xl font-bold mb-1">{visual.headline}</div>
             {visual.subheadline && (
-              <div className="text-lg opacity-70 mb-6">{visual.subheadline}</div>
+              <div className="text-sm opacity-70 mb-3">{visual.subheadline}</div>
             )}
             {visual.gridItems && (
-              <div className={`grid gap-3 max-w-md mx-auto ${visual.gridItems.length > 4 ? 'grid-cols-3' : 'grid-cols-4'}`}>
+              <div className={`grid gap-2 max-w-sm mx-auto ${visual.gridItems.length > 4 ? 'grid-cols-3' : 'grid-cols-4'}`}>
                 {visual.gridItems.map((item, i) => (
-                  <div key={i} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-3 text-center">
-                    <div className="text-2xl mb-1">
-                      {item.icon === 'swap' && <Repeat className="w-6 h-6 mx-auto text-orange-400" />}
-                      {item.icon === 'bridge' && <ArrowRight className="w-6 h-6 mx-auto text-orange-400" />}
-                      {item.icon === 'ramp' && <TrendingUp className="w-6 h-6 mx-auto text-orange-400" />}
-                      {item.icon === 'offramp' && <DollarSign className="w-6 h-6 mx-auto text-orange-400" />}
-                      {item.icon === 'schedule' && <Clock className="w-6 h-6 mx-auto text-orange-400" />}
-                      {item.icon === 'ai' && <Brain className="w-6 h-6 mx-auto text-orange-400" />}
-                      {item.icon === 'qr' && <QrCode className="w-6 h-6 mx-auto text-orange-400" />}
-                      {item.icon === 'shield' && <Shield className="w-6 h-6 mx-auto text-orange-400" />}
-                      {item.icon === 'allinone' && <Wallet className="w-6 h-6 mx-auto text-orange-400" />}
-                      {item.icon === 'chains' && <Zap className="w-6 h-6 mx-auto text-orange-400" />}
-                      {item.icon === 'eth' && <span className="text-lg">Ξ</span>}
-                      {item.icon === 'bsc' && <span className="text-lg text-yellow-400">◆</span>}
-                      {item.icon === 'matic' && <span className="text-lg text-purple-400">⬡</span>}
-                      {item.icon === 'arb' && <span className="text-lg text-blue-400">◈</span>}
+                  <div key={i} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-2 text-center">
+                    <div className="mb-0.5">
+                      {item.icon === 'swap' && <Repeat className="w-5 h-5 mx-auto text-orange-400" />}
+                      {item.icon === 'bridge' && <ArrowRight className="w-5 h-5 mx-auto text-orange-400" />}
+                      {item.icon === 'ramp' && <TrendingUp className="w-5 h-5 mx-auto text-orange-400" />}
+                      {item.icon === 'offramp' && <DollarSign className="w-5 h-5 mx-auto text-orange-400" />}
+                      {item.icon === 'schedule' && <Clock className="w-5 h-5 mx-auto text-orange-400" />}
+                      {item.icon === 'ai' && <Brain className="w-5 h-5 mx-auto text-orange-400" />}
+                      {item.icon === 'qr' && <QrCode className="w-5 h-5 mx-auto text-orange-400" />}
+                      {item.icon === 'shield' && <Shield className="w-5 h-5 mx-auto text-orange-400" />}
+                      {item.icon === 'allinone' && <Wallet className="w-5 h-5 mx-auto text-orange-400" />}
+                      {item.icon === 'chains' && <Zap className="w-5 h-5 mx-auto text-orange-400" />}
+                      {item.icon === 'eth' && <span className="text-sm">Ξ</span>}
+                      {item.icon === 'bsc' && <span className="text-sm text-yellow-400">◆</span>}
+                      {item.icon === 'matic' && <span className="text-sm text-purple-400">⬡</span>}
+                      {item.icon === 'arb' && <span className="text-sm text-blue-400">◈</span>}
                     </div>
-                    <div className="text-xs font-medium">{item.label}</div>
+                    <div className="text-[10px] font-medium">{item.label}</div>
                   </div>
                 ))}
               </div>
@@ -1496,22 +1496,22 @@ function VisualPreview({ visual, postTitle }: { visual: VisualConfig; postTitle:
         {/* TIMELINE LAYOUT */}
         {visual.layout === 'timeline' && (
           <div className="text-center">
-            <div className="text-3xl font-bold mb-2">{visual.headline}</div>
+            <div className="text-2xl font-bold mb-1">{visual.headline}</div>
             {visual.subheadline && (
-              <div className="text-lg opacity-70 mb-6">{visual.subheadline}</div>
+              <div className="text-sm opacity-70 mb-3">{visual.subheadline}</div>
             )}
             {visual.steps && visual.steps.length > 0 && (
-              <div className="flex justify-center items-center gap-2 max-w-lg mx-auto">
+              <div className="flex justify-center items-center gap-1 max-w-md mx-auto">
                 {visual.steps.map((step, i, arr) => (
                   <div key={i} className="flex items-center">
                     <div className="flex flex-col items-center">
-                      <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold ${visual.mode === 'warm' ? 'bg-white/20' : 'bg-orange-500/30 text-orange-400'}`}>
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${visual.mode === 'warm' ? 'bg-white/20' : 'bg-orange-500/30 text-orange-400'}`}>
                         {i + 1}
                       </div>
-                      <div className="text-xs mt-2 max-w-[80px] text-center">{step}</div>
+                      <div className="text-[10px] mt-1 max-w-[70px] text-center leading-tight">{step}</div>
                     </div>
                     {i < arr.length - 1 && (
-                      <div className={`w-8 h-0.5 mx-1 ${visual.mode === 'warm' ? 'bg-white/30' : 'bg-orange-500/30'}`} />
+                      <div className={`w-6 h-0.5 mx-0.5 ${visual.mode === 'warm' ? 'bg-white/30' : 'bg-orange-500/30'}`} />
                     )}
                   </div>
                 ))}
@@ -1524,16 +1524,16 @@ function VisualPreview({ visual, postTitle }: { visual: VisualConfig; postTitle:
         {visual.layout === 'celebration' && (
           <div className="text-center">
             {visual.showLogo && (
-              <div className="mb-4 flex justify-center">
-                <Image src="/blaze-logo.png" alt="BLAZE" width={64} height={64} className="rounded-2xl" />
+              <div className="mb-2 flex justify-center">
+                <Image src="/blaze-logo.png" alt="BLAZE" width={48} height={48} className="rounded-xl" />
               </div>
             )}
-            <div className="inline-block px-4 py-2 rounded-full bg-red-500 text-white text-sm font-bold mb-4 animate-pulse">
+            <div className="inline-block px-3 py-1.5 rounded-full bg-red-500 text-white text-xs font-bold mb-2 animate-pulse">
               🔴 LIVE
             </div>
-            <div className="text-5xl font-black mb-2">{visual.headline}</div>
+            <div className="text-4xl font-black mb-1">{visual.headline}</div>
             {visual.subheadline && (
-              <div className="text-xl opacity-90">{visual.subheadline}</div>
+              <div className="text-base opacity-90">{visual.subheadline}</div>
             )}
           </div>
         )}
@@ -1541,32 +1541,32 @@ function VisualPreview({ visual, postTitle }: { visual: VisualConfig; postTitle:
         {/* DASHBOARD LAYOUT */}
         {visual.layout === 'dashboard' && (
           <div className="text-center">
-            <div className="text-2xl font-bold mb-6">{visual.headline}</div>
+            <div className="text-xl font-bold mb-3">{visual.headline}</div>
             {visual.bullets && (
-              <div className="flex justify-center gap-4">
+              <div className="flex justify-center gap-2">
                 {visual.bullets.map((stat, i) => (
-                  <div key={i} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4 min-w-[120px]">
-                    <div className={`text-2xl font-bold ${getAccentColor()}`}>{stat.split(' ')[0]}</div>
-                    <div className="text-xs opacity-70">{stat.split(' ').slice(1).join(' ')}</div>
+                  <div key={i} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-2 min-w-[90px]">
+                    <div className={`text-lg font-bold ${getAccentColor()}`}>{stat.split(' ')[0]}</div>
+                    <div className="text-[10px] opacity-70">{stat.split(' ').slice(1).join(' ')}</div>
                   </div>
                 ))}
               </div>
             )}
             {visual.subheadline && (
-              <div className="text-lg opacity-80 mt-4">{visual.subheadline}</div>
+              <div className="text-sm opacity-80 mt-2">{visual.subheadline}</div>
             )}
           </div>
         )}
 
         {/* Logo (when enabled, positioned bottom right) */}
         {visual.showLogo && visual.layout !== 'celebration' && (
-          <div className="absolute bottom-6 right-6">
-            <Image src="/blaze-logo.png" alt="BLAZE" width={40} height={40} className="rounded-xl opacity-80" />
+          <div className="absolute bottom-3 right-4">
+            <Image src="/blaze-logo.png" alt="BLAZE" width={28} height={28} className="rounded-lg opacity-80" />
           </div>
         )}
 
         {/* Website URL */}
-        <div className="absolute bottom-6 left-8 text-sm font-medium opacity-50">
+        <div className="absolute bottom-3 left-4 text-xs font-medium opacity-40">
           blazewallet.io
         </div>
       </div>
