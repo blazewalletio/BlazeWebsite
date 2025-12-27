@@ -4,6 +4,7 @@ import "./globals.css";
 import CookieConsent from "@/components/CookieConsent";
 import ScrollProgress from "@/components/ScrollProgress";
 import ChatWidget from "@/components/ChatWidget";
+import AuthHandler from "@/components/AuthHandler";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -290,6 +291,7 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
+        <AuthHandler />
         <ScrollProgress />
         {children}
         <CookieConsent />
