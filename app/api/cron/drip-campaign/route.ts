@@ -8,14 +8,24 @@ import {
   sendPresaleCountdownEmail,
 } from '@/lib/email';
 
-// Cron secret for security
+// Cron secret for security (Vercel sends this automatically for cron jobs)
 const CRON_SECRET = process.env.CRON_SECRET;
 
 export async function GET(request: Request) {
   try {
-    // Verify cron secret
+    // Verify authorization - accept either:
+    // 1. Vercel cron header (automatic for Vercel Cron Jobs)
+    // 2. Custom CRON_SECRET in Authorization header (for manual triggers from admin)
+    // 3. No auth required in development
     const authHeader = request.headers.get('authorization');
-    if (CRON_SECRET && authHeader !== `Bearer ${CRON_SECRET}`) {
+    const vercelCronHeader = request.headers.get('x-vercel-cron');
+    
+    const isVercelCron = vercelCronHeader === '1';
+    const isValidSecret = CRON_SECRET && authHeader === `Bearer ${CRON_SECRET}`;
+    const isDev = process.env.NODE_ENV === 'development';
+    const isAdminTrigger = !CRON_SECRET; // If no secret configured, allow (for admin panel)
+    
+    if (!isVercelCron && !isValidSecret && !isDev && !isAdminTrigger) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
