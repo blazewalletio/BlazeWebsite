@@ -26,7 +26,7 @@ export default function DocumentationPage() {
       icon: QrCode,
       color: 'bg-orange-100 text-orange-600',
       articles: [
-        { title: 'How QuickPay works', description: 'Pay in 2 seconds with QR codes' },
+        { title: 'How QuickPay works', description: 'Pay with crypto via QR codes' },
         { title: 'Scan to pay', description: 'Make payments at any merchant' },
         { title: 'Receive payments', description: 'Generate your payment QR code' },
         { title: 'Payment history', description: 'Track all QuickPay transactions' },

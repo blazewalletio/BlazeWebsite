@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     default: "BLAZE Wallet - AI-Powered Crypto Wallet for Everyday Payments",
     template: "%s | BLAZE Wallet",
   },
-  description: "Pay with crypto anywhere in 2 seconds. QuickPay, AI assistant, scam protection & 18 blockchains. The wallet that makes crypto spendable.",
+  description: "Pay with crypto anywhere. QuickPay, AI assistant, scam protection & 18+ blockchains. The wallet that makes crypto spendable.",
   keywords: [
     "crypto wallet",
     "BLAZE wallet",
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "BLAZE Wallet - AI-Powered Crypto Wallet for Everyday Payments",
-    description: "Pay with crypto anywhere in 2 seconds. QuickPay, AI assistant, scam protection & 18 blockchains. The wallet that makes crypto spendable.",
+    description: "Pay with crypto anywhere. QuickPay, AI assistant, scam protection & 18+ blockchains. The wallet that makes crypto spendable.",
     type: "website",
     url: "https://www.blazewallet.io",
     siteName: "BLAZE Wallet",
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "BLAZE Wallet - AI-Powered Crypto Wallet for Everyday Payments",
-    description: "Pay with crypto anywhere in 2 seconds. QuickPay, AI assistant, scam protection & 18 blockchains.",
+    description: "Pay with crypto anywhere. QuickPay, AI assistant, scam protection & 18+ blockchains.",
     images: ["https://www.blazewallet.io/og-image.png"],
     creator: "@blazewallet_io",
     site: "@blazewallet_io",
@@ -104,7 +104,7 @@ export default function RootLayout({
       "name": "BLAZE Wallet"
     },
     "featureList": [
-      "QuickPay - 2-second crypto payments",
+      "QuickPay - fast crypto payments via QR code",
       "AI Transaction Assistant",
       "Smart Scam Detector",
       "Gas Optimizer with Smart Scheduling",
@@ -184,7 +184,7 @@ export default function RootLayout({
         "name": "How does QuickPay work?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "QuickPay lets you pay with crypto anywhere in seconds. Simply scan a QR code, confirm the amount, and the payment is processed in under 2 seconds. It works with stablecoins like USDC and USDT for consistent value."
+          "text": "QuickPay lets you pay with crypto anywhere. Simply scan a QR code, confirm the amount, and your payment is sent. Settlement time depends on the blockchain you choose. It works with stablecoins like USDC and USDT for consistent value."
         }
       },
       {

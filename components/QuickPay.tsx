@@ -15,8 +15,8 @@ const useCases = [
 const benefits = [
   {
     icon: Zap,
-    title: '2-second payments',
-    description: 'Scan, confirm, done. Faster than card payments.',
+    title: 'Pay in seconds',
+    description: 'Scan, confirm, and your payment is on its way. Speed depends on your chosen chain.',
   },
   {
     icon: Shield,
@@ -66,7 +66,7 @@ export default function QuickPay() {
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             We believe crypto should be as easy to spend as cash. QuickPay makes that possible – 
-            scan a QR code and pay in seconds.
+            scan a QR code, confirm, and your payment is sent. Settlement time depends on your chosen blockchain.
           </p>
         </div>
 
@@ -306,7 +306,7 @@ export default function QuickPay() {
                                 transition={{ delay: 0.5 }}
                               >
                                 <div className="font-bold text-gray-900 text-xl mb-1 text-center">Payment sent!</div>
-                                <div className="text-gray-500 text-sm text-center">Transaction confirmed</div>
+                                <div className="text-gray-500 text-sm text-center">Confirming on Polygon...</div>
                               </motion.div>
                             </div>
                             
@@ -325,8 +325,8 @@ export default function QuickPay() {
                                 <span className="text-gray-900">4.52 USDC</span>
                               </div>
                               <div className="flex justify-between items-center">
-                                <span className="text-gray-500 text-sm">Time</span>
-                                <span className="text-emerald-500 font-bold">1.8 sec ⚡</span>
+                                <span className="text-gray-500 text-sm">Status</span>
+                                <span className="text-emerald-500 font-bold">Sent ✓</span>
                               </div>
                             </motion.div>
                           </motion.div>
@@ -368,11 +368,11 @@ export default function QuickPay() {
               />
             </div>
               
-            {/* Time indicator */}
+            {/* Network indicator */}
             <div className="absolute -right-4 top-1/4 bg-white rounded-xl shadow-lg border border-gray-200 p-3 z-10">
               <div className="flex items-center gap-2">
-                <Clock className="w-5 h-5 text-orange-500" />
-                <span className="font-bold text-gray-900">1.8s</span>
+                <Zap className="w-5 h-5 text-purple-500" />
+                <span className="font-bold text-gray-900">Polygon</span>
               </div>
             </div>
               

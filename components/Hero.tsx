@@ -18,7 +18,7 @@ export default function Hero() {
   const trustBadges = [
     { text: 'Pay anywhere' },
     { text: 'Non-custodial' },
-    { text: 'Instant payments' },
+    { text: 'Multi-chain' },
   ];
 
   return (
@@ -314,8 +314,8 @@ export default function Hero() {
                     <Zap className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <div className="font-bold text-gray-900 text-sm">2 seconds</div>
-                    <div className="text-[11px] text-gray-500">Payment time</div>
+                    <div className="font-bold text-gray-900 text-sm">18+ chains</div>
+                    <div className="text-[11px] text-gray-500">Supported</div>
                   </div>
                 </div>
               </motion.div>

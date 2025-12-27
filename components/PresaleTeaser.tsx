@@ -275,7 +275,7 @@ export default function PresaleTeaser() {
             className="flex flex-wrap justify-center gap-8 mt-10"
           >
             {[
-              { icon: Zap, text: 'Instant confirmation' },
+              { icon: Zap, text: 'Email confirmation' },
               { icon: Users, text: 'Non-custodial' },
               { icon: Clock, text: 'Priority access' },
             ].map((item, index) => (

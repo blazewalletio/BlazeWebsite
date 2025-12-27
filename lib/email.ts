@@ -217,15 +217,15 @@ export async function sendWhyBlazeEmail(email: string, referralCode: string) {
 
         <h2>BLAZE solves this with:</h2>
         <ul>
-          <li><strong>QuickPay:</strong> Pay at any store in 2 seconds with a QR code</li>
+          <li><strong>QuickPay:</strong> Pay at any store by scanning a QR code</li>
           <li><strong>AI Scam Protection:</strong> Our AI detects and blocks scams before you lose money</li>
           <li><strong>Non-Custodial:</strong> Your keys, your crypto - always</li>
           <li><strong>Multi-Chain:</strong> ETH, SOL, BNB, Polygon - all in one wallet</li>
         </ul>
 
         <div class="stat-box">
-          <div class="stat-number">2 sec</div>
-          <div class="stat-label">Average payment time with QuickPay</div>
+          <div class="stat-number">18+</div>
+          <div class="stat-label">Blockchains supported by BLAZE</div>
         </div>
 
         <p>We're building the wallet we always wanted - one that makes crypto as easy as using Apple Pay.</p>

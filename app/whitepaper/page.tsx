@@ -134,8 +134,8 @@ export default function WhitepaperPage() {
                 </p>
                 <p>
                   Our mission is simple: make crypto payments as fast, easy, and ubiquitous as using cash or a card. 
-                  With our proprietary QuickPay technology, users can complete payments in under 2 seconds by simply 
-                  scanning a QR code. Combined with AI-powered features, multi-chain support across 18+ blockchains, 
+                  With our proprietary QuickPay technology, users can initiate payments in seconds by simply 
+                  scanning a QR code. Settlement time depends on the chosen blockchain. Combined with AI-powered features, multi-chain support across 18+ blockchains, 
                   and enterprise-grade security, BLAZE is positioned to become the go-to wallet for crypto payments.
                 </p>
                 <p>
@@ -370,7 +370,7 @@ export default function WhitepaperPage() {
                   </div>
                   <h3 className="font-bold text-gray-900 mb-2">Lightning fast</h3>
                   <p className="text-sm text-gray-600">
-                    Complete payments in under 2 seconds with QuickPay technology. No waiting, no friction.
+                    Initiate payments in seconds with QuickPay technology. Settlement time varies by blockchain.
                   </p>
                 </div>
                 <div className="card p-6 text-center border-purple-200 bg-purple-50">
@@ -439,7 +439,7 @@ export default function WhitepaperPage() {
                   {[
                     { step: '1', title: 'Scan', desc: 'Point your camera at the merchant\'s QR code', icon: QrCode },
                     { step: '2', title: 'Confirm', desc: 'Review the amount and tap to confirm', icon: CheckCircle },
-                    { step: '3', title: 'Done', desc: 'Payment completes in under 2 seconds', icon: Zap },
+                    { step: '3', title: 'Done', desc: 'Payment sent to the blockchain', icon: Zap },
                   ].map((item) => (
                     <div key={item.step} className="text-center">
                       <div className="relative inline-block mb-4">

@@ -80,7 +80,7 @@ export default function SupportPage() {
     },
     {
       question: 'What is QuickPay?',
-      answer: 'QuickPay is our instant payment feature that lets you pay at any merchant by scanning a QR code. Payments complete in under 2 seconds.'
+      answer: 'QuickPay is our fast payment feature that lets you pay at any merchant by scanning a QR code. Settlement time depends on the blockchain you choose.'
     },
     {
       question: 'How do I recover my wallet?',
