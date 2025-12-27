@@ -74,26 +74,70 @@ export default function QuickPay() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
           {/* Left: Interactive Phone demo - Keep Framer Motion for interactive animations */}
           <div className={`relative order-2 lg:order-1 animate-on-scroll delay-1 ${isVisible ? 'is-visible' : ''}`}>
-            <div className="relative mx-auto max-w-xs">
-              {/* Phone frame */}
+            <div className="relative mx-auto" style={{ width: '306px' }}>
+              {/* iPhone 15 Pro Frame - Titanium finish (same as Hero) */}
               <div 
-                className="bg-gray-900 rounded-[2.5rem] p-3 shadow-2xl cursor-pointer"
+                className="relative rounded-[3rem] p-[3px] cursor-pointer"
+                style={{
+                  background: 'linear-gradient(145deg, #8a8a8f 0%, #6e6e73 25%, #48484a 50%, #6e6e73 75%, #8a8a8f 100%)',
+                  boxShadow: `
+                    0 0 0 1px rgba(255,255,255,0.1),
+                    0 4px 6px rgba(0,0,0,0.3),
+                    0 10px 20px rgba(0,0,0,0.4),
+                    0 30px 60px rgba(0,0,0,0.5),
+                    inset 0 1px 0 rgba(255,255,255,0.2)
+                  `,
+                }}
                 onClick={handleStartDemo}
               >
-                <div className="bg-white rounded-[2rem] overflow-hidden" style={{ height: '520px' }}>
-                  {/* QuickPay flow */}
-                  <div className="h-full flex flex-col">
-                    {/* Step indicator */}
-                    <div className="px-4 py-3 bg-gradient-to-r from-orange-500 to-yellow-500">
-                      <div className="flex items-center justify-between text-white">
-                        <span className="text-sm font-medium">QuickPay</span>
-                        <div className="flex gap-1">
-                          <div className={`w-2 h-2 rounded-full transition-all ${demoStep !== 'idle' ? 'bg-white' : 'bg-white/50'}`} />
-                          <div className={`w-2 h-2 rounded-full transition-all ${demoStep === 'confirming' || demoStep === 'processing' || demoStep === 'complete' ? 'bg-white' : 'bg-white/50'}`} />
-                          <div className={`w-2 h-2 rounded-full transition-all ${demoStep === 'complete' ? 'bg-white' : 'bg-white/50'}`} />
+                {/* Inner bezel */}
+                <div 
+                  className="rounded-[2.85rem] p-[10px]"
+                  style={{
+                    background: 'linear-gradient(180deg, #3a3a3c 0%, #2c2c2e 50%, #1c1c1e 100%)',
+                    boxShadow: 'inset 0 1px 2px rgba(255,255,255,0.1), inset 0 -1px 2px rgba(0,0,0,0.3)',
+                  }}
+                >
+                  {/* Screen */}
+                  <div 
+                    className="relative bg-white rounded-[2.4rem] overflow-hidden"
+                    style={{
+                      width: '280px',
+                      height: '520px',
+                      boxShadow: 'inset 0 0 1px 1px rgba(0,0,0,0.1)',
+                    }}
+                  >
+                    {/* Dynamic Island */}
+                    <div className="absolute top-3 left-1/2 -translate-x-1/2 z-30">
+                      <div 
+                        className="bg-black rounded-full flex items-center justify-center"
+                        style={{
+                          width: '120px',
+                          height: '34px',
+                          boxShadow: '0 0 0 1px rgba(0,0,0,0.1)',
+                        }}
+                      >
+                        <div className="absolute left-5 w-3 h-3 rounded-full bg-[#1a1a2e] ring-1 ring-[#0d0d15]">
+                          <div className="absolute inset-0.5 rounded-full bg-gradient-to-br from-[#2a2a4a] to-[#0a0a15]">
+                            <div className="absolute top-0.5 left-0.5 w-1 h-1 rounded-full bg-[#4a4a6a] opacity-60" />
+                          </div>
                         </div>
                       </div>
                     </div>
+                    
+                    {/* QuickPay flow */}
+                    <div className="h-full flex flex-col pt-12">
+                      {/* Step indicator */}
+                      <div className="px-4 py-3 bg-gradient-to-r from-orange-500 to-yellow-500 mx-4 rounded-xl mt-2">
+                        <div className="flex items-center justify-between text-white">
+                          <span className="text-sm font-medium">QuickPay</span>
+                          <div className="flex gap-1">
+                            <div className={`w-2 h-2 rounded-full transition-all ${demoStep !== 'idle' ? 'bg-white' : 'bg-white/50'}`} />
+                            <div className={`w-2 h-2 rounded-full transition-all ${demoStep === 'confirming' || demoStep === 'processing' || demoStep === 'complete' ? 'bg-white' : 'bg-white/50'}`} />
+                            <div className={`w-2 h-2 rounded-full transition-all ${demoStep === 'complete' ? 'bg-white' : 'bg-white/50'}`} />
+                          </div>
+                        </div>
+                      </div>
                     
                     {/* Dynamic content based on step - Keep AnimatePresence for smooth transitions */}
                     <div className="flex-1 relative overflow-hidden">
@@ -293,16 +337,47 @@ export default function QuickPay() {
                 </div>
               </div>
               
-              {/* Time indicator */}
-              <div className="absolute -right-4 top-1/4 bg-white rounded-xl shadow-lg border border-gray-200 p-3">
-                <div className="flex items-center gap-2">
-                  <Clock className="w-5 h-5 text-orange-500" />
-                  <span className="font-bold text-gray-900">1.8s</span>
-                </div>
-              </div>
-              
+              {/* Side buttons - Titanium style */}
+              <div 
+                className="absolute -left-[2px] top-[100px] w-[4px] h-[28px] rounded-l-sm"
+                style={{
+                  background: 'linear-gradient(90deg, #5a5a5c, #7a7a7c, #5a5a5c)',
+                  boxShadow: '-1px 0 2px rgba(0,0,0,0.3)',
+                }}
+              />
+              <div 
+                className="absolute -left-[2px] top-[145px] w-[4px] h-[50px] rounded-l-sm"
+                style={{
+                  background: 'linear-gradient(90deg, #5a5a5c, #7a7a7c, #5a5a5c)',
+                  boxShadow: '-1px 0 2px rgba(0,0,0,0.3)',
+                }}
+              />
+              <div 
+                className="absolute -left-[2px] top-[205px] w-[4px] h-[50px] rounded-l-sm"
+                style={{
+                  background: 'linear-gradient(90deg, #5a5a5c, #7a7a7c, #5a5a5c)',
+                  boxShadow: '-1px 0 2px rgba(0,0,0,0.3)',
+                }}
+              />
+              <div 
+                className="absolute -right-[2px] top-[160px] w-[4px] h-[70px] rounded-r-sm"
+                style={{
+                  background: 'linear-gradient(90deg, #5a5a5c, #7a7a7c, #5a5a5c)',
+                  boxShadow: '1px 0 2px rgba(0,0,0,0.3)',
+                }}
+              />
             </div>
+              
+            {/* Time indicator */}
+            <div className="absolute -right-4 top-1/4 bg-white rounded-xl shadow-lg border border-gray-200 p-3 z-10">
+              <div className="flex items-center gap-2">
+                <Clock className="w-5 h-5 text-orange-500" />
+                <span className="font-bold text-gray-900">1.8s</span>
+              </div>
+            </div>
+              
           </div>
+        </div>
 
           {/* Right: Benefits */}
           <div className={`order-1 lg:order-2 animate-on-scroll delay-2 ${isVisible ? 'is-visible' : ''}`}>
