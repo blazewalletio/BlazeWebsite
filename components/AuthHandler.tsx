@@ -1,24 +1,39 @@
 'use client';
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export default function AuthHandler() {
-  const router = useRouter();
+  const [shouldRedirect, setShouldRedirect] = useState(false);
+  const [redirectUrl, setRedirectUrl] = useState('');
 
   useEffect(() => {
-    // Check if there are auth tokens in the URL hash
-    if (typeof window !== 'undefined' && window.location.hash) {
-      const hashParams = new URLSearchParams(window.location.hash.substring(1));
+    // Only run on client side
+    if (typeof window === 'undefined') return;
+    
+    try {
+      const hash = window.location.hash;
+      if (!hash || hash.length < 2) return;
+
+      const hashParams = new URLSearchParams(hash.substring(1));
       const type = hashParams.get('type');
       const accessToken = hashParams.get('access_token');
 
       // If it's a recovery link, redirect to reset password page with the hash
       if (type === 'recovery' && accessToken) {
-        router.push(`/admin/reset-password${window.location.hash}`);
+        setRedirectUrl(`/admin/reset-password${hash}`);
+        setShouldRedirect(true);
       }
+    } catch (error) {
+      console.error('AuthHandler error:', error);
     }
-  }, [router]);
+  }, []);
+
+  // Handle redirect after state is set
+  useEffect(() => {
+    if (shouldRedirect && redirectUrl) {
+      window.location.href = redirectUrl;
+    }
+  }, [shouldRedirect, redirectUrl]);
 
   return null;
 }
