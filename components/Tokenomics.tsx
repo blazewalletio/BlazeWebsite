@@ -45,7 +45,7 @@ export default function Tokenomics() {
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Transparent and fair distribution. Designed for long-term growth.
           </p>
-        </div>
+            </div>
 
         {/* Key stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
@@ -53,7 +53,7 @@ export default function Tokenomics() {
             <div
               key={item.label}
               className={`card p-6 text-center animate-on-scroll delay-${index + 1} ${isVisible ? 'is-visible' : ''}`}
-            >
+          >
               <div className="text-sm text-gray-500 mb-1">{item.label}</div>
               <div className="text-3xl md:text-4xl font-bold text-gradient-brand mb-1">{item.value}</div>
               <div className="text-sm text-gray-600">{item.description}</div>
@@ -100,8 +100,8 @@ export default function Tokenomics() {
                 </div>
               ))}
             </div>
-          </div>
-        </div>
+                </div>
+              </div>
 
         {/* Liquidity lock notice */}
         <div className={`card p-6 md:p-8 bg-orange-50 border-orange-200 animate-on-scroll delay-4 ${isVisible ? 'is-visible' : ''}`}>
@@ -122,13 +122,13 @@ export default function Tokenomics() {
               Learn more
               <ArrowRight className="w-4 h-4" />
             </a>
-          </div>
-        </div>
+                </div>
+              </div>
 
         {/* Presale Countdown */}
         <div className={`mt-12 animate-on-scroll delay-4 ${isVisible ? 'is-visible' : ''}`}>
           <PresaleCountdown />
-        </div>
+          </div>
       </div>
     </section>
   );

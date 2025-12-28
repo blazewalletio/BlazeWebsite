@@ -43,15 +43,15 @@ export default function WhitepaperPage() {
             <div className="flex items-center gap-4 mb-6">
               <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-2xl flex items-center justify-center">
                 <BookOpen className="w-8 h-8 text-white" />
-              </div>
+            </div>
               <div>
                 <h1 className="text-4xl md:text-5xl font-bold text-gray-900">
                   Whitepaper
                 </h1>
                 <p className="text-gray-500">Version 2.1 • December 2025</p>
-              </div>
-            </div>
-            
+        </div>
+      </div>
+
             <p className="text-xl text-gray-600 mb-8">
               A comprehensive overview of BLAZE Wallet's vision, technology, tokenomics, and roadmap. 
               We're building the future of everyday crypto payments.
@@ -66,12 +66,12 @@ export default function WhitepaperPage() {
                 Start reading
                 <ArrowUpRight className="w-4 h-4" />
               </a>
-            </div>
-          </motion.div>
+          </div>
+        </motion.div>
         </div>
       </section>
 
-      {/* Table of Contents */}
+        {/* Table of Contents */}
       <section className="py-8 bg-gray-50 sticky top-16 z-30 border-b border-gray-200">
         <div className="container-main">
           <div className="flex flex-wrap gap-2 justify-center">
@@ -105,15 +105,15 @@ export default function WhitepaperPage() {
                 "For decades, we've watched money lose value year after year. We believe paying with crypto – 
                 everywhere – is the future. A crypto wallet should be a real wallet you use every day, 
                 not just a place to store assets and hope they go up in value."
-              </p>
+            </p>
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
                   R
-                </div>
+              </div>
                 <div>
                   <div className="font-semibold text-gray-900">Rick Schlimback</div>
                   <div className="text-sm text-gray-500">Founder & CEO, BLAZE Wallet</div>
-                </div>
+              </div>
               </div>
             </motion.div>
 
@@ -123,7 +123,7 @@ export default function WhitepaperPage() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-            >
+        >
               <h2 className="text-3xl font-bold text-gray-900 mb-6">1. Executive summary</h2>
               <div className="prose prose-lg max-w-none text-gray-600 mb-8">
                 <p>
@@ -149,22 +149,22 @@ export default function WhitepaperPage() {
                   <QrCode className="w-8 h-8 text-orange-500 mx-auto mb-2" />
                   <h3 className="font-bold text-gray-900 text-lg">3 taps</h3>
                   <p className="text-sm text-gray-600">To pay</p>
-                </div>
+              </div>
                 <div className="card p-5 text-center">
                   <Globe className="w-8 h-8 text-sky-500 mx-auto mb-2" />
                   <h3 className="font-bold text-gray-900 text-lg">18+</h3>
                   <p className="text-sm text-gray-600">Blockchains</p>
-                </div>
+              </div>
                 <div className="card p-5 text-center">
                   <Brain className="w-8 h-8 text-purple-500 mx-auto mb-2" />
                   <h3 className="font-bold text-gray-900 text-lg">5</h3>
                   <p className="text-sm text-gray-600">AI features</p>
-                </div>
+            </div>
                 <div className="card p-5 text-center">
                   <TrendingUp className="w-8 h-8 text-emerald-500 mx-auto mb-2" />
                   <h3 className="font-bold text-gray-900 text-lg">20%</h3>
                   <p className="text-sm text-gray-600">Max APY</p>
-                </div>
+          </div>
               </div>
             </motion.div>
 
@@ -174,7 +174,7 @@ export default function WhitepaperPage() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-            >
+        >
               <h2 className="text-3xl font-bold text-gray-900 mb-6">2. Market analysis</h2>
               
               <div className="prose prose-lg max-w-none text-gray-600 mb-8">
@@ -195,21 +195,21 @@ export default function WhitepaperPage() {
                       <div className="flex justify-between text-sm mb-1">
                         <span className="text-gray-600">Total crypto market cap</span>
                         <span className="font-semibold text-gray-900">$2.5T+</span>
-                      </div>
+              </div>
                       <div className="h-2 bg-gray-100 rounded-full">
                         <div className="h-2 bg-orange-500 rounded-full w-full" />
-                      </div>
-                    </div>
+            </div>
+          </div>
                     <div>
                       <div className="flex justify-between text-sm mb-1">
                         <span className="text-gray-600">Crypto wallet users</span>
                         <span className="font-semibold text-gray-900">400M+</span>
-                      </div>
+                  </div>
                       <div className="h-2 bg-gray-100 rounded-full">
                         <div className="h-2 bg-sky-500 rounded-full w-4/5" />
-                      </div>
-                    </div>
-                    <div>
+                </div>
+                  </div>
+                  <div>
                       <div className="flex justify-between text-sm mb-1">
                         <span className="text-gray-600">Using crypto for payments</span>
                         <span className="font-semibold text-gray-900">&lt;5%</span>
@@ -217,9 +217,9 @@ export default function WhitepaperPage() {
                       <div className="h-2 bg-gray-100 rounded-full">
                         <div className="h-2 bg-red-500 rounded-full w-[5%]" />
                       </div>
-                    </div>
                   </div>
                 </div>
+              </div>
 
                 <div className="card p-6">
                   <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
@@ -240,8 +240,8 @@ export default function WhitepaperPage() {
                       </li>
                     ))}
                   </ul>
+                  </div>
                 </div>
-              </div>
 
               <div className="card p-6 bg-amber-50 border-amber-200">
                 <h3 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
@@ -266,8 +266,8 @@ export default function WhitepaperPage() {
                   <div className="text-center p-3 bg-white rounded-xl">
                     <div className="text-2xl font-bold text-emerald-500">+∞</div>
                     <div className="text-xs text-gray-500">BTC potential</div>
-                  </div>
                 </div>
+              </div>
               </div>
             </motion.div>
 
@@ -287,7 +287,7 @@ export default function WhitepaperPage() {
                   not for real-world payments. This creates a paradox: crypto is meant to be digital 
                   money, yet it's rarely used as money.
                 </p>
-              </div>
+                  </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
                 {[
@@ -326,13 +326,13 @@ export default function WhitepaperPage() {
                     <div className="flex items-start gap-4">
                       <div className="w-10 h-10 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0">
                         <item.icon className="w-5 h-5 text-red-600" />
-                      </div>
-                      <div>
+                </div>
+                  <div>
                         <h4 className="font-semibold text-gray-900 mb-1">{item.title}</h4>
                         <p className="text-sm text-gray-600">{item.desc}</p>
-                      </div>
-                    </div>
                   </div>
+                  </div>
+                </div>
                 ))}
               </div>
 
@@ -343,7 +343,7 @@ export default function WhitepaperPage() {
                   we unlock a massive market. With 400+ million crypto holders worldwide and growing 
                   merchant interest, the timing is perfect for a payment-focused wallet.
                 </p>
-              </div>
+                  </div>
             </motion.div>
 
             {/* 4. Our Solution */}
@@ -361,7 +361,7 @@ export default function WhitepaperPage() {
                   decision, every line of code serves one purpose: making crypto payments as fast, easy, 
                   and secure as possible.
                 </p>
-              </div>
+                  </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 <div className="card p-6 text-center border-orange-200 bg-orange-50">
@@ -376,20 +376,20 @@ export default function WhitepaperPage() {
                 <div className="card p-6 text-center border-purple-200 bg-purple-50">
                   <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
                     <Brain className="w-7 h-7 text-white" />
-                  </div>
+              </div>
                   <h3 className="font-bold text-gray-900 mb-2">AI-powered</h3>
                   <p className="text-sm text-gray-600">
                     Smart features that protect you from scams, optimize fees, and simplify transactions.
                   </p>
-                </div>
+                  </div>
                 <div className="card p-6 text-center border-sky-200 bg-sky-50">
                   <div className="w-14 h-14 bg-gradient-to-br from-sky-500 to-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
                     <Shield className="w-7 h-7 text-white" />
-                  </div>
+                </div>
                   <h3 className="font-bold text-gray-900 mb-2">Bank-grade security</h3>
                   <p className="text-sm text-gray-600">
                     Non-custodial architecture, biometric auth, hardware key support, and AES-256 encryption.
-                  </p>
+                </p>
                 </div>
               </div>
 
@@ -406,11 +406,11 @@ export default function WhitepaperPage() {
                   ].map((item, i) => (
                     <div key={i} className="flex items-start gap-3">
                       <CheckCircle className="w-5 h-5 text-orange-500 flex-shrink-0 mt-0.5" />
-                      <div>
+                  <div>
                         <span className="font-medium text-gray-900">{item.title}</span>
                         <span className="text-gray-600"> – {item.desc}</span>
-                      </div>
-                    </div>
+                  </div>
+                  </div>
                   ))}
                 </div>
               </div>
@@ -422,7 +422,7 @@ export default function WhitepaperPage() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-            >
+        >
               <h2 className="text-3xl font-bold text-gray-900 mb-6">5. QuickPay: instant crypto payments</h2>
               
               <div className="prose prose-lg max-w-none text-gray-600 mb-8">
@@ -445,16 +445,16 @@ export default function WhitepaperPage() {
                       <div className="relative inline-block mb-4">
                         <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-2xl flex items-center justify-center mx-auto">
                           <item.icon className="w-8 h-8 text-white" />
-                        </div>
+              </div>
                         <div className="absolute -top-2 -right-2 w-7 h-7 bg-white rounded-full flex items-center justify-center text-sm font-bold text-orange-500 shadow-md">
                           {item.step}
-                        </div>
-                      </div>
+              </div>
+              </div>
                       <h4 className="font-bold text-gray-900 mb-2">{item.title}</h4>
                       <p className="text-sm text-gray-600">{item.desc}</p>
-                    </div>
+            </div>
                   ))}
-                </div>
+          </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
@@ -500,9 +500,9 @@ export default function WhitepaperPage() {
                         <span className="text-sm text-gray-700">{item.label}</span>
                       </div>
                     ))}
-                  </div>
                 </div>
               </div>
+            </div>
 
               <div className="card p-6 bg-emerald-50 border-emerald-200">
                 <h3 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
@@ -518,17 +518,17 @@ export default function WhitepaperPage() {
                   <div className="text-center p-3 bg-white rounded-xl">
                     <div className="text-xl font-bold text-emerald-600">0.5%</div>
                     <div className="text-xs text-gray-500">Transaction fee</div>
-                  </div>
+                </div>
                   <div className="text-center p-3 bg-white rounded-xl">
                     <div className="text-xl font-bold text-emerald-600">0</div>
                     <div className="text-xs text-gray-500">Chargebacks</div>
-                  </div>
+                </div>
                   <div className="text-center p-3 bg-white rounded-xl">
                     <div className="text-xl font-bold text-emerald-600">24h</div>
                     <div className="text-xs text-gray-500">Settlement</div>
-                  </div>
-                </div>
               </div>
+            </div>
+          </div>
             </motion.div>
 
             {/* 6. AI Features */}
@@ -537,7 +537,7 @@ export default function WhitepaperPage() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-            >
+        >
               <h2 className="text-3xl font-bold text-gray-900 mb-6">6. AI-powered features</h2>
               
               <div className="prose prose-lg max-w-none text-gray-600 mb-8">
@@ -590,7 +590,7 @@ export default function WhitepaperPage() {
                     <div className="flex flex-col md:flex-row md:items-start gap-4">
                       <div className={`w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 ${feature.color}`}>
                         <feature.icon className="w-7 h-7" />
-                      </div>
+                </div>
                       <div className="flex-1">
                         <h3 className="font-bold text-gray-900 mb-2">{feature.title}</h3>
                         <p className="text-gray-600 mb-4">{feature.desc}</p>
@@ -600,12 +600,12 @@ export default function WhitepaperPage() {
                               {f}
                             </span>
                           ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+                </div>
               </div>
+            </div>
+                </div>
+                ))}
+                </div>
             </motion.div>
 
             {/* 7. Technical Architecture */}
@@ -623,7 +623,7 @@ export default function WhitepaperPage() {
                   performance, and extensibility. Our non-custodial design ensures you always 
                   maintain full control of your assets.
                 </p>
-              </div>
+                </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                 <div className="card p-6">
@@ -653,7 +653,7 @@ export default function WhitepaperPage() {
                       Hardware wallet integration
                     </li>
                   </ul>
-                </div>
+            </div>
 
                 <div className="card p-6">
                   <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
@@ -683,7 +683,7 @@ export default function WhitepaperPage() {
                     </li>
                   </ul>
                 </div>
-              </div>
+                </div>
 
               <div className="card p-6">
                 <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
@@ -698,7 +698,7 @@ export default function WhitepaperPage() {
                   ].map((chain, i) => (
                     <div key={i} className="text-center p-2 bg-gray-50 rounded-lg text-xs font-medium text-gray-700">
                       {chain}
-                    </div>
+                </div>
                   ))}
                 </div>
               </div>
@@ -710,7 +710,7 @@ export default function WhitepaperPage() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-            >
+        >
               <h2 className="text-3xl font-bold text-gray-900 mb-6">8. Tokenomics</h2>
               
               <div className="prose prose-lg max-w-none text-gray-600 mb-8">
@@ -720,7 +720,7 @@ export default function WhitepaperPage() {
                   premium features.
                 </p>
               </div>
-
+              
               <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
                 {[
                   { label: 'Symbol', value: 'BLAZE' },
@@ -732,9 +732,9 @@ export default function WhitepaperPage() {
                   <div key={i} className="card p-4 text-center">
                     <div className="text-sm text-gray-500 mb-1">{item.label}</div>
                     <div className="text-lg font-bold text-gradient-brand">{item.value}</div>
-                  </div>
-                ))}
               </div>
+                ))}
+            </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                 <div className="card p-6">
@@ -756,14 +756,14 @@ export default function WhitepaperPage() {
                         <div className="flex justify-between text-sm mb-1">
                           <span className="text-gray-600">{item.label}</span>
                           <span className="font-semibold text-gray-900">{item.percent}%</span>
-                        </div>
+                  </div>
                         <div className="h-2 bg-gray-100 rounded-full">
                           <div className={`h-2 ${item.color} rounded-full`} style={{ width: `${item.percent}%` }} />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
                 </div>
+                  </div>
+                    ))}
+                </div>
+                  </div>
 
                 <div className="card p-6">
                   <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
@@ -801,9 +801,9 @@ export default function WhitepaperPage() {
                       <div className="text-xs text-gray-500 mb-1">{item.label}</div>
                       <div className="text-xl font-bold text-gradient-brand">{item.value}</div>
                       <div className="text-xs text-gray-400">{item.sub}</div>
-                    </div>
+            </div>
                   ))}
-                </div>
+          </div>
                 <p className="text-sm text-gray-600 mt-4">
                   Early supporters receive bonus tokens: Founders (first 100) get +100%, Early Birds +75%, 
                   Pioneers +50%, Believers +30%, and Supporters +15%. All bonuses are additional tokens on top of purchase.
@@ -823,10 +823,10 @@ export default function WhitepaperPage() {
                       <div className="text-3xl font-bold text-gradient-brand mb-2">{item.apy}</div>
                       <div className="text-xs text-gray-500">{item.lock}</div>
                       <div className="text-xs text-gray-400 mt-2">Min: {item.min}</div>
-                    </div>
+                  </div>
                   ))}
+                  </div>
                 </div>
-              </div>
             </motion.div>
 
             {/* 9. Security */}
@@ -864,7 +864,7 @@ export default function WhitepaperPage() {
                       </li>
                     ))}
                   </ul>
-                </div>
+                  </div>
                 <div className="card p-6">
                   <h3 className="font-bold text-gray-900 mb-4">Wallet security</h3>
                   <ul className="space-y-2">
@@ -881,9 +881,9 @@ export default function WhitepaperPage() {
                         {item}
                       </li>
                     ))}
-                  </ul>
-                </div>
+                </ul>
               </div>
+                  </div>
 
               <div className="card p-6 bg-amber-50 border-amber-200">
                 <div className="flex items-start gap-4">
@@ -1019,7 +1019,7 @@ export default function WhitepaperPage() {
                           item.status === 'active' ? 'bg-orange-500' : 'bg-gray-300'
                         }`} />
                         {i < 5 && <div className="w-0.5 h-full bg-gray-200 mt-2" />}
-                      </div>
+                  </div>
                       <div className="flex-1 pb-4">
                         <div className="flex flex-wrap items-center gap-3 mb-3">
                           <span className="text-sm font-medium text-gray-500">{item.phase}</span>
@@ -1030,17 +1030,17 @@ export default function WhitepaperPage() {
                           {item.status === 'active' && (
                             <span className="text-xs bg-orange-100 text-orange-700 px-2 py-0.5 rounded-full">Current</span>
                           )}
-                        </div>
+                  </div>
                         <div className="flex flex-wrap gap-2">
                           {item.items.map((subitem, j) => (
                             <span key={j} className="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-lg">
                               {subitem}
                             </span>
                           ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
                 ))}
               </div>
             </motion.div>
@@ -1051,7 +1051,7 @@ export default function WhitepaperPage() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-            >
+        >
               <h2 className="text-3xl font-bold text-gray-900 mb-6">11. Team</h2>
               
               <div className="prose prose-lg max-w-none text-gray-600 mb-8">
@@ -1060,12 +1060,12 @@ export default function WhitepaperPage() {
                   Based in Groningen, Netherlands, we combine deep technical expertise with a user-first mindset.
                 </p>
               </div>
-
+              
               <div className="card p-6 mb-6">
                 <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
                   <div className="w-24 h-24 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-2xl flex items-center justify-center text-white text-3xl font-bold flex-shrink-0">
                     R
-                  </div>
+                </div>
                   <div>
                     <h3 className="font-bold text-gray-900 text-xl mb-1">Rick Schlimback</h3>
                     <p className="text-orange-500 font-medium mb-3">Founder & CEO</p>
@@ -1078,35 +1078,35 @@ export default function WhitepaperPage() {
                       <a href="https://twitter.com/blazewallet_io" className="text-sm text-gray-500 hover:text-orange-500">Twitter</a>
                       <span className="text-gray-300">•</span>
                       <a href="https://linkedin.com" className="text-sm text-gray-500 hover:text-orange-500">LinkedIn</a>
-                    </div>
-                  </div>
+              </div>
                 </div>
               </div>
+            </div>
 
               <div className="card p-6 bg-gray-50">
                 <h3 className="font-bold text-gray-900 mb-4">Company information</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                  <div>
+                <div>
                     <span className="text-gray-500">Company:</span>
                     <span className="text-gray-900 ml-2">BLAZE</span>
-                  </div>
-                  <div>
+                </div>
+                <div>
                     <span className="text-gray-500">KvK number:</span>
                     <span className="text-gray-900 ml-2">88929280</span>
-                  </div>
+                </div>
                   <div>
                     <span className="text-gray-500">Location:</span>
                     <span className="text-gray-900 ml-2">Groningen, Netherlands</span>
-                  </div>
+              </div>
                   <div>
                     <span className="text-gray-500">Email:</span>
                     <a href="mailto:info@blazewallet.io" className="text-orange-500 ml-2">info@blazewallet.io</a>
-                  </div>
-                </div>
+            </div>
+          </div>
               </div>
             </motion.div>
 
-            {/* Conclusion */}
+        {/* Conclusion */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -1145,11 +1145,11 @@ export default function WhitepaperPage() {
         </div>
       </section>
 
-      {/* Footer */}
+        {/* Footer */}
       <footer className="py-8 border-t border-gray-200 bg-white">
         <div className="container-main text-center text-gray-500 text-sm">
           © 2025 BLAZE Wallet. All rights reserved. KvK: 88929280
-        </div>
+      </div>
       </footer>
     </div>
   );

@@ -15,12 +15,12 @@ const securityFeatures = [
     title: 'Your keys, your crypto', 
     description: 'Non-custodial – we never have access',
   },
-  { 
+  {
     icon: Lock, 
     title: 'Encrypted locally', 
     description: 'Private keys never leave your device',
   },
-  { 
+  {
     icon: CheckCircle, 
     title: 'CertiK audit', 
     description: 'Professional security audit Q1 2026',
@@ -80,12 +80,12 @@ export default function SocialProof() {
             >
               <div className="w-12 h-12 rounded-xl bg-emerald-100 flex items-center justify-center mb-4">
                 <feature.icon className="w-6 h-6 text-emerald-600" />
-              </div>
+                </div>
               <h3 className="font-bold text-gray-900 mb-1">{feature.title}</h3>
               <p className="text-sm text-gray-500">{feature.description}</p>
-            </div>
-          ))}
-        </div>
+                </div>
+            ))}
+          </div>
 
         {/* Partners */}
         <div className={`card p-8 animate-on-scroll delay-4 ${isVisible ? 'is-visible' : ''}`}>

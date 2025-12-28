@@ -41,7 +41,7 @@ export default function ChatWidget() {
   const inputRef = useRef<HTMLInputElement>(null);
   const pathname = usePathname();
 
-  // Don't show chat widget on admin pages
+  // Check if on admin page
   const isAdminPage = pathname?.startsWith('/admin');
 
   // Auto-scroll to bottom
@@ -49,24 +49,19 @@ export default function ChatWidget() {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  // ALL hooks must be called before any conditional returns
+  // IMPORTANT: All hooks must be called BEFORE any conditional returns!
   useEffect(() => {
-    if (messages.length > 0 && !isAdminPage) {
+    if (messages.length > 0) {
       scrollToBottom();
     }
-  }, [messages, isAdminPage]);
+  }, [messages]);
 
   // Focus input when chat opens
   useEffect(() => {
-    if (isOpen && inputRef.current && !isAdminPage) {
+    if (isOpen && inputRef.current) {
       setTimeout(() => inputRef.current?.focus(), 100);
     }
-  }, [isOpen, isAdminPage]);
-  
-  // Return null after all hooks are called
-  if (isAdminPage) {
-    return null;
-  }
+  }, [isOpen]);
 
   // Handle scroll button visibility
   const handleScroll = () => {
@@ -75,6 +70,11 @@ export default function ChatWidget() {
       setShowScrollButton(scrollHeight - scrollTop - clientHeight > 100);
     }
   };
+
+  // Don't show chat widget on admin pages - AFTER all hooks!
+  if (isAdminPage) {
+    return null;
+  }
 
   // Copy message to clipboard
   const copyMessage = async (id: string, content: string) => {

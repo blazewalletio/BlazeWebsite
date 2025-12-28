@@ -204,18 +204,19 @@
 
 /* ============================================
    GPU-Accelerated Scroll Animations
-   NO OPACITY - only transform animations
    ============================================ */
 
-/* Base state for animated elements - slide up only, no opacity */
+/* Base state for animated elements - invisible and ready */
 .animate-on-scroll {
+  opacity: 0;
   transform: translateY(20px) translateZ(0);
-  will-change: transform;
-  transition: transform 0.4s ease-out;
+  will-change: opacity, transform;
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
 }
 
 /* Visible state - triggered by Intersection Observer */
 .animate-on-scroll.is-visible {
+  opacity: 1;
   transform: translateY(0) translateZ(0);
 }
 
@@ -225,23 +226,27 @@
 .animate-on-scroll.delay-3 { transition-delay: 0.15s; }
 .animate-on-scroll.delay-4 { transition-delay: 0.2s; }
 
-/* Fade only variant - DISABLED, shows immediately */
+/* Fade only variant */
 .animate-fade {
-  /* No animation */
+  opacity: 0;
+  will-change: opacity;
+  transition: opacity 0.4s ease-out;
 }
 
 .animate-fade.is-visible {
-  /* No animation */
+  opacity: 1;
 }
 
-/* Scale up variant - only scale, no opacity */
+/* Scale up variant */
 .animate-scale {
+  opacity: 0;
   transform: scale(0.95) translateZ(0);
-  will-change: transform;
-  transition: transform 0.4s ease-out;
+  will-change: opacity, transform;
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
 }
 
 .animate-scale.is-visible {
+  opacity: 1;
   transform: scale(1) translateZ(0);
 }
 
@@ -321,60 +326,4 @@ section {
 /* Mobile safe area */
 .safe-area-pb {
   padding-bottom: max(24px, env(safe-area-inset-bottom));
-}
-
-/* ============================================
-   Hero Section CSS Animations
-   NO OPACITY - only transform animations
-   ============================================ */
-
-/* Slide up - simple, performant, no opacity */
-@keyframes slideInUp {
-  from {
-    transform: translateY(20px);
-  }
-  to {
-    transform: translateY(0);
-  }
-}
-
-.animate-fade-in-up {
-  animation: slideInUp 0.6s ease-out forwards;
-}
-
-/* Floating animations for crypto icons - desktop only, GPU accelerated */
-@keyframes floatSlow {
-  0%, 100% {
-    transform: translateY(0) translateX(0) translateZ(0);
-  }
-  50% {
-    transform: translateY(-15px) translateX(8px) translateZ(0);
-  }
-}
-
-@keyframes floatMedium {
-  0%, 100% {
-    transform: translateY(0) translateX(0) translateZ(0);
-  }
-  50% {
-    transform: translateY(-12px) translateX(-6px) translateZ(0);
-  }
-}
-
-.animate-float-slow {
-  animation: floatSlow 20s ease-in-out infinite;
-  will-change: transform;
-}
-
-.animate-float-medium {
-  animation: floatMedium 15s ease-in-out infinite;
-  will-change: transform;
-}
-
-/* Disable heavy animations on mobile for performance */
-@media (max-width: 1023px) {
-  .animate-float-slow,
-  .animate-float-medium {
-    animation: none;
-  }
 }

@@ -106,7 +106,7 @@ export default function Demo() {
             <div
               key={step.number}
               className={`relative animate-on-scroll delay-${index + 1} ${isVisible ? 'is-visible' : ''}`}
-            >
+          >
               {/* Connector line */}
               {index < steps.length - 1 && (
                 <div className="hidden md:block absolute top-10 left-full w-full h-0.5 bg-gray-200 -z-10" />
@@ -121,8 +121,8 @@ export default function Demo() {
               </div>
             </div>
           ))}
-        </div>
-
+                  </div>
+                  
         {/* Feature Spotlight */}
         <div className={`animate-on-scroll delay-4 ${isVisible ? 'is-visible' : ''}`}>
           <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-3xl overflow-hidden relative">
@@ -166,9 +166,9 @@ export default function Demo() {
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeFeature}
-                    initial={{ y: 20 }}
-                    animate={{ y: 0 }}
-                    exit={{ y: -20 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.3 }}
                     className="flex flex-col lg:flex-row items-center gap-8"
                   >
@@ -176,7 +176,7 @@ export default function Demo() {
                     <div className="relative">
                       <div className={`w-32 h-32 lg:w-40 lg:h-40 rounded-3xl bg-gradient-to-br ${currentFeature.color} flex items-center justify-center shadow-2xl`}>
                         <IconComponent className="w-16 h-16 lg:w-20 lg:h-20 text-white" />
-                      </div>
+                    </div>
                       {/* Decorative rings */}
                       <div className={`absolute -inset-4 rounded-[2rem] border ${currentFeature.borderColor} opacity-50`} />
                       <div className={`absolute -inset-8 rounded-[2.5rem] border ${currentFeature.borderColor} opacity-25`} />
@@ -211,20 +211,20 @@ export default function Demo() {
                                 : 'bg-white/30 hover:bg-white/50'
                             }`}
                           />
-                        ))}
-                      </div>
+                ))}
+            </div>
 
-                      <a
-                        href="https://my.blazewallet.io"
-                        target="_blank"
-                        rel="noopener noreferrer"
+              <a
+                href="https://my.blazewallet.io"
+                target="_blank"
+                rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-yellow-500 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-orange-500/25 transition-all"
-                      >
+              >
                         Try BLAZE now
                         <ArrowRight className="w-4 h-4" />
-                      </a>
+              </a>
                     </div>
-                  </motion.div>
+            </motion.div>
                 </AnimatePresence>
               </div>
             </div>

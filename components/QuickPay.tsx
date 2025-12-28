@@ -146,9 +146,9 @@ export default function QuickPay() {
                         {demoStep === 'idle' && (
                           <motion.div
                             key="idle"
-                            initial={{ y: 20 }}
-                            animate={{ y: 0 }}
-                            exit={{ y: -20 }}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
                             className="absolute inset-0 flex flex-col items-center justify-center p-6"
                           >
                             <motion.div 
@@ -167,9 +167,9 @@ export default function QuickPay() {
                         {demoStep === 'scanning' && (
                           <motion.div
                             key="scanning"
-                            initial={{ scale: 0.9 }}
-                            animate={{ scale: 1 }}
-                            exit={{ scale: 1.1 }}
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 1.1 }}
                             className="absolute inset-0 flex flex-col items-center justify-center p-6 bg-black"
                           >
                             <div className="relative w-48 h-48 mb-4">
@@ -217,9 +217,9 @@ export default function QuickPay() {
                         {demoStep === 'confirming' && (
                           <motion.div
                             key="confirming"
-                            initial={{ y: 20 }}
-                            animate={{ y: 0 }}
-                            exit={{ y: -20 }}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
                             className="absolute inset-0 flex flex-col p-4"
                           >
                             <div className="text-center mb-4 pt-2">
@@ -259,9 +259,9 @@ export default function QuickPay() {
                         {demoStep === 'processing' && (
                           <motion.div
                             key="processing"
-                            initial={{ scale: 0.95 }}
-                            animate={{ scale: 1 }}
-                            exit={{ scale: 0.95 }}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
                             className="absolute inset-0 flex flex-col items-center justify-center p-6"
                           >
                             <motion.div
@@ -280,9 +280,9 @@ export default function QuickPay() {
                         {demoStep === 'complete' && (
                           <motion.div
                             key="complete"
-                            initial={{ scale: 0.8 }}
-                            animate={{ scale: 1 }}
-                            exit={{ scale: 0.8 }}
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.8 }}
                             className="absolute inset-0 flex flex-col p-4"
                           >
                             <div className="flex-1 flex flex-col items-center justify-center">
@@ -301,8 +301,8 @@ export default function QuickPay() {
                                 </motion.div>
                               </motion.div>
                               <motion.div
-                                initial={{ y: 10 }}
-                                animate={{ y: 0 }}
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.5 }}
                               >
                                 <div className="font-bold text-gray-900 text-xl mb-1 text-center">Payment sent!</div>
@@ -311,8 +311,8 @@ export default function QuickPay() {
                             </div>
                             
                             <motion.div
-                              initial={{ y: 20 }}
-                              animate={{ y: 0 }}
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={{ opacity: 1, y: 0 }}
                               transition={{ delay: 0.6 }}
                               className="bg-gray-50 rounded-xl p-4"
                             >

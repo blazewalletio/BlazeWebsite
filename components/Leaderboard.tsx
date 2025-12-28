@@ -106,8 +106,8 @@ export default function Leaderboard() {
       <div className="container-main">
         {/* Header */}
         <motion.div
-          initial={{ y: 20 }}
-          whileInView={{ y: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-12"
         >
@@ -126,8 +126,8 @@ export default function Leaderboard() {
 
         {/* Stats Banner */}
         <motion.div
-          initial={{ y: 20 }}
-          whileInView={{ y: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="grid grid-cols-3 gap-4 mb-12"
         >
@@ -148,8 +148,8 @@ export default function Leaderboard() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Leaderboard */}
           <motion.div
-            initial={{ y: 20 }}
-            whileInView={{ y: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="lg:col-span-2"
           >
@@ -164,8 +164,8 @@ export default function Leaderboard() {
                 {data?.leaderboard?.slice(0, 25).map((entry, index) => (
                   <motion.div
                     key={entry.rank}
-                    initial={{ x: -20 }}
-                    whileInView={{ x: 0 }}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.03 }}
                     className={`flex items-center gap-4 px-6 py-4 hover:bg-gray-50 transition-colors ${
@@ -217,8 +217,8 @@ export default function Leaderboard() {
           <div className="space-y-6">
             {/* Check Your Rank */}
             <motion.div
-              initial={{ y: 20 }}
-              whileInView={{ y: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               className="bg-gradient-to-br from-orange-50 to-yellow-50 rounded-2xl p-6 border border-orange-100"
             >
@@ -290,8 +290,8 @@ export default function Leaderboard() {
 
             {/* Rewards Info */}
             <motion.div
-              initial={{ y: 20 }}
-              whileInView={{ y: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
               className="bg-white rounded-2xl border border-gray-200 p-6 shadow-soft"

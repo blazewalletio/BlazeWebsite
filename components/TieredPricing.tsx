@@ -77,8 +77,8 @@ export default function TieredPricing() {
       <div className="container-main relative z-10">
         {/* Header */}
         <motion.div
-          initial={{ y: 20 }}
-          whileInView={{ y: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-12"
         >
@@ -99,8 +99,8 @@ export default function TieredPricing() {
         {/* Current Tier Highlight */}
         {currentTier && (
           <motion.div
-            initial={{ scale: 0.95 }}
-            whileInView={{ scale: 1 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             className="max-w-xl mx-auto mb-12"
           >
@@ -152,8 +152,8 @@ export default function TieredPricing() {
 
         {/* All Tiers Grid */}
         <motion.div
-          initial={{ y: 20 }}
-          whileInView={{ y: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
           className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4"
@@ -161,8 +161,8 @@ export default function TieredPricing() {
           {allTiers?.map((tier, index) => (
             <motion.div
               key={tier.tier_number}
-              initial={{ y: 20 }}
-              whileInView={{ y: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
               className={`relative rounded-2xl p-4 transition-all ${
@@ -206,8 +206,8 @@ export default function TieredPricing() {
 
         {/* Progress Bar */}
         <motion.div
-          initial={{ y: 20 }}
-          whileInView={{ y: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.4 }}
           className="mt-12 max-w-3xl mx-auto"
@@ -238,8 +238,8 @@ export default function TieredPricing() {
 
         {/* CTA */}
         <motion.div
-          initial={{ y: 20 }}
-          whileInView={{ y: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.6 }}
           className="text-center mt-12"
