@@ -257,6 +257,110 @@
   perspective: 1000px;
 }
 
+/* ============================================
+   Hero Entrance Animations (CSS-only, no JS)
+   ============================================ */
+
+/* Fade and slide up - for text content */
+@keyframes heroFadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade and scale - for iPhone */
+@keyframes heroFadeScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Glow pulse - for ambient effects */
+@keyframes heroGlowPulse {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+}
+
+/* Badge slide in */
+@keyframes heroBadgeSlide {
+  from {
+    opacity: 0;
+    transform: translateX(20px) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+  }
+}
+
+/* Hero animation classes - Desktop only */
+@media (min-width: 1024px) {
+  .hero-animate-text {
+    animation: heroFadeSlideUp 0.6s ease-out forwards;
+    opacity: 0;
+  }
+  
+  .hero-animate-text-delay-1 { animation-delay: 0.1s; }
+  .hero-animate-text-delay-2 { animation-delay: 0.2s; }
+  .hero-animate-text-delay-3 { animation-delay: 0.3s; }
+  .hero-animate-text-delay-4 { animation-delay: 0.4s; }
+  .hero-animate-text-delay-5 { animation-delay: 0.5s; }
+  
+  .hero-animate-phone {
+    animation: heroFadeScale 1s ease-out forwards;
+    animation-delay: 0.4s;
+    opacity: 0;
+  }
+  
+  .hero-animate-glow {
+    animation: heroGlowPulse 1.2s ease-out forwards;
+    animation-delay: 0.2s;
+    opacity: 0;
+  }
+  
+  .hero-animate-badge-right {
+    animation: heroBadgeSlide 0.8s ease-out forwards;
+    animation-delay: 1s;
+    opacity: 0;
+  }
+  
+  .hero-animate-badge-left {
+    animation: heroBadgeSlide 0.8s ease-out forwards;
+    animation-delay: 1.2s;
+    opacity: 0;
+    transform: translateX(-20px) translateY(-10px);
+  }
+}
+
+/* Mobile - no animations, instant display */
+@media (max-width: 1023px) {
+  .hero-animate-text,
+  .hero-animate-phone,
+  .hero-animate-glow,
+  .hero-animate-badge-right,
+  .hero-animate-badge-left {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+}
+
 /* Legacy animations (kept for specific use cases) */
 @keyframes float {
   0%, 100% { transform: translateY(0px) translateZ(0); }
