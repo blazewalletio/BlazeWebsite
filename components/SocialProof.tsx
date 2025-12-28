@@ -2,7 +2,6 @@
 
 import { Shield, Lock, ScanSearch, KeyRound, CheckCircle, ExternalLink } from 'lucide-react';
 import Image from 'next/image';
-import { useInView } from '@/hooks/useInView';
 
 const securityFeatures = [
   { 
@@ -52,13 +51,11 @@ const partners = [
 ];
 
 export default function SocialProof() {
-  const [sectionRef, isVisible] = useInView<HTMLElement>({ threshold: 0.1 });
-
   return (
-    <section ref={sectionRef} className="py-20 lg:py-28 bg-gray-50">
+    <section className="py-20 lg:py-28 bg-gray-50">
       <div className="container-main">
         {/* Header */}
-        <div className={`text-center mb-12 animate-on-scroll ${isVisible ? 'is-visible' : ''}`}>
+        <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-100 text-emerald-700 font-medium text-sm mb-6">
             <Shield className="w-4 h-4" />
             Security first
@@ -73,22 +70,19 @@ export default function SocialProof() {
 
         {/* Security Features */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-12">
-          {securityFeatures.map((feature, index) => (
-            <div
-              key={feature.title}
-              className={`card p-6 animate-on-scroll delay-${index + 1} ${isVisible ? 'is-visible' : ''}`}
-            >
+          {securityFeatures.map((feature) => (
+            <div key={feature.title} className="card p-6">
               <div className="w-12 h-12 rounded-xl bg-emerald-100 flex items-center justify-center mb-4">
                 <feature.icon className="w-6 h-6 text-emerald-600" />
-                </div>
+              </div>
               <h3 className="font-bold text-gray-900 mb-1">{feature.title}</h3>
               <p className="text-sm text-gray-500">{feature.description}</p>
-                </div>
-            ))}
-          </div>
+            </div>
+          ))}
+        </div>
 
         {/* Partners */}
-        <div className={`card p-8 animate-on-scroll delay-4 ${isVisible ? 'is-visible' : ''}`}>
+        <div className="card p-8">
           <h3 className="text-xl font-bold text-gray-900 text-center mb-8">
             Trusted partners & integrations
           </h3>
@@ -117,7 +111,7 @@ export default function SocialProof() {
         </div>
 
         {/* CTA */}
-        <div className={`mt-12 text-center animate-on-scroll delay-4 ${isVisible ? 'is-visible' : ''}`}>
+        <div className="mt-12 text-center">
           <p className="text-gray-600 mb-4">Want to learn more about our security?</p>
           <a
             href="/whitepaper"

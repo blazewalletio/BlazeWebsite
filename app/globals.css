@@ -202,184 +202,13 @@
   }
 }
 
-/* ============================================
-   GPU-Accelerated Scroll Animations
-   ============================================ */
-
-/* Base state for animated elements - invisible and ready */
-.animate-on-scroll {
-  opacity: 0;
-  transform: translateY(20px) translateZ(0);
-  will-change: opacity, transform;
-  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+/* Soft shadow utility */
+.shadow-soft {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
-/* Visible state - triggered by Intersection Observer */
-.animate-on-scroll.is-visible {
-  opacity: 1;
-  transform: translateY(0) translateZ(0);
-}
-
-/* Stagger delays using CSS custom properties */
-.animate-on-scroll.delay-1 { transition-delay: 0.05s; }
-.animate-on-scroll.delay-2 { transition-delay: 0.1s; }
-.animate-on-scroll.delay-3 { transition-delay: 0.15s; }
-.animate-on-scroll.delay-4 { transition-delay: 0.2s; }
-
-/* Fade only variant */
-.animate-fade {
-  opacity: 0;
-  will-change: opacity;
-  transition: opacity 0.4s ease-out;
-}
-
-.animate-fade.is-visible {
-  opacity: 1;
-}
-
-/* Scale up variant */
-.animate-scale {
-  opacity: 0;
-  transform: scale(0.95) translateZ(0);
-  will-change: opacity, transform;
-  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
-}
-
-.animate-scale.is-visible {
-  opacity: 1;
-  transform: scale(1) translateZ(0);
-}
-
-/* GPU layer promotion for smooth animations */
-.gpu-accelerated {
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  perspective: 1000px;
-}
-
-/* ============================================
-   Hero Entrance Animations (CSS-only, no JS)
-   ============================================ */
-
-/* Fade and slide up - for text content */
-@keyframes heroFadeSlideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Fade and scale - for iPhone */
-@keyframes heroFadeScale {
-  from {
-    opacity: 0;
-    transform: scale(0.95) translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-}
-
-/* Glow pulse - for ambient effects */
-@keyframes heroGlowPulse {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 0.6;
-    transform: scale(1);
-  }
-}
-
-/* Badge slide in */
-@keyframes heroBadgeSlide {
-  from {
-    opacity: 0;
-    transform: translateX(20px) translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0) translateY(0);
-  }
-}
-
-/* Hero animation classes - Desktop only */
-@media (min-width: 1024px) {
-  .hero-animate-text {
-    animation: heroFadeSlideUp 0.6s ease-out forwards;
-    opacity: 0;
-  }
-  
-  .hero-animate-text-delay-1 { animation-delay: 0.1s; }
-  .hero-animate-text-delay-2 { animation-delay: 0.2s; }
-  .hero-animate-text-delay-3 { animation-delay: 0.3s; }
-  .hero-animate-text-delay-4 { animation-delay: 0.4s; }
-  .hero-animate-text-delay-5 { animation-delay: 0.5s; }
-  
-  .hero-animate-phone {
-    animation: heroFadeScale 1s ease-out forwards;
-    animation-delay: 0.4s;
-    opacity: 0;
-  }
-  
-  .hero-animate-glow {
-    animation: heroGlowPulse 1.2s ease-out forwards;
-    animation-delay: 0.2s;
-    opacity: 0;
-  }
-  
-  .hero-animate-badge-right {
-    animation: heroBadgeSlide 0.8s ease-out forwards;
-    animation-delay: 1s;
-    opacity: 0;
-  }
-  
-  .hero-animate-badge-left {
-    animation: heroBadgeSlide 0.8s ease-out forwards;
-    animation-delay: 1.2s;
-    opacity: 0;
-    transform: translateX(-20px) translateY(-10px);
-  }
-}
-
-/* Mobile - no animations, instant display */
-@media (max-width: 1023px) {
-  .hero-animate-text,
-  .hero-animate-phone,
-  .hero-animate-glow,
-  .hero-animate-badge-right,
-  .hero-animate-badge-left {
-    opacity: 1 !important;
-    transform: none !important;
-    animation: none !important;
-  }
-}
-
-/* Legacy animations (kept for specific use cases) */
-@keyframes float {
-  0%, 100% { transform: translateY(0px) translateZ(0); }
-  50% { transform: translateY(-10px) translateZ(0); }
-}
-
-@keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(249, 115, 22, 0.3); }
-  50% { box-shadow: 0 0 40px rgba(249, 115, 22, 0.6); }
-}
-
-.animate-float {
-  animation: float 3s ease-in-out infinite;
-  will-change: transform;
-}
-
-.animate-pulse-glow {
-  animation: pulse-glow 2s ease-in-out infinite;
-  will-change: box-shadow;
+.shadow-soft-lg {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 }
 
 /* Accessibility */
@@ -411,23 +240,18 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-  
-  .animate-on-scroll,
-  .animate-fade,
-  .animate-scale {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
-}
-
-/* Content visibility optimization for off-screen sections */
-section {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 800px;
 }
 
 /* Mobile safe area */
 .safe-area-pb {
   padding-bottom: max(24px, env(safe-area-inset-bottom));
+}
+
+/* Scrollbar hide utility for horizontal scrolling */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }

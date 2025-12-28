@@ -1,7 +1,6 @@
 'use client';
 
 import { CheckCircle, Circle, Rocket, ArrowRight } from 'lucide-react';
-import { useInView } from '@/hooks/useInView';
 
 const roadmapPhases = [
   {
@@ -87,13 +86,11 @@ const roadmapPhases = [
 ];
 
 export default function Roadmap() {
-  const [sectionRef, isVisible] = useInView<HTMLElement>({ threshold: 0.05 });
-
   return (
-    <section id="roadmap" ref={sectionRef} className="py-20 lg:py-28 bg-white">
+    <section id="roadmap" className="py-20 lg:py-28 bg-white">
       <div className="container-main">
         {/* Header */}
-        <div className={`text-center mb-12 animate-on-scroll ${isVisible ? 'is-visible' : ''}`}>
+        <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             Product <span className="text-gradient-brand">roadmap</span>
           </h2>
@@ -103,7 +100,7 @@ export default function Roadmap() {
         </div>
 
         {/* Timeline grid */}
-        <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 animate-on-scroll delay-1 ${isVisible ? 'is-visible' : ''}`}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {roadmapPhases.map((phase) => (
             <div key={phase.phase}>
               {/* Card */}
@@ -159,7 +156,7 @@ export default function Roadmap() {
         </div>
 
         {/* CTA */}
-        <div className={`mt-10 text-center animate-on-scroll delay-2 ${isVisible ? 'is-visible' : ''}`}>
+        <div className="mt-10 text-center">
           <a
             href="/whitepaper#roadmap"
             className="inline-flex items-center gap-2 text-orange-600 font-medium hover:text-orange-700 transition-colors"

@@ -1,9 +1,8 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { QrCode, Zap, Shield, Clock, Coffee, ShoppingCart, Scissors, Car, TrendingDown, Check, Loader2 } from 'lucide-react';
+import { QrCode, Zap, Shield, TrendingDown, Coffee, ShoppingCart, Scissors, Car, Check, Loader2 } from 'lucide-react';
 import { useState } from 'react';
-import { useInView } from '@/hooks/useInView';
 
 const useCases = [
   { icon: Coffee, label: 'Coffee shops', example: '€4.50' },
@@ -36,7 +35,6 @@ type DemoStep = 'idle' | 'scanning' | 'confirming' | 'processing' | 'complete';
 export default function QuickPay() {
   const [demoStep, setDemoStep] = useState<DemoStep>('idle');
   const [isPlaying, setIsPlaying] = useState(false);
-  const [sectionRef, isVisible] = useInView<HTMLElement>({ threshold: 0.1 });
 
   const handleStartDemo = () => {
     if (isPlaying) return; // Prevent multiple clicks during animation
@@ -53,10 +51,10 @@ export default function QuickPay() {
   };
 
   return (
-    <section id="quickpay" ref={sectionRef} className="py-20 lg:py-28 bg-white">
+    <section id="quickpay" className="py-20 lg:py-28 bg-white">
       <div className="container-main">
         {/* Header */}
-        <div className={`text-center mb-16 animate-on-scroll ${isVisible ? 'is-visible' : ''}`}>
+        <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-100 text-orange-700 font-medium text-sm mb-6">
             <QrCode className="w-4 h-4" />
             Introducing QuickPay
@@ -72,8 +70,8 @@ export default function QuickPay() {
 
         {/* Main content grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
-          {/* Left: Interactive Phone demo - Keep Framer Motion for interactive animations */}
-          <div className={`relative order-2 lg:order-1 animate-on-scroll delay-1 ${isVisible ? 'is-visible' : ''}`}>
+          {/* Left: Interactive Phone demo */}
+          <div className="relative order-2 lg:order-1">
             <div className="relative mx-auto" style={{ width: '306px' }}>
               {/* iPhone 15 Pro Frame - Titanium finish (same as Hero) */}
               <div 
@@ -139,7 +137,7 @@ export default function QuickPay() {
                         </div>
                       </div>
                     
-                    {/* Dynamic content based on step - Keep AnimatePresence for smooth transitions */}
+                    {/* Dynamic content based on step */}
                     <div className="flex-1 relative overflow-hidden">
                       <AnimatePresence mode="wait">
                         {/* Step 1: Idle - Scan prompt */}
@@ -380,9 +378,9 @@ export default function QuickPay() {
         </div>
 
           {/* Right: Benefits */}
-          <div className={`order-1 lg:order-2 animate-on-scroll delay-2 ${isVisible ? 'is-visible' : ''}`}>
+          <div className="order-1 lg:order-2">
             <div className="space-y-6">
-              {benefits.map((benefit, index) => (
+              {benefits.map((benefit) => (
                 <div
                   key={benefit.title}
                   className="card p-6"
@@ -403,7 +401,7 @@ export default function QuickPay() {
         </div>
 
         {/* Use cases */}
-        <div className={`card p-8 animate-on-scroll delay-3 ${isVisible ? 'is-visible' : ''}`}>
+        <div className="card p-8">
           <h3 className="text-xl font-bold text-gray-900 text-center mb-6">
             Use QuickPay anywhere
           </h3>
@@ -424,7 +422,7 @@ export default function QuickPay() {
         </div>
 
         {/* Vision quote */}
-        <div className={`mt-12 text-center max-w-3xl mx-auto animate-on-scroll delay-4 ${isVisible ? 'is-visible' : ''}`}>
+        <div className="mt-12 text-center max-w-3xl mx-auto">
           <blockquote className="text-xl text-gray-600 italic mb-4">
             "For decades, we've watched money lose value year after year. We built BLAZE because 
             we believe paying with crypto – everywhere – is the future."

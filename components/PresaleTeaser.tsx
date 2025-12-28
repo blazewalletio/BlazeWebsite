@@ -1,8 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Zap, Users, TrendingUp, ArrowRight, Flame, Clock, Gift, ChevronRight } from 'lucide-react';
+import { Zap, Users, TrendingUp, ArrowRight, Clock, Gift, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
 interface PricingTier {
@@ -16,7 +15,6 @@ interface PricingTier {
 
 export default function PresaleTeaser() {
   const [currentTier, setCurrentTier] = useState<PricingTier | null>(null);
-  const [totalBuyers, setTotalBuyers] = useState(0);
   const [waitlistCount, setWaitlistCount] = useState(0);
   const [inputAmount, setInputAmount] = useState(100);
   const [loading, setLoading] = useState(true);
@@ -29,7 +27,6 @@ export default function PresaleTeaser() {
         const pricingData = await pricingRes.json();
         if (pricingData.currentTier) {
           setCurrentTier(pricingData.currentTier);
-          setTotalBuyers(pricingData.totalBuyers || 0);
         }
 
         // Fetch waitlist count
@@ -75,12 +72,7 @@ export default function PresaleTeaser() {
       <div className="container-main relative z-10">
         <div className="max-w-5xl mx-auto">
           {/* Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
+          <div className="text-center mb-12">
             {/* Live badge */}
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-orange-500/20 to-yellow-500/20 border border-orange-500/30 text-orange-300 font-medium text-sm mb-6">
               <span className="relative flex h-2 w-2">
@@ -97,16 +89,10 @@ export default function PresaleTeaser() {
             <p className="text-lg text-gray-400 max-w-2xl mx-auto">
               Fixed presale price of $0.00834 per token. Early supporters get bonus tokens!
             </p>
-          </motion.div>
+          </div>
 
           {/* Main card */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 overflow-hidden"
-          >
+          <div className="bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-2">
               {/* Left: Current tier info */}
               <div className="p-8 lg:p-10 border-b lg:border-b-0 lg:border-r border-white/10">
@@ -264,16 +250,10 @@ export default function PresaleTeaser() {
               </div>
               <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-white group-hover:translate-x-1 transition-all" />
             </Link>
-          </motion.div>
+          </div>
 
           {/* Trust indicators */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="flex flex-wrap justify-center gap-8 mt-10"
-          >
+          <div className="flex flex-wrap justify-center gap-8 mt-10">
             {[
               { icon: Zap, text: 'Email confirmation' },
               { icon: Users, text: 'Non-custodial' },
@@ -284,10 +264,9 @@ export default function PresaleTeaser() {
                 <span>{item.text}</span>
               </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
   );
 }
-

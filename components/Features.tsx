@@ -1,7 +1,6 @@
 'use client';
 
 import { Brain, Shield, TrendingUp, Wallet, QrCode, Repeat, Sparkles, Image as ImageIcon, Vote } from 'lucide-react';
-import { useInView } from '@/hooks/useInView';
 
 const features = [
   {
@@ -42,17 +41,11 @@ const additionalFeatures = [
 ];
 
 export default function Features() {
-  const [sectionRef, isVisible] = useInView<HTMLElement>({ threshold: 0.1 });
-
   return (
-    <section 
-      id="features" 
-      ref={sectionRef}
-      className="py-20 lg:py-28 bg-gray-50"
-    >
+    <section id="features" className="py-20 lg:py-28 bg-gray-50">
       <div className="container-main">
         {/* Header */}
-        <div className={`text-center mb-16 animate-on-scroll ${isVisible ? 'is-visible' : ''}`}>
+        <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sky-100 text-sky-700 font-medium text-sm mb-6">
             <Sparkles className="w-4 h-4" />
             More than a wallet
@@ -68,10 +61,10 @@ export default function Features() {
 
         {/* Main features grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-          {features.map((feature, index) => (
+          {features.map((feature) => (
             <div
               key={feature.title}
-              className={`card p-8 hover:shadow-soft-lg transition-shadow duration-200 animate-on-scroll delay-${index + 1} ${isVisible ? 'is-visible' : ''}`}
+              className="card p-8 hover:shadow-soft-lg transition-shadow duration-200"
             >
               <div className={`icon-box-lg ${feature.bg} mb-6`}>
                 <feature.icon className={`w-8 h-8 ${feature.color}`} />
@@ -87,7 +80,7 @@ export default function Features() {
         </div>
 
         {/* Additional features bar */}
-        <div className={`card p-6 animate-on-scroll delay-4 ${isVisible ? 'is-visible' : ''}`}>
+        <div className="card p-6">
           <div className="flex flex-wrap justify-center gap-6 md:gap-12">
             {additionalFeatures.map((item, index) => (
               <div key={index} className="flex items-center gap-2 text-gray-700">

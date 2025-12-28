@@ -23,28 +23,28 @@ export default function Hero() {
       
       <div className="container-main relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center py-12 lg:py-20">
-          {/* Left: Text content - CSS animations on desktop, instant on mobile */}
+          {/* Left: Text content */}
           <div className="text-center lg:text-left">
             {/* Badge */}
-            <div className="hero-animate-text hero-animate-text-delay-1 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-orange-500/20 to-yellow-500/20 border border-orange-500/30 text-orange-300 font-medium text-sm mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-orange-500/20 to-yellow-500/20 border border-orange-500/30 text-orange-300 font-medium text-sm mb-6">
               <QrCode className="w-4 h-4" />
               Pay with crypto everywhere
             </div>
 
             {/* Heading */}
-            <h1 className="hero-animate-text hero-animate-text-delay-2 text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
               Your crypto{' '}
               <span className="text-gradient-brand">wallet</span>
               <br />for everyday life
             </h1>
 
             {/* Subtitle */}
-            <p className="hero-animate-text hero-animate-text-delay-3 text-lg sm:text-xl text-gray-300 mb-8 max-w-lg mx-auto lg:mx-0">
+            <p className="text-lg sm:text-xl text-gray-300 mb-8 max-w-lg mx-auto lg:mx-0">
               Pay at the coffee shop, supermarket, or anywhere – just scan a QR code. Crypto payments in seconds, not minutes.
             </p>
 
             {/* CTA Buttons */}
-            <div className="hero-animate-text hero-animate-text-delay-4 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8">
               <a
                 href="https://my.blazewallet.io"
                 target="_blank"
@@ -64,7 +64,7 @@ export default function Hero() {
             </div>
 
             {/* Trust badges */}
-            <div className="hero-animate-text hero-animate-text-delay-5 flex flex-wrap gap-6 justify-center lg:justify-start">
+            <div className="flex flex-wrap gap-6 justify-center lg:justify-start">
               {trustBadges.map((badge, index) => (
                 <div key={index} className="flex items-center gap-2 text-gray-400">
                   <CheckCircle className="w-5 h-5 text-emerald-400" />
@@ -74,19 +74,19 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Right: iPhone - CSS animations on desktop, instant on mobile */}
+          {/* Right: iPhone */}
           <div className="relative flex justify-center lg:justify-end">
             <div className="relative">
               {/* Ambient glow */}
               <div 
-                className="hero-animate-glow absolute -inset-8 rounded-[4rem] blur-3xl"
+                className="absolute -inset-8 rounded-[4rem] blur-3xl"
                 style={{
                   background: 'radial-gradient(ellipse at center, rgba(249, 115, 22, 0.4) 0%, rgba(234, 179, 8, 0.2) 50%, transparent 70%)',
                 }}
               />
               
               {/* iPhone 15 Pro Frame */}
-              <div className="hero-animate-phone">
+              <div>
                 <div 
                   className="relative rounded-[3rem] p-[3px]"
                   style={{
@@ -167,7 +167,7 @@ export default function Hero() {
               
               {/* Floating badges - Desktop only */}
               <div
-                className="hero-animate-badge-right absolute -top-4 -right-6 bg-white rounded-2xl shadow-2xl p-3 border border-gray-100 hidden lg:block z-50"
+                className="absolute -top-4 -right-6 bg-white rounded-2xl shadow-2xl p-3 border border-gray-100 hidden lg:block z-50"
                 style={{ boxShadow: '0 10px 40px rgba(0,0,0,0.15)' }}
               >
                 <div className="flex items-center gap-2">
@@ -182,7 +182,7 @@ export default function Hero() {
               </div>
               
               <div
-                className="hero-animate-badge-left absolute -bottom-4 -left-6 bg-white rounded-2xl shadow-2xl p-3 border border-gray-100 hidden lg:block z-50"
+                className="absolute -bottom-4 -left-6 bg-white rounded-2xl shadow-2xl p-3 border border-gray-100 hidden lg:block z-50"
                 style={{ boxShadow: '0 10px 40px rgba(0,0,0,0.15)' }}
               >
                 <div className="flex items-center gap-2">

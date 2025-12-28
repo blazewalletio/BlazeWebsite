@@ -2,7 +2,6 @@
 
 import { ArrowRight, Zap, Brain, Shield, Clock, Repeat, CreditCard, Sparkles } from 'lucide-react';
 import { useState } from 'react';
-import { useInView } from '@/hooks/useInView';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const steps = [
@@ -78,16 +77,15 @@ const features = [
 
 export default function Demo() {
   const [activeFeature, setActiveFeature] = useState(0);
-  const [sectionRef, isVisible] = useInView<HTMLElement>({ threshold: 0.1 });
 
   const currentFeature = features[activeFeature];
   const IconComponent = currentFeature.icon;
 
   return (
-    <section id="demo" ref={sectionRef} className="py-20 lg:py-28 bg-white">
+    <section id="demo" className="py-20 lg:py-28 bg-white">
       <div className="container-main">
         {/* Header */}
-        <div className={`text-center mb-16 animate-on-scroll ${isVisible ? 'is-visible' : ''}`}>
+        <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-100 text-emerald-700 font-medium text-sm mb-6">
             <Zap className="w-4 h-4" />
             Get started in minutes
@@ -103,10 +101,7 @@ export default function Demo() {
         {/* Steps */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
           {steps.map((step, index) => (
-            <div
-              key={step.number}
-              className={`relative animate-on-scroll delay-${index + 1} ${isVisible ? 'is-visible' : ''}`}
-          >
+            <div key={step.number} className="relative">
               {/* Connector line */}
               {index < steps.length - 1 && (
                 <div className="hidden md:block absolute top-10 left-full w-full h-0.5 bg-gray-200 -z-10" />
@@ -121,10 +116,10 @@ export default function Demo() {
               </div>
             </div>
           ))}
-                  </div>
+        </div>
                   
         {/* Feature Spotlight */}
-        <div className={`animate-on-scroll delay-4 ${isVisible ? 'is-visible' : ''}`}>
+        <div>
           <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-3xl overflow-hidden relative">
             {/* Background effects */}
             <div className="absolute top-0 left-1/4 w-64 h-64 bg-orange-500/20 rounded-full blur-[100px]" />
