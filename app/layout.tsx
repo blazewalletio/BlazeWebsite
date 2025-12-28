@@ -5,6 +5,7 @@ import CookieConsent from "@/components/CookieConsent";
 import ScrollProgress from "@/components/ScrollProgress";
 import ChatWidget from "@/components/ChatWidget";
 import AuthHandler from "@/components/AuthHandler";
+import ClientOnly from "@/components/ClientOnly";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -292,10 +293,14 @@ export default function RootLayout({
       </head>
       <body className={inter.className} suppressHydrationWarning>
         <AuthHandler />
-        <ScrollProgress />
+        <ClientOnly>
+          <ScrollProgress />
+        </ClientOnly>
         {children}
-        <CookieConsent />
-        <ChatWidget />
+        <ClientOnly>
+          <CookieConsent />
+          <ChatWidget />
+        </ClientOnly>
       </body>
     </html>
   );
