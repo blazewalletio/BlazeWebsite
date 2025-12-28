@@ -14,33 +14,27 @@ export default function Hero() {
     <section 
       className="hero-section relative min-h-screen flex items-center pt-20 md:pt-0 overflow-hidden"
       style={{
-        // GPU layer forcing - keeps section in GPU memory
         transform: 'translateZ(0)',
         backfaceVisibility: 'hidden',
-        // Render isolation - prevents repaints from affecting other elements
         contain: 'paint layout',
-        // Fallback background color (shows immediately)
         backgroundColor: '#1e293b',
       }}
     >
-      {/* Background - Solid gradient base (always visible, no blur) */}
+      {/* Background - Solid gradient base */}
       <div 
         className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"
         style={{ transform: 'translateZ(0)' }}
       />
       
-      {/* Decorative orbs - Desktop only with blur, Mobile gets simple circles */}
-      {/* Orange orb */}
+      {/* Decorative orbs - Hidden on mobile via CSS */}
       <div 
         className="absolute top-20 left-10 w-96 h-96 rounded-full hero-orb-orange"
         style={{ transform: 'translateZ(0)' }}
       />
-      {/* Blue orb */}
       <div 
         className="absolute bottom-20 right-10 w-80 h-80 rounded-full hero-orb-blue"
         style={{ transform: 'translateZ(0)' }}
       />
-      {/* Yellow orb - center */}
       <div 
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full hero-orb-yellow"
         style={{ transform: 'translate(-50%, -50%) translateZ(0)' }}
@@ -57,28 +51,28 @@ export default function Hero() {
       
       <div className="container-main relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center py-12 lg:py-20">
-          {/* Left: Text content */}
+          {/* Left: Text content - Animated on desktop */}
           <div className="text-center lg:text-left">
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-orange-500/20 to-yellow-500/20 border border-orange-500/30 text-orange-300 font-medium text-sm mb-6">
+            <div className="hero-animate-content delay-1 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-orange-500/20 to-yellow-500/20 border border-orange-500/30 text-orange-300 font-medium text-sm mb-6">
               <QrCode className="w-4 h-4" />
               Pay with crypto everywhere
             </div>
 
             {/* Heading */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+            <h1 className="hero-animate-content delay-2 text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
               Your crypto{' '}
               <span className="text-gradient-brand">wallet</span>
               <br />for everyday life
             </h1>
 
             {/* Subtitle */}
-            <p className="text-lg sm:text-xl text-gray-300 mb-8 max-w-lg mx-auto lg:mx-0">
+            <p className="hero-animate-content delay-3 text-lg sm:text-xl text-gray-300 mb-8 max-w-lg mx-auto lg:mx-0">
               Pay at the coffee shop, supermarket, or anywhere – just scan a QR code. Crypto payments in seconds, not minutes.
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8">
+            <div className="hero-animate-content delay-4 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8">
               <a
                 href="https://my.blazewallet.io"
                 target="_blank"
@@ -98,7 +92,7 @@ export default function Hero() {
             </div>
 
             {/* Trust badges */}
-            <div className="flex flex-wrap gap-6 justify-center lg:justify-start">
+            <div className="hero-animate-content delay-4 flex flex-wrap gap-6 justify-center lg:justify-start">
               {trustBadges.map((badge, index) => (
                 <div key={index} className="flex items-center gap-2 text-gray-400">
                   <CheckCircle className="w-5 h-5 text-emerald-400" />
@@ -108,10 +102,10 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Right: iPhone */}
+          {/* Right: iPhone - Animated on desktop */}
           <div className="relative flex justify-center lg:justify-end">
-            <div className="relative" style={{ transform: 'translateZ(0)' }}>
-              {/* Ambient glow - Simplified on mobile */}
+            <div className="hero-animate-phone relative" style={{ transform: 'translateZ(0)' }}>
+              {/* Ambient glow */}
               <div 
                 className="absolute -inset-8 rounded-[4rem] hero-phone-glow"
                 style={{ transform: 'translateZ(0)' }}

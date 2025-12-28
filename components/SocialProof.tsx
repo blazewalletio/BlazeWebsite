@@ -2,6 +2,7 @@
 
 import { Shield, Lock, ScanSearch, KeyRound, CheckCircle, ExternalLink } from 'lucide-react';
 import Image from 'next/image';
+import { useAnimateOnce } from '@/hooks/useAnimateOnce';
 
 const securityFeatures = [
   { 
@@ -51,11 +52,13 @@ const partners = [
 ];
 
 export default function SocialProof() {
+  const [sectionRef, isVisible] = useAnimateOnce<HTMLElement>();
+
   return (
-    <section className="py-20 lg:py-28 bg-gray-50">
+    <section ref={sectionRef} className="py-20 lg:py-28 bg-gray-50">
       <div className="container-main">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className={`text-center mb-12 animate-entrance ${isVisible ? 'is-visible' : ''}`}>
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-100 text-emerald-700 font-medium text-sm mb-6">
             <Shield className="w-4 h-4" />
             Security first
@@ -70,8 +73,11 @@ export default function SocialProof() {
 
         {/* Security Features */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-12">
-          {securityFeatures.map((feature) => (
-            <div key={feature.title} className="card p-6">
+          {securityFeatures.map((feature, index) => (
+            <div 
+              key={feature.title} 
+              className={`card p-6 animate-entrance delay-${Math.min(index + 1, 4)} ${isVisible ? 'is-visible' : ''}`}
+            >
               <div className="w-12 h-12 rounded-xl bg-emerald-100 flex items-center justify-center mb-4">
                 <feature.icon className="w-6 h-6 text-emerald-600" />
               </div>
@@ -82,7 +88,7 @@ export default function SocialProof() {
         </div>
 
         {/* Partners */}
-        <div className="card p-8">
+        <div className={`card p-8 animate-entrance delay-4 ${isVisible ? 'is-visible' : ''}`}>
           <h3 className="text-xl font-bold text-gray-900 text-center mb-8">
             Trusted partners & integrations
           </h3>
@@ -92,7 +98,6 @@ export default function SocialProof() {
                 key={index}
                 className="flex flex-col items-center p-6 rounded-2xl bg-gray-50 hover:bg-gray-100 transition-colors"
               >
-                {/* Logo container */}
                 <div className="w-full h-16 bg-white rounded-xl flex items-center justify-center mb-4 px-4">
                   <Image
                     src={partner.logo}
@@ -111,7 +116,7 @@ export default function SocialProof() {
         </div>
 
         {/* CTA */}
-        <div className="mt-12 text-center">
+        <div className={`mt-12 text-center animate-entrance delay-4 ${isVisible ? 'is-visible' : ''}`}>
           <p className="text-gray-600 mb-4">Want to learn more about our security?</p>
           <a
             href="/whitepaper"

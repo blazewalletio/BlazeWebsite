@@ -1,6 +1,7 @@
 'use client';
 
 import { CheckCircle, Circle, Rocket, ArrowRight } from 'lucide-react';
+import { useAnimateOnce } from '@/hooks/useAnimateOnce';
 
 const roadmapPhases = [
   {
@@ -86,11 +87,13 @@ const roadmapPhases = [
 ];
 
 export default function Roadmap() {
+  const [sectionRef, isVisible] = useAnimateOnce<HTMLElement>(0.05);
+
   return (
-    <section id="roadmap" className="py-20 lg:py-28 bg-white">
+    <section id="roadmap" ref={sectionRef} className="py-20 lg:py-28 bg-white">
       <div className="container-main">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className={`text-center mb-12 animate-entrance ${isVisible ? 'is-visible' : ''}`}>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             Product <span className="text-gradient-brand">roadmap</span>
           </h2>
@@ -100,10 +103,9 @@ export default function Roadmap() {
         </div>
 
         {/* Timeline grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 animate-entrance delay-1 ${isVisible ? 'is-visible' : ''}`}>
           {roadmapPhases.map((phase) => (
             <div key={phase.phase}>
-              {/* Card */}
               <div className={`card p-5 h-full ${
                 phase.status === 'active' 
                   ? 'border-orange-300 bg-orange-50 ring-2 ring-orange-200' 
@@ -111,7 +113,6 @@ export default function Roadmap() {
                     ? 'border-emerald-200 bg-emerald-50/50'
                     : 'border-gray-200'
               }`}>
-                {/* Status badge */}
                 <div className="flex items-center gap-2 mb-3">
                   {phase.status === 'completed' && (
                     <CheckCircle className="w-4 h-4 text-emerald-500" />
@@ -135,10 +136,8 @@ export default function Roadmap() {
                   )}
                 </div>
 
-                {/* Title */}
                 <h3 className="font-bold text-gray-900 mb-3">{phase.title}</h3>
 
-                {/* Highlights */}
                 <ul className="space-y-1.5">
                   {phase.highlights.map((item, i) => (
                     <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
@@ -156,7 +155,7 @@ export default function Roadmap() {
         </div>
 
         {/* CTA */}
-        <div className="mt-10 text-center">
+        <div className={`mt-10 text-center animate-entrance delay-2 ${isVisible ? 'is-visible' : ''}`}>
           <a
             href="/whitepaper#roadmap"
             className="inline-flex items-center gap-2 text-orange-600 font-medium hover:text-orange-700 transition-colors"

@@ -257,6 +257,113 @@
 }
 
 /* ============================================
+   Desktop-Only Entrance Animations
+   ============================================ */
+
+/* Base state for animated elements - starts invisible on desktop */
+@media (min-width: 1024px) {
+  .animate-entrance {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  
+  .animate-entrance.is-visible {
+    animation: fadeSlideUp 0.4s ease-out forwards;
+  }
+  
+  /* Staggered delays for children */
+  .animate-entrance.delay-1.is-visible { animation-delay: 0.1s; }
+  .animate-entrance.delay-2.is-visible { animation-delay: 0.15s; }
+  .animate-entrance.delay-3.is-visible { animation-delay: 0.2s; }
+  .animate-entrance.delay-4.is-visible { animation-delay: 0.25s; }
+}
+
+/* Mobile: No entrance animations - instant display */
+@media (max-width: 1023px) {
+  .animate-entrance {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+}
+
+/* Fade + slide up animation */
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hero specific animations - Desktop only */
+@media (min-width: 1024px) {
+  .hero-animate-content {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: heroFadeIn 0.6s ease-out forwards;
+  }
+  
+  .hero-animate-content.delay-1 { animation-delay: 0.1s; }
+  .hero-animate-content.delay-2 { animation-delay: 0.2s; }
+  .hero-animate-content.delay-3 { animation-delay: 0.3s; }
+  .hero-animate-content.delay-4 { animation-delay: 0.4s; }
+  
+  .hero-animate-phone {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+    animation: heroPhoneIn 0.7s ease-out forwards;
+    animation-delay: 0.3s;
+  }
+}
+
+/* Mobile: Hero loads instantly */
+@media (max-width: 1023px) {
+  .hero-animate-content,
+  .hero-animate-phone {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+}
+
+@keyframes heroFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroPhoneIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Reduced motion: disable all animations */
+@media (prefers-reduced-motion: reduce) {
+  .animate-entrance,
+  .hero-animate-content,
+  .hero-animate-phone {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+}
+
+/* ============================================
    Hero Section - GPU Optimized
    ============================================ */
 

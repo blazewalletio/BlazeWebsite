@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Zap, Users, TrendingUp, ArrowRight, Clock, Gift, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
+import { useAnimateOnce } from '@/hooks/useAnimateOnce';
 
 interface PricingTier {
   tier_name: string;
@@ -18,18 +19,17 @@ export default function PresaleTeaser() {
   const [waitlistCount, setWaitlistCount] = useState(0);
   const [inputAmount, setInputAmount] = useState(100);
   const [loading, setLoading] = useState(true);
+  const [sectionRef, isVisible] = useAnimateOnce<HTMLElement>();
 
   useEffect(() => {
     async function fetchData() {
       try {
-        // Fetch pricing
         const pricingRes = await fetch('/api/pricing');
         const pricingData = await pricingRes.json();
         if (pricingData.currentTier) {
           setCurrentTier(pricingData.currentTier);
         }
 
-        // Fetch waitlist count
         const waitlistRes = await fetch('/api/waitlist');
         const waitlistData = await waitlistRes.json();
         setWaitlistCount(waitlistData.count || 0);
@@ -42,21 +42,19 @@ export default function PresaleTeaser() {
     fetchData();
   }, []);
 
-  // Calculate tokens - using fixed presale price ($0.00834)
-  const PRESALE_PRICE = 0.00834; // Fixed presale price
+  const PRESALE_PRICE = 0.00834;
   const LAUNCH_PRICE = 0.02;
-  const bonusPercentage = currentTier?.bonus_percentage || 100; // Default to Founders tier (100% bonus = 2x tokens)
+  const bonusPercentage = currentTier?.bonus_percentage || 100;
   const baseTokens = inputAmount / PRESALE_PRICE;
   const bonusTokens = baseTokens * (bonusPercentage / 100);
   const totalTokens = baseTokens + bonusTokens;
-  const presaleDiscount = Math.round((1 - PRESALE_PRICE / LAUNCH_PRICE) * 100); // 58%
+  const presaleDiscount = Math.round((1 - PRESALE_PRICE / LAUNCH_PRICE) * 100);
 
-  // Presale limits from wallet
-  const HARD_CAP = 500000; // $500k
-  const TOKENS_FOR_SALE = 120000000; // 120M tokens
+  const HARD_CAP = 500000;
+  const TOKENS_FOR_SALE = 120000000;
 
   return (
-    <section className="py-20 lg:py-28 relative overflow-hidden">
+    <section ref={sectionRef} className="py-20 lg:py-28 relative overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
       
@@ -72,8 +70,7 @@ export default function PresaleTeaser() {
       <div className="container-main relative z-10">
         <div className="max-w-5xl mx-auto">
           {/* Header */}
-          <div className="text-center mb-12">
-            {/* Live badge */}
+          <div className={`text-center mb-12 animate-entrance ${isVisible ? 'is-visible' : ''}`}>
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-orange-500/20 to-yellow-500/20 border border-orange-500/30 text-orange-300 font-medium text-sm mb-6">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
@@ -92,11 +89,10 @@ export default function PresaleTeaser() {
           </div>
 
           {/* Main card */}
-          <div className="bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 overflow-hidden">
+          <div className={`bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 overflow-hidden animate-entrance delay-1 ${isVisible ? 'is-visible' : ''}`}>
             <div className="grid grid-cols-1 lg:grid-cols-2">
               {/* Left: Current tier info */}
               <div className="p-8 lg:p-10 border-b lg:border-b-0 lg:border-r border-white/10">
-                {/* Tier badge */}
                 <div className="flex items-center gap-3 mb-6">
                   <div className="px-4 py-2 bg-gradient-to-r from-orange-500 to-yellow-500 rounded-xl">
                     <span className="text-white font-bold">{currentTier?.tier_name || 'Founders'} Tier</span>
@@ -108,7 +104,6 @@ export default function PresaleTeaser() {
                   )}
                 </div>
 
-                {/* Price */}
                 <div className="mb-6">
                   <div className="text-gray-400 text-sm mb-1">Presale price</div>
                   <div className="flex items-baseline gap-3">
@@ -118,7 +113,6 @@ export default function PresaleTeaser() {
                   <div className="text-emerald-400 text-sm mt-1">{presaleDiscount}% off launch price</div>
                 </div>
 
-                {/* Presale info */}
                 <div className="mb-6 p-4 bg-white/5 rounded-xl border border-white/10">
                   <div className="grid grid-cols-2 gap-4 text-sm">
                     <div>
@@ -132,7 +126,6 @@ export default function PresaleTeaser() {
                   </div>
                 </div>
 
-                {/* Bonus highlight */}
                 {bonusPercentage > 0 && (
                   <div className="flex items-center gap-3 p-4 bg-gradient-to-r from-yellow-500/10 to-orange-500/10 rounded-xl border border-yellow-500/20">
                     <div className="w-10 h-10 bg-yellow-500/20 rounded-xl flex items-center justify-center">
@@ -145,7 +138,6 @@ export default function PresaleTeaser() {
                   </div>
                 )}
 
-                {/* Social proof */}
                 <div className="flex items-center gap-4 mt-6 pt-6 border-t border-white/10">
                   <div className="flex -space-x-2">
                     {[...Array(4)].map((_, i) => (
@@ -170,7 +162,6 @@ export default function PresaleTeaser() {
                   Quick calculator
                 </div>
 
-                {/* Amount input */}
                 <div className="mb-6">
                   <label className="text-gray-400 text-sm mb-2 block">Investment amount</label>
                   <div className="relative">
@@ -182,7 +173,6 @@ export default function PresaleTeaser() {
                       className="w-full pl-10 pr-4 py-4 bg-white/10 border border-white/20 rounded-xl text-white text-2xl font-bold focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                     />
                   </div>
-                  {/* Quick amounts */}
                   <div className="flex gap-2 mt-3">
                     {[50, 100, 250, 500, 1000].map((amount) => (
                       <button
@@ -200,7 +190,6 @@ export default function PresaleTeaser() {
                   </div>
                 </div>
 
-                {/* Result */}
                 <div className="bg-gradient-to-br from-orange-500/20 to-yellow-500/20 rounded-xl p-6 border border-orange-500/20 mb-6">
                   <div className="text-gray-400 text-sm mb-2">You'll receive</div>
                   <div className="text-4xl font-bold text-white mb-1">
@@ -213,7 +202,6 @@ export default function PresaleTeaser() {
                   </div>
                 </div>
 
-                {/* CTA */}
                 <Link
                   href="/presale"
                   className="w-full flex items-center justify-center gap-2 py-4 bg-gradient-to-r from-orange-500 to-yellow-500 text-white rounded-xl font-bold text-lg hover:from-orange-600 hover:to-yellow-600 transition-all shadow-lg shadow-orange-500/30 group"
@@ -228,7 +216,7 @@ export default function PresaleTeaser() {
               </div>
             </div>
 
-            {/* Bottom bar - View all tiers */}
+            {/* Bottom bar */}
             <Link
               href="/presale"
               className="flex items-center justify-between px-8 py-4 bg-white/5 border-t border-white/10 hover:bg-white/10 transition-colors group"
@@ -253,7 +241,7 @@ export default function PresaleTeaser() {
           </div>
 
           {/* Trust indicators */}
-          <div className="flex flex-wrap justify-center gap-8 mt-10">
+          <div className={`flex flex-wrap justify-center gap-8 mt-10 animate-entrance delay-2 ${isVisible ? 'is-visible' : ''}`}>
             {[
               { icon: Zap, text: 'Email confirmation' },
               { icon: Users, text: 'Non-custodial' },

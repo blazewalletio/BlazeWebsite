@@ -2,6 +2,7 @@
 
 import { ChevronDown, HelpCircle } from 'lucide-react';
 import { useState } from 'react';
+import { useAnimateOnce } from '@/hooks/useAnimateOnce';
 
 const faqs = [
   {
@@ -32,13 +33,14 @@ const faqs = [
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [sectionRef, isVisible] = useAnimateOnce<HTMLElement>();
 
   return (
-    <section id="faq" className="py-20 lg:py-28 bg-white">
+    <section id="faq" ref={sectionRef} className="py-20 lg:py-28 bg-white">
       <div className="container-main">
         <div className="max-w-3xl mx-auto">
           {/* Header */}
-          <div className="text-center mb-12">
+          <div className={`text-center mb-12 animate-entrance ${isVisible ? 'is-visible' : ''}`}>
             <div className="icon-box-lg bg-gray-100 mx-auto mb-6">
               <HelpCircle className="w-8 h-8 text-gray-600" />
             </div>
@@ -53,7 +55,10 @@ export default function FAQ() {
           {/* FAQ list */}
           <div className="space-y-3">
             {faqs.map((faq, index) => (
-              <div key={index} className="card overflow-hidden">
+              <div 
+                key={index} 
+                className={`card overflow-hidden animate-entrance delay-${Math.min(index + 1, 4)} ${isVisible ? 'is-visible' : ''}`}
+              >
                 <button
                   onClick={() => setOpenIndex(openIndex === index ? null : index)}
                   className="w-full flex items-center justify-between p-6 text-left hover:bg-gray-50 transition-colors"
@@ -86,7 +91,6 @@ export default function FAQ() {
               </div>
             ))}
           </div>
-
         </div>
       </div>
     </section>

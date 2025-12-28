@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { QrCode, Zap, Shield, TrendingDown, Coffee, ShoppingCart, Scissors, Car, Check, Loader2 } from 'lucide-react';
 import { useState } from 'react';
+import { useAnimateOnce } from '@/hooks/useAnimateOnce';
 
 const useCases = [
   { icon: Coffee, label: 'Coffee shops', example: '€4.50' },
@@ -35,9 +36,10 @@ type DemoStep = 'idle' | 'scanning' | 'confirming' | 'processing' | 'complete';
 export default function QuickPay() {
   const [demoStep, setDemoStep] = useState<DemoStep>('idle');
   const [isPlaying, setIsPlaying] = useState(false);
+  const [sectionRef, isVisible] = useAnimateOnce<HTMLElement>();
 
   const handleStartDemo = () => {
-    if (isPlaying) return; // Prevent multiple clicks during animation
+    if (isPlaying) return;
     
     setIsPlaying(true);
     setDemoStep('scanning');
@@ -51,10 +53,10 @@ export default function QuickPay() {
   };
 
   return (
-    <section id="quickpay" className="py-20 lg:py-28 bg-white">
+    <section id="quickpay" ref={sectionRef} className="py-20 lg:py-28 bg-white">
       <div className="container-main">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className={`text-center mb-16 animate-entrance ${isVisible ? 'is-visible' : ''}`}>
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-100 text-orange-700 font-medium text-sm mb-6">
             <QrCode className="w-4 h-4" />
             Introducing QuickPay
@@ -71,9 +73,9 @@ export default function QuickPay() {
         {/* Main content grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
           {/* Left: Interactive Phone demo */}
-          <div className="relative order-2 lg:order-1">
+          <div className={`relative order-2 lg:order-1 animate-entrance delay-1 ${isVisible ? 'is-visible' : ''}`}>
             <div className="relative mx-auto" style={{ width: '306px' }}>
-              {/* iPhone 15 Pro Frame - Titanium finish (same as Hero) */}
+              {/* iPhone 15 Pro Frame */}
               <div 
                 className="relative rounded-[3rem] p-[3px] cursor-pointer"
                 style={{
@@ -171,9 +173,7 @@ export default function QuickPay() {
                             className="absolute inset-0 flex flex-col items-center justify-center p-6 bg-black"
                           >
                             <div className="relative w-48 h-48 mb-4">
-                              {/* Scanner frame */}
                               <div className="absolute inset-0 border-2 border-white/30 rounded-xl" />
-                              {/* Animated corners */}
                               <motion.div 
                                 className="absolute top-0 left-0 w-8 h-8 border-t-4 border-l-4 border-orange-500 rounded-tl-lg"
                                 animate={{ opacity: [1, 0.5, 1] }}
@@ -194,13 +194,11 @@ export default function QuickPay() {
                                 animate={{ opacity: [1, 0.5, 1] }}
                                 transition={{ duration: 1, repeat: Infinity, delay: 0.75 }}
                               />
-                              {/* Scan line */}
                               <motion.div
                                 className="absolute left-2 right-2 h-0.5 bg-gradient-to-r from-transparent via-orange-500 to-transparent"
                                 animate={{ top: ['10%', '90%', '10%'] }}
                                 transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
                               />
-                              {/* QR placeholder - deterministic pattern to avoid hydration mismatch */}
                               <div className="absolute inset-8 grid grid-cols-5 gap-1 opacity-30">
                                 {[...Array(25)].map((_, i) => (
                                   <div key={i} className={`bg-white rounded-sm ${[0,2,3,5,7,8,10,12,14,16,17,19,21,23,24].includes(i) ? 'opacity-100' : 'opacity-30'}`} />
@@ -335,35 +333,11 @@ export default function QuickPay() {
                 </div>
               </div>
               
-              {/* Side buttons - Titanium style */}
-              <div 
-                className="absolute -left-[2px] top-[100px] w-[4px] h-[28px] rounded-l-sm"
-                style={{
-                  background: 'linear-gradient(90deg, #5a5a5c, #7a7a7c, #5a5a5c)',
-                  boxShadow: '-1px 0 2px rgba(0,0,0,0.3)',
-                }}
-              />
-              <div 
-                className="absolute -left-[2px] top-[145px] w-[4px] h-[50px] rounded-l-sm"
-                style={{
-                  background: 'linear-gradient(90deg, #5a5a5c, #7a7a7c, #5a5a5c)',
-                  boxShadow: '-1px 0 2px rgba(0,0,0,0.3)',
-                }}
-              />
-              <div 
-                className="absolute -left-[2px] top-[205px] w-[4px] h-[50px] rounded-l-sm"
-                style={{
-                  background: 'linear-gradient(90deg, #5a5a5c, #7a7a7c, #5a5a5c)',
-                  boxShadow: '-1px 0 2px rgba(0,0,0,0.3)',
-                }}
-              />
-              <div 
-                className="absolute -right-[2px] top-[160px] w-[4px] h-[70px] rounded-r-sm"
-                style={{
-                  background: 'linear-gradient(90deg, #5a5a5c, #7a7a7c, #5a5a5c)',
-                  boxShadow: '1px 0 2px rgba(0,0,0,0.3)',
-                }}
-              />
+              {/* Side buttons */}
+              <div className="absolute -left-[2px] top-[100px] w-[4px] h-[28px] rounded-l-sm" style={{ background: 'linear-gradient(90deg, #5a5a5c, #7a7a7c, #5a5a5c)', boxShadow: '-1px 0 2px rgba(0,0,0,0.3)' }} />
+              <div className="absolute -left-[2px] top-[145px] w-[4px] h-[50px] rounded-l-sm" style={{ background: 'linear-gradient(90deg, #5a5a5c, #7a7a7c, #5a5a5c)', boxShadow: '-1px 0 2px rgba(0,0,0,0.3)' }} />
+              <div className="absolute -left-[2px] top-[205px] w-[4px] h-[50px] rounded-l-sm" style={{ background: 'linear-gradient(90deg, #5a5a5c, #7a7a7c, #5a5a5c)', boxShadow: '-1px 0 2px rgba(0,0,0,0.3)' }} />
+              <div className="absolute -right-[2px] top-[160px] w-[4px] h-[70px] rounded-r-sm" style={{ background: 'linear-gradient(90deg, #5a5a5c, #7a7a7c, #5a5a5c)', boxShadow: '1px 0 2px rgba(0,0,0,0.3)' }} />
             </div>
               
             {/* Network indicator */}
@@ -373,18 +347,13 @@ export default function QuickPay() {
                 <span className="font-bold text-gray-900">Polygon</span>
               </div>
             </div>
-              
           </div>
-        </div>
 
           {/* Right: Benefits */}
-          <div className="order-1 lg:order-2">
+          <div className={`order-1 lg:order-2 animate-entrance delay-2 ${isVisible ? 'is-visible' : ''}`}>
             <div className="space-y-6">
               {benefits.map((benefit) => (
-                <div
-                  key={benefit.title}
-                  className="card p-6"
-                >
+                <div key={benefit.title} className="card p-6">
                   <div className="flex items-start gap-4">
                     <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center flex-shrink-0">
                       <benefit.icon className="w-6 h-6 text-orange-600" />
@@ -401,7 +370,7 @@ export default function QuickPay() {
         </div>
 
         {/* Use cases */}
-        <div className="card p-8">
+        <div className={`card p-8 animate-entrance delay-3 ${isVisible ? 'is-visible' : ''}`}>
           <h3 className="text-xl font-bold text-gray-900 text-center mb-6">
             Use QuickPay anywhere
           </h3>
@@ -422,7 +391,7 @@ export default function QuickPay() {
         </div>
 
         {/* Vision quote */}
-        <div className="mt-12 text-center max-w-3xl mx-auto">
+        <div className={`mt-12 text-center max-w-3xl mx-auto animate-entrance delay-4 ${isVisible ? 'is-visible' : ''}`}>
           <blockquote className="text-xl text-gray-600 italic mb-4">
             "For decades, we've watched money lose value year after year. We built BLAZE because 
             we believe paying with crypto – everywhere – is the future."

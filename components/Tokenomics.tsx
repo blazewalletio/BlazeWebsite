@@ -2,6 +2,7 @@
 
 import { Coins, TrendingUp, Users, Flame, Lock, ArrowRight } from 'lucide-react';
 import PresaleCountdown from './PresaleCountdown';
+import { useAnimateOnce } from '@/hooks/useAnimateOnce';
 
 const tokenInfo = [
   { label: 'Total supply', value: '1B', description: '1 billion BLAZE' },
@@ -27,11 +28,13 @@ const utilities = [
 ];
 
 export default function Tokenomics() {
+  const [sectionRef, isVisible] = useAnimateOnce<HTMLElement>();
+
   return (
-    <section id="tokenomics" className="py-20 lg:py-28 bg-gray-50">
+    <section id="tokenomics" ref={sectionRef} className="py-20 lg:py-28 bg-gray-50">
       <div className="container-main">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className={`text-center mb-16 animate-entrance ${isVisible ? 'is-visible' : ''}`}>
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-100 text-purple-700 font-medium text-sm mb-6">
             <Coins className="w-4 h-4" />
             Token economy
@@ -46,8 +49,11 @@ export default function Tokenomics() {
 
         {/* Key stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          {tokenInfo.map((item) => (
-            <div key={item.label} className="card p-6 text-center">
+          {tokenInfo.map((item, index) => (
+            <div 
+              key={item.label} 
+              className={`card p-6 text-center animate-entrance delay-${Math.min(index + 1, 4)} ${isVisible ? 'is-visible' : ''}`}
+            >
               <div className="text-sm text-gray-500 mb-1">{item.label}</div>
               <div className="text-3xl md:text-4xl font-bold text-gradient-brand mb-1">{item.value}</div>
               <div className="text-sm text-gray-600">{item.description}</div>
@@ -57,7 +63,7 @@ export default function Tokenomics() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
           {/* Distribution */}
-          <div className="card p-6 md:p-8">
+          <div className={`card p-6 md:p-8 animate-entrance delay-2 ${isVisible ? 'is-visible' : ''}`}>
             <h3 className="text-xl font-bold text-gray-900 mb-6">Token distribution</h3>
             <div className="space-y-4">
               {distribution.map((item) => (
@@ -68,8 +74,8 @@ export default function Tokenomics() {
                   </div>
                   <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
                     <div
-                      className={`h-full ${item.color} rounded-full`}
-                      style={{ width: `${item.percentage}%` }}
+                      className={`h-full ${item.color} rounded-full transition-all duration-700 ease-out`}
+                      style={{ width: isVisible ? `${item.percentage}%` : '0%' }}
                     />
                   </div>
                 </div>
@@ -78,7 +84,7 @@ export default function Tokenomics() {
           </div>
 
           {/* Utilities */}
-          <div className="card p-6 md:p-8">
+          <div className={`card p-6 md:p-8 animate-entrance delay-3 ${isVisible ? 'is-visible' : ''}`}>
             <h3 className="text-xl font-bold text-gray-900 mb-6">Token utility</h3>
             <div className="grid grid-cols-2 gap-4">
               {utilities.map((item, index) => (
@@ -95,7 +101,7 @@ export default function Tokenomics() {
         </div>
 
         {/* Liquidity lock notice */}
-        <div className="card p-6 md:p-8 bg-orange-50 border-orange-200">
+        <div className={`card p-6 md:p-8 bg-orange-50 border-orange-200 animate-entrance delay-4 ${isVisible ? 'is-visible' : ''}`}>
           <div className="flex flex-col md:flex-row items-center gap-6">
             <div className="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center flex-shrink-0">
               <Lock className="w-8 h-8 text-orange-600" />

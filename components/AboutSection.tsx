@@ -2,13 +2,16 @@
 
 import { Twitter, Send, Github, Mail, MapPin, Target, Heart } from 'lucide-react';
 import Image from 'next/image';
+import { useAnimateOnce } from '@/hooks/useAnimateOnce';
 
 export default function AboutSection() {
+  const [sectionRef, isVisible] = useAnimateOnce<HTMLElement>();
+
   return (
-    <section id="about" className="py-20 lg:py-28 bg-white">
+    <section id="about" ref={sectionRef} className="py-20 lg:py-28 bg-white">
       <div className="container-main">
         <div className="max-w-4xl mx-auto">
-          <div className="card p-8 md:p-12">
+          <div className={`card p-8 md:p-12 animate-entrance ${isVisible ? 'is-visible' : ''}`}>
             <div className="flex flex-col items-center text-center">
               {/* Logo */}
               <div className="mb-6">
