@@ -158,9 +158,9 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile menu - CSS-based animations for better performance */}
+      {/* Mobile menu - Slide from top with staggered items */}
       <div 
-        className={`fixed left-0 right-0 top-16 bottom-0 md:hidden z-[55] transition-all duration-300 ${
+        className={`fixed left-0 right-0 top-16 bottom-0 md:hidden z-[55] transition-opacity duration-250 ${
           isOpen 
             ? 'opacity-100 pointer-events-auto' 
             : 'opacity-0 pointer-events-none'
@@ -169,15 +169,16 @@ export default function Navbar() {
       >
         {/* Backdrop overlay - click to close */}
         <div 
-          className="absolute inset-0 bg-black/20 backdrop-blur-sm"
+          className={`absolute inset-0 bg-black/20 backdrop-blur-sm transition-opacity duration-250 ${
+            isOpen ? 'opacity-100' : 'opacity-0'
+          }`}
           onClick={closeMenu}
         />
         
-        {/* Menu panel */}
+        {/* Menu panel - Slides from top */}
         <div 
-          data-menu-panel
-          className={`absolute left-0 right-0 top-0 bg-white transition-transform duration-300 ease-out ${
-            isOpen ? 'translate-y-0' : '-translate-y-4'
+          className={`absolute left-0 right-0 top-0 bg-white transition-all duration-250 ease-out ${
+            isOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
           }`}
           style={{
             boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
@@ -190,10 +191,15 @@ export default function Navbar() {
           {/* Content container */}
           <div className="relative flex flex-col h-full">
             {/* Scrollable menu content */}
-            <div data-scroll-container className="flex-1 overflow-y-auto overscroll-contain">
+            <div className="flex-1 overflow-y-auto overscroll-contain">
               {/* Main navigation */}
-              <div data-nav-section className="px-3 pt-4 pb-3">
-                <div className="text-xs font-semibold text-gray-400 uppercase tracking-wider px-3 mb-2">
+              <div className="px-3 pt-4 pb-3">
+                <div 
+                  className={`text-xs font-semibold text-gray-400 uppercase tracking-wider px-3 mb-2 transition-all duration-200 ${
+                    isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
+                  }`}
+                  style={{ transitionDelay: isOpen ? '50ms' : '0ms' }}
+                >
                   Navigate
                 </div>
                 <div className="space-y-1">
@@ -202,13 +208,14 @@ export default function Navbar() {
                       key={link.href}
                       href={link.href}
                       onClick={closeMenu}
-                      className={`flex items-center justify-between px-3 py-3.5 rounded-xl transition-colors group ${
+                      className={`flex items-center justify-between px-3 py-3.5 rounded-xl transition-all group ${
                         link.highlight 
                           ? 'bg-gradient-to-r from-orange-50 to-yellow-50 border border-orange-200' 
                           : 'hover:bg-gray-50 active:bg-orange-50'
-                      }`}
-                      style={{
-                        animationDelay: `${index * 50}ms`,
+                      } ${isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-3'}`}
+                      style={{ 
+                        transitionDuration: '200ms',
+                        transitionDelay: isOpen ? `${75 + index * 50}ms` : '0ms',
                       }}
                     >
                       <div className="flex items-center gap-3">
@@ -235,20 +242,36 @@ export default function Navbar() {
               </div>
 
               {/* Divider */}
-              <div className="mx-5 border-t border-gray-100" />
+              <div 
+                className={`mx-5 border-t border-gray-100 transition-opacity duration-200 ${
+                  isOpen ? 'opacity-100' : 'opacity-0'
+                }`}
+                style={{ transitionDelay: isOpen ? '300ms' : '0ms' }}
+              />
 
               {/* Secondary links */}
               <div className="px-3 py-3">
-                <div className="text-xs font-semibold text-gray-400 uppercase tracking-wider px-3 mb-2">
+                <div 
+                  className={`text-xs font-semibold text-gray-400 uppercase tracking-wider px-3 mb-2 transition-all duration-200 ${
+                    isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
+                  }`}
+                  style={{ transitionDelay: isOpen ? '325ms' : '0ms' }}
+                >
                   Resources
                 </div>
                 <div className="grid grid-cols-3 gap-2">
-                  {secondaryLinks.map((link) => (
+                  {secondaryLinks.map((link, index) => (
                     <Link
                       key={link.href}
                       href={link.href}
                       onClick={closeMenu}
-                      className="flex flex-col items-center gap-2 p-3 rounded-xl hover:bg-gray-50 active:bg-orange-50 transition-colors group"
+                      className={`flex flex-col items-center gap-2 p-3 rounded-xl hover:bg-gray-50 active:bg-orange-50 transition-all group ${
+                        isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-3'
+                      }`}
+                      style={{ 
+                        transitionDuration: '200ms',
+                        transitionDelay: isOpen ? `${350 + index * 50}ms` : '0ms',
+                      }}
                     >
                       <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${link.color}`}>
                         <link.icon className="w-5 h-5" />
@@ -262,7 +285,12 @@ export default function Navbar() {
             </div>
 
             {/* Fixed bottom section */}
-            <div className="border-t border-gray-100 bg-white px-4 py-4 safe-area-pb">
+            <div 
+              className={`border-t border-gray-100 bg-white px-4 py-4 safe-area-pb transition-all duration-200 ${
+                isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}
+              style={{ transitionDelay: isOpen ? '400ms' : '0ms' }}
+            >
               {/* Social links */}
               <div className="flex justify-center gap-3 mb-4">
                 <a
