@@ -327,3 +327,61 @@ section {
 .safe-area-pb {
   padding-bottom: max(24px, env(safe-area-inset-bottom));
 }
+
+/* ============================================
+   Hero Section CSS Animations
+   ============================================ */
+
+/* Fade in up - simple, performant */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+/* Floating animations for crypto icons - desktop only, GPU accelerated */
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0) translateX(0) translateZ(0);
+  }
+  50% {
+    transform: translateY(-15px) translateX(8px) translateZ(0);
+  }
+}
+
+@keyframes floatMedium {
+  0%, 100% {
+    transform: translateY(0) translateX(0) translateZ(0);
+  }
+  50% {
+    transform: translateY(-12px) translateX(-6px) translateZ(0);
+  }
+}
+
+.animate-float-slow {
+  animation: floatSlow 20s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-float-medium {
+  animation: floatMedium 15s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Disable heavy animations on mobile for performance */
+@media (max-width: 1023px) {
+  .animate-float-slow,
+  .animate-float-medium {
+    animation: none;
+  }
+}
