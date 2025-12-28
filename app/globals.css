@@ -255,3 +255,59 @@
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+/* ============================================
+   Hero Section - GPU Optimized
+   ============================================ */
+
+/* Hero section base - GPU accelerated */
+.hero-section {
+  /* Force GPU compositing layer */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  /* Render isolation */
+  contain: paint layout;
+  /* Ensure stable layer */
+  will-change: auto;
+}
+
+/* Mobile: Simple colored circles without blur (performance) */
+.hero-orb-orange {
+  background: rgba(249, 115, 22, 0.15);
+}
+
+.hero-orb-blue {
+  background: rgba(56, 189, 248, 0.08);
+}
+
+.hero-orb-yellow {
+  background: rgba(234, 179, 8, 0.08);
+}
+
+.hero-phone-glow {
+  background: radial-gradient(ellipse at center, rgba(249, 115, 22, 0.3) 0%, rgba(234, 179, 8, 0.15) 50%, transparent 70%);
+}
+
+/* Desktop: Add blur effects (more GPU power available) */
+@media (min-width: 1024px) {
+  .hero-orb-orange {
+    background: rgba(249, 115, 22, 0.2);
+    filter: blur(64px);
+  }
+
+  .hero-orb-blue {
+    background: rgba(56, 189, 248, 0.1);
+    filter: blur(64px);
+  }
+
+  .hero-orb-yellow {
+    background: rgba(234, 179, 8, 0.1);
+    filter: blur(64px);
+  }
+
+  .hero-phone-glow {
+    background: radial-gradient(ellipse at center, rgba(249, 115, 22, 0.4) 0%, rgba(234, 179, 8, 0.2) 50%, transparent 70%);
+    filter: blur(48px);
+  }
+}

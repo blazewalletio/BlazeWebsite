@@ -11,15 +11,49 @@ const trustBadges = [
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center pt-20 md:pt-0 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
-      <div className="absolute top-20 left-10 w-96 h-96 bg-orange-500/20 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 right-10 w-80 h-80 bg-sky-500/10 rounded-full blur-3xl" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-yellow-500/10 rounded-full blur-3xl" />
-      <div className="absolute inset-0 opacity-5" style={{
-        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-      }} />
+    <section 
+      className="hero-section relative min-h-screen flex items-center pt-20 md:pt-0 overflow-hidden"
+      style={{
+        // GPU layer forcing - keeps section in GPU memory
+        transform: 'translateZ(0)',
+        backfaceVisibility: 'hidden',
+        // Render isolation - prevents repaints from affecting other elements
+        contain: 'paint layout',
+        // Fallback background color (shows immediately)
+        backgroundColor: '#1e293b',
+      }}
+    >
+      {/* Background - Solid gradient base (always visible, no blur) */}
+      <div 
+        className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"
+        style={{ transform: 'translateZ(0)' }}
+      />
+      
+      {/* Decorative orbs - Desktop only with blur, Mobile gets simple circles */}
+      {/* Orange orb */}
+      <div 
+        className="absolute top-20 left-10 w-96 h-96 rounded-full hero-orb-orange"
+        style={{ transform: 'translateZ(0)' }}
+      />
+      {/* Blue orb */}
+      <div 
+        className="absolute bottom-20 right-10 w-80 h-80 rounded-full hero-orb-blue"
+        style={{ transform: 'translateZ(0)' }}
+      />
+      {/* Yellow orb - center */}
+      <div 
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full hero-orb-yellow"
+        style={{ transform: 'translate(-50%, -50%) translateZ(0)' }}
+      />
+      
+      {/* Grid pattern */}
+      <div 
+        className="absolute inset-0 opacity-5" 
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          transform: 'translateZ(0)',
+        }}
+      />
       
       <div className="container-main relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center py-12 lg:py-20">
@@ -76,17 +110,15 @@ export default function Hero() {
 
           {/* Right: iPhone */}
           <div className="relative flex justify-center lg:justify-end">
-            <div className="relative">
-              {/* Ambient glow */}
+            <div className="relative" style={{ transform: 'translateZ(0)' }}>
+              {/* Ambient glow - Simplified on mobile */}
               <div 
-                className="absolute -inset-8 rounded-[4rem] blur-3xl"
-                style={{
-                  background: 'radial-gradient(ellipse at center, rgba(249, 115, 22, 0.4) 0%, rgba(234, 179, 8, 0.2) 50%, transparent 70%)',
-                }}
+                className="absolute -inset-8 rounded-[4rem] hero-phone-glow"
+                style={{ transform: 'translateZ(0)' }}
               />
               
               {/* iPhone 15 Pro Frame */}
-              <div>
+              <div style={{ transform: 'translateZ(0)' }}>
                 <div 
                   className="relative rounded-[3rem] p-[3px]"
                   style={{
@@ -144,6 +176,7 @@ export default function Hero() {
                           className="object-cover object-top"
                           priority
                           sizes="280px"
+                          loading="eager"
                         />
                       </div>
                       
