@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import AdminSidebar from '@/components/admin/AdminSidebar';
@@ -25,7 +25,8 @@ interface Message {
   notes: string;
 }
 
-export default function AdminMessages() {
+// Inner component that uses useSearchParams
+function AdminMessagesContent() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
   const [loading, setLoading] = useState(true);
@@ -325,6 +326,19 @@ export default function AdminMessages() {
         </div>
       </main>
     </div>
+  );
+}
+
+// Export with Suspense boundary for useSearchParams
+export default function AdminMessages() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-orange-500 border-t-transparent rounded-full animate-spin" />
+      </div>
+    }>
+      <AdminMessagesContent />
+    </Suspense>
   );
 }
 
