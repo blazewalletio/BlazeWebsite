@@ -272,25 +272,26 @@
   will-change: auto;
 }
 
-/* Mobile: Simple colored circles without blur (performance) */
-.hero-orb-orange {
-  background: rgba(249, 115, 22, 0.15);
-}
-
-.hero-orb-blue {
-  background: rgba(56, 189, 248, 0.08);
-}
-
+/* Mobile: Hide decorative orbs completely (best performance, no visual artifacts) */
+.hero-orb-orange,
+.hero-orb-blue,
 .hero-orb-yellow {
-  background: rgba(234, 179, 8, 0.08);
+  display: none;
 }
 
 .hero-phone-glow {
-  background: radial-gradient(ellipse at center, rgba(249, 115, 22, 0.3) 0%, rgba(234, 179, 8, 0.15) 50%, transparent 70%);
+  /* Subtle glow on mobile without blur */
+  background: radial-gradient(ellipse at center, rgba(249, 115, 22, 0.2) 0%, transparent 60%);
 }
 
-/* Desktop: Add blur effects (more GPU power available) */
+/* Desktop: Show orbs with blur effects (more GPU power available) */
 @media (min-width: 1024px) {
+  .hero-orb-orange,
+  .hero-orb-blue,
+  .hero-orb-yellow {
+    display: block;
+  }
+
   .hero-orb-orange {
     background: rgba(249, 115, 22, 0.2);
     filter: blur(64px);
