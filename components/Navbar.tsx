@@ -38,33 +38,23 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Robust body scroll lock for iOS and Android
+  // Robust body scroll lock for iOS and Android - NO visible jump
   useEffect(() => {
     if (isOpen) {
       // Save current scroll position
       scrollPositionRef.current = window.scrollY;
       
-      // Lock body scroll
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollPositionRef.current}px`;
-      document.body.style.left = '0';
-      document.body.style.right = '0';
-      document.body.style.width = '100%';
+      // Lock body scroll using overflow hidden on both html and body
+      // This method doesn't cause scroll position jump
+      document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
+      document.body.style.touchAction = 'none';
     } else {
-      // Restore scroll position when menu closes
-      const savedPosition = scrollPositionRef.current;
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.left = '';
-      document.body.style.right = '';
-      document.body.style.width = '';
+      // Restore scroll capability - no position restoration needed
+      // because we didn't use position:fixed
+      document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
-      
-      // Use requestAnimationFrame to ensure smooth restoration
-      requestAnimationFrame(() => {
-        window.scrollTo(0, savedPosition);
-      });
+      document.body.style.touchAction = '';
     }
   }, [isOpen]);
 
