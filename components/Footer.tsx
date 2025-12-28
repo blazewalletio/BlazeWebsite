@@ -96,8 +96,8 @@ export default function Footer() {
 
         <div className="relative container-main py-20 md:py-28">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ y: 20 }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true }}
             className="max-w-4xl mx-auto"
           >
@@ -167,8 +167,8 @@ export default function Footer() {
       <section className="bg-gray-800 border-t border-gray-700">
         <div className="container-main py-12 md:py-16">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ y: 20 }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true }}
             className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center"
           >

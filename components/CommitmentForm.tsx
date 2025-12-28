@@ -104,8 +104,8 @@ export default function CommitmentForm() {
       <div className="container-main">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-12"
         >
@@ -126,17 +126,17 @@ export default function CommitmentForm() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           {/* Form */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ x: -20 }}
+            whileInView={{ x: 0 }}
             viewport={{ once: true }}
           >
             <AnimatePresence mode="wait">
               {success ? (
                 <motion.div
                   key="success"
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
+                  initial={{ scale: 0.95 }}
+                  animate={{ scale: 1 }}
+                  exit={{ scale: 0.95 }}
                   className="bg-white rounded-3xl p-8 shadow-xl border border-emerald-100"
                 >
                   <div className="text-center">
@@ -180,9 +180,9 @@ export default function CommitmentForm() {
               ) : (
                 <motion.form
                   key="form"
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
+                  initial={{ scale: 0.95 }}
+                  animate={{ scale: 1 }}
+                  exit={{ scale: 0.95 }}
                   onSubmit={handleSubmit}
                   className="bg-white rounded-3xl p-8 shadow-xl border border-gray-100"
                 >
@@ -280,8 +280,8 @@ export default function CommitmentForm() {
 
           {/* Calculator & Benefits */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ x: 20 }}
+            whileInView={{ x: 0 }}
             viewport={{ once: true }}
             className="space-y-6"
           >

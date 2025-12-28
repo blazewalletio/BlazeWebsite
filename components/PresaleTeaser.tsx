@@ -76,8 +76,8 @@ export default function PresaleTeaser() {
         <div className="max-w-5xl mx-auto">
           {/* Header */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ y: 20 }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true }}
             className="text-center mb-12"
           >
@@ -101,8 +101,8 @@ export default function PresaleTeaser() {
 
           {/* Main card */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ y: 20 }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
             className="bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 overflow-hidden"
@@ -268,8 +268,8 @@ export default function PresaleTeaser() {
 
           {/* Trust indicators */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ y: 20 }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
             className="flex flex-wrap justify-center gap-8 mt-10"
