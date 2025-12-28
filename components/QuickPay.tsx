@@ -329,6 +329,7 @@ export default function QuickPay() {
                         )}
                       </AnimatePresence>
                     </div>
+                    </div>
                   </div>
                 </div>
               </div>
