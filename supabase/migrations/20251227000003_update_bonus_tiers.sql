@@ -35,3 +35,4 @@ WHERE tier_number = 6;
 -- First, create a new index that includes template_key for faster lookups
 CREATE INDEX IF NOT EXISTS idx_email_sends_email_template ON email_sends(email, template_key);
 
+

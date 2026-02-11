@@ -61,3 +61,4 @@ CREATE POLICY "Service role full access to leaderboard_rewards" ON leaderboard_r
 CREATE POLICY "Service role full access to presale_buyers" ON presale_buyers
     FOR ALL TO service_role USING (true) WITH CHECK (true);
 
+
