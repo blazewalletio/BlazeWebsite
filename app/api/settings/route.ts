@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createAdminClient, createClient } from '@/lib/supabase/server';
+import { createClient as createSupabaseClient } from '@supabase/supabase-js';
+import { createClient as createServerClient } from '@/lib/supabase/server';
 
 function parseSettingsRows(data: { key: string; value: string }[] | null) {
   const settings: Record<string, any> = {};
@@ -9,9 +10,16 @@ function parseSettingsRows(data: { key: string; value: string }[] | null) {
   return settings;
 }
 
+function createServiceRoleClient() {
+  return createSupabaseClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
+}
+
 export async function GET() {
   try {
-    const supabase = createAdminClient();
+    const supabase = createServiceRoleClient();
     const { data, error } = await supabase
       .from('site_settings')
       .select('key, value');
@@ -30,7 +38,7 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
-    const authClient = createClient();
+    const authClient = createServerClient();
     const {
       data: { user },
     } = await authClient.auth.getUser();
@@ -51,7 +59,7 @@ export async function POST(request: NextRequest) {
     }
 
     const now = new Date().toISOString();
-    const adminSupabase = createAdminClient();
+    const adminSupabase = createServiceRoleClient();
     const { error } = await adminSupabase.from('site_settings').upsert(
       [
         {
