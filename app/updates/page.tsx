@@ -1,7 +1,7 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { PRODUCT_STATUS, PRODUCT_UPDATES } from '@/lib/product-updates';
-import { Activity, Clock3, Tag } from 'lucide-react';
+import { Activity, Clock3, ExternalLink, Tag } from 'lucide-react';
 import Link from 'next/link';
 
 export default function UpdatesPage() {
@@ -23,17 +23,26 @@ export default function UpdatesPage() {
           <div className="max-w-3xl relative z-10">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-100 text-emerald-700 font-medium text-sm mb-5">
               <Activity className="w-4 h-4" />
-              Product updates
+              Wallet release updates
             </div>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Release updates & sync log
+              Wallet release updates & sync log
             </h1>
             <p className="text-lg text-gray-600">
-              Transparent changelog of wallet/website alignment work, feature updates, and reliability improvements.
+              Transparent changelog sourced from the `BlazeWallet21-10` repository commit history.
             </p>
             <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 mt-7 sm:mt-8 max-w-sm sm:max-w-none">
               <Link href="/" className="btn-secondary px-5 py-2.5 text-center">Back to homepage</Link>
               <Link href="/presale" className="btn-brand px-5 py-2.5 text-center">Open presale</Link>
+              <a
+                href="https://github.com/blazewalletio/BlazeWallet21-10/commits/main"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-secondary px-5 py-2.5 text-center inline-flex items-center justify-center gap-2"
+              >
+                Wallet commits
+                <ExternalLink className="w-4 h-4" />
+              </a>
             </div>
           </div>
         </div>
@@ -65,6 +74,17 @@ export default function UpdatesPage() {
                         <Clock3 className="w-4 h-4" />
                         {update.date}
                       </div>
+                      {update.commitHash && update.commitUrl && (
+                        <a
+                          href={update.commitUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 text-xs font-medium text-orange-700 bg-orange-100 rounded-full px-2.5 py-1 hover:bg-orange-200 transition-colors"
+                        >
+                          {update.commitHash}
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      )}
                     </div>
                     <h2 className="text-lg md:text-xl font-bold text-gray-900 mb-2">{update.title}</h2>
                     <p className="text-sm md:text-base text-gray-600 mb-4">{update.summary}</p>

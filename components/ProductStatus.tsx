@@ -20,7 +20,7 @@ export default function ProductStatus() {
               </div>
               <h2 className="text-2xl md:text-3xl font-bold text-gray-900">Live build & release snapshot</h2>
               <p className="text-gray-600 text-sm md:text-base mt-1">
-                Public overview of what is currently live and synced.
+                Public overview sourced from the wallet repository release history.
               </p>
             </div>
             <Link

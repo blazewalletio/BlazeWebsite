@@ -9,11 +9,18 @@ export type ProductUpdate = {
   title: string;
   summary: string;
   tags: string[];
+  commitHash?: string;
+  commitUrl?: string;
 };
 
 export const PRODUCT_STATUS: ProductStatusItem[] = [
   {
-    label: "Wallet build",
+    label: "Source repository",
+    value: "BlazeWallet21-10",
+    helper: "blazewalletio/BlazeWallet21-10",
+  },
+  {
+    label: "Wallet branch",
     value: "v21-10",
     helper: "Current production branch baseline",
   },
@@ -23,45 +30,53 @@ export const PRODUCT_STATUS: ProductStatusItem[] = [
     helper: "Multi-chain support across major EVM + Solana",
   },
   {
-    label: "Website data sync",
-    value: "Aligned",
-    helper: "Presale, pricing, caps and FAQ are source-synced",
+    label: "Release feed source",
+    value: "Wallet commits",
+    helper: "Derived from wallet git history, not website commits",
   },
   {
-    label: "Last website sync",
-    value: "2026-02-12",
-    helper: "Latest consistency pass against wallet repo",
+    label: "Latest wallet update",
+    value: "2025-12-29",
+    helper: "Most recent commit date in current wallet log snapshot",
   },
 ];
 
 export const PRODUCT_UPDATES: ProductUpdate[] = [
   {
-    date: "2026-02-12",
-    title: "Presale constants and pricing unified",
+    date: "2025-12-29",
+    title: "Full no-cache headers and THQ logging",
     summary:
-      "Website now uses one source of truth for presale price ($0.008333), soft cap ($200,000), hard cap ($1,000,000), and contribution limits.",
-    tags: ["presale", "consistency", "api"],
+      "Wallet update adds full no-cache response handling with THQ-specific logging to prevent stale price and market data behavior.",
+    tags: ["wallet", "cache", "logging"],
+    commitHash: "28a7787d",
+    commitUrl: "https://github.com/blazewalletio/BlazeWallet21-10/commit/28a7787d",
   },
   {
-    date: "2026-02-12",
-    title: "Cross-page waitlist/participant offset consistency",
+    date: "2025-12-29",
+    title: "Cache-busting added directly to CoinGecko calls",
     summary:
-      "Leaderboard total participants and waitlist counter now use the same admin-configured display offset logic.",
-    tags: ["waitlist", "leaderboard", "admin"],
+      "Wallet price fetch flow now applies direct cache-busting query strategy to CoinGecko endpoints for fresher market responses.",
+    tags: ["wallet", "pricing", "api"],
+    commitHash: "99d400d4",
+    commitUrl: "https://github.com/blazewalletio/BlazeWallet21-10/commit/99d400d4",
   },
   {
-    date: "2026-02-12",
-    title: "Presale UX harmonized with homepage style",
+    date: "2025-12-29",
+    title: "Complete cache elimination in price pipeline",
     summary:
-      "Presale page visuals, section hierarchy, countdown visibility, and commitment flow were aligned with the homepage design system.",
-    tags: ["ui", "presale", "conversion"],
+      "Wallet release removes remaining cache layers across client and server in the price pipeline to enforce always-fresh market values.",
+    tags: ["wallet", "cache", "reliability"],
+    commitHash: "5cc63f46",
+    commitUrl: "https://github.com/blazewalletio/BlazeWallet21-10/commit/5cc63f46",
   },
   {
-    date: "2026-02-12",
-    title: "Email styling unified across all send flows",
+    date: "2025-12-29",
+    title: "Ethereum-focused debug observability improvements",
     summary:
-      "All website-generated emails now render through a single shared wallet-style shell for consistent branding and readability.",
-    tags: ["email", "brand", "operations"],
+      "Wallet debugging was expanded with comprehensive Ethereum logging to improve issue triage around chain-specific price and portfolio behavior.",
+    tags: ["wallet", "ethereum", "debug"],
+    commitHash: "363db2d0",
+    commitUrl: "https://github.com/blazewalletio/BlazeWallet21-10/commit/363db2d0",
   },
 ];
 
