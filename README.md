@@ -45,6 +45,16 @@ npm run build
 npm start
 ```
 
+## ⚙️ Environment
+
+For the wallet release feed on `/updates`, you can configure which wallet branch is tracked:
+
+```bash
+WALLET_RELEASE_BRANCH=main
+```
+
+If omitted, the website defaults to `main`.
+
 ## 📝 Content
 
 Alle content is gebaseerd op echte data van:
