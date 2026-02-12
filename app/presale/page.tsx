@@ -5,6 +5,7 @@ import Link from 'next/link';
 import PresaleTeaser from '@/components/PresaleTeaser';
 import CommitmentForm from '@/components/CommitmentForm';
 import Leaderboard from '@/components/Leaderboard';
+import PresaleCountdown from '@/components/PresaleCountdown';
 import { PRESALE_CONSTANTS } from '@/lib/presale-constants';
 
 export default function PresalePage() {
@@ -100,6 +101,25 @@ export default function PresalePage() {
       </section>
 
       <PresaleTeaser />
+      <section className="py-16 bg-gray-50 border-t border-gray-100">
+        <div className="container-main">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-8">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-100 text-orange-700 font-medium text-sm mb-4">
+                <Zap className="w-4 h-4" />
+                Presale countdown
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
+                Time left until launch
+              </h2>
+              <p className="text-gray-600">
+                Keep track of the exact start time while you register your payment intent.
+              </p>
+            </div>
+            <PresaleCountdown />
+          </div>
+        </div>
+      </section>
       <CommitmentForm />
       <Leaderboard />
 
