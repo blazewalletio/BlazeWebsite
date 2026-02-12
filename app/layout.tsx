@@ -193,7 +193,7 @@ export default function RootLayout({
         "name": "Is BLAZE Wallet safe?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes! BLAZE is a non-custodial wallet, meaning you control your private keys at all times. We use WebAuthn biometric authentication, encrypted local storage, and your funds are never stored on our servers. A CertiK security audit is scheduled for Q1 2026."
+          "text": "Yes! BLAZE is a non-custodial wallet, meaning you control your private keys at all times. We use WebAuthn biometric authentication, encrypted local storage, and your funds are never stored on our servers. An independent third-party security audit is planned for Q1 2026."
         }
       },
       {

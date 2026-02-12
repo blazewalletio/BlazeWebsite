@@ -10,6 +10,7 @@ import FAQ from '@/components/FAQ';
 import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
 import PresaleTeaser from '@/components/PresaleTeaser';
+import ProductStatus from '@/components/ProductStatus';
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
       <Navbar />
       <div id="main-content" className="sr-only">Main content</div>
       <Hero />
+      <ProductStatus />
       <QuickPay />
       <Features />
       <PresaleTeaser />

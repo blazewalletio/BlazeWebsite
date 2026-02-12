@@ -1,6 +1,6 @@
 'use client';
 
-import { Menu, X, ArrowRight, Zap, BookOpen, MessageCircle, Twitter, Send, ChevronRight, Wallet, Info, Map, Flame } from 'lucide-react';
+import { Menu, X, ArrowRight, Zap, BookOpen, MessageCircle, Twitter, Send, ChevronRight, Wallet, Info, Map, Flame, Activity } from 'lucide-react';
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
@@ -21,11 +21,13 @@ export default function Navbar() {
     { label: 'Presale', href: '/presale', description: 'Join the early bird presale', highlight: true },
     { label: 'Tokenomics', href: '/#tokenomics', description: 'BLAZE token economy' },
     { label: 'Roadmap', href: '/#roadmap', description: 'Our development plan' },
+    { label: 'Updates', href: '/updates', description: 'Release sync & changelog' },
   ];
 
   const secondaryLinks = [
     { label: 'Whitepaper', href: '/whitepaper', icon: BookOpen, color: 'bg-purple-100 text-purple-600' },
     { label: 'Support', href: '/support', icon: MessageCircle, color: 'bg-sky-100 text-sky-600' },
+    { label: 'Updates', href: '/updates', icon: Activity, color: 'bg-emerald-100 text-emerald-600' },
     { label: 'About us', href: '/#about', icon: Info, color: 'bg-emerald-100 text-emerald-600' },
   ];
 
@@ -95,7 +97,7 @@ export default function Navbar() {
 
           {/* Desktop menu */}
           <div className="hidden md:flex items-center gap-6">
-            {mainLinks.slice(0, 4).map((link) => (
+            {mainLinks.slice(0, 5).map((link) => (
               <Link
                 key={link.href}
                 href={link.href}

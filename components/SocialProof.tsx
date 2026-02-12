@@ -2,7 +2,9 @@
 
 import { Shield, Lock, ScanSearch, KeyRound, CheckCircle, ExternalLink } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useAnimateOnce } from '@/hooks/useAnimateOnce';
+import { PRODUCT_UPDATES } from '@/lib/product-updates';
 
 const securityFeatures = [
   { 
@@ -110,6 +112,25 @@ export default function SocialProof() {
                 </div>
                 <div className="font-bold text-gray-900 text-lg">{partner.name}</div>
                 <div className="text-sm text-gray-500">{partner.description}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Latest updates snapshot */}
+        <div className={`mt-10 card p-8 animate-entrance delay-4 ${isVisible ? 'is-visible' : ''}`}>
+          <div className="flex items-center justify-between gap-4 mb-6">
+            <h3 className="text-xl font-bold text-gray-900">Latest shipped updates</h3>
+            <Link href="/updates" className="text-orange-600 font-medium hover:text-orange-700 transition-colors">
+              Full changelog
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {PRODUCT_UPDATES.slice(0, 2).map((update) => (
+              <div key={update.title} className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
+                <div className="text-xs text-gray-500 mb-1">{update.date}</div>
+                <div className="font-semibold text-gray-900 mb-1">{update.title}</div>
+                <p className="text-sm text-gray-600">{update.summary}</p>
               </div>
             ))}
           </div>

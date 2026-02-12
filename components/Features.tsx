@@ -8,6 +8,7 @@ const features = [
     icon: QrCode,
     title: 'QuickPay',
     description: 'Scan a QR code and pay in seconds. At the coffee shop, supermarket, anywhere.',
+    proof: ['Interactive flow live on this page', 'Real transaction preview states'],
     color: 'text-orange-500',
     bg: 'bg-orange-100',
   },
@@ -15,6 +16,7 @@ const features = [
     icon: Brain,
     title: 'AI assistant',
     description: 'Type natural language commands like "Send 50 USDC to..." and let AI handle the rest.',
+    proof: ['Natural-language transaction parsing', 'In-wallet assistant flow in product roadmap'],
     color: 'text-purple-500',
     bg: 'bg-purple-100',
   },
@@ -22,6 +24,7 @@ const features = [
     icon: Shield,
     title: 'Scam protection',
     description: 'Real-time scanning of addresses and contracts. Get a risk score before you interact.',
+    proof: ['Pre-transaction warnings by design', 'Security section with explicit practices'],
     color: 'text-emerald-500',
     bg: 'bg-emerald-100',
   },
@@ -29,6 +32,7 @@ const features = [
     icon: TrendingUp,
     title: 'Smart gas optimizer',
     description: 'Unique smart scheduling finds the best time to transact. Save up to 40% on gas fees automatically.',
+    proof: ['Configurable timing logic', 'User-defined max fee targeting'],
     color: 'text-sky-500',
     bg: 'bg-sky-100',
   },
@@ -78,6 +82,14 @@ export default function Features() {
               <p className="text-gray-600 leading-relaxed">
                 {feature.description}
               </p>
+              <ul className="mt-4 space-y-1.5">
+                {feature.proof.map((proofPoint) => (
+                  <li key={proofPoint} className="text-sm text-gray-500 flex items-center gap-2">
+                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-gray-400" />
+                    {proofPoint}
+                  </li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>

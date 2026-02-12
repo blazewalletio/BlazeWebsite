@@ -59,6 +59,7 @@ export default function Footer() {
     resources: [
       { label: 'Whitepaper', href: '/whitepaper' },
       { label: 'Documentation', href: '/documentation' },
+      { label: 'Updates', href: '/updates' },
       { label: 'Support', href: '/support' },
     ],
     legal: [
@@ -281,7 +282,7 @@ export default function Footer() {
             </button>
           </form>
           {error && (
-            <p className="text-red-400 text-sm mt-2">{error}</p>
+            <p className="text-red-400 text-sm mt-2" role="alert" aria-live="polite">{error}</p>
           )}
         </div>
 

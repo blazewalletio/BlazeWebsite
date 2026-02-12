@@ -78,13 +78,15 @@ export default function Hero() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-brand flex items-center justify-center gap-2 px-8 py-4 text-lg"
+                aria-label="Launch BLAZE wallet app"
               >
                 Start paying with crypto
                 <ArrowRight className="w-5 h-5" />
               </a>
               <a
                 href="#quickpay"
-                className="btn-light flex items-center justify-center gap-2 px-8 py-4 text-lg"
+                className="inline-flex items-center justify-center gap-2 px-2 py-1 text-gray-300 hover:text-white transition-colors text-base font-medium"
+                aria-label="Jump to QuickPay section"
               >
                 <QrCode className="w-5 h-5" />
                 See QuickPay
