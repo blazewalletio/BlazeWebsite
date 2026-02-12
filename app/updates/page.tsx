@@ -5,10 +5,22 @@ import { getWalletUpdates } from '@/lib/wallet-updates-server';
 import { Activity, Clock3, ExternalLink, Tag } from 'lucide-react';
 import Link from 'next/link';
 
-export const revalidate = 300;
+export const dynamic = 'force-dynamic';
 
 export default async function UpdatesPage() {
   const { updates: walletUpdates, source } = await getWalletUpdates(12);
+  const statusCards = PRODUCT_STATUS.map((item) =>
+    item.label === 'Latest wallet update'
+      ? {
+          ...item,
+          value: walletUpdates[0]?.date || 'Unknown',
+          helper:
+            source === 'github'
+              ? 'Resolved from live wallet commit feed'
+              : 'Showing fallback snapshot due temporary API issue',
+        }
+      : item
+  );
 
   return (
     <main className="min-h-screen bg-white">
@@ -59,7 +71,7 @@ export default async function UpdatesPage() {
       <section className="py-10 md:py-12 bg-white">
         <div className="container-main">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-10 md:mb-12">
-            {PRODUCT_STATUS.map((item) => (
+            {statusCards.map((item) => (
               <div key={item.label} className="card p-4">
                 <div className="text-xs text-gray-500 mb-1">{item.label}</div>
                 <div className="text-xl font-bold text-gray-900">{item.value}</div>

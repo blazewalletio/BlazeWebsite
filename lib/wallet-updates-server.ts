@@ -39,14 +39,15 @@ export async function getWalletUpdates(limit = 8): Promise<{
   try {
     const headers: HeadersInit = {
       Accept: 'application/vnd.github+json',
+      'User-Agent': 'blaze-website-updates-feed',
     };
     if (process.env.GITHUB_TOKEN) {
       headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
     }
 
-    const res = await fetch(`${WALLET_COMMITS_URL}?per_page=${limit}`, {
+    const res = await fetch(`${WALLET_COMMITS_URL}?per_page=${limit}&sha=main`, {
       headers,
-      next: { revalidate: 300 },
+      cache: 'no-store',
     });
 
     if (!res.ok) {
