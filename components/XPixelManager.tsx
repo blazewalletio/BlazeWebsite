@@ -34,10 +34,14 @@ export default function XPixelManager() {
     if (!pixelId || !canTrack || window.__blazeXPixelInitialized) return;
 
     ((e: any, t: Document, n: string, s?: any, u?: HTMLScriptElement, a?: HTMLScriptElement) => {
-      if (e.twq) return;
+      if (typeof e.twq === 'function') return;
       s = e.twq = function () {
         // eslint-disable-next-line prefer-rest-params
-        (s.exe ? s.exe : s.queue).push(arguments);
+        if (typeof s.exe === 'function') {
+          s.exe.apply(s, arguments);
+          return;
+        }
+        s.queue.push(arguments);
       };
       s.version = '1.1';
       s.queue = [];
