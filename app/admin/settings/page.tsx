@@ -40,22 +40,18 @@ export default function AdminSettings() {
 
   const loadSettings = async () => {
     try {
-      const { data, error } = await supabase
-        .from('site_settings')
-        .select('*');
+      const res = await fetch('/api/settings');
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to load settings');
 
-      if (error) throw error;
-
-      data?.forEach((setting) => {
-        if (setting.key === 'presale_date') {
-          const date = new Date(JSON.parse(setting.value));
-          setPresaleDate(date.toISOString().split('T')[0]);
-          setPresaleTime(date.toISOString().split('T')[1].substring(0, 5));
-        }
-        if (setting.key === 'waitlist_offset') {
-          setWaitlistOffset(JSON.parse(setting.value));
-        }
-      });
+      if (data.presale_date) {
+        const date = new Date(data.presale_date);
+        setPresaleDate(date.toISOString().split('T')[0]);
+        setPresaleTime(date.toISOString().split('T')[1].substring(0, 5));
+      }
+      if (typeof data.waitlist_offset === 'number') {
+        setWaitlistOffset(data.waitlist_offset);
+      }
     } catch (error) {
       console.error('Error loading settings:', error);
     } finally {
@@ -70,30 +66,16 @@ export default function AdminSettings() {
 
     try {
       const presaleDatetime = new Date(`${presaleDate}T${presaleTime}:00Z`).toISOString();
-
-      // Update presale date
-      const { error: dateError } = await supabase
-        .from('site_settings')
-        .upsert({
-          key: 'presale_date',
-          value: JSON.stringify(presaleDatetime),
-          updated_at: new Date().toISOString(),
-          updated_by: user?.id,
-        });
-
-      if (dateError) throw dateError;
-
-      // Update waitlist offset
-      const { error: offsetError } = await supabase
-        .from('site_settings')
-        .upsert({
-          key: 'waitlist_offset',
-          value: JSON.stringify(waitlistOffset),
-          updated_at: new Date().toISOString(),
-          updated_by: user?.id,
-        });
-
-      if (offsetError) throw offsetError;
+      const res = await fetch('/api/settings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          presale_date: presaleDatetime,
+          waitlist_offset: waitlistOffset,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to save settings');
 
       setSaved(true);
       setTimeout(() => setSaved(false), 3000);
