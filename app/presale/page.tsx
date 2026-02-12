@@ -26,8 +26,11 @@ export default function PresalePage() {
       <Navbar />
       <div id="main-content" className="sr-only">Main content</div>
 
-      <section className="pt-28 pb-20 section-gradient-warm">
-        <div className="container-main">
+      <section className="relative overflow-hidden pt-28 pb-20 section-gradient-warm">
+        <div className="absolute inset-0 opacity-[0.08]" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.9'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        }} />
+        <div className="container-main relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-100 text-orange-700 font-medium text-sm mb-6">
               <Zap className="w-4 h-4" />

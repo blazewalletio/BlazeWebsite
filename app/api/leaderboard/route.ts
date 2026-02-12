@@ -126,10 +126,18 @@ export async function GET(request: Request) {
       .from('waitlist')
       .select('*', { count: 'exact', head: true });
 
+    // Keep participant display aligned with global waitlist display offset
+    const { data: settings } = await supabase
+      .from('site_settings')
+      .select('value')
+      .eq('key', 'waitlist_offset')
+      .single();
+    const waitlistOffset = settings ? JSON.parse(settings.value) : 2847;
+
     return NextResponse.json({
       leaderboard,
       rewards: rewards || [],
-      totalParticipants: totalWaitlist || 0,
+      totalParticipants: (totalWaitlist || 0) + waitlistOffset,
       userStats,
     });
   } catch (error) {
