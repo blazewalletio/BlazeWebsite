@@ -31,7 +31,7 @@ const roadmapPhases = [
   {
     phase: 'Q4 2025',
     title: 'DEX & fiat integration',
-    status: 'active',
+    status: 'completed',
     highlights: [
       'Li.Fi integration (token swaps)',
       'Onramper integration (fiat on/off ramp)',
@@ -42,7 +42,7 @@ const roadmapPhases = [
   {
     phase: 'Q1 2026',
     title: 'Presale & app launch',
-    status: 'upcoming',
+    status: 'active',
     highlights: [
       'BLAZE token presale',
       'iOS & Android app launch',
