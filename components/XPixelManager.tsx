@@ -16,7 +16,7 @@ const X_PIXEL_SRC = 'https://static.ads-twitter.com/uwt.js';
 export default function XPixelManager() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const pixelId = useMemo(() => process.env.NEXT_PUBLIC_X_PIXEL_ID || '', []);
+  const pixelId = useMemo(() => process.env.NEXT_PUBLIC_X_PIXEL_ID || 'r51j4', []);
   const [canTrack, setCanTrack] = useState(false);
 
   useEffect(() => {
@@ -48,7 +48,7 @@ export default function XPixelManager() {
       a.parentNode?.insertBefore(u, a);
     })(window, document, 'script');
 
-    window.twq?.('init', pixelId);
+    window.twq?.('config', pixelId);
     window.twq?.('track', 'PageView');
     window.__blazeXPixelInitialized = true;
   }, [pixelId, canTrack]);
