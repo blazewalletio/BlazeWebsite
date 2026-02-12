@@ -11,7 +11,7 @@ export const PRESALE_CONSTANTS = {
   launchPrice: 0.02, // $0.02 per BLAZE token after presale
   
   // Caps
-  hardCap: 500_000, // $500k
+  hardCap: 1_000_000, // $1M
   softCap: 100_000, // $100k
   
   // Contribution limits

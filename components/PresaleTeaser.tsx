@@ -53,6 +53,10 @@ export default function PresaleTeaser() {
 
   const HARD_CAP = PRESALE_CONSTANTS.hardCap;
   const TOKENS_FOR_SALE = PRESALE_CONSTANTS.presaleAllocation;
+  const hardCapLabel =
+    HARD_CAP >= 1_000_000
+      ? `$${(HARD_CAP / 1_000_000).toFixed(1)}M`
+      : `$${(HARD_CAP / 1_000).toFixed(0)}k`;
 
   return (
     <section ref={sectionRef} className="py-20 lg:py-28 relative overflow-hidden">
@@ -118,7 +122,7 @@ export default function PresaleTeaser() {
                   <div className="grid grid-cols-2 gap-4 text-sm">
                     <div>
                       <div className="text-gray-500 mb-1">Hard cap</div>
-                      <div className="text-white font-bold">${(HARD_CAP / 1000).toFixed(0)}k</div>
+                      <div className="text-white font-bold">{hardCapLabel}</div>
                     </div>
                     <div>
                       <div className="text-gray-500 mb-1">Tokens available</div>

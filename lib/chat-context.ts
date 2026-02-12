@@ -44,7 +44,7 @@ BLAZE Wallet is an AI-powered, non-custodial crypto wallet that makes managing d
 - **Bonus tiers**: Founders +100% (2x tokens!), Early Birds +75%, Pioneers +50%, Adopters +30%, Supporters +15%
 - **Presale allocation**: 120M BLAZE tokens (12% of supply)
 - **Total supply**: 1 billion BLAZE tokens
-- **Hard cap**: $500,000 | **Soft cap**: $100,000
+- **Hard cap**: $1,000,000 | **Soft cap**: $100,000
 - **Min investment**: $100 | **Max investment**: $10,000 per wallet
 - **Referral program**: Users get unique referral codes. Top referrers get up to 100,000 bonus tokens!
 
