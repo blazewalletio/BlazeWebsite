@@ -10,6 +10,9 @@ import {
   Calendar,
   Award,
   RefreshCw,
+  MousePointerClick,
+  Target,
+  UserPlus,
 } from 'lucide-react';
 import {
   LineChart,
@@ -45,12 +48,37 @@ interface ReferrerData {
   referral_count: number;
 }
 
+interface MarketingFunnel {
+  launchClicks: number;
+  presaleIntents: number;
+  walletSignups: number;
+  xLaunchClicks: number;
+  xPresaleIntents: number;
+  xWalletSignups: number;
+}
+
+interface CampaignAttributionRow {
+  campaign: string;
+  clicks: number;
+  intents: number;
+  signups: number;
+}
+
 const COLORS = ['#f97316', '#eab308', '#22c55e', '#3b82f6', '#8b5cf6', '#ec4899'];
 
 export default function AdminAnalytics() {
   const [dailyData, setDailyData] = useState<DailyData[]>([]);
   const [sourceData, setSourceData] = useState<SourceData[]>([]);
   const [topReferrers, setTopReferrers] = useState<ReferrerData[]>([]);
+  const [marketingFunnel, setMarketingFunnel] = useState<MarketingFunnel>({
+    launchClicks: 0,
+    presaleIntents: 0,
+    walletSignups: 0,
+    xLaunchClicks: 0,
+    xPresaleIntents: 0,
+    xWalletSignups: 0,
+  });
+  const [campaignAttribution, setCampaignAttribution] = useState<CampaignAttributionRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [user, setUser] = useState<any>(null);
@@ -76,6 +104,78 @@ export default function AdminAnalytics() {
     if (user) loadData();
   }, [days]);
 
+  const loadMarketingAttribution = async () => {
+    const periodStart = new Date();
+    periodStart.setDate(periodStart.getDate() - days);
+    const sinceIso = periodStart.toISOString();
+
+    const countQuery = (eventName: string, source?: string) => {
+      let query = supabase
+        .from('marketing_events')
+        .select('*', { count: 'exact', head: true })
+        .eq('event_name', eventName)
+        .gte('created_at', sinceIso);
+      if (source) {
+        query = query.eq('utm_source', source);
+      }
+      return query;
+    };
+
+    const [
+      launchClicksRes,
+      presaleIntentsRes,
+      walletSignupsRes,
+      xLaunchClicksRes,
+      xPresaleIntentsRes,
+      xWalletSignupsRes,
+      campaignRowsRes,
+    ] = await Promise.all([
+      countQuery('wallet_launch_click'),
+      countQuery('presale_intent_registered'),
+      countQuery('wallet_account_created'),
+      countQuery('wallet_launch_click', 'x'),
+      countQuery('presale_intent_registered', 'x'),
+      countQuery('wallet_account_created', 'x'),
+      supabase
+        .from('marketing_events')
+        .select('event_name, utm_campaign, utm_source')
+        .gte('created_at', sinceIso)
+        .in('event_name', ['wallet_launch_click', 'presale_intent_registered', 'wallet_account_created'])
+        .limit(10000),
+    ]);
+
+    setMarketingFunnel({
+      launchClicks: launchClicksRes.count || 0,
+      presaleIntents: presaleIntentsRes.count || 0,
+      walletSignups: walletSignupsRes.count || 0,
+      xLaunchClicks: xLaunchClicksRes.count || 0,
+      xPresaleIntents: xPresaleIntentsRes.count || 0,
+      xWalletSignups: xWalletSignupsRes.count || 0,
+    });
+
+    const attributionMap = new Map<string, CampaignAttributionRow>();
+    for (const row of campaignRowsRes.data || []) {
+      const source = (row.utm_source || '').toLowerCase();
+      if (source !== 'x' && source !== 'twitter') continue;
+
+      const campaign = row.utm_campaign || '(not set)';
+      if (!attributionMap.has(campaign)) {
+        attributionMap.set(campaign, { campaign, clicks: 0, intents: 0, signups: 0 });
+      }
+      const bucket = attributionMap.get(campaign)!;
+
+      if (row.event_name === 'wallet_launch_click') bucket.clicks += 1;
+      if (row.event_name === 'presale_intent_registered') bucket.intents += 1;
+      if (row.event_name === 'wallet_account_created') bucket.signups += 1;
+    }
+
+    const sortedCampaigns = Array.from(attributionMap.values()).sort((a, b) => {
+      if (b.intents !== a.intents) return b.intents - a.intents;
+      return b.clicks - a.clicks;
+    });
+    setCampaignAttribution(sortedCampaigns);
+  };
+
   const loadData = async () => {
     setRefreshing(true);
     try {
@@ -100,6 +200,7 @@ export default function AdminAnalytics() {
       setDailyData(processedDaily);
       setSourceData(data.sources || []);
       setTopReferrers(data.topReferrers || []);
+      await loadMarketingAttribution();
     } catch (error) {
       console.error('Error loading analytics:', error);
     } finally {
@@ -109,6 +210,12 @@ export default function AdminAnalytics() {
   };
 
   const totalSignups = sourceData.reduce((acc, curr) => acc + Number(curr.count), 0);
+  const intentRate = marketingFunnel.launchClicks
+    ? (marketingFunnel.presaleIntents / marketingFunnel.launchClicks) * 100
+    : 0;
+  const signupRate = marketingFunnel.launchClicks
+    ? (marketingFunnel.walletSignups / marketingFunnel.launchClicks) * 100
+    : 0;
 
   if (!user) {
     return (
@@ -202,6 +309,81 @@ export default function AdminAnalytics() {
                     <span className="text-sm text-gray-500">Top referrers</span>
                   </div>
                   <div className="text-3xl font-bold text-gray-900">{topReferrers.length}</div>
+                </div>
+              </div>
+
+              {/* Marketing Attribution (X Ads) */}
+              <div className="bg-white rounded-2xl border border-gray-200 p-6 mb-8">
+                <div className="flex items-center justify-between mb-5">
+                  <div>
+                    <h3 className="font-bold text-gray-900 text-lg">Marketing Attribution (X Ads)</h3>
+                    <p className="text-sm text-gray-500">
+                      Track launch clicks, presale intents, and wallet signups for the selected period.
+                    </p>
+                  </div>
+                  <span className="text-xs font-medium px-3 py-1 rounded-full bg-orange-100 text-orange-700">
+                    Last {days} days
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-2 lg:grid-cols-6 gap-4 mb-6">
+                  <div className="rounded-xl border border-gray-200 p-4">
+                    <div className="flex items-center gap-2 text-gray-500 text-sm mb-1">
+                      <MousePointerClick className="w-4 h-4" />
+                      Launch clicks
+                    </div>
+                    <div className="text-2xl font-bold text-gray-900">{marketingFunnel.launchClicks}</div>
+                  </div>
+                  <div className="rounded-xl border border-gray-200 p-4">
+                    <div className="flex items-center gap-2 text-gray-500 text-sm mb-1">
+                      <Target className="w-4 h-4" />
+                      Presale intents
+                    </div>
+                    <div className="text-2xl font-bold text-gray-900">{marketingFunnel.presaleIntents}</div>
+                    <div className="text-xs text-emerald-600 mt-1">{intentRate.toFixed(1)}% of clicks</div>
+                  </div>
+                  <div className="rounded-xl border border-gray-200 p-4">
+                    <div className="flex items-center gap-2 text-gray-500 text-sm mb-1">
+                      <UserPlus className="w-4 h-4" />
+                      Wallet signups
+                    </div>
+                    <div className="text-2xl font-bold text-gray-900">{marketingFunnel.walletSignups}</div>
+                    <div className="text-xs text-emerald-600 mt-1">{signupRate.toFixed(1)}% of clicks</div>
+                  </div>
+                  <div className="rounded-xl border border-orange-200 bg-orange-50 p-4">
+                    <div className="text-gray-600 text-sm mb-1">X clicks</div>
+                    <div className="text-2xl font-bold text-orange-700">{marketingFunnel.xLaunchClicks}</div>
+                  </div>
+                  <div className="rounded-xl border border-orange-200 bg-orange-50 p-4">
+                    <div className="text-gray-600 text-sm mb-1">X intents</div>
+                    <div className="text-2xl font-bold text-orange-700">{marketingFunnel.xPresaleIntents}</div>
+                  </div>
+                  <div className="rounded-xl border border-orange-200 bg-orange-50 p-4">
+                    <div className="text-gray-600 text-sm mb-1">X signups</div>
+                    <div className="text-2xl font-bold text-orange-700">{marketingFunnel.xWalletSignups}</div>
+                  </div>
+                </div>
+
+                <div className="rounded-xl border border-gray-200 overflow-hidden">
+                  <div className="px-4 py-3 border-b border-gray-100 bg-gray-50">
+                    <h4 className="font-semibold text-gray-900">X campaign attribution</h4>
+                  </div>
+                  {campaignAttribution.length === 0 ? (
+                    <div className="p-6 text-sm text-gray-500">No X-attributed campaign data yet.</div>
+                  ) : (
+                    <div className="divide-y divide-gray-100">
+                      {campaignAttribution.slice(0, 12).map((campaign) => (
+                        <div key={campaign.campaign} className="grid grid-cols-4 gap-3 px-4 py-3 text-sm">
+                          <div className="font-medium text-gray-900 truncate" title={campaign.campaign}>
+                            {campaign.campaign}
+                          </div>
+                          <div className="text-gray-600">{campaign.clicks} clicks</div>
+                          <div className="text-gray-600">{campaign.intents} intents</div>
+                          <div className="text-gray-600">{campaign.signups} signups</div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
 
