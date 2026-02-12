@@ -36,8 +36,8 @@ export const PRODUCT_STATUS: ProductStatusItem[] = [
   },
   {
     label: "Latest wallet update",
-    value: "2025-12-29",
-    helper: "Most recent commit date in current wallet log snapshot",
+    value: "Live feed",
+    helper: "Resolved from GitHub API with fallback snapshot",
   },
 ];
 

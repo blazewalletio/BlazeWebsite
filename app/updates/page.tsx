@@ -1,10 +1,15 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { PRODUCT_STATUS, PRODUCT_UPDATES } from '@/lib/product-updates';
+import { PRODUCT_STATUS } from '@/lib/product-updates';
+import { getWalletUpdates } from '@/lib/wallet-updates-server';
 import { Activity, Clock3, ExternalLink, Tag } from 'lucide-react';
 import Link from 'next/link';
 
-export default function UpdatesPage() {
+export const revalidate = 300;
+
+export default async function UpdatesPage() {
+  const { updates: walletUpdates, source } = await getWalletUpdates(12);
+
   return (
     <main className="min-h-screen bg-white">
       <a href="#main-content" className="skip-to-content">
@@ -30,6 +35,9 @@ export default function UpdatesPage() {
             </h1>
             <p className="text-lg text-gray-600">
               Transparent changelog sourced from the `BlazeWallet21-10` repository commit history.
+            </p>
+            <p className="text-sm text-gray-500 mt-3">
+              Feed source: {source === 'github' ? 'Live GitHub API' : 'Fallback snapshot'}
             </p>
             <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 mt-7 sm:mt-8 max-w-sm sm:max-w-none">
               <Link href="/" className="btn-secondary px-5 py-2.5 text-center">Back to homepage</Link>
@@ -61,7 +69,7 @@ export default function UpdatesPage() {
           </div>
 
           <div className="space-y-3 md:space-y-4">
-            {PRODUCT_UPDATES.map((update) => (
+            {walletUpdates.map((update) => (
               <article key={`${update.date}-${update.title}`} className="card p-5 md:p-7">
                 <div className="flex gap-4">
                   <div className="hidden sm:flex flex-col items-center pt-1">
