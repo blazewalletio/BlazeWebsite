@@ -1,28 +1,44 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { PRODUCT_STATUS } from '@/lib/product-updates';
-import { getWalletCommitsPageUrl, getWalletReleaseBranch, getWalletUpdates } from '@/lib/wallet-updates-server';
+import {
+  getWalletCommitsPageUrl,
+  getWalletReleaseBranch,
+  getWalletRepoLabel,
+  getWalletRepoSlug,
+  getWalletUpdates,
+} from '@/lib/wallet-updates-server';
 import { Activity, Clock3, ExternalLink, Tag } from 'lucide-react';
 import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
 
 export default async function UpdatesPage() {
+  const repoLabel = getWalletRepoLabel();
+  const repoSlug = getWalletRepoSlug();
   const releaseBranch = getWalletReleaseBranch();
   const commitsPageUrl = getWalletCommitsPageUrl();
   const { updates: walletUpdates, source } = await getWalletUpdates(12);
-  const statusCards = PRODUCT_STATUS.map((item) =>
-    item.label === 'Latest wallet update'
-      ? {
-          ...item,
-          value: walletUpdates[0]?.date || 'Unknown',
-          helper:
-            source === 'github'
-              ? 'Resolved from live wallet commit feed'
-              : 'Showing fallback snapshot due temporary API issue',
-        }
-      : item
-  );
+  const statusCards = PRODUCT_STATUS.map((item) => {
+    if (item.label === 'Source repository') {
+      return {
+        ...item,
+        value: repoLabel,
+        helper: repoSlug,
+      };
+    }
+    if (item.label === 'Latest wallet update') {
+      return {
+        ...item,
+        value: walletUpdates[0]?.date || 'Unknown',
+        helper:
+          source === 'github'
+            ? 'Resolved from live wallet commit feed'
+            : 'Showing fallback snapshot due temporary API issue',
+      };
+    }
+    return item;
+  });
 
   return (
     <main className="min-h-screen bg-white">
@@ -48,7 +64,7 @@ export default async function UpdatesPage() {
               Wallet release updates & sync log
             </h1>
             <p className="text-lg text-gray-600">
-              Transparent changelog sourced from the `BlazeWallet21-10` repository commit history.
+              Transparent changelog sourced from the <span className="font-medium">{repoLabel}</span> repository commit history.
             </p>
             <p className="text-sm text-gray-500 mt-3">
               Feed source: {source === 'github' ? 'Live GitHub API' : 'Fallback snapshot'}

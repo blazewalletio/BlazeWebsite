@@ -47,13 +47,18 @@ npm start
 
 ## ⚙️ Environment
 
-For the wallet release feed on `/updates`, you can configure which wallet branch is tracked:
+For the wallet release feed on `/updates`, you can configure the source repo, display label, and branch:
 
 ```bash
+WALLET_RELEASE_REPO=blazewalletio/BlazeWallet21-10
+WALLET_RELEASE_REPO_LABEL=BlazeWallet-Github
 WALLET_RELEASE_BRANCH=main
 ```
 
-If omitted, the website defaults to `main`.
+If omitted, defaults are:
+- `WALLET_RELEASE_REPO=blazewalletio/BlazeWallet21-10`
+- `WALLET_RELEASE_REPO_LABEL=BlazeWallet-Github`
+- `WALLET_RELEASE_BRANCH=main`
 
 ## 📝 Content
 

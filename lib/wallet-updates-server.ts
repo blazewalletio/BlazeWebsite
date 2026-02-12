@@ -12,8 +12,10 @@ type GitHubCommit = {
   };
 };
 
-const WALLET_REPO_OWNER = 'blazewalletio';
-const WALLET_REPO_NAME = 'BlazeWallet21-10';
+const DEFAULT_WALLET_REPO = 'blazewalletio/BlazeWallet21-10';
+const walletRepoSlug = process.env.WALLET_RELEASE_REPO || DEFAULT_WALLET_REPO;
+const [WALLET_REPO_OWNER, WALLET_REPO_NAME] = walletRepoSlug.split('/');
+const WALLET_REPO_LABEL = process.env.WALLET_RELEASE_REPO_LABEL || 'BlazeWallet-Github';
 const WALLET_COMMITS_URL = `https://api.github.com/repos/${WALLET_REPO_OWNER}/${WALLET_REPO_NAME}/commits`;
 const WALLET_RELEASE_BRANCH = process.env.WALLET_RELEASE_BRANCH || 'main';
 const WALLET_COMMITS_PAGE_URL = `https://github.com/${WALLET_REPO_OWNER}/${WALLET_REPO_NAME}/commits/${WALLET_RELEASE_BRANCH}`;
@@ -24,6 +26,14 @@ export function getWalletReleaseBranch() {
 
 export function getWalletCommitsPageUrl() {
   return WALLET_COMMITS_PAGE_URL;
+}
+
+export function getWalletRepoLabel() {
+  return WALLET_REPO_LABEL;
+}
+
+export function getWalletRepoSlug() {
+  return `${WALLET_REPO_OWNER}/${WALLET_REPO_NAME}`;
 }
 
 function buildTagsFromTitle(title: string): string[] {

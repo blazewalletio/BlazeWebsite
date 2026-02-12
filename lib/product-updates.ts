@@ -16,8 +16,8 @@ export type ProductUpdate = {
 export const PRODUCT_STATUS: ProductStatusItem[] = [
   {
     label: "Source repository",
-    value: "BlazeWallet21-10",
-    helper: "blazewalletio/BlazeWallet21-10",
+    value: "BlazeWallet-Github",
+    helper: "Configured wallet release source",
   },
   {
     label: "Wallet branch",
