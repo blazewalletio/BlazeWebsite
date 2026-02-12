@@ -15,6 +15,16 @@ type GitHubCommit = {
 const WALLET_REPO_OWNER = 'blazewalletio';
 const WALLET_REPO_NAME = 'BlazeWallet21-10';
 const WALLET_COMMITS_URL = `https://api.github.com/repos/${WALLET_REPO_OWNER}/${WALLET_REPO_NAME}/commits`;
+const WALLET_RELEASE_BRANCH = process.env.WALLET_RELEASE_BRANCH || 'main';
+const WALLET_COMMITS_PAGE_URL = `https://github.com/${WALLET_REPO_OWNER}/${WALLET_REPO_NAME}/commits/${WALLET_RELEASE_BRANCH}`;
+
+export function getWalletReleaseBranch() {
+  return WALLET_RELEASE_BRANCH;
+}
+
+export function getWalletCommitsPageUrl() {
+  return WALLET_COMMITS_PAGE_URL;
+}
 
 function buildTagsFromTitle(title: string): string[] {
   const normalized = title.toLowerCase();
@@ -45,7 +55,7 @@ export async function getWalletUpdates(limit = 8): Promise<{
       headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
     }
 
-    const res = await fetch(`${WALLET_COMMITS_URL}?per_page=${limit}&sha=main`, {
+    const res = await fetch(`${WALLET_COMMITS_URL}?per_page=${limit}&sha=${encodeURIComponent(WALLET_RELEASE_BRANCH)}`, {
       headers,
       cache: 'no-store',
     });

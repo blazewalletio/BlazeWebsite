@@ -1,13 +1,15 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { PRODUCT_STATUS } from '@/lib/product-updates';
-import { getWalletUpdates } from '@/lib/wallet-updates-server';
+import { getWalletCommitsPageUrl, getWalletReleaseBranch, getWalletUpdates } from '@/lib/wallet-updates-server';
 import { Activity, Clock3, ExternalLink, Tag } from 'lucide-react';
 import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
 
 export default async function UpdatesPage() {
+  const releaseBranch = getWalletReleaseBranch();
+  const commitsPageUrl = getWalletCommitsPageUrl();
   const { updates: walletUpdates, source } = await getWalletUpdates(12);
   const statusCards = PRODUCT_STATUS.map((item) =>
     item.label === 'Latest wallet update'
@@ -51,11 +53,14 @@ export default async function UpdatesPage() {
             <p className="text-sm text-gray-500 mt-3">
               Feed source: {source === 'github' ? 'Live GitHub API' : 'Fallback snapshot'}
             </p>
+            <p className="text-sm text-gray-500 mt-1">
+              Tracking branch: <span className="font-semibold text-gray-700">{releaseBranch}</span>
+            </p>
             <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 mt-7 sm:mt-8 max-w-sm sm:max-w-none">
               <Link href="/" className="btn-secondary px-5 py-2.5 text-center">Back to homepage</Link>
               <Link href="/presale" className="btn-brand px-5 py-2.5 text-center">Open presale</Link>
               <a
-                href="https://github.com/blazewalletio/BlazeWallet21-10/commits/main"
+                href={commitsPageUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary px-5 py-2.5 text-center inline-flex items-center justify-center gap-2"
