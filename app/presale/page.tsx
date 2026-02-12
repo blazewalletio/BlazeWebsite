@@ -20,8 +20,13 @@ export default function PresalePage() {
 
   return (
     <main className="min-h-screen bg-white">
+      <a href="#main-content" className="skip-to-content">
+        Skip to main content
+      </a>
       <Navbar />
-      <section className="pt-28 pb-16 section-gradient-warm">
+      <div id="main-content" className="sr-only">Main content</div>
+
+      <section className="pt-28 pb-20 section-gradient-warm">
         <div className="container-main">
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-100 text-orange-700 font-medium text-sm mb-6">
@@ -44,28 +49,43 @@ export default function PresalePage() {
                 Read whitepaper
               </Link>
             </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-10 text-left">
+              <div className="card p-4">
+                <div className="text-xs text-gray-500 mb-1">Presale price</div>
+                <div className="text-xl font-bold text-gray-900">${presalePrice.toFixed(5)}</div>
+              </div>
+              <div className="card p-4">
+                <div className="text-xs text-gray-500 mb-1">Launch price</div>
+                <div className="text-xl font-bold text-gray-900">${launchPrice.toFixed(2)}</div>
+              </div>
+              <div className="card p-4">
+                <div className="text-xs text-gray-500 mb-1">Discount</div>
+                <div className="text-xl font-bold text-emerald-600">{presaleDiscount}%</div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white border-t border-gray-100">
         <div className="container-main">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="card p-6">
+            <div className="card card-hover p-6">
               <div className="icon-box bg-emerald-100 mb-4">
                 <CheckCircle2 className="w-6 h-6 text-emerald-600" />
               </div>
               <h3 className="text-lg font-bold text-gray-900 mb-1">No upfront payment</h3>
               <p className="text-gray-600">Register intent first, complete purchase when presale opens.</p>
             </div>
-            <div className="card p-6">
+            <div className="card card-hover p-6">
               <div className="icon-box bg-orange-100 mb-4">
                 <Users className="w-6 h-6 text-orange-600" />
               </div>
               <h3 className="text-lg font-bold text-gray-900 mb-1">Referral rewards</h3>
               <p className="text-gray-600">Invite friends and climb the leaderboard for extra token bonuses.</p>
             </div>
-            <div className="card p-6">
+            <div className="card card-hover p-6">
               <div className="icon-box bg-sky-100 mb-4">
                 <Shield className="w-6 h-6 text-sky-600" />
               </div>
@@ -80,16 +100,20 @@ export default function PresalePage() {
       <CommitmentForm />
       <Leaderboard />
 
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 lg:py-24 bg-gray-50 border-t border-gray-100">
         <div className="container-main">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-10">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sky-100 text-sky-700 font-medium text-sm mb-5">
+                <Zap className="w-4 h-4" />
+                Presale FAQ
+              </div>
               <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">Frequently asked questions</h2>
               <p className="text-gray-600">Everything about intent registration and presale access.</p>
             </div>
             <div className="space-y-4">
               {faqs.map(([question, answer]) => (
-                <div key={question} className="card p-6">
+                <div key={question} className="card card-hover p-6">
                   <h3 className="text-lg font-bold text-gray-900 mb-2">{question}</h3>
                   <p className="text-gray-600">{answer}</p>
                 </div>
