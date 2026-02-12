@@ -11,7 +11,7 @@ const faqs = [
   },
   {
     question: 'Is BLAZE Wallet safe?',
-    answer: 'Yes! BLAZE is a non-custodial wallet, meaning you control your private keys at all times. We use WebAuthn biometric authentication, encrypted local storage, and your funds are never stored on our servers. A CertiK security audit is scheduled for Q1 2026.',
+    answer: 'Yes! BLAZE is a non-custodial wallet, meaning you control your private keys at all times. We use WebAuthn biometric authentication, encrypted local storage, and your funds are never stored on our servers. An independent third-party security audit is planned for Q1 2026.',
   },
   {
     question: 'How does QuickPay work?',

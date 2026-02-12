@@ -6,23 +6,10 @@ import {
   sendNewSignupNotification,
   sendWelcomeEmail,
 } from '@/lib/email';
+import { getCurrentTier, PRESALE_CONSTANTS } from '@/lib/presale-constants';
 
 // Presale constants from wallet
-const PRESALE_PRICE = 0.00834;
-const BONUS_TIERS = [
-  { tier_number: 1, tier_name: 'Founders', min_buyers: 1, max_buyers: 100, bonus_percentage: 100 },
-  { tier_number: 2, tier_name: 'Early Birds', min_buyers: 101, max_buyers: 250, bonus_percentage: 75 },
-  { tier_number: 3, tier_name: 'Pioneers', min_buyers: 251, max_buyers: 500, bonus_percentage: 50 },
-  { tier_number: 4, tier_name: 'Adopters', min_buyers: 501, max_buyers: 1000, bonus_percentage: 30 },
-  { tier_number: 5, tier_name: 'Supporters', min_buyers: 1001, max_buyers: 2000, bonus_percentage: 15 },
-  { tier_number: 6, tier_name: 'Public', min_buyers: 2001, max_buyers: 999999, bonus_percentage: 0 },
-];
-
-function getCurrentTier(buyerCount: number) {
-  return BONUS_TIERS.find(tier => 
-    buyerCount >= tier.min_buyers - 1 && buyerCount < tier.max_buyers
-  ) || BONUS_TIERS[0];
-}
+const PRESALE_PRICE = PRESALE_CONSTANTS.presalePrice;
 
 function generateReferralCode(): string {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';

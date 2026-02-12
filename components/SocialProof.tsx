@@ -22,15 +22,15 @@ const securityFeatures = [
   },
   {
     icon: CheckCircle, 
-    title: 'CertiK audit', 
-    description: 'Professional security audit Q1 2026',
+    title: 'Audit track', 
+    description: 'Independent third-party security audit planned for Q1 2026',
   },
 ];
 
 const partners = [
   { 
-    name: 'CertiK', 
-    description: 'Security audit (Q1 2026)',
+    name: 'Independent audit', 
+    description: 'Third-party security review track (Q1 2026)',
     logo: '/partners/certik.png',
     height: 40,
     invert: false,

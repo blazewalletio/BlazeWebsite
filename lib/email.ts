@@ -52,7 +52,7 @@ export async function sendWelcomeEmail(email: string, referralCode: string) {
         <div class="highlight">
           <h3>What you'll get:</h3>
           <p class="mb-0">
-            ✨ Early access at <strong>$0.00834</strong> (58% off $0.02 launch price) + bonus tokens<br>
+            ✨ Early access at <strong>$0.008333</strong> (58% off $0.02 launch price) + bonus tokens<br>
             🔔 Exclusive updates and announcements<br>
             🎁 Special bonuses for early supporters
           </p>
@@ -273,23 +273,23 @@ export async function sendFomoPricingEmail(email: string, referralCode: string, 
           <table class="pricing-table">
             <tr>
               <td><strong>Founders (1-100)</strong></td>
-              <td class="text-right">$0.00834 <span class="text-warning">+100% (2x!)</span></td>
+              <td class="text-right">$0.008333 <span class="text-warning">+100% (2x!)</span></td>
             </tr>
             <tr>
               <td><strong>Early Birds (101-250)</strong></td>
-              <td class="text-right">$0.00834 <span class="text-warning">+75% bonus</span></td>
+              <td class="text-right">$0.008333 <span class="text-warning">+75% bonus</span></td>
             </tr>
             <tr>
               <td><strong>Pioneers (251-500)</strong></td>
-              <td class="text-right">$0.00834 <span class="text-warning">+50% bonus</span></td>
+              <td class="text-right">$0.008333 <span class="text-warning">+50% bonus</span></td>
             </tr>
             <tr>
               <td><strong>Adopters (501-1000)</strong></td>
-              <td class="text-right">$0.00834 <span class="text-warning">+30% bonus</span></td>
+              <td class="text-right">$0.008333 <span class="text-warning">+30% bonus</span></td>
             </tr>
             <tr>
               <td><strong>Supporters (1001-2000)</strong></td>
-              <td class="text-right">$0.00834 <span class="text-warning">+15% bonus</span></td>
+              <td class="text-right">$0.008333 <span class="text-warning">+15% bonus</span></td>
             </tr>
             <tr>
               <td><strong>Launch price</strong></td>
@@ -407,7 +407,7 @@ export async function sendPresaleCountdownEmail(email: string, referralCode: str
           <ul class="list-compact">
             <li>✅ <strong>Join the waitlist</strong> - Done!</li>
             <li>☐ <strong>Register your purchase intent</strong> - Lock in your spot</li>
-            <li>☐ <strong>Prepare your funds</strong> - USDT, USDC, ETH, or card</li>
+            <li>☐ <strong>Prepare your wallet</strong> - Keep your preferred wallet and gas-ready network set up</li>
             <li>☐ <strong>Set up a wallet</strong> - MetaMask, Trust Wallet, etc.</li>
           </ul>
         </div>

@@ -19,7 +19,7 @@ const securityFeatures = [
   {
     icon: FileCheck,
     title: 'Smart Contract Audits',
-    description: 'All smart contracts are verified and audited. CertiK audit completion planned for Q1 2026.',
+    description: 'Smart contracts are transparently verified, with an independent third-party audit planned for Q1 2026.',
     color: 'from-purple-500 to-pink-500',
   },
   {
@@ -49,7 +49,7 @@ const verificationLinks = [
     status: 'Verified',
   },
   {
-    label: 'CertiK Audit Report',
+    label: 'Third-party Audit Report',
     href: '#',
     status: 'Coming Q1 2026',
   },

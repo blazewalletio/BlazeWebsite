@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Flame, Bell, Users, ArrowRight, Check, Sparkles, AlertCircle, Gift, Copy } from 'lucide-react';
+import { PRESALE_CONSTANTS } from '@/lib/presale-constants';
 
 interface TimeLeft {
   days: number;
@@ -19,7 +20,7 @@ function PresaleCountdownInner() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  const [waitlistCount, setWaitlistCount] = useState(2847);
+  const [waitlistCount, setWaitlistCount] = useState(0);
   const [myReferralCode, setMyReferralCode] = useState('');
   const [copied, setCopied] = useState(false);
   
@@ -174,7 +175,7 @@ function PresaleCountdownInner() {
         <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-8 mb-8">
           <div className="text-center">
             <div className="text-gray-400 text-sm mb-1">Presale price</div>
-            <div className="text-2xl font-bold text-orange-400">$0.00834</div>
+            <div className="text-2xl font-bold text-orange-400">${PRESALE_CONSTANTS.presalePrice.toFixed(6)}</div>
           </div>
           <div className="hidden sm:block w-px bg-gray-700" />
           <div className="text-center">

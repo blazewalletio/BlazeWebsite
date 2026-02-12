@@ -8,6 +8,7 @@ import {
   sendExclusiveBonusEmail,
   sendPresaleCountdownEmail,
 } from '@/lib/email';
+import { PRESALE_CONSTANTS } from '@/lib/presale-constants';
 
 // POST: Send a specific email to a specific address or broadcast to all
 export async function POST(request: Request) {
@@ -104,7 +105,7 @@ export async function POST(request: Request) {
               recipient.referral_code || 'BLAZE',
               {
                 name: currentTier?.tier_name || 'Founders',
-                price: currentTier?.price_usd || 0.00834,
+                price: currentTier?.price_usd || PRESALE_CONSTANTS.presalePrice,
                 spotsLeft: currentTier?.max_buyers || 100,
               }
             );

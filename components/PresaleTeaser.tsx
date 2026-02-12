@@ -81,7 +81,7 @@ export default function PresaleTeaser() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
               </span>
-              Early bird presale open
+              Early bird presale access
             </div>
 
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
@@ -89,7 +89,7 @@ export default function PresaleTeaser() {
               <span className="text-gradient-brand">58% off</span>
             </h2>
             <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-              Fixed presale price of $0.00834 per token. Early supporters get bonus tokens!
+              Fixed presale price of $0.008333 per token. Early supporters get bonus tokens.
             </p>
           </div>
 
@@ -112,7 +112,7 @@ export default function PresaleTeaser() {
                 <div className="mb-6">
                   <div className="text-gray-400 text-sm mb-1">Presale price</div>
                   <div className="flex items-baseline gap-3">
-                    <span className="text-5xl font-bold text-white">${PRESALE_PRICE.toFixed(5)}</span>
+                    <span className="text-5xl font-bold text-white">${PRESALE_PRICE.toFixed(6)}</span>
                     <span className="text-gray-500 line-through text-lg">$0.02</span>
                   </div>
                   <div className="text-emerald-400 text-sm mt-1">{presaleDiscount}% off launch price</div>

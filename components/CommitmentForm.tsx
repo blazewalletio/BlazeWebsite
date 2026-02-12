@@ -354,7 +354,7 @@ export default function CommitmentForm() {
                 </div>
                 <div className="flex justify-between items-center py-3 border-b border-white/10">
                   <span className="text-gray-400">Price per token</span>
-                  <span className="font-medium">${pricePerToken.toFixed(4)}</span>
+                  <span className="font-medium">${pricePerToken.toFixed(6)}</span>
                 </div>
                 <div className="flex justify-between items-center py-3 border-b border-white/10">
                   <span className="text-gray-400">Base tokens</span>

@@ -496,7 +496,7 @@ Fixed supply. No inflation.
 0.1% of every transaction is burned.
 Supply decreases over time.
 
-4/ Presale Price: $0.00834
+4/ Presale Price: $0.008333
 Launch Price: $0.02
 That's 58% below launch.
 
@@ -521,10 +521,10 @@ Full details: blazewallet.io/presale`,
 
 🏆 Founders (first 100 buyers): +100% bonus
 ⭐ Early Birds (101-250): +75% bonus
-🔥 Believers (251-500): +50% bonus
-💪 Supporters (501-1000): +35% bonus
-🤝 Community (1001-2000): +20% bonus
-👥 Public (2001+): +10% bonus
+🔥 Pioneers (251-500): +50% bonus
+💪 Adopters (501-1000): +30% bonus
+🤝 Supporters (1001-2000): +15% bonus
+👥 Public (2001+): +0% bonus
 
 First movers get rewarded.
 
@@ -535,7 +535,7 @@ blazewallet.io/presale`,
       layout: 'stat',
       headline: 'Bonus Tiers',
       stat: { value: '+100%', label: 'Founder Bonus' },
-      bullets: ['🏆 Founders +100%', '⭐ Early Birds +75%', '🔥 Believers +50%', '💪 Supporters +35%'],
+      bullets: ['🏆 Founders +100%', '⭐ Early Birds +75%', '🔥 Pioneers +50%', '💪 Adopters +30%'],
     },
     tip: 'Highlight the Founder bonus - most compelling tier',
   },
@@ -548,7 +548,7 @@ blazewallet.io/presale`,
     title: 'Investment Math',
     content: `The math on BLAZE Founder tier:
 
-Presale price: $0.00834
+Presale price: $0.008333
 Launch price: $0.02
 Founder bonus: +100%
 
@@ -643,10 +643,10 @@ blazewallet.io/presale`,
     title: 'Presale Details',
     content: `BLAZE Presale Details:
 
-💰 Price: $0.00834 per token
+💰 Price: $0.008333 per token
 🎁 Bonuses: Up to +100%
-💵 Min investment: $10
-💵 Max investment: $2,500
+💵 Min investment: $100
+💵 Max investment: $10,000
 💳 Payment: USDC, BNB, ETH, or card
 
 Opening Q1 2026.
@@ -659,8 +659,8 @@ blazewallet.io/presale`,
       mode: 'dark',
       layout: 'stat',
       headline: 'Presale Details',
-      stat: { value: '$0.00834', label: 'per token' },
-      bullets: ['Bonus: Up to +100%', 'Min: $10', 'Max: $2,500', 'USDC, BNB, ETH, card'],
+      stat: { value: '$0.008333', label: 'per token' },
+      bullets: ['Bonus: Up to +100%', 'Min: $100', 'Max: $10,000', 'Payment instructions at launch'],
     },
   },
   {
@@ -732,8 +732,8 @@ blazewallet.io/presale`,
 Quick Founder tier recap:
 • First 100 buyers only
 • +100% bonus tokens
-• $0.00834 per token
-• Max allocation: $2,500
+• $0.008333 per token
+• Max allocation: $10,000
 
 At launch price ($0.02):
 $100 invested → $479 value
@@ -745,7 +745,7 @@ blazewallet.io/presale`,
       layout: 'countdown',
       headline: '6',
       subheadline: 'DAYS',
-      bullets: ['First 100 only', '+100% bonus', '$0.00834/token'],
+      bullets: ['First 100 only', '+100% bonus', '$0.008333/token'],
     },
   },
   {
@@ -790,7 +790,7 @@ Q: What payment methods?
 A: USDC, BNB, ETH, or card
 
 Q: Minimum investment?
-A: $10
+A: $100
 
 Q: When do I receive tokens?
 A: At TGE (Token Generation Event)
@@ -805,7 +805,7 @@ blazewallet.io/presale`,
       layout: 'countdown',
       headline: '4',
       subheadline: 'DAYS',
-      bullets: ['USDC, BNB, ETH, card', 'Min: $10', 'Tokens at TGE'],
+      bullets: ['Payment info at launch', 'Min: $100', 'Tokens at TGE'],
     },
   },
   {
@@ -876,7 +876,7 @@ BLAZE Presale opens at 9:00 UTC.
 
 First 100 buyers = Founder tier (+100% bonus)
 
-Price: $0.00834
+Price: $0.008333
 
 Set your alarm.
 

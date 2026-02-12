@@ -7,12 +7,12 @@ export const PRESALE_CONSTANTS = {
   presaleAllocation: 120_000_000, // 120M BLAZE for presale (12%)
   
   // Pricing
-  presalePrice: 0.00834, // $0.00834 per BLAZE token
+  presalePrice: 0.008333, // $0.008333 per BLAZE token
   launchPrice: 0.02, // $0.02 per BLAZE token after presale
   
   // Caps
   hardCap: 1_000_000, // $1M
-  softCap: 100_000, // $100k
+  softCap: 200_000, // $200k
   
   // Contribution limits
   minContribution: 100, // $100 minimum
@@ -29,7 +29,7 @@ export const PRESALE_CONSTANTS = {
 };
 
 // Early bird bonus tiers - bonus tokens for early supporters
-// Base price is always $0.00834, bonuses are extra tokens
+// Base price is always $0.008333, bonuses are extra tokens
 export const BONUS_TIERS = [
   {
     tier_number: 1,

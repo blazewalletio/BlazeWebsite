@@ -15,7 +15,7 @@ export default function PresalePage() {
   const faqs = [
     ['What is the BLAZE presale?', 'The presale gives early supporters access to BLAZE tokens at a discounted price before public launch.'],
     ['How much is the minimum intent?', 'The minimum intent amount is $100 and maximum is $10,000 per wallet.'],
-    ['Do I pay immediately?', 'No. Registering intent is not a payment. You reserve your spot and receive payment instructions when presale opens.'],
+    ['Do I pay immediately?', 'No. Registering intent is not a payment. You reserve your spot and receive payment instructions when the presale goes live.'],
     ['What does the referral program do?', 'Each signup gets a referral code. Referrals move you up the leaderboard and unlock bonus token rewards.'],
   ] as const;
 
@@ -36,12 +36,12 @@ export default function PresalePage() {
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-100 text-orange-700 font-medium text-sm mb-6">
               <Zap className="w-4 h-4" />
               BLAZE presale
-            </div>
+              </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-5">
               Join the <span className="text-gradient-brand">BLAZE presale</span>
             </h1>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
-              Fixed price of ${presalePrice.toFixed(5)} per token ({presaleDiscount}% below ${launchPrice.toFixed(2)} launch),
+              Fixed price of ${presalePrice.toFixed(6)} per token ({presaleDiscount}% below ${launchPrice.toFixed(2)} launch),
               with bonus tiers for early supporters.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -52,13 +52,13 @@ export default function PresalePage() {
               <Link href="/whitepaper" className="btn-secondary inline-flex items-center justify-center gap-2 px-8 py-4 text-lg">
                 Read whitepaper
               </Link>
-            </div>
+          </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-10 text-left">
               <div className="card p-4">
                 <div className="text-xs text-gray-500 mb-1">Presale price</div>
-                <div className="text-xl font-bold text-gray-900">${presalePrice.toFixed(5)}</div>
-              </div>
+                <div className="text-xl font-bold text-gray-900">${presalePrice.toFixed(6)}</div>
+          </div>
               <div className="card p-4">
                 <div className="text-xs text-gray-500 mb-1">Launch price</div>
                 <div className="text-xl font-bold text-gray-900">${launchPrice.toFixed(2)}</div>
@@ -78,17 +78,17 @@ export default function PresalePage() {
             <div className="card card-hover p-6">
               <div className="icon-box bg-emerald-100 mb-4">
                 <CheckCircle2 className="w-6 h-6 text-emerald-600" />
-              </div>
+                </div>
               <h3 className="text-lg font-bold text-gray-900 mb-1">No upfront payment</h3>
-              <p className="text-gray-600">Register intent first, complete purchase when presale opens.</p>
-            </div>
+              <p className="text-gray-600">Register intent first, complete purchase when the presale goes live.</p>
+                      </div>
             <div className="card card-hover p-6">
               <div className="icon-box bg-orange-100 mb-4">
                 <Users className="w-6 h-6 text-orange-600" />
               </div>
               <h3 className="text-lg font-bold text-gray-900 mb-1">Referral rewards</h3>
               <p className="text-gray-600">Invite friends and climb the leaderboard for extra token bonuses.</p>
-            </div>
+                </div>
             <div className="card card-hover p-6">
               <div className="icon-box bg-sky-100 mb-4">
                 <Shield className="w-6 h-6 text-sky-600" />
@@ -139,7 +139,7 @@ export default function PresalePage() {
                 <div key={question} className="card card-hover p-6">
                   <h3 className="text-lg font-bold text-gray-900 mb-2">{question}</h3>
                   <p className="text-gray-600">{answer}</p>
-                </div>
+                        </div>
               ))}
             </div>
           </div>

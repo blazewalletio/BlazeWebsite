@@ -793,7 +793,7 @@ export default function WhitepaperPage() {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                   {[
                     { label: 'Presale tokens', value: '120,000,000', sub: '12% of supply' },
-                    { label: 'Presale price', value: '$0.00834', sub: 'per token' },
+                    { label: 'Presale price', value: '$0.008333', sub: 'per token' },
                     { label: 'Launch price', value: '$0.02', sub: 'per token' },
                     { label: 'Early bird discount', value: '58%', sub: 'vs launch' },
                   ].map((item, i) => (
@@ -806,7 +806,7 @@ export default function WhitepaperPage() {
           </div>
                 <p className="text-sm text-gray-600 mt-4">
                   Early supporters receive bonus tokens: Founders (first 100) get +100%, Early Birds +75%, 
-                  Pioneers +50%, Believers +30%, and Supporters +15%. All bonuses are additional tokens on top of purchase.
+                  Pioneers +50%, Adopters +30%, and Supporters +15%. All bonuses are additional tokens on top of purchase.
                 </p>
               </div>
 
