@@ -6,6 +6,8 @@ import ScrollProgress from "@/components/ScrollProgress";
 import ChatWidget from "@/components/ChatWidget";
 import AuthHandler from "@/components/AuthHandler";
 import ClientOnly from "@/components/ClientOnly";
+import AnalyticsBootstrap from "@/components/AnalyticsBootstrap";
+import XPixelManager from "@/components/XPixelManager";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -294,6 +296,8 @@ export default function RootLayout({
       <body className={inter.className} suppressHydrationWarning>
         <AuthHandler />
         <ClientOnly>
+          <AnalyticsBootstrap />
+          <XPixelManager />
           <ScrollProgress />
         </ClientOnly>
         {children}

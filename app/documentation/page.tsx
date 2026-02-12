@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { ArrowLeft, BookOpen, Wallet, Send, QrCode, Shield, Brain, Coins, Settings, ExternalLink, Search, Sparkles } from 'lucide-react';
 import Link from 'next/link';
+import TrackedLaunchAppLink from '@/components/TrackedLaunchAppLink';
 import Navbar from '@/components/Navbar';
 import { useState } from 'react';
 
@@ -147,14 +148,25 @@ export default function DocumentationPage() {
         <div className="container-main">
           <div className="flex flex-wrap justify-center gap-4">
             {quickLinks.map((link) => (
-              <a
-                key={link.title}
-                href={link.href}
-                className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-gray-200 hover:border-orange-300 hover:shadow-soft transition-all"
-              >
-                <link.icon className="w-4 h-4 text-orange-500" />
-                <span className="font-medium text-gray-900">{link.title}</span>
-              </a>
+              link.href === 'https://my.blazewallet.io' ? (
+                <TrackedLaunchAppLink
+                  key={link.title}
+                  sourceContext="documentation_quicklink_launch"
+                  className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-gray-200 hover:border-orange-300 hover:shadow-soft transition-all"
+                >
+                  <link.icon className="w-4 h-4 text-orange-500" />
+                  <span className="font-medium text-gray-900">{link.title}</span>
+                </TrackedLaunchAppLink>
+              ) : (
+                <a
+                  key={link.title}
+                  href={link.href}
+                  className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-gray-200 hover:border-orange-300 hover:shadow-soft transition-all"
+                >
+                  <link.icon className="w-4 h-4 text-orange-500" />
+                  <span className="font-medium text-gray-900">{link.title}</span>
+                </a>
+              )
             ))}
           </div>
         </div>

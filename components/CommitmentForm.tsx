@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Target, Zap, Calculator, Check, AlertCircle, Loader2, TrendingUp, Gift, Shield, Clock } from 'lucide-react';
 import { BONUS_TIERS, PRESALE_CONSTANTS } from '@/lib/presale-constants';
+import { trackPresaleIntentRegistered } from '@/lib/analytics/client';
 
 interface PricingTier {
   tier_number: number;
@@ -125,6 +126,11 @@ export default function CommitmentForm() {
       }
 
       setSuccess(data.commitment);
+      trackPresaleIntentRegistered({
+        amountUsd: finalAmount,
+        tierName: data.commitment?.tierName || currentTier?.tier_name || 'Unknown',
+        bonusPercentage: data.commitment?.bonusPercentage || bonusPercentage,
+      });
     } catch (err: any) {
       setError(err.message);
     } finally {

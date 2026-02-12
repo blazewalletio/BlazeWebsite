@@ -5,6 +5,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
+import TrackedLaunchAppLink from '@/components/TrackedLaunchAppLink';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -117,15 +118,15 @@ export default function Navbar() {
 
           {/* CTA button */}
           <div className="hidden md:block">
-            <a
-              href="https://my.blazewallet.io"
+            <TrackedLaunchAppLink
+              sourceContext="navbar_desktop_cta"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-brand flex items-center gap-2"
             >
               Launch app
               <ArrowRight className="w-4 h-4" />
-            </a>
+            </TrackedLaunchAppLink>
           </div>
 
           {/* Mobile menu button */}
@@ -306,8 +307,8 @@ export default function Navbar() {
               </div>
 
               {/* CTA Button */}
-              <a
-                href="https://my.blazewallet.io"
+              <TrackedLaunchAppLink
+                sourceContext="navbar_mobile_cta"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={closeMenu}
@@ -316,7 +317,7 @@ export default function Navbar() {
                 <Wallet className="w-5 h-5" />
                 <span>Launch app</span>
                 <ArrowRight className="w-5 h-5" />
-              </a>
+              </TrackedLaunchAppLink>
             </div>
           </div>
         </div>

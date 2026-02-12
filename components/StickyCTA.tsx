@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Rocket, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import TrackedLaunchAppLink from '@/components/TrackedLaunchAppLink';
 
 export default function StickyCTA() {
   const [isVisible, setIsVisible] = useState(false);
@@ -62,14 +63,14 @@ export default function StickyCTA() {
               <p className="text-xs text-gray-400">Experience the future of DeFi</p>
             </div>
             <div className="flex items-center gap-2">
-              <a
-                href="https://my.blazewallet.io"
+              <TrackedLaunchAppLink
+                sourceContext="sticky_cta_launch"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-4 py-2 bg-gradient-blaze rounded-lg font-bold text-sm hover:scale-105 transition-transform glow-orange focus:outline-none focus:ring-2 focus:ring-orange-500"
               >
                 Launch
-              </a>
+              </TrackedLaunchAppLink>
               <button
                 onClick={() => {
                   setIsDismissed(true);

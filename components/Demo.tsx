@@ -4,6 +4,7 @@ import { ArrowRight, Zap, Brain, Shield, Clock, Repeat, CreditCard, Sparkles } f
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAnimateOnce } from '@/hooks/useAnimateOnce';
+import TrackedLaunchAppLink from '@/components/TrackedLaunchAppLink';
 
 const steps = [
   {
@@ -214,15 +215,15 @@ export default function Demo() {
                 ))}
             </div>
 
-              <a
-                href="https://my.blazewallet.io"
+              <TrackedLaunchAppLink
+                sourceContext="demo_try_blaze_cta"
                 target="_blank"
                 rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-yellow-500 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-orange-500/25 transition-all"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-yellow-500 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-orange-500/25 transition-all"
               >
                         Try BLAZE now
                         <ArrowRight className="w-4 h-4" />
-              </a>
+              </TrackedLaunchAppLink>
                     </div>
             </motion.div>
                 </AnimatePresence>

@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { ArrowLeft, Download, BookOpen, Brain, Shield, Zap, Users, Coins, Rocket, Globe, Lock, CheckCircle, QrCode, TrendingDown, Coffee, ShoppingCart, Target, BarChart3, Layers, Wallet, ArrowUpRight, Building, PieChart, Clock, Award, Smartphone, CreditCard, TrendingUp, DollarSign, Server, Database, Network, Cpu } from 'lucide-react';
 import Link from 'next/link';
+import TrackedLaunchAppLink from '@/components/TrackedLaunchAppLink';
 import Navbar from '@/components/Navbar';
 
 export default function WhitepaperPage() {
@@ -1119,9 +1120,9 @@ export default function WhitepaperPage() {
                 of making cryptocurrency truly usable for everyone, everywhere.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="https://my.blazewallet.io" className="btn-light">
+                <TrackedLaunchAppLink sourceContext="whitepaper_cta" className="btn-light">
                   Try BLAZE Wallet
-                </a>
+                </TrackedLaunchAppLink>
                 <a href="https://t.me/blazewallet_io" target="_blank" rel="noopener noreferrer" className="px-6 py-3 bg-white/20 text-white rounded-xl font-semibold hover:bg-white/30 transition-colors">
                   Join community
                 </a>

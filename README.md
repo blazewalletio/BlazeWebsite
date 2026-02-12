@@ -53,12 +53,34 @@ For the wallet release feed on `/updates`, you can configure the source repo, di
 WALLET_RELEASE_REPO=blazewalletio/BlazeWallet21-10
 WALLET_RELEASE_REPO_LABEL=BlazeWallet-Github
 WALLET_RELEASE_BRANCH=main
+NEXT_PUBLIC_X_PIXEL_ID=your_x_pixel_id
+WALLET_SIGNUP_TRACKING_SECRET=choose_a_long_random_secret
 ```
 
 If omitted, defaults are:
 - `WALLET_RELEASE_REPO=blazewalletio/BlazeWallet21-10`
 - `WALLET_RELEASE_REPO_LABEL=BlazeWallet-Github`
 - `WALLET_RELEASE_BRANCH=main`
+
+### Wallet signup conversion webhook
+
+To track real wallet account creations (after users click through from the website), let the wallet app call:
+
+- `POST /api/analytics/wallet-signup`
+- Body:
+
+```json
+{
+  "secret": "WALLET_SIGNUP_TRACKING_SECRET",
+  "visitorId": "bw_vid_from_query",
+  "walletUserId": "optional-wallet-user-id",
+  "walletAddress": "optional-wallet-address",
+  "emailHash": "optional-sha256-email",
+  "source": "wallet_app_signup"
+}
+```
+
+This logs a `wallet_account_created` marketing event linked to the original website visitor id.
 
 ## 📝 Content
 

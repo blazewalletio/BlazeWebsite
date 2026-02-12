@@ -33,6 +33,7 @@ export default function CookieConsent() {
     const allAccepted = { essential: true, functional: true, analytics: true };
     localStorage.setItem('cookie_consent', JSON.stringify(allAccepted));
     localStorage.setItem('cookie_consent_date', new Date().toISOString());
+    window.dispatchEvent(new Event('cookie-consent-updated'));
     setPreferences(allAccepted);
     setShowBanner(false);
   };
@@ -40,6 +41,7 @@ export default function CookieConsent() {
   const acceptSelected = () => {
     localStorage.setItem('cookie_consent', JSON.stringify(preferences));
     localStorage.setItem('cookie_consent_date', new Date().toISOString());
+    window.dispatchEvent(new Event('cookie-consent-updated'));
     setShowBanner(false);
     setShowSettings(false);
   };
@@ -48,6 +50,7 @@ export default function CookieConsent() {
     const essentialOnly = { essential: true, functional: false, analytics: false };
     localStorage.setItem('cookie_consent', JSON.stringify(essentialOnly));
     localStorage.setItem('cookie_consent_date', new Date().toISOString());
+    window.dispatchEvent(new Event('cookie-consent-updated'));
     setPreferences(essentialOnly);
     setShowBanner(false);
   };

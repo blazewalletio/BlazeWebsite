@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { ArrowLeft, MessageCircle, Mail, Send, BookOpen, Clock, CheckCircle, HelpCircle, ExternalLink, Twitter, MessagesSquare } from 'lucide-react';
 import Link from 'next/link';
+import TrackedLaunchAppLink from '@/components/TrackedLaunchAppLink';
 import Navbar from '@/components/Navbar';
 import { useState } from 'react';
 
@@ -321,9 +322,9 @@ export default function SupportPage() {
           >
             <h2 className="text-2xl font-bold text-white mb-2">Ready to get started?</h2>
             <p className="text-white/90 mb-6">Experience the future of crypto payments.</p>
-            <a href="https://my.blazewallet.io" className="btn-light">
+            <TrackedLaunchAppLink sourceContext="support_cta" className="btn-light">
               Launch BLAZE Wallet
-            </a>
+            </TrackedLaunchAppLink>
           </motion.div>
         </div>
       </section>

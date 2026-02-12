@@ -2,6 +2,7 @@
 
 import { ArrowRight, Shield, Zap, CheckCircle, QrCode } from 'lucide-react';
 import Image from 'next/image';
+import TrackedLaunchAppLink from '@/components/TrackedLaunchAppLink';
 
 const trustBadges = [
   { text: 'Pay anywhere' },
@@ -73,8 +74,8 @@ export default function Hero() {
 
             {/* CTA Buttons */}
             <div className="hero-animate-content delay-4 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8">
-              <a
-                href="https://my.blazewallet.io"
+              <TrackedLaunchAppLink
+                sourceContext="hero_primary_cta"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-brand flex items-center justify-center gap-2 px-8 py-4 text-lg"
@@ -82,7 +83,7 @@ export default function Hero() {
               >
                 Start paying with crypto
                 <ArrowRight className="w-5 h-5" />
-              </a>
+              </TrackedLaunchAppLink>
               <a
                 href="#quickpay"
                 className="inline-flex items-center justify-center gap-2 px-2 py-1 text-gray-300 hover:text-white transition-colors text-base font-medium"

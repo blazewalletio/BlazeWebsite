@@ -5,6 +5,7 @@ import { Twitter, Send, Github, Mail, ArrowRight, Sparkles, MessageCircle, Phone
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import TrackedLaunchAppLink from '@/components/TrackedLaunchAppLink';
 
 export default function Footer() {
   const [email, setEmail] = useState('');
@@ -122,8 +123,8 @@ export default function Footer() {
             
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <a
-                href="https://my.blazewallet.io"
+              <TrackedLaunchAppLink
+                sourceContext="footer_hero_cta"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 bg-white text-gray-900 rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300"
@@ -137,7 +138,7 @@ export default function Footer() {
                 />
                 Launch wallet
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </a>
+              </TrackedLaunchAppLink>
               
               <Link
                 href="/whitepaper"
@@ -325,14 +326,25 @@ export default function Footer() {
             <ul className="space-y-2">
               {links.product.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
-                    target={link.external ? '_blank' : undefined}
-                    rel={link.external ? 'noopener noreferrer' : undefined}
-                    className="text-gray-400 hover:text-white text-sm transition-colors"
-                  >
-                    {link.label}
-                  </a>
+                  {link.href === 'https://my.blazewallet.io' ? (
+                    <TrackedLaunchAppLink
+                      sourceContext="footer_product_link"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-400 hover:text-white text-sm transition-colors"
+                    >
+                      {link.label}
+                    </TrackedLaunchAppLink>
+                  ) : (
+                    <a
+                      href={link.href}
+                      target={link.external ? '_blank' : undefined}
+                      rel={link.external ? 'noopener noreferrer' : undefined}
+                      className="text-gray-400 hover:text-white text-sm transition-colors"
+                    >
+                      {link.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
