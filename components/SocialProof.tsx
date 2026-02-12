@@ -1,10 +1,16 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { Shield, Lock, ScanSearch, KeyRound, CheckCircle, ExternalLink } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useAnimateOnce } from '@/hooks/useAnimateOnce';
-import { PRODUCT_UPDATES } from '@/lib/product-updates';
+
+type WalletUpdate = {
+  date: string;
+  title: string;
+  summary: string;
+};
 
 const securityFeatures = [
   { 
@@ -55,6 +61,36 @@ const partners = [
 
 export default function SocialProof() {
   const [sectionRef, isVisible] = useAnimateOnce<HTMLElement>();
+  const [walletUpdates, setWalletUpdates] = useState<WalletUpdate[]>([]);
+  const [loadingUpdates, setLoadingUpdates] = useState(true);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function fetchWalletUpdates() {
+      try {
+        const res = await fetch('/api/updates/wallet');
+        if (!res.ok) {
+          throw new Error('Failed to fetch wallet updates');
+        }
+        const data = await res.json();
+        if (isMounted) {
+          setWalletUpdates((data.updates || []).slice(0, 2));
+        }
+      } catch (error) {
+        console.error('Failed to load wallet updates for social proof:', error);
+      } finally {
+        if (isMounted) {
+          setLoadingUpdates(false);
+        }
+      }
+    }
+
+    fetchWalletUpdates();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   return (
     <section ref={sectionRef} className="py-20 lg:py-28 bg-gray-50">
@@ -126,13 +162,24 @@ export default function SocialProof() {
             </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {PRODUCT_UPDATES.slice(0, 2).map((update) => (
-              <div key={update.title} className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
-                <div className="text-xs text-gray-500 mb-1">{update.date}</div>
-                <div className="font-semibold text-gray-900 mb-1">{update.title}</div>
-                <p className="text-sm text-gray-600">{update.summary}</p>
+            {loadingUpdates && (
+              <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4 md:col-span-2 text-sm text-gray-500">
+                Loading latest wallet updates...
               </div>
-            ))}
+            )}
+            {!loadingUpdates && walletUpdates.length === 0 && (
+              <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4 md:col-span-2 text-sm text-gray-500">
+                No wallet updates available right now.
+              </div>
+            )}
+            {!loadingUpdates &&
+              walletUpdates.map((update) => (
+                <div key={`${update.date}-${update.title}`} className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
+                  <div className="text-xs text-gray-500 mb-1">{update.date}</div>
+                  <div className="font-semibold text-gray-900 mb-1">{update.title}</div>
+                  <p className="text-sm text-gray-600">{update.summary}</p>
+                </div>
+              ))}
           </div>
         </div>
 
