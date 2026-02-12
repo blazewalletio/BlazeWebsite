@@ -15,7 +15,7 @@ export default function UpdatesPage() {
         Main content
       </div>
 
-      <section className="relative overflow-hidden pt-28 pb-16 section-gradient-warm border-b border-gray-100">
+      <section className="relative overflow-hidden pt-24 md:pt-28 pb-12 md:pb-16 section-gradient-warm border-b border-gray-100">
         <div className="absolute inset-0 opacity-[0.08]" style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.9'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
         }} />
@@ -31,17 +31,17 @@ export default function UpdatesPage() {
             <p className="text-lg text-gray-600">
               Transparent changelog of wallet/website alignment work, feature updates, and reliability improvements.
             </p>
-            <div className="flex flex-wrap gap-3 mt-7">
-              <Link href="/" className="btn-secondary px-5 py-2.5">Back to homepage</Link>
-              <Link href="/presale" className="btn-brand px-5 py-2.5">Open presale</Link>
+            <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 mt-7 sm:mt-8 max-w-sm sm:max-w-none">
+              <Link href="/" className="btn-secondary px-5 py-2.5 text-center">Back to homepage</Link>
+              <Link href="/presale" className="btn-brand px-5 py-2.5 text-center">Open presale</Link>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="py-12 bg-white">
+      <section className="py-10 md:py-12 bg-white">
         <div className="container-main">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-10 md:mb-12">
             {PRODUCT_STATUS.map((item) => (
               <div key={item.label} className="card p-4">
                 <div className="text-xs text-gray-500 mb-1">{item.label}</div>
@@ -51,9 +51,9 @@ export default function UpdatesPage() {
             ))}
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-3 md:space-y-4">
             {PRODUCT_UPDATES.map((update) => (
-              <article key={`${update.date}-${update.title}`} className="card p-6 md:p-7">
+              <article key={`${update.date}-${update.title}`} className="card p-5 md:p-7">
                 <div className="flex gap-4">
                   <div className="hidden sm:flex flex-col items-center pt-1">
                     <span className="w-3 h-3 rounded-full bg-orange-500" />
@@ -66,8 +66,8 @@ export default function UpdatesPage() {
                         {update.date}
                       </div>
                     </div>
-                    <h2 className="text-xl font-bold text-gray-900 mb-2">{update.title}</h2>
-                    <p className="text-gray-600 mb-4">{update.summary}</p>
+                    <h2 className="text-lg md:text-xl font-bold text-gray-900 mb-2">{update.title}</h2>
+                    <p className="text-sm md:text-base text-gray-600 mb-4">{update.summary}</p>
                     <div className="flex flex-wrap gap-2">
                       {update.tags.map((tag) => (
                         <span

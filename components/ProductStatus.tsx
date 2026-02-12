@@ -9,10 +9,10 @@ export default function ProductStatus() {
   const [sectionRef, isVisible] = useAnimateOnce<HTMLElement>();
 
   return (
-    <section id="status" ref={sectionRef} className="py-16 bg-gray-50 border-b border-gray-100">
+    <section id="status" ref={sectionRef} className="py-12 md:py-16 bg-gray-50 border-b border-gray-100">
       <div className="container-main">
-        <div className={`card p-6 md:p-8 lg:p-10 animate-entrance ${isVisible ? 'is-visible' : ''}`}>
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+        <div className={`card p-5 md:p-8 lg:p-10 animate-entrance ${isVisible ? 'is-visible' : ''}`}>
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-5 md:mb-6">
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-700 font-medium text-xs mb-3">
                 <Activity className="w-3.5 h-3.5" />
@@ -25,14 +25,14 @@ export default function ProductStatus() {
             </div>
             <Link
               href="/updates"
-              className="inline-flex items-center gap-2 text-orange-600 font-semibold hover:text-orange-700 transition-colors"
+              className="inline-flex items-center gap-2 text-orange-600 font-semibold hover:text-orange-700 transition-colors text-sm md:text-base"
             >
               View release updates
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5">
             {PRODUCT_STATUS.map((item) => (
               <div
                 key={item.label}
