@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Target, Zap, Calculator, Check, AlertCircle, Loader2, TrendingUp, Gift, Shield } from 'lucide-react';
+import { BONUS_TIERS, PRESALE_CONSTANTS } from '@/lib/presale-constants';
 
 interface PricingTier {
   tier_number: number;
@@ -51,8 +52,8 @@ export default function CommitmentForm() {
   }, []);
 
   // Calculate estimated tokens
-  const pricePerToken = currentTier?.price_usd || 0.0015;
-  const bonusPercentage = currentTier?.bonus_percentage || 50;
+  const pricePerToken = currentTier?.price_usd || PRESALE_CONSTANTS.presalePrice;
+  const bonusPercentage = currentTier?.bonus_percentage ?? BONUS_TIERS[0].bonus_percentage;
   const effectiveAmount = isCustom ? parseFloat(customAmount) || 0 : amount;
   const baseTokens = effectiveAmount / pricePerToken;
   const bonusTokens = baseTokens * (bonusPercentage / 100);

@@ -75,6 +75,14 @@ export async function POST(request: NextRequest) {
       .from('waitlist')
       .select('*', { count: 'exact', head: true });
 
+    // Keep waitlist count display consistent with GET response
+    const { data: settings } = await supabase
+      .from('site_settings')
+      .select('value')
+      .eq('key', 'waitlist_offset')
+      .single();
+    const offset = settings ? JSON.parse(settings.value) : 2847;
+
     // Send notification email to admin
     try {
       const adminResult = await sendNewSignupNotification(email, source, ref);
@@ -94,7 +102,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       message: 'Successfully joined the waitlist!',
-      count: count || 0,
+      count: (count || 0) + offset,
       referralCode,
     });
   } catch (error: any) {

@@ -1,6 +1,11 @@
 import { NextResponse } from 'next/server';
-import { createAdminClient, createClient } from '@/lib/supabase/server';
-import { sendCommitmentConfirmation, sendCommitmentNotification } from '@/lib/email';
+import { createAdminClient } from '@/lib/supabase/server';
+import {
+  sendCommitmentConfirmation,
+  sendCommitmentNotification,
+  sendNewSignupNotification,
+  sendWelcomeEmail,
+} from '@/lib/email';
 
 // Presale constants from wallet
 const PRESALE_PRICE = 0.00834;
@@ -19,13 +24,23 @@ function getCurrentTier(buyerCount: number) {
   ) || BONUS_TIERS[0];
 }
 
+function generateReferralCode(): string {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let code = 'BLAZE';
+  for (let i = 0; i < 6; i++) {
+    code += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return code;
+}
+
 // GET: Fetch user's commitment
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const email = searchParams.get('email');
+    const normalizedEmail = email?.toLowerCase().trim();
 
-    if (!email) {
+    if (!normalizedEmail) {
       return NextResponse.json({ error: 'Email is required' }, { status: 400 });
     }
 
@@ -34,7 +49,7 @@ export async function GET(request: Request) {
     const { data: commitment, error } = await supabase
       .from('commitments')
       .select('*')
-      .eq('email', email)
+      .eq('email', normalizedEmail)
       .single();
 
     if (error && error.code !== 'PGRST116') { // PGRST116 = not found
@@ -54,8 +69,9 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { email, intendedAmountUsd, notes } = body;
+    const normalizedEmail = email?.toLowerCase().trim();
 
-    if (!email || !intendedAmountUsd) {
+    if (!normalizedEmail || !intendedAmountUsd) {
       return NextResponse.json(
         { error: 'Email and intended amount are required' },
         { status: 400 }
@@ -92,32 +108,34 @@ export async function POST(request: Request) {
     const totalTokens = baseTokens + bonusTokens;
 
     // Check if user exists in waitlist, if not add them
+    let isNewWaitlistSignup = false;
     let { data: waitlistUser } = await supabase
       .from('waitlist')
       .select('id, referral_code')
-      .eq('email', email)
+      .eq('email', normalizedEmail)
       .single();
 
     // If not on waitlist, add them
     if (!waitlistUser) {
-      const referralCode = `BLZ${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
+      const referralCode = generateReferralCode();
       const { data: newWaitlistUser } = await supabase
         .from('waitlist')
         .insert({
-          email,
+          email: normalizedEmail,
           source: 'commitment',
           referral_code: referralCode,
         })
         .select('id, referral_code')
         .single();
       waitlistUser = newWaitlistUser;
+      isNewWaitlistSignup = true;
     }
 
     // Upsert commitment
     const { data: commitment, error } = await supabase
       .from('commitments')
       .upsert({
-        email,
+        email: normalizedEmail,
         waitlist_id: waitlistUser?.id || null,
         intended_amount_usd: intendedAmountUsd,
         intended_amount_tokens: Math.round(totalTokens),
@@ -138,7 +156,7 @@ export async function POST(request: Request) {
     // Send confirmation email to user
     try {
       await sendCommitmentConfirmation({
-        email,
+        email: normalizedEmail,
         amountUsd: intendedAmountUsd,
         estimatedTokens: Math.round(totalTokens),
         bonusPercentage,
@@ -151,7 +169,7 @@ export async function POST(request: Request) {
     // Send notification to admin
     try {
       await sendCommitmentNotification({
-        email,
+        email: normalizedEmail,
         amountUsd: intendedAmountUsd,
         estimatedTokens: Math.round(totalTokens),
         tierName: currentTier.tier_name,
@@ -160,10 +178,25 @@ export async function POST(request: Request) {
       console.error('Failed to send admin notification:', emailError);
     }
 
+    // Ensure commitment-based signups receive the same base waitlist email flow
+    if (isNewWaitlistSignup && waitlistUser?.referral_code) {
+      try {
+        await sendNewSignupNotification(normalizedEmail, 'commitment');
+      } catch (emailError) {
+        console.error('Failed to send waitlist admin signup notification:', emailError);
+      }
+
+      try {
+        await sendWelcomeEmail(normalizedEmail, waitlistUser.referral_code);
+      } catch (emailError) {
+        console.error('Failed to send waitlist welcome email from commitment flow:', emailError);
+      }
+    }
+
     return NextResponse.json({
       success: true,
       commitment: {
-        email,
+        email: normalizedEmail,
         amountUsd: intendedAmountUsd,
         estimatedTokens: Math.round(totalTokens),
         baseTokens: Math.round(baseTokens),

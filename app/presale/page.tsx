@@ -12,6 +12,7 @@ import {
   Loader2, Target, Calculator, Share2, Twitter, Send, Flame,
   Lock, Wallet, BadgeCheck, Sparkles, ArrowUp
 } from 'lucide-react';
+import { PRESALE_CONSTANTS } from '@/lib/presale-constants';
 
 // Types
 interface PricingTier {
@@ -146,8 +147,8 @@ export default function PresalePage() {
   }
 
   // Calculations - using fixed presale price ($0.00834)
-  const PRESALE_PRICE = 0.00834; // Fixed presale price
-  const LAUNCH_PRICE = 0.02;
+  const PRESALE_PRICE = PRESALE_CONSTANTS.presalePrice;
+  const LAUNCH_PRICE = PRESALE_CONSTANTS.launchPrice;
   const bonusPercentage = currentTier?.bonus_percentage || 0;
   const baseTokens = amount / PRESALE_PRICE;
   const bonusTokens = baseTokens * (bonusPercentage / 100);
@@ -248,7 +249,7 @@ export default function PresalePage() {
                 <div className="text-gray-500 text-sm">Current price</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-emerald-400">{currentTier?.discountPercentage || 70}%</div>
+                <div className="text-3xl font-bold text-emerald-400">{currentTier?.discountPercentage || presaleDiscount}%</div>
                 <div className="text-gray-500 text-sm">Discount</div>
               </div>
               <div className="text-center">
@@ -443,13 +444,13 @@ export default function PresalePage() {
                           <input
                             type="number"
                             value={amount}
-                            onChange={(e) => setAmount(Math.max(10, parseInt(e.target.value) || 10))}
-                            min="10"
+                            onChange={(e) => setAmount(Math.max(100, parseInt(e.target.value) || 100))}
+                            min="100"
                             className="w-full pl-8 pr-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white text-xl font-bold focus:outline-none focus:ring-2 focus:ring-orange-500"
                           />
                         </div>
                         <div className="flex gap-2 mt-3">
-                          {[50, 100, 250, 500, 1000, 2500].map((val) => (
+                          {[100, 250, 500, 1000, 2500, 5000].map((val) => (
                             <button
                               key={val}
                               type="button"

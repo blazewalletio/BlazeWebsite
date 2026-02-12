@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Zap, Users, TrendingUp, ArrowRight, Clock, Gift, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { useAnimateOnce } from '@/hooks/useAnimateOnce';
+import { PRESALE_CONSTANTS } from '@/lib/presale-constants';
 
 interface PricingTier {
   tier_name: string;
@@ -42,16 +43,16 @@ export default function PresaleTeaser() {
     fetchData();
   }, []);
 
-  const PRESALE_PRICE = 0.00834;
-  const LAUNCH_PRICE = 0.02;
+  const PRESALE_PRICE = PRESALE_CONSTANTS.presalePrice;
+  const LAUNCH_PRICE = PRESALE_CONSTANTS.launchPrice;
   const bonusPercentage = currentTier?.bonus_percentage || 100;
   const baseTokens = inputAmount / PRESALE_PRICE;
   const bonusTokens = baseTokens * (bonusPercentage / 100);
   const totalTokens = baseTokens + bonusTokens;
   const presaleDiscount = Math.round((1 - PRESALE_PRICE / LAUNCH_PRICE) * 100);
 
-  const HARD_CAP = 500000;
-  const TOKENS_FOR_SALE = 120000000;
+  const HARD_CAP = PRESALE_CONSTANTS.hardCap;
+  const TOKENS_FOR_SALE = PRESALE_CONSTANTS.presaleAllocation;
 
   return (
     <section ref={sectionRef} className="py-20 lg:py-28 relative overflow-hidden">
@@ -174,7 +175,7 @@ export default function PresaleTeaser() {
                     />
                   </div>
                   <div className="flex gap-2 mt-3">
-                    {[50, 100, 250, 500, 1000].map((amount) => (
+                    {[100, 250, 500, 1000, 2500].map((amount) => (
                       <button
                         key={amount}
                         onClick={() => setInputAmount(amount)}

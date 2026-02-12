@@ -1,69 +1,14 @@
 import { Resend } from 'resend';
+import { generateWalletStyleEmailShell } from '@/lib/email-shell';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM_EMAIL = 'BLAZE Wallet <info@blazewallet.io>';
 
-// Base email template
 function baseTemplate(content: string) {
-  return `
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background: #f8fafc; }
-        .container { max-width: 600px; margin: 0 auto; }
-        .header { background: linear-gradient(135deg, #0f172a, #1e293b); padding: 40px 20px; text-align: center; }
-        .logo { font-size: 32px; font-weight: bold; color: white; }
-        .logo span { background: linear-gradient(135deg, #f97316, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .content { background: white; padding: 40px; }
-        h1 { color: #1e293b; font-size: 28px; margin: 0 0 16px; }
-        h2 { color: #1e293b; font-size: 22px; margin: 0 0 12px; }
-        p { color: #475569; font-size: 16px; margin: 0 0 16px; }
-        .highlight { background: linear-gradient(135deg, #fff7ed, #fef3c7); padding: 24px; border-radius: 12px; margin: 24px 0; border-left: 4px solid #f97316; }
-        .highlight h3 { color: #c2410c; margin: 0 0 8px; }
-        .stat-box { background: #f8fafc; padding: 24px; border-radius: 12px; text-align: center; margin: 24px 0; }
-        .stat-number { font-size: 48px; font-weight: bold; color: #f97316; }
-        .stat-label { font-size: 14px; color: #64748b; margin-top: 8px; }
-        .referral-box { background: #f8fafc; padding: 24px; border-radius: 12px; text-align: center; margin: 24px 0; }
-        .referral-code { font-size: 24px; font-weight: bold; color: #f97316; letter-spacing: 2px; padding: 12px 24px; background: white; border: 2px dashed #f97316; border-radius: 8px; display: inline-block; }
-        .referral-link { font-size: 14px; color: #64748b; word-break: break-all; margin-top: 12px; }
-        .btn { display: inline-block; background: linear-gradient(135deg, #f97316, #eab308); color: white; padding: 16px 32px; border-radius: 12px; text-decoration: none; font-weight: 600; margin: 16px 0; }
-        .btn-secondary { background: #1e293b; }
-        .tier-badge { display: inline-block; padding: 8px 16px; background: linear-gradient(135deg, #f97316, #eab308); color: white; border-radius: 20px; font-weight: 600; font-size: 14px; }
-        .price-tag { font-size: 32px; font-weight: bold; color: #059669; }
-        .footer { text-align: center; padding: 24px; color: #94a3b8; font-size: 12px; }
-        .social { margin: 16px 0; }
-        .social a { color: #64748b; text-decoration: none; margin: 0 8px; }
-        .divider { border-top: 1px solid #e2e8f0; margin: 24px 0; }
-        ul { padding-left: 20px; }
-        li { margin-bottom: 8px; color: #475569; }
-      </style>
-    </head>
-    <body>
-      <div class="container">
-        <div class="header">
-          <div class="logo">🔥 <span>BLAZE</span></div>
-        </div>
-        <div class="content">
-          ${content}
-        </div>
-        <div class="footer">
-          <div class="social">
-            <a href="https://twitter.com/blazewallet_io">Twitter</a> •
-            <a href="https://t.me/blazewallet_io">Telegram</a>
-          </div>
-          <p>© 2025 BLAZE Wallet. Stavangerweg 13, Groningen, Netherlands</p>
-          <p>KvK: 88929280</p>
-          <p style="margin-top: 16px; font-size: 11px;">
-            <a href="https://www.blazewallet.io/unsubscribe" style="color: #94a3b8;">Unsubscribe</a>
-          </p>
-        </div>
-      </div>
-    </body>
-    </html>
-  `;
+  return generateWalletStyleEmailShell({
+    content,
+    title: 'BLAZE Wallet',
+  });
 }
 
 // Admin notification for new signup
@@ -106,7 +51,7 @@ export async function sendWelcomeEmail(email: string, referralCode: string) {
         
         <div class="highlight">
           <h3>What you'll get:</h3>
-          <p style="margin:0;">
+          <p class="mb-0">
             ✨ Early access at <strong>$0.00834</strong> (58% off $0.02 launch price) + bonus tokens<br>
             🔔 Exclusive updates and announcements<br>
             🎁 Special bonuses for early supporters
@@ -114,10 +59,10 @@ export async function sendWelcomeEmail(email: string, referralCode: string) {
         </div>
 
         <div class="referral-box">
-          <p style="margin:0 0 12px; color: #1e293b; font-weight: 600;">Share & earn rewards!</p>
+          <p class="font-semibold">Share & earn rewards!</p>
           <div class="referral-code">${referralCode}</div>
           <p class="referral-link">Your link: https://www.blazewallet.io?ref=${referralCode}</p>
-          <p style="font-size: 14px; color: #64748b; margin-top: 12px;">
+          <p class="text-muted mt-12">
             Invite friends and climb the leaderboard. Top referrers get up to 100,000 bonus tokens!
           </p>
         </div>
@@ -159,15 +104,15 @@ export async function sendCommitmentConfirmation({
         
         <div class="stat-box">
           <div class="tier-badge">${tierName} Tier</div>
-          <div class="stat-number" style="margin-top: 16px;">$${amountUsd.toLocaleString()}</div>
+          <div class="stat-number mt-16">$${amountUsd.toLocaleString()}</div>
           <div class="stat-label">Your intended investment</div>
         </div>
 
         <div class="highlight">
           <h3>Estimated Token Allocation:</h3>
-          <p style="margin: 0;">
+          <p class="mb-0">
             <strong>${estimatedTokens.toLocaleString()} BLAZE</strong> tokens<br>
-            <span style="color: #059669;">Including ${bonusPercentage}% early bird bonus!</span>
+            <span class="text-success">Including ${bonusPercentage}% early bird bonus!</span>
           </p>
         </div>
 
@@ -212,7 +157,7 @@ export async function sendWhyBlazeEmail(email: string, referralCode: string) {
         
         <div class="highlight">
           <h3>The Problem:</h3>
-          <p style="margin:0;">Crypto is complicated. Sending payments takes too long. Scammers are everywhere. And using crypto in daily life? Nearly impossible.</p>
+          <p class="mb-0">Crypto is complicated. Sending payments takes too long. Scammers are everywhere. And using crypto in daily life? Nearly impossible.</p>
         </div>
 
         <h2>BLAZE solves this with:</h2>
@@ -237,8 +182,8 @@ export async function sendWhyBlazeEmail(email: string, referralCode: string) {
         <div class="divider"></div>
 
         <div class="referral-box">
-          <p style="margin:0 0 8px; font-size: 14px; color: #64748b;">Don't forget - share your referral link:</p>
-          <p style="margin:0;"><a href="https://www.blazewallet.io?ref=${referralCode}" style="color: #f97316;">blazewallet.io?ref=${referralCode}</a></p>
+          <p class="text-muted">Don't forget - share your referral link:</p>
+          <p class="mb-0"><a href="https://www.blazewallet.io?ref=${referralCode}">blazewallet.io?ref=${referralCode}</a></p>
         </div>
       `),
     });
@@ -268,7 +213,7 @@ export async function sendSocialProofEmail(email: string, referralCode: string, 
         
         <div class="highlight">
           <h3>Why are people excited?</h3>
-          <ul style="margin: 0;">
+          <ul class="list-compact">
             <li>Up to <strong>70% discount</strong> on token price for early supporters</li>
             <li>Revolutionary <strong>QuickPay</strong> technology</li>
             <li>First wallet with <strong>AI scam protection</strong></li>
@@ -286,7 +231,7 @@ export async function sendSocialProofEmail(email: string, referralCode: string, 
         </ul>
 
         <div class="referral-box">
-          <p style="margin:0 0 12px; color: #1e293b; font-weight: 600;">Your referral link:</p>
+          <p class="font-semibold">Your referral link:</p>
           <div class="referral-code">${referralCode}</div>
           <p class="referral-link">https://www.blazewallet.io?ref=${referralCode}</p>
         </div>
@@ -316,39 +261,39 @@ export async function sendFomoPricingEmail(email: string, referralCode: string, 
         
         <div class="stat-box">
           <div class="tier-badge">${currentTier.name} Tier</div>
-          <div class="price-tag" style="margin-top: 16px;">$${currentTier.price.toFixed(4)}</div>
+          <div class="price-tag mt-16">$${currentTier.price.toFixed(4)}</div>
           <div class="stat-label">Current price per BLAZE token</div>
-          <p style="margin-top: 12px; color: #dc2626; font-weight: 600;">
+          <p class="text-danger mt-12">
             Only ${currentTier.spotsLeft} spots remaining!
           </p>
         </div>
 
         <div class="highlight">
           <h3>Pricing Tiers:</h3>
-          <table style="width: 100%; border-collapse: collapse; margin-top: 12px;">
-            <tr style="border-bottom: 1px solid #fed7aa;">
-              <td style="padding: 8px 0;"><strong>Founders (1-100)</strong></td>
-              <td style="padding: 8px 0; text-align: right;">$0.00834 <span style="color: #f59e0b; font-weight: bold;">+100% (2x!)</span></td>
-            </tr>
-            <tr style="border-bottom: 1px solid #fed7aa;">
-              <td style="padding: 8px 0;"><strong>Early Birds (101-250)</strong></td>
-              <td style="padding: 8px 0; text-align: right;">$0.00834 <span style="color: #eab308;">+75% bonus</span></td>
-            </tr>
-            <tr style="border-bottom: 1px solid #fed7aa;">
-              <td style="padding: 8px 0;"><strong>Pioneers (251-500)</strong></td>
-              <td style="padding: 8px 0; text-align: right;">$0.00834 <span style="color: #eab308;">+50% bonus</span></td>
-            </tr>
-            <tr style="border-bottom: 1px solid #fed7aa;">
-              <td style="padding: 8px 0;"><strong>Adopters (501-1000)</strong></td>
-              <td style="padding: 8px 0; text-align: right;">$0.00834 <span style="color: #eab308;">+30% bonus</span></td>
-            </tr>
-            <tr style="border-bottom: 1px solid #fed7aa;">
-              <td style="padding: 8px 0;"><strong>Supporters (1001-2000)</strong></td>
-              <td style="padding: 8px 0; text-align: right;">$0.00834 <span style="color: #eab308;">+15% bonus</span></td>
+          <table class="pricing-table">
+            <tr>
+              <td><strong>Founders (1-100)</strong></td>
+              <td class="text-right">$0.00834 <span class="text-warning">+100% (2x!)</span></td>
             </tr>
             <tr>
-              <td style="padding: 8px 0;"><strong>Launch price</strong></td>
-              <td style="padding: 8px 0; text-align: right;">$0.02 <span style="color: #6b7280;">no bonus</span></td>
+              <td><strong>Early Birds (101-250)</strong></td>
+              <td class="text-right">$0.00834 <span class="text-warning">+75% bonus</span></td>
+            </tr>
+            <tr>
+              <td><strong>Pioneers (251-500)</strong></td>
+              <td class="text-right">$0.00834 <span class="text-warning">+50% bonus</span></td>
+            </tr>
+            <tr>
+              <td><strong>Adopters (501-1000)</strong></td>
+              <td class="text-right">$0.00834 <span class="text-warning">+30% bonus</span></td>
+            </tr>
+            <tr>
+              <td><strong>Supporters (1001-2000)</strong></td>
+              <td class="text-right">$0.00834 <span class="text-warning">+15% bonus</span></td>
+            </tr>
+            <tr>
+              <td><strong>Launch price</strong></td>
+              <td class="text-right">$0.02 <span class="text-muted">no bonus</span></td>
             </tr>
           </table>
         </div>
@@ -362,8 +307,8 @@ export async function sendFomoPricingEmail(email: string, referralCode: string, 
         <div class="divider"></div>
 
         <div class="referral-box">
-          <p style="margin:0 0 8px; font-size: 14px; color: #64748b;">Share with friends:</p>
-          <p style="margin:0;"><a href="https://www.blazewallet.io?ref=${referralCode}" style="color: #f97316;">blazewallet.io?ref=${referralCode}</a></p>
+          <p class="text-muted">Share with friends:</p>
+          <p class="mb-0"><a href="https://www.blazewallet.io?ref=${referralCode}">blazewallet.io?ref=${referralCode}</a></p>
         </div>
       `),
     });
@@ -387,7 +332,7 @@ export async function sendExclusiveBonusEmail(email: string, referralCode: strin
         
         <div class="highlight">
           <h3>Your Exclusive Bonuses:</h3>
-          <ul style="margin: 0;">
+          <ul class="list-compact">
             <li><strong>Early Bird Bonus:</strong> Up to 50% extra tokens on your purchase</li>
             <li><strong>Referral Rewards:</strong> Bonus tokens for every friend who joins</li>
             <li><strong>Priority Access:</strong> First in line when presale opens</li>
@@ -399,14 +344,14 @@ export async function sendExclusiveBonusEmail(email: string, referralCode: strin
         <div class="stat-box">
           <div class="stat-number">${referralCount}</div>
           <div class="stat-label">Friends you've referred</div>
-          <p style="margin-top: 12px; color: #059669; font-size: 14px;">
+          <p class="text-success mt-12">
             Keep going! Every referral boosts your rewards.
           </p>
         </div>
         ` : `
         <div class="stat-box">
-          <p style="color: #64748b; margin: 0;">You haven't referred anyone yet.</p>
-          <p style="margin: 8px 0 0; font-size: 14px;">Share your link to start earning bonus tokens!</p>
+          <p class="text-muted mb-0">You haven't referred anyone yet.</p>
+          <p class="text-muted mt-8">Share your link to start earning bonus tokens!</p>
         </div>
         `}
 
@@ -421,13 +366,13 @@ export async function sendExclusiveBonusEmail(email: string, referralCode: strin
         <center>
           <a href="https://www.blazewallet.io/#commitment" class="btn">Lock In Your Bonus</a>
           <br>
-          <a href="https://t.me/blazewallet_io" class="btn btn-secondary" style="margin-top: 8px;">Join Telegram</a>
+          <a href="https://t.me/blazewallet_io" class="btn btn-secondary mt-8">Join Telegram</a>
         </center>
 
         <div class="divider"></div>
 
         <div class="referral-box">
-          <p style="margin:0 0 12px; color: #1e293b; font-weight: 600;">Your referral link:</p>
+          <p class="font-semibold">Your referral link:</p>
           <div class="referral-code">${referralCode}</div>
           <p class="referral-link">https://www.blazewallet.io?ref=${referralCode}</p>
         </div>
@@ -459,7 +404,7 @@ export async function sendPresaleCountdownEmail(email: string, referralCode: str
 
         <div class="highlight">
           <h3>Presale Checklist:</h3>
-          <ul style="margin: 0;">
+          <ul class="list-compact">
             <li>✅ <strong>Join the waitlist</strong> - Done!</li>
             <li>☐ <strong>Register your purchase intent</strong> - Lock in your spot</li>
             <li>☐ <strong>Prepare your funds</strong> - USDT, USDC, ETH, or card</li>
@@ -487,7 +432,7 @@ export async function sendPresaleCountdownEmail(email: string, referralCode: str
         <p>The leaderboard freezes when the presale starts. Share your link now to secure your bonus tokens!</p>
 
         <div class="referral-box">
-          <p style="margin:0 0 12px; color: #1e293b; font-weight: 600;">Your referral link:</p>
+          <p class="font-semibold">Your referral link:</p>
           <div class="referral-code">${referralCode}</div>
           <p class="referral-link">https://www.blazewallet.io?ref=${referralCode}</p>
         </div>

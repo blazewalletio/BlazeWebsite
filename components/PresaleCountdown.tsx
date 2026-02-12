@@ -107,7 +107,7 @@ function PresaleCountdownInner() {
 
       setIsSubmitted(true);
       setIsLoading(false);
-      setWaitlistCount(data.count + 2847); // Add offset
+      setWaitlistCount(data.count);
       setMyReferralCode(data.referralCode);
       setEmail('');
     } catch (err) {
