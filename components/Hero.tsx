@@ -164,7 +164,7 @@ export default function Hero() {
                       {/* Screen Content */}
                       <div className="absolute inset-0">
                         <Image
-                          src="/iphone_screen.jpeg"
+                          src="/blaze_screen.png"
                           alt="BLAZE Wallet App"
                           fill
                           className="object-cover object-top"
