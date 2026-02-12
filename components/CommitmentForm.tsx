@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Target, Zap, Calculator, Check, AlertCircle, Loader2, TrendingUp, Gift, Shield } from 'lucide-react';
+import { Target, Zap, Calculator, Check, AlertCircle, Loader2, TrendingUp, Gift, Shield, Clock } from 'lucide-react';
 import { BONUS_TIERS, PRESALE_CONSTANTS } from '@/lib/presale-constants';
 
 interface PricingTier {
@@ -34,6 +34,8 @@ export default function CommitmentForm() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<CommitmentResult | null>(null);
   const [currentTier, setCurrentTier] = useState<PricingTier | null>(null);
+  const [presaleTimestamp, setPresaleTimestamp] = useState<number>(new Date('2026-02-01T12:00:00Z').getTime());
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0 });
 
   // Fetch current pricing tier
   useEffect(() => {
@@ -50,6 +52,36 @@ export default function CommitmentForm() {
     }
     fetchTier();
   }, []);
+
+  // Keep countdown synced with admin-configured presale date
+  useEffect(() => {
+    async function fetchPresaleDate() {
+      try {
+        const res = await fetch('/api/settings');
+        const data = await res.json();
+        if (res.ok && data.presale_date) {
+          setPresaleTimestamp(new Date(data.presale_date).getTime());
+        }
+      } catch (err) {
+        console.error('Failed to fetch presale date:', err);
+      }
+    }
+    fetchPresaleDate();
+  }, []);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const now = Date.now();
+      const diff = Math.max(0, presaleTimestamp - now);
+      setTimeLeft({
+        days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+        minutes: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [presaleTimestamp]);
 
   // Calculate estimated tokens
   const pricePerToken = currentTier?.price_usd || PRESALE_CONSTANTS.presalePrice;
@@ -254,6 +286,26 @@ export default function CommitmentForm() {
                       <span className="text-sm">{error}</span>
                     </div>
                   )}
+
+                  {/* Compact countdown near CTA */}
+                  <div className="mb-6 p-4 bg-gray-50 rounded-xl border border-gray-200">
+                    <div className="flex items-center gap-2 text-gray-700 text-sm font-medium mb-3">
+                      <Clock className="w-4 h-4 text-orange-500" />
+                      Presale starts in
+                    </div>
+                    <div className="grid grid-cols-3 gap-2">
+                      {[
+                        { label: 'Days', value: timeLeft.days },
+                        { label: 'Hours', value: timeLeft.hours },
+                        { label: 'Minutes', value: timeLeft.minutes },
+                      ].map((item) => (
+                        <div key={item.label} className="bg-white border border-gray-200 rounded-lg p-2 text-center">
+                          <div className="text-lg font-bold text-gray-900">{item.value.toString().padStart(2, '0')}</div>
+                          <div className="text-[11px] text-gray-500">{item.label}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
 
                   {/* Submit */}
                   <button
