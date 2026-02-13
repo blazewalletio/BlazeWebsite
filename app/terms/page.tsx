@@ -347,7 +347,7 @@ export default function TermsOfServicePage() {
                   </ul>
                   <p>
                     Our total liability for any claims shall not exceed the amount you paid us in the 12 
-                    months preceding the claim, or €100 (whichever is greater).
+                    months preceding the claim, or $100 (whichever is greater).
                   </p>
                 </div>
               </motion.div>

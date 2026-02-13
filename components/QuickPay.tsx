@@ -6,10 +6,10 @@ import { useState } from 'react';
 import { useAnimateOnce } from '@/hooks/useAnimateOnce';
 
 const useCases = [
-  { icon: Coffee, label: 'Coffee shops', example: '€4.50' },
-  { icon: ShoppingCart, label: 'Groceries', example: '€47.80' },
-  { icon: Scissors, label: 'Haircuts', example: '€25.00' },
-  { icon: Car, label: 'Parking', example: '€3.20' },
+  { icon: Coffee, label: 'Coffee shops', example: '$4.50' },
+  { icon: ShoppingCart, label: 'Groceries', example: '$47.80' },
+  { icon: Scissors, label: 'Haircuts', example: '$25.00' },
+  { icon: Car, label: 'Parking', example: '$3.20' },
 ];
 
 const benefits = [
@@ -225,7 +225,7 @@ export default function QuickPay() {
                             
                             <div className="flex-1 flex flex-col justify-center">
                               <div className="text-center mb-6">
-                                <div className="text-5xl font-bold text-gray-900 mb-1">€4.50</div>
+                                <div className="text-5xl font-bold text-gray-900 mb-1">$4.50</div>
                                 <div className="text-gray-500">≈ 4.52 USDC</div>
                               </div>
                               
@@ -314,7 +314,7 @@ export default function QuickPay() {
                             >
                               <div className="flex justify-between items-center mb-2">
                                 <span className="text-gray-500 text-sm">Amount</span>
-                                <span className="font-bold text-gray-900">€4.50</span>
+                                <span className="font-bold text-gray-900">$4.50</span>
                               </div>
                               <div className="flex justify-between items-center mb-2">
                                 <span className="text-gray-500 text-sm">Paid with</span>
