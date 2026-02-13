@@ -250,7 +250,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+    <html lang="en" translate="no" className="scroll-smooth notranslate" suppressHydrationWarning>
       <head>
         {/* Preconnect for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -265,6 +265,7 @@ export default function RootLayout({
         
         {/* Theme & Mobile */}
         <meta name="theme-color" content="#F97316" />
+        <meta name="google" content="notranslate" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />

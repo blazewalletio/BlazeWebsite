@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { hasAnalyticsConsent } from '@/lib/analytics/client';
 
 declare global {
@@ -15,7 +15,6 @@ const X_PIXEL_SRC = 'https://static.ads-twitter.com/uwt.js';
 
 export default function XPixelManager() {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const pixelId = useMemo(() => process.env.NEXT_PUBLIC_X_PIXEL_ID || 'r51j4', []);
   const [canTrack, setCanTrack] = useState(false);
 
@@ -61,9 +60,9 @@ export default function XPixelManager() {
     if (!canTrack || !window.__blazeXPixelInitialized) return;
     window.twq?.('track', 'PageView', {
       path: pathname,
-      query: searchParams.toString() || undefined,
+      query: typeof window !== 'undefined' ? window.location.search || undefined : undefined,
     });
-  }, [pathname, searchParams, canTrack]);
+  }, [pathname, canTrack]);
 
   return null;
 }
