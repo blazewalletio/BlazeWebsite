@@ -35,6 +35,7 @@ export default function ChatWidget() {
   const [isStreaming, setIsStreaming] = useState(false);
   const [copied, setCopied] = useState<string | null>(null);
   const [showScrollButton, setShowScrollButton] = useState(false);
+  const [hasPresaleStickyCta, setHasPresaleStickyCta] = useState(false);
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
@@ -70,6 +71,18 @@ export default function ChatWidget() {
       setShowScrollButton(scrollHeight - scrollTop - clientHeight > 100);
     }
   };
+
+  useEffect(() => {
+    const handleStickyVisibility = (event: Event) => {
+      const customEvent = event as CustomEvent<{ visible?: boolean }>;
+      setHasPresaleStickyCta(Boolean(customEvent.detail?.visible));
+    };
+
+    window.addEventListener('presale-sticky-cta-visibility', handleStickyVisibility as EventListener);
+    return () => {
+      window.removeEventListener('presale-sticky-cta-visibility', handleStickyVisibility as EventListener);
+    };
+  }, []);
 
   // Don't show chat widget on admin pages - AFTER all hooks!
   if (isAdminPage) {
@@ -190,7 +203,9 @@ export default function ChatWidget() {
       {/* Floating Button */}
       <motion.button
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 z-40 w-14 h-14 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-full shadow-lg shadow-orange-500/30 flex items-center justify-center hover:scale-110 transition-transform ${isOpen ? 'hidden' : ''}`}
+        className={`fixed right-6 z-40 w-14 h-14 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-full shadow-lg shadow-orange-500/30 flex items-center justify-center hover:scale-110 transition-transform ${
+          hasPresaleStickyCta && pathname?.startsWith('/presale') ? 'bottom-28' : 'bottom-6'
+        } ${isOpen ? 'hidden' : ''}`}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         initial={{ opacity: 0, scale: 0 }}

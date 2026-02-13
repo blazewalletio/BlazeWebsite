@@ -34,6 +34,24 @@ export default function PresaleStickyCTA() {
     };
   }, [isDismissed, isMenuOpen]);
 
+  useEffect(() => {
+    window.dispatchEvent(
+      new CustomEvent('presale-sticky-cta-visibility', {
+        detail: { visible: isVisible && !isDismissed && !isMenuOpen },
+      })
+    );
+  }, [isVisible, isDismissed, isMenuOpen]);
+
+  useEffect(() => {
+    return () => {
+      window.dispatchEvent(
+        new CustomEvent('presale-sticky-cta-visibility', {
+          detail: { visible: false },
+        })
+      );
+    };
+  }, []);
+
   if (isDismissed || isMenuOpen) return null;
 
   return (
