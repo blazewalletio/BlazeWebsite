@@ -4,6 +4,7 @@ import { ArrowRight, CheckCircle2, Shield, Users, Zap } from 'lucide-react';
 import Link from 'next/link';
 import CommitmentForm from '@/components/CommitmentForm';
 import Leaderboard from '@/components/Leaderboard';
+import PresaleStickyCTA from '@/components/PresaleStickyCTA';
 import { PRESALE_CONSTANTS } from '@/lib/presale-constants';
 
 export default function PresalePage() {
@@ -187,6 +188,7 @@ export default function PresalePage() {
         </div>
       </section>
 
+      <PresaleStickyCTA />
       <Footer />
     </main>
   );
