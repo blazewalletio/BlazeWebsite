@@ -32,40 +32,53 @@ export default function PresalePage() {
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.9'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
         }} />
         <div className="container-main relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-100 text-orange-700 font-medium text-sm mb-6">
-              <Zap className="w-4 h-4" />
-              BLAZE presale
+          <div className="max-w-5xl mx-auto">
+            <div className="relative rounded-[2rem] border border-orange-200/70 bg-white/80 backdrop-blur-xl shadow-[0_22px_60px_rgba(15,23,42,0.12)] p-6 sm:p-10 lg:p-12 text-center">
+              <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-orange-500 via-amber-400 to-orange-500 rounded-t-[2rem]" />
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-100 text-orange-700 font-medium text-sm mb-6">
+                <Zap className="w-4 h-4" />
+                BLAZE presale
               </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-5">
-              Join the <span className="text-gradient-brand">BLAZE presale</span>
-            </h1>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
-              Fixed price of ${presalePrice.toFixed(6)} per token ({presaleDiscount}% below ${launchPrice.toFixed(2)} launch),
-              with bonus tiers for early supporters.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <a href="#commitment" className="btn-brand inline-flex items-center justify-center gap-2 px-8 py-4 text-lg">
-                Reserve my spot
-                <ArrowRight className="w-5 h-5" />
-              </a>
-              <Link href="/whitepaper" className="btn-secondary inline-flex items-center justify-center gap-2 px-8 py-4 text-lg">
-                Read whitepaper
-              </Link>
-          </div>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-5 leading-tight">
+                Join the <span className="text-gradient-brand">BLAZE presale</span>
+              </h1>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
+                Fixed price of ${presalePrice.toFixed(6)} per token ({presaleDiscount}% below ${launchPrice.toFixed(2)} launch),
+                with bonus tiers for early supporters.
+              </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-10 text-left">
-              <div className="card p-4">
-                <div className="text-xs text-gray-500 mb-1">Presale price</div>
-                <div className="text-xl font-bold text-gray-900">${presalePrice.toFixed(6)}</div>
-          </div>
-              <div className="card p-4">
-                <div className="text-xs text-gray-500 mb-1">Launch price</div>
-                <div className="text-xl font-bold text-gray-900">${launchPrice.toFixed(2)}</div>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center mb-6">
+                <a href="#commitment" className="btn-brand inline-flex items-center justify-center gap-2 px-8 py-4 text-lg shadow-lg shadow-orange-500/25">
+                  Reserve my spot
+                  <ArrowRight className="w-5 h-5" />
+                </a>
+                <Link
+                  href="/whitepaper"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 text-lg font-semibold rounded-xl border border-gray-300 bg-white text-gray-800 hover:border-orange-300 hover:text-orange-600 transition-colors"
+                >
+                  Read whitepaper
+                </Link>
               </div>
-              <div className="card p-4">
-                <div className="text-xs text-gray-500 mb-1">Discount</div>
-                <div className="text-xl font-bold text-emerald-600">{presaleDiscount}%</div>
+
+              <div className="inline-flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-gray-600 mb-10">
+                <span className="inline-flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500" /> Intent only</span>
+                <span className="inline-flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500" /> Minimum $100</span>
+                <span className="inline-flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500" /> No upfront payment</span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-left">
+                <div className="rounded-2xl border border-orange-100 bg-white p-5 shadow-sm">
+                  <div className="text-xs text-gray-500 mb-1">Presale price</div>
+                  <div className="text-3xl font-bold text-gray-900">${presalePrice.toFixed(6)}</div>
+                </div>
+                <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+                  <div className="text-xs text-gray-500 mb-1">Launch price</div>
+                  <div className="text-3xl font-bold text-gray-900">${launchPrice.toFixed(2)}</div>
+                </div>
+                <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-5 shadow-sm">
+                  <div className="text-xs text-emerald-700 mb-1">Discount</div>
+                  <div className="text-3xl font-bold text-emerald-700">{presaleDiscount}%</div>
+                </div>
               </div>
             </div>
           </div>
