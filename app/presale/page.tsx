@@ -25,7 +25,7 @@ export default function PresalePage() {
       <Navbar />
       <div id="main-content" className="sr-only">Main content</div>
 
-      <section className="relative overflow-hidden pt-28 pb-20">
+      <section className="relative overflow-hidden pt-24 sm:pt-28 pb-14 sm:pb-20">
         <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
         <div className="absolute top-0 left-1/4 w-[460px] h-[460px] bg-orange-500/20 rounded-full blur-[110px]" />
         <div className="absolute bottom-0 right-1/4 w-[360px] h-[360px] bg-yellow-500/15 rounded-full blur-[90px]" />
@@ -38,7 +38,7 @@ export default function PresalePage() {
 
         <div className="container-main relative z-10">
           <div className="max-w-5xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-orange-500/20 to-yellow-500/20 border border-orange-500/30 text-orange-300 font-medium text-sm mb-6">
+            <div className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-full bg-gradient-to-r from-orange-500/20 to-yellow-500/20 border border-orange-500/30 text-orange-300 font-medium text-xs sm:text-sm mb-5 sm:mb-6">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500" />
@@ -46,42 +46,42 @@ export default function PresalePage() {
               Early bird presale access
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-5 leading-tight">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-5 leading-tight tracking-tight">
               Get BLAZE tokens at <span className="text-gradient-brand">{presaleDiscount}% off</span>
             </h1>
-            <p className="text-lg text-gray-300 max-w-3xl mx-auto mb-9">
+            <p className="text-base sm:text-lg text-gray-300 max-w-3xl mx-auto mb-7 sm:mb-9">
               Fixed presale price of ${presalePrice.toFixed(6)} per token. Early supporters get bonus tokens and priority access.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-3 justify-center mb-10">
-              <a href="#commitment" className="btn-brand inline-flex items-center justify-center gap-2 px-8 py-4 text-lg shadow-lg shadow-orange-500/30">
+            <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8 sm:mb-10 max-w-md sm:max-w-none mx-auto">
+              <a href="#commitment" className="btn-brand w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 text-base sm:text-lg shadow-lg shadow-orange-500/30">
                 Reserve my spot
                 <ArrowRight className="w-5 h-5" />
               </a>
               <Link
                 href="/whitepaper"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 text-lg font-semibold rounded-xl border border-white/20 bg-white/10 text-white hover:bg-white/15 transition-colors"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 text-base sm:text-lg font-semibold rounded-xl border border-white/20 bg-white/10 text-white hover:bg-white/15 transition-colors"
               >
                 Read whitepaper
               </Link>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-left max-w-4xl mx-auto">
-              <div className="rounded-2xl border border-white/15 bg-white/10 backdrop-blur p-5">
+              <div className="rounded-2xl border border-white/15 bg-white/10 backdrop-blur p-4 sm:p-5">
                 <div className="text-sm text-gray-300 mb-1">Presale price</div>
-                <div className="text-3xl font-bold text-white">${presalePrice.toFixed(6)}</div>
+                <div className="text-2xl sm:text-3xl font-bold text-white">${presalePrice.toFixed(6)}</div>
               </div>
-              <div className="rounded-2xl border border-white/15 bg-white/10 backdrop-blur p-5">
+              <div className="rounded-2xl border border-white/15 bg-white/10 backdrop-blur p-4 sm:p-5">
                 <div className="text-sm text-gray-300 mb-1">Launch price</div>
-                <div className="text-3xl font-bold text-white">${launchPrice.toFixed(2)}</div>
+                <div className="text-2xl sm:text-3xl font-bold text-white">${launchPrice.toFixed(2)}</div>
               </div>
-              <div className="rounded-2xl border border-emerald-400/30 bg-emerald-400/10 backdrop-blur p-5">
+              <div className="rounded-2xl border border-emerald-400/30 bg-emerald-400/10 backdrop-blur p-4 sm:p-5">
                 <div className="text-sm text-emerald-200 mb-1">Discount</div>
-                <div className="text-3xl font-bold text-emerald-300">{presaleDiscount}%</div>
+                <div className="text-2xl sm:text-3xl font-bold text-emerald-300">{presaleDiscount}%</div>
               </div>
             </div>
 
-            <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-gray-400 mt-8">
+            <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-xs sm:text-sm text-gray-400 mt-6 sm:mt-8">
               <span className="inline-flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400" />
                 Intent only
@@ -99,24 +99,24 @@ export default function PresalePage() {
         </div>
       </section>
 
-      <section className="py-16 bg-white border-t border-gray-100">
+      <section className="py-12 sm:py-16 bg-white border-t border-gray-100">
         <div className="container-main">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="card card-hover p-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+            <div className="card card-hover p-5 sm:p-6">
               <div className="icon-box bg-emerald-100 mb-4">
                 <CheckCircle2 className="w-6 h-6 text-emerald-600" />
                 </div>
               <h3 className="text-lg font-bold text-gray-900 mb-1">No upfront payment</h3>
               <p className="text-gray-600">Register intent first, complete purchase when the presale goes live.</p>
                       </div>
-            <div className="card card-hover p-6">
+            <div className="card card-hover p-5 sm:p-6">
               <div className="icon-box bg-orange-100 mb-4">
                 <Users className="w-6 h-6 text-orange-600" />
               </div>
               <h3 className="text-lg font-bold text-gray-900 mb-1">Referral rewards</h3>
               <p className="text-gray-600">Invite friends and climb the leaderboard for extra token bonuses.</p>
                 </div>
-            <div className="card card-hover p-6">
+            <div className="card card-hover p-5 sm:p-6">
               <div className="icon-box bg-sky-100 mb-4">
                 <Shield className="w-6 h-6 text-sky-600" />
               </div>
@@ -127,31 +127,31 @@ export default function PresalePage() {
         </div>
       </section>
 
-      <section className="py-14 bg-gray-50 border-t border-gray-100">
+      <section className="py-12 sm:py-14 bg-gray-50 border-t border-gray-100">
         <div className="container-main">
           <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-8">
+            <div className="text-center mb-6 sm:mb-8">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-100 text-orange-700 font-medium text-sm mb-4">
                 <Zap className="w-4 h-4" />
                 How it works
               </div>
-              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">Simple 3-step presale flow</h2>
-              <p className="text-gray-600">
+              <h2 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-2">Simple 3-step presale flow</h2>
+              <p className="text-sm sm:text-base text-gray-600">
                 One clear path from interest to participation, without duplicate sections or mixed messaging.
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="card p-5">
+              <div className="card p-4 sm:p-5">
                 <div className="text-xs font-semibold text-orange-600 mb-2">STEP 1</div>
                 <h3 className="font-bold text-gray-900 mb-1">Register intent</h3>
                 <p className="text-sm text-gray-600">Submit your email and intended amount (min $100, max $10,000).</p>
               </div>
-              <div className="card p-5">
+              <div className="card p-4 sm:p-5">
                 <div className="text-xs font-semibold text-orange-600 mb-2">STEP 2</div>
                 <h3 className="font-bold text-gray-900 mb-1">Receive confirmation</h3>
                 <p className="text-sm text-gray-600">Get confirmation and your referral link instantly in the same flow.</p>
               </div>
-              <div className="card p-5">
+              <div className="card p-4 sm:p-5">
                 <div className="text-xs font-semibold text-orange-600 mb-2">STEP 3</div>
                 <h3 className="font-bold text-gray-900 mb-1">Complete at launch</h3>
                 <p className="text-sm text-gray-600">You get payment instructions once presale opens. No upfront payment.</p>
@@ -164,10 +164,10 @@ export default function PresalePage() {
       <CommitmentForm />
       <Leaderboard />
 
-      <section className="py-20 lg:py-24 bg-gray-50 border-t border-gray-100">
+      <section className="py-14 sm:py-20 lg:py-24 bg-gray-50 border-t border-gray-100">
         <div className="container-main">
           <div className="max-w-3xl mx-auto">
-            <div className="text-center mb-10">
+            <div className="text-center mb-8 sm:mb-10">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sky-100 text-sky-700 font-medium text-sm mb-5">
                 <Zap className="w-4 h-4" />
                 Presale FAQ
@@ -175,9 +175,9 @@ export default function PresalePage() {
               <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">Frequently asked questions</h2>
               <p className="text-gray-600">Everything about intent registration and presale access.</p>
             </div>
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {faqs.map(([question, answer]) => (
-                <div key={question} className="card card-hover p-6">
+                <div key={question} className="card card-hover p-5 sm:p-6">
                   <h3 className="text-lg font-bold text-gray-900 mb-2">{question}</h3>
                   <p className="text-gray-600">{answer}</p>
                         </div>
