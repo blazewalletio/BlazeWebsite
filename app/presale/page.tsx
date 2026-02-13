@@ -2,10 +2,8 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { ArrowRight, CheckCircle2, Shield, Users, Zap } from 'lucide-react';
 import Link from 'next/link';
-import PresaleTeaser from '@/components/PresaleTeaser';
 import CommitmentForm from '@/components/CommitmentForm';
 import Leaderboard from '@/components/Leaderboard';
-import PresaleCountdown from '@/components/PresaleCountdown';
 import { PRESALE_CONSTANTS } from '@/lib/presale-constants';
 
 export default function PresalePage() {
@@ -129,26 +127,40 @@ export default function PresalePage() {
         </div>
       </section>
 
-      <PresaleTeaser />
-      <section className="py-16 bg-gray-50 border-t border-gray-100">
+      <section className="py-14 bg-gray-50 border-t border-gray-100">
         <div className="container-main">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-5xl mx-auto">
             <div className="text-center mb-8">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-100 text-orange-700 font-medium text-sm mb-4">
                 <Zap className="w-4 h-4" />
-                Presale countdown
+                How it works
               </div>
-              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
-                Time left until launch
-              </h2>
+              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">Simple 3-step presale flow</h2>
               <p className="text-gray-600">
-                Keep track of the exact start time while you register your payment intent.
+                One clear path from interest to participation, without duplicate sections or mixed messaging.
               </p>
             </div>
-            <PresaleCountdown />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="card p-5">
+                <div className="text-xs font-semibold text-orange-600 mb-2">STEP 1</div>
+                <h3 className="font-bold text-gray-900 mb-1">Register intent</h3>
+                <p className="text-sm text-gray-600">Submit your email and intended amount (min $100, max $10,000).</p>
+              </div>
+              <div className="card p-5">
+                <div className="text-xs font-semibold text-orange-600 mb-2">STEP 2</div>
+                <h3 className="font-bold text-gray-900 mb-1">Receive confirmation</h3>
+                <p className="text-sm text-gray-600">Get confirmation and your referral link instantly in the same flow.</p>
+              </div>
+              <div className="card p-5">
+                <div className="text-xs font-semibold text-orange-600 mb-2">STEP 3</div>
+                <h3 className="font-bold text-gray-900 mb-1">Complete at launch</h3>
+                <p className="text-sm text-gray-600">You get payment instructions once presale opens. No upfront payment.</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
+
       <CommitmentForm />
       <Leaderboard />
 
