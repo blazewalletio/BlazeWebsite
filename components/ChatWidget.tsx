@@ -203,7 +203,7 @@ export default function ChatWidget() {
       {/* Floating Button */}
       <motion.button
         onClick={() => setIsOpen(true)}
-        className={`fixed right-6 z-40 w-14 h-14 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-full shadow-lg shadow-orange-500/30 flex items-center justify-center hover:scale-110 transition-transform ${
+        className={`fixed right-6 z-40 w-14 h-14 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-full shadow-lg shadow-orange-500/30 flex items-center justify-center hover:scale-110 transition-all duration-300 ease-out ${
           hasPresaleStickyCta && pathname?.startsWith('/presale') ? 'bottom-28' : 'bottom-6'
         } ${isOpen ? 'hidden' : ''}`}
         whileHover={{ scale: 1.1 }}
