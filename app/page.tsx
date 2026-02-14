@@ -11,6 +11,7 @@ import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
 import PresaleTeaser from '@/components/PresaleTeaser';
 import ProductStatus from '@/components/ProductStatus';
+import ClientOnly from '@/components/ClientOnly';
 
 export default function Home() {
   return (
@@ -18,20 +19,22 @@ export default function Home() {
       <a href="#main-content" className="skip-to-content">
         Skip to main content
       </a>
-      <Navbar />
-      <div id="main-content" className="sr-only">Main content</div>
-      <Hero />
-      <ProductStatus />
-      <QuickPay />
-      <Features />
-      <PresaleTeaser />
-      <Demo />
-      <SocialProof />
-      <AboutSection />
-      <Tokenomics />
-      <Roadmap />
-      <FAQ />
-      <Footer />
+      <ClientOnly>
+        <Navbar />
+        <div id="main-content" className="sr-only">Main content</div>
+        <Hero />
+        <ProductStatus />
+        <QuickPay />
+        <Features />
+        <PresaleTeaser />
+        <Demo />
+        <SocialProof />
+        <AboutSection />
+        <Tokenomics />
+        <Roadmap />
+        <FAQ />
+        <Footer />
+      </ClientOnly>
     </main>
   );
 }
