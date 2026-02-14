@@ -94,18 +94,28 @@ export async function POST(request: Request) {
     const bonusTokens = baseTokens * (bonusPercentage / 100);
     const totalTokens = baseTokens + bonusTokens;
 
-    // Check if user exists in waitlist, if not add them
+    // Check if user exists in waitlist, if not add them.
+    // Use a list query instead of .single() to avoid errors when duplicate records exist.
     let isNewWaitlistSignup = false;
-    let { data: waitlistUser } = await supabase
+    let waitlistUser: { id: string; referral_code: string | null } | null = null;
+
+    const { data: waitlistRows, error: waitlistLookupError } = await supabase
       .from('waitlist')
       .select('id, referral_code')
       .eq('email', normalizedEmail)
-      .single();
+      .order('created_at', { ascending: true })
+      .limit(1);
 
-    // If not on waitlist, add them
+    if (waitlistLookupError) {
+      console.error('Error looking up waitlist user for commitment:', waitlistLookupError);
+    } else {
+      waitlistUser = waitlistRows?.[0] ?? null;
+    }
+
+    // If not on waitlist, add them.
     if (!waitlistUser) {
       const referralCode = generateReferralCode();
-      const { data: newWaitlistUser } = await supabase
+      const { data: newWaitlistUser, error: insertWaitlistError } = await supabase
         .from('waitlist')
         .insert({
           email: normalizedEmail,
@@ -114,8 +124,23 @@ export async function POST(request: Request) {
         })
         .select('id, referral_code')
         .single();
-      waitlistUser = newWaitlistUser;
-      isNewWaitlistSignup = true;
+
+      if (!insertWaitlistError && newWaitlistUser) {
+        waitlistUser = newWaitlistUser;
+        isNewWaitlistSignup = true;
+      } else {
+        // Race-safe fallback: if insert failed (e.g. duplicate key), fetch existing row once more.
+        if (insertWaitlistError) {
+          console.error('Failed to insert waitlist user from commitment flow:', insertWaitlistError);
+        }
+        const { data: fallbackRows } = await supabase
+          .from('waitlist')
+          .select('id, referral_code')
+          .eq('email', normalizedEmail)
+          .order('created_at', { ascending: true })
+          .limit(1);
+        waitlistUser = fallbackRows?.[0] ?? null;
+      }
     }
 
     // Upsert commitment
