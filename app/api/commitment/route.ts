@@ -186,6 +186,12 @@ export async function POST(request: Request) {
       .single();
 
     if (error) {
+      if ((error as { code?: string }).code === '23505') {
+        return NextResponse.json(
+          { error: 'An intent is already registered for this email address.' },
+          { status: 409 }
+        );
+      }
       console.error('Error creating commitment:', error);
       return NextResponse.json({ error: 'Failed to save commitment' }, { status: 500 });
     }
