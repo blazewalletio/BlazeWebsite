@@ -2,10 +2,12 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { ArrowRight, CheckCircle2, Shield, Users, Zap } from 'lucide-react';
 import Link from 'next/link';
-import CommitmentForm from '@/components/CommitmentForm';
-import Leaderboard from '@/components/Leaderboard';
-import PresaleStickyCTA from '@/components/PresaleStickyCTA';
+import dynamic from 'next/dynamic';
 import { PRESALE_CONSTANTS } from '@/lib/presale-constants';
+
+const CommitmentForm = dynamic(() => import('@/components/CommitmentForm'), { ssr: false });
+const Leaderboard = dynamic(() => import('@/components/Leaderboard'), { ssr: false });
+const PresaleStickyCTA = dynamic(() => import('@/components/PresaleStickyCTA'), { ssr: false });
 
 export default function PresalePage() {
   const presaleDiscount = PRESALE_CONSTANTS.presaleDiscount;
