@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Zap, Users, TrendingUp, ArrowRight, Clock, Gift, Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Zap, Users, TrendingUp, ArrowRight, Clock, Gift, Loader2, CheckCircle2, AlertCircle, ChevronDown, ChevronUp } from 'lucide-react';
 import Link from 'next/link';
 import { useAnimateOnce } from '@/hooks/useAnimateOnce';
 import { PRESALE_CONSTANTS } from '@/lib/presale-constants';
@@ -22,6 +22,7 @@ export default function PresaleTeaser() {
   const [inputAmount, setInputAmount] = useState(250);
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showMobileDetails, setShowMobileDetails] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState<{
     tierName: string;
@@ -175,44 +176,61 @@ export default function PresaleTeaser() {
                   <div className="text-emerald-400 text-xs sm:text-sm mt-1">{presaleDiscount}% off launch price</div>
                 </div>
 
-                <div className="mb-5 sm:mb-6 p-4 bg-white/5 rounded-xl border border-white/10">
-                  <div className="grid grid-cols-2 gap-4 text-xs sm:text-sm">
-                    <div>
-                      <div className="text-gray-500 mb-1">Hard cap</div>
-                      <div className="text-white font-bold">{hardCapLabel}</div>
-                    </div>
-                    <div>
-                      <div className="text-gray-500 mb-1">Tokens available</div>
-                      <div className="text-white font-bold">{(TOKENS_FOR_SALE / 1000000).toFixed(0)}M BLAZE</div>
-                    </div>
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="text-gray-400 text-sm">
+                    <span className="text-white font-medium">{waitlistCount.toLocaleString()}+</span> people waiting
                   </div>
                 </div>
 
-                {bonusPercentage > 0 && (
-                  <div className="hidden sm:flex items-center gap-3 p-4 bg-gradient-to-r from-yellow-500/10 to-orange-500/10 rounded-xl border border-yellow-500/20">
-                    <div className="w-10 h-10 bg-yellow-500/20 rounded-xl flex items-center justify-center">
-                      <Gift className="w-5 h-5 text-yellow-400" />
-                    </div>
-                    <div>
-                      <div className="text-white font-medium">+{bonusPercentage}% bonus tokens</div>
-                      <div className="text-gray-400 text-sm">Early bird bonus for {currentTier?.tier_name || 'Founders'}</div>
-                    </div>
-                  </div>
-                )}
+                <button
+                  type="button"
+                  onClick={() => setShowMobileDetails((prev) => !prev)}
+                  className="sm:hidden mb-3 inline-flex items-center gap-2 text-sm text-gray-300 hover:text-white transition-colors"
+                >
+                  {showMobileDetails ? 'Hide details' : 'Show details'}
+                  {showMobileDetails ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                </button>
 
-                <div className="flex items-center gap-4 mt-5 pt-5 sm:mt-6 sm:pt-6 border-t border-white/10">
-                  <div className="flex -space-x-2">
-                    {[...Array(4)].map((_, i) => (
-                      <div
-                        key={i}
-                        className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-400 to-yellow-400 border-2 border-slate-900 flex items-center justify-center text-white text-xs font-bold"
-                      >
-                        {String.fromCharCode(65 + i)}
+                <div className={`${showMobileDetails ? 'block' : 'hidden'} sm:block`}>
+                  <div className="mb-5 sm:mb-6 p-4 bg-white/5 rounded-xl border border-white/10">
+                    <div className="grid grid-cols-2 gap-4 text-xs sm:text-sm">
+                      <div>
+                        <div className="text-gray-500 mb-1">Hard cap</div>
+                        <div className="text-white font-bold">{hardCapLabel}</div>
                       </div>
-                    ))}
+                      <div>
+                        <div className="text-gray-500 mb-1">Tokens available</div>
+                        <div className="text-white font-bold">{(TOKENS_FOR_SALE / 1000000).toFixed(0)}M BLAZE</div>
+                      </div>
+                    </div>
                   </div>
-                  <div className="text-gray-400 text-sm">
-                    <span className="text-white font-medium">{waitlistCount.toLocaleString()}+</span> people waiting
+
+                  {bonusPercentage > 0 && (
+                    <div className="hidden sm:flex items-center gap-3 p-4 bg-gradient-to-r from-yellow-500/10 to-orange-500/10 rounded-xl border border-yellow-500/20">
+                      <div className="w-10 h-10 bg-yellow-500/20 rounded-xl flex items-center justify-center">
+                        <Gift className="w-5 h-5 text-yellow-400" />
+                      </div>
+                      <div>
+                        <div className="text-white font-medium">+{bonusPercentage}% bonus tokens</div>
+                        <div className="text-gray-400 text-sm">Early bird bonus for {currentTier?.tier_name || 'Founders'}</div>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="flex items-center gap-4 mt-5 pt-5 sm:mt-6 sm:pt-6 border-t border-white/10">
+                    <div className="flex -space-x-2">
+                      {[...Array(4)].map((_, i) => (
+                        <div
+                          key={i}
+                          className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-400 to-yellow-400 border-2 border-slate-900 flex items-center justify-center text-white text-xs font-bold"
+                        >
+                          {String.fromCharCode(65 + i)}
+                        </div>
+                      ))}
+                    </div>
+                    <div className="text-gray-400 text-sm">
+                      Community verified presale demand
+                    </div>
                   </div>
                 </div>
               </div>
