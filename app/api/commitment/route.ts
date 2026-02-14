@@ -150,10 +150,30 @@ export async function POST(request: Request) {
       }
     }
 
-    // Upsert commitment
+    // Enforce one intent per email: return early if one already exists.
+    const { data: existingCommitment, error: existingCommitmentError } = await supabase
+      .from('commitments')
+      .select('id')
+      .eq('email', normalizedEmail)
+      .limit(1)
+      .maybeSingle();
+
+    if (existingCommitmentError) {
+      console.error('Error checking existing commitment:', existingCommitmentError);
+      return NextResponse.json({ error: 'Failed to validate existing commitment' }, { status: 500 });
+    }
+
+    if (existingCommitment) {
+      return NextResponse.json(
+        { error: 'An intent is already registered for this email address.' },
+        { status: 409 }
+      );
+    }
+
+    // Insert commitment (no updates allowed for existing emails).
     const { data: commitment, error } = await supabase
       .from('commitments')
-      .upsert({
+      .insert({
         email: normalizedEmail,
         waitlist_id: waitlistUser?.id || null,
         intended_amount_usd: intendedAmountUsd,
@@ -161,8 +181,6 @@ export async function POST(request: Request) {
         commitment_tier: currentTier.tier_number,
         notes: notes || null,
         updated_at: new Date().toISOString(),
-      }, {
-        onConflict: 'email',
       })
       .select()
       .single();
