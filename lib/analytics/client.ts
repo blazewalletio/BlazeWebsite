@@ -185,15 +185,30 @@ export async function trackMarketingEvent(
     console.error('Failed to store marketing event:', error);
   }
 
-  if (options.xEventName && hasAnalyticsConsent() && typeof window.twq === 'function') {
-    try {
-      const xPayload: Record<string, unknown> = { ...payload };
-      if (typeof options.value === 'number') xPayload.value = options.value;
-      if (options.currency) xPayload.currency = options.currency;
-      window.twq('track', options.xEventName, xPayload);
-    } catch (error) {
-      console.error('Failed to send X pixel event:', error);
-    }
+  if (options.xEventName && hasAnalyticsConsent()) {
+    const xPayload: Record<string, unknown> = { ...payload };
+    if (typeof options.value === 'number') xPayload.value = options.value;
+    if (options.currency) xPayload.currency = options.currency;
+
+    // Retry briefly to avoid losing conversions when pixel bootstrap is still initializing.
+    const sendXEvent = (attempt = 0) => {
+      if (typeof window.twq === 'function') {
+        try {
+          window.twq('track', options.xEventName as string, xPayload);
+        } catch (error) {
+          console.error('Failed to send X pixel event:', error);
+        }
+        return;
+      }
+
+      if (attempt < 15) {
+        window.setTimeout(() => sendXEvent(attempt + 1), 200);
+      } else {
+        console.warn(`X pixel not ready, skipped event: ${options.xEventName}`);
+      }
+    };
+
+    sendXEvent();
   }
 }
 
