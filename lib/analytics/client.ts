@@ -32,6 +32,8 @@ declare global {
 const CONSENT_KEY = 'cookie_consent';
 const ATTRIBUTION_KEY = 'blaze_attribution_v1';
 const VISITOR_ID_KEY = 'blaze_visitor_id_v1';
+const X_LEAD_CONVERSION_EVENT_ID =
+  process.env.NEXT_PUBLIC_X_LEAD_EVENT_ID || 'tw-r5ij4-r5ij6';
 
 function getCookieConsent() {
   if (typeof window === 'undefined') return null;
@@ -195,6 +197,10 @@ export async function trackMarketingEvent(
       if (typeof window.twq === 'function') {
         try {
           window.twq('track', options.xEventName as string, xPayload);
+          // X Ads conversion trackers in Event Manager can require explicit event IDs.
+          if (options.xEventName === 'Lead' && X_LEAD_CONVERSION_EVENT_ID) {
+            window.twq('event', X_LEAD_CONVERSION_EVENT_ID, xPayload);
+          }
         } catch (error) {
           console.error('Failed to send X pixel event:', error);
         }
