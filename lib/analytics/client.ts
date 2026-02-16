@@ -32,6 +32,8 @@ declare global {
 const CONSENT_KEY = 'cookie_consent';
 const ATTRIBUTION_KEY = 'blaze_attribution_v1';
 const VISITOR_ID_KEY = 'blaze_visitor_id_v1';
+const X_LEAD_EVENT_ID = process.env.NEXT_PUBLIC_X_LEAD_EVENT_ID || '';
+const X_SIGNUP_EVENT_ID = process.env.NEXT_PUBLIC_X_SIGNUP_EVENT_ID || '';
 
 function isXDebugEnabled() {
   if (typeof window === 'undefined') return false;
@@ -46,6 +48,13 @@ function logXLead(status: string, details?: Record<string, unknown>) {
   // Keep this always-on for Lead debugging; conversions are rare and this helps verify tracking in production.
   // eslint-disable-next-line no-console
   console.info(`[X Pixel][Lead] ${status}`, details || {});
+}
+
+function logXEvent(status: string, details?: Record<string, unknown>) {
+  if (typeof window === 'undefined') return;
+  if (!isXDebugEnabled()) return;
+  // eslint-disable-next-line no-console
+  console.info(`[X Pixel] ${status}`, details || {});
 }
 
 function getCookieConsent() {
@@ -230,9 +239,19 @@ export async function trackMarketingEvent(
           window.twq('track', options.xEventName as string, xPayload);
           if (options.xEventName === 'Lead') {
             logXLead('SENT', { eventName, ...xPayload });
-          } else if (isXDebugEnabled()) {
-            // eslint-disable-next-line no-console
-            console.info('[X Pixel] track', options.xEventName, xPayload);
+          } else {
+            logXEvent('track', { xEventName: options.xEventName, ...xPayload });
+          }
+
+          // Important: X "conversion events" created in Events Manager have an event id like `tw-...-...`.
+          // Those only become Active when you call `twq('event', '<event-id>', ...)`.
+          if (options.xEventName === 'Lead' && X_LEAD_EVENT_ID) {
+            window.twq('event', X_LEAD_EVENT_ID, xPayload);
+            logXEvent('event (lead tracker)', { id: X_LEAD_EVENT_ID, ...xPayload });
+          }
+          if (options.xEventName === 'SignUp' && X_SIGNUP_EVENT_ID) {
+            window.twq('event', X_SIGNUP_EVENT_ID, xPayload);
+            logXEvent('event (signup tracker)', { id: X_SIGNUP_EVENT_ID, ...xPayload });
           }
         } catch (error) {
           console.error('Failed to send X pixel event:', error);
