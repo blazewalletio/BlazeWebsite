@@ -15,7 +15,7 @@ const faqs = [
   },
   {
     question: 'How does QuickPay work?',
-    answer: 'QuickPay lets you pay with crypto anywhere. Simply scan a QR code, confirm the amount, and your payment is sent. Settlement time depends on the blockchain you choose – Polygon and Solana are near-instant, while Ethereum takes longer. It works with stablecoins like USDC and USDT for consistent value.',
+    answer: 'QuickPay lets you pay with crypto anywhere. Simply scan a QR code, confirm the amount, and your payment is sent. Settlement time depends on the blockchain you choose. Polygon and Solana are near-instant, while Ethereum takes longer. It works with stablecoins like USDC and USDT for consistent value.',
   },
   {
     question: 'What blockchain networks are supported?',

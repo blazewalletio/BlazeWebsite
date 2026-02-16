@@ -103,8 +103,8 @@ export default function WhitepaperPage() {
               className="card p-8 bg-gradient-to-r from-orange-50 to-yellow-50 border-orange-200"
             >
               <p className="text-xl text-gray-700 italic mb-4">
-                "For decades, we've watched money lose value year after year. We believe paying with crypto – 
-                everywhere – is the future. A crypto wallet should be a real wallet you use every day, 
+                "For decades, we've watched money lose value year after year. We believe paying with crypto
+                everywhere is the future. A crypto wallet should be a real wallet you use every day,
                 not just a place to store assets and hope they go up in value."
             </p>
               <div className="flex items-center gap-3">
@@ -252,7 +252,7 @@ export default function WhitepaperPage() {
                 <p className="text-gray-700 mb-4">
                   Traditional fiat currencies have lost significant purchasing power over the past decades. 
                   The Euro has lost approximately 30% of its value since 2000, while the US Dollar has lost 
-                  over 40%. Crypto offers an alternative store of value – but only if it can also function 
+                  over 40%. Crypto offers an alternative store of value, but only if it can also function 
                   as a medium of exchange.
                 </p>
                 <div className="grid grid-cols-3 gap-4">
@@ -284,7 +284,7 @@ export default function WhitepaperPage() {
               <div className="prose prose-lg max-w-none text-gray-600 mb-8">
                 <p>
                   Despite the growth of the crypto ecosystem, almost no one actually uses cryptocurrency 
-                  for daily purchases. Current wallets are designed for trading, holding, and DeFi – 
+                  for daily purchases. Current wallets are designed for trading, holding, and DeFi, 
                   not for real-world payments. This creates a paradox: crypto is meant to be digital 
                   money, yet it's rarely used as money.
                 </p>
@@ -305,7 +305,7 @@ export default function WhitepaperPage() {
                   { 
                     icon: Layers, 
                     title: 'Complexity overwhelms users', 
-                    desc: 'Gas fees, network selection, slippage settings – these concepts confuse new users and create friction.' 
+                    desc: 'Gas fees, network selection, and slippage settings can confuse new users and create friction.' 
                   },
                   { 
                     icon: Shield, 
@@ -409,7 +409,7 @@ export default function WhitepaperPage() {
                       <CheckCircle className="w-5 h-5 text-orange-500 flex-shrink-0 mt-0.5" />
                   <div>
                         <span className="font-medium text-gray-900">{item.title}</span>
-                        <span className="text-gray-600"> – {item.desc}</span>
+                        <span className="text-gray-600">: {item.desc}</span>
                   </div>
                   </div>
                   ))}
@@ -428,7 +428,7 @@ export default function WhitepaperPage() {
               
               <div className="prose prose-lg max-w-none text-gray-600 mb-8">
                 <p>
-                  QuickPay is our flagship feature – the technology that transforms crypto from a 
+                  QuickPay is our flagship feature. It is the technology that transforms crypto from a 
                   speculative asset into an everyday payment method. It's designed to be faster 
                   than card payments and simpler than cash.
                 </p>
@@ -544,7 +544,7 @@ export default function WhitepaperPage() {
               <div className="prose prose-lg max-w-none text-gray-600 mb-8">
                 <p>
                   BLAZE integrates five AI-powered features designed to make crypto simpler, safer, 
-                  and more efficient. These aren't gimmicks – they solve real problems that crypto 
+                  and more efficient. These aren't gimmicks. They solve real problems that crypto 
                   users face every day.
                 </p>
               </div>
@@ -554,7 +554,7 @@ export default function WhitepaperPage() {
                   { 
                     icon: Brain, 
                     title: 'AI transaction assistant', 
-                    desc: 'Send crypto using natural language. Just say "Send 50 USDC to @john" and the AI handles the rest – finding the right address, optimizing the route, and confirming the details.',
+                    desc: 'Send crypto using natural language. Just say \"Send 50 USDC to @john\" and the AI handles the rest by finding the right address, optimizing the route, and confirming the details.',
                     color: 'bg-purple-100 text-purple-600',
                     features: ['Natural language commands', 'Smart address book', 'Transaction history search', 'Voice support']
                   },
@@ -841,7 +841,7 @@ export default function WhitepaperPage() {
               
               <div className="prose prose-lg max-w-none text-gray-600 mb-8">
                 <p>
-                  Security is not an afterthought at BLAZE – it's foundational. Our multi-layered 
+                  Security is not an afterthought at BLAZE. It's foundational. Our multi-layered 
                   security architecture protects users at every level, from smart contracts to 
                   the application layer.
                 </p>

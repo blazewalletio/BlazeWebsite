@@ -94,8 +94,8 @@ export default function TermsOfServicePage() {
                 <div>
                   <h3 className="font-bold text-amber-900 mb-2">Important summary</h3>
                   <ul className="space-y-1 text-amber-800 text-sm">
-                    <li>• BLAZE Wallet is non-custodial – you are responsible for your private keys</li>
-                    <li>• Cryptocurrency involves risk of loss – never invest more than you can afford to lose</li>
+                    <li>• BLAZE Wallet is non-custodial. You are responsible for your private keys</li>
+                    <li>• Cryptocurrency involves risk of loss. Never invest more than you can afford to lose</li>
                     <li>• You must be 18+ years old to use our services</li>
                     <li>• We comply with Dutch and EU law (KvK: 88929280)</li>
                   </ul>

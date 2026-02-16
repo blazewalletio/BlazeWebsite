@@ -21,7 +21,7 @@ const securityFeatures = [
   { 
     icon: KeyRound, 
     title: 'Your keys, your crypto', 
-    description: 'Non-custodial – we never have access',
+    description: 'Non-custodial. We never have access.',
   },
   {
     icon: Lock, 
@@ -178,8 +178,8 @@ export default function SocialProof() {
                   <div className="text-xs text-gray-500 mb-1">{update.date}</div>
                   <div className="font-semibold text-gray-900 mb-1">{update.title}</div>
                   <p className="text-sm text-gray-600">{update.summary}</p>
-                </div>
-              ))}
+              </div>
+            ))}
           </div>
         </div>
 

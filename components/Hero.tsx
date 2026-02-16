@@ -69,7 +69,7 @@ export default function Hero() {
 
             {/* Subtitle */}
             <p className="hero-animate-content delay-3 text-lg sm:text-xl text-gray-300 mb-8 max-w-lg mx-auto lg:mx-0">
-              Pay at the coffee shop, supermarket, or anywhere – just scan a QR code. Crypto payments in seconds, not minutes.
+              Pay at the coffee shop, supermarket, or anywhere. Just scan a QR code. Crypto payments in seconds, not minutes.
             </p>
 
             {/* CTA Buttons */}

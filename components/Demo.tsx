@@ -10,7 +10,7 @@ const steps = [
   {
     number: '01',
     title: 'Create your wallet',
-    description: 'Generate a secure wallet in seconds. Your keys, your crypto – always.',
+    description: 'Generate a secure wallet in seconds. Your keys, your crypto, always.',
   },
   {
     number: '02',
@@ -20,7 +20,7 @@ const steps = [
   {
     number: '03',
     title: 'Start using DeFi',
-    description: 'Swap, stake, vote, and explore – all from one simple interface.',
+    description: 'Swap, stake, vote, and explore, all from one simple interface.',
   },
 ];
 
@@ -29,7 +29,7 @@ const features = [
     id: 'ai',
     title: 'AI Assistant',
     shortTitle: 'AI Assistant',
-    description: 'Talk to your wallet like a friend. Send crypto, check balances, or get help – just type what you need.',
+    description: 'Talk to your wallet like a friend. Send crypto, check balances, or get help. Just type what you need.',
     icon: Brain,
     color: 'from-purple-500 to-violet-600',
     bgColor: 'bg-purple-500/10',

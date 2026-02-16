@@ -45,7 +45,7 @@ export default function AboutSection() {
                 <p className="text-gray-600 leading-relaxed">
                   Our mission is to bring the next billion users to crypto by removing 
                   the complexity and fear. No more confusing interfaces, no more worrying 
-                  about scams – just simple, secure, intelligent crypto management that 
+                  about scams. Just simple, secure, intelligent crypto management that 
                   you can use every day, everywhere.
                 </p>
               </div>

@@ -282,7 +282,7 @@ export default function CommitmentForm() {
                         }`}
                       />
                     </div>
-                    <p className="text-xs text-gray-500 mt-2">Min $100 – Max $10,000</p>
+                    <p className="text-xs text-gray-500 mt-2">Min $100. Max $10,000.</p>
                   </div>
 
                   {/* Error */}

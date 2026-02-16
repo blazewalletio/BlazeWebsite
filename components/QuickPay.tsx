@@ -65,8 +65,8 @@ export default function QuickPay() {
             Pay with crypto. <span className="text-gradient-brand">Everywhere.</span>
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            We believe crypto should be as easy to spend as cash. QuickPay makes that possible – 
-            scan a QR code, confirm, and your payment is sent. Settlement time depends on your chosen blockchain.
+            We believe crypto should be as easy to spend as cash. QuickPay makes that possible.
+            Scan a QR code, confirm, and your payment is sent. Settlement time depends on your chosen blockchain.
           </p>
         </div>
 
@@ -395,7 +395,7 @@ export default function QuickPay() {
         <div className={`mt-12 text-center max-w-3xl mx-auto animate-entrance delay-4 ${isVisible ? 'is-visible' : ''}`}>
           <blockquote className="text-xl text-gray-600 italic mb-4">
             "For decades, we've watched money lose value year after year. We built BLAZE because 
-            we believe paying with crypto – everywhere – is the future."
+            we believe paying with crypto everywhere is the future."
           </blockquote>
           <div className="flex items-center justify-center gap-3">
             <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-full flex items-center justify-center text-white font-bold">

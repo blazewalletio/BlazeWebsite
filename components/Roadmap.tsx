@@ -98,7 +98,7 @@ export default function Roadmap() {
             Product <span className="text-gradient-brand">roadmap</span>
           </h2>
           <p className="text-lg text-gray-600 max-w-xl mx-auto">
-            From foundation to global scale – transparent planning for the future.
+            From foundation to global scale, with transparent planning for the future.
           </p>
         </div>
 
