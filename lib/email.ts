@@ -116,7 +116,7 @@ export async function sendCommitmentConfirmation({
           </p>
         </div>
 
-        <p>This is not a payment - it's your commitment to participate. When the presale opens, you'll receive priority access and a reminder email with payment instructions.</p>
+        <p>This is not a payment. It is your commitment to participate. When the presale opens, you'll receive priority access and a reminder email with payment instructions.</p>
 
         <div class="divider"></div>
 
@@ -124,7 +124,7 @@ export async function sendCommitmentConfirmation({
         <ul>
           <li>📧 You'll receive regular updates about the presale</li>
           <li>⏰ We'll notify you 48 hours before the presale opens</li>
-          <li>🎯 Your commitment helps us plan - but you can adjust anytime</li>
+          <li>🎯 Your commitment helps us plan, and you can adjust it anytime</li>
           <li>💰 Payment is only required when the presale goes live</li>
         </ul>
 
@@ -164,8 +164,8 @@ export async function sendWhyBlazeEmail(email: string, referralCode: string) {
         <ul>
           <li><strong>QuickPay:</strong> Pay at any store by scanning a QR code</li>
           <li><strong>AI Scam Protection:</strong> Our AI detects and blocks scams before you lose money</li>
-          <li><strong>Non-Custodial:</strong> Your keys, your crypto - always</li>
-          <li><strong>Multi-Chain:</strong> ETH, SOL, BNB, Polygon - all in one wallet</li>
+          <li><strong>Non-Custodial:</strong> Your keys, your crypto, always</li>
+          <li><strong>Multi-Chain:</strong> ETH, SOL, BNB, and Polygon, all in one wallet</li>
         </ul>
 
         <div class="stat-box">
@@ -173,7 +173,7 @@ export async function sendWhyBlazeEmail(email: string, referralCode: string) {
           <div class="stat-label">Blockchains supported by BLAZE</div>
         </div>
 
-        <p>We're building the wallet we always wanted - one that makes crypto as easy as using Apple Pay.</p>
+        <p>We're building the wallet we always wanted, one that makes crypto as easy as using Apple Pay.</p>
 
         <center>
           <a href="https://www.blazewallet.io/#quickpay" class="btn">See QuickPay in Action</a>
@@ -182,7 +182,7 @@ export async function sendWhyBlazeEmail(email: string, referralCode: string) {
         <div class="divider"></div>
 
         <div class="referral-box">
-          <p class="text-muted">Don't forget - share your referral link:</p>
+          <p class="text-muted">Don't forget to share your referral link:</p>
           <p class="mb-0"><a href="https://www.blazewallet.io?ref=${referralCode}">blazewallet.io?ref=${referralCode}</a></p>
         </div>
       `),
@@ -257,7 +257,7 @@ export async function sendFomoPricingEmail(email: string, referralCode: string, 
       subject: '⏰ Early Bird Pricing Won\'t Last Forever',
       html: baseTemplate(`
         <h1>Price Increases Are Coming ⏰</h1>
-        <p>We wanted to give you a heads up - the current pricing tier won't last forever.</p>
+        <p>We wanted to give you a heads up: the current pricing tier won't last forever.</p>
         
         <div class="stat-box">
           <div class="tier-badge">${currentTier.name} Tier</div>
@@ -298,7 +298,7 @@ export async function sendFomoPricingEmail(email: string, referralCode: string, 
           </table>
         </div>
 
-        <p><strong>Pro tip:</strong> Lock in your intent now at the current price. You're not committing to anything - just letting us know you're interested.</p>
+        <p><strong>Pro tip:</strong> Lock in your intent now at the current price. You're not committing to anything. You're just letting us know you're interested.</p>
 
         <center>
           <a href="https://www.blazewallet.io/#commitment" class="btn">Reserve Your Spot</a>
@@ -357,10 +357,10 @@ export async function sendExclusiveBonusEmail(email: string, referralCode: strin
 
         <h2>How to Maximize Your Rewards:</h2>
         <ol>
-          <li><strong>Register your purchase intent</strong> - Lock in current tier pricing</li>
-          <li><strong>Share your referral link</strong> - Earn bonus tokens per referral</li>
-          <li><strong>Climb the leaderboard</strong> - Top referrers get massive bonuses</li>
-          <li><strong>Join our Telegram</strong> - Get exclusive updates and tips</li>
+          <li><strong>Register your purchase intent</strong>: Lock in current tier pricing</li>
+          <li><strong>Share your referral link</strong>: Earn bonus tokens per referral</li>
+          <li><strong>Climb the leaderboard</strong>: Top referrers get massive bonuses</li>
+          <li><strong>Join our Telegram</strong>: Get exclusive updates and tips</li>
         </ol>
 
         <center>
@@ -405,10 +405,10 @@ export async function sendPresaleCountdownEmail(email: string, referralCode: str
         <div class="highlight">
           <h3>Presale Checklist:</h3>
           <ul class="list-compact">
-            <li>✅ <strong>Join the waitlist</strong> - Done!</li>
-            <li>☐ <strong>Register your purchase intent</strong> - Lock in your spot</li>
-            <li>☐ <strong>Prepare your wallet</strong> - Keep your preferred wallet and gas-ready network set up</li>
-            <li>☐ <strong>Set up a wallet</strong> - MetaMask, Trust Wallet, etc.</li>
+            <li>✅ <strong>Join the waitlist</strong>: Done!</li>
+            <li>☐ <strong>Register your purchase intent</strong>: Lock in your spot</li>
+            <li>☐ <strong>Prepare your wallet</strong>: Keep your preferred wallet and gas-ready network set up</li>
+            <li>☐ <strong>Set up a wallet</strong>: MetaMask, Trust Wallet, etc.</li>
           </ul>
         </div>
 

@@ -14,7 +14,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.blazewallet.io'),
   title: {
-    default: "BLAZE Wallet - AI-Powered Crypto Wallet for Everyday Payments",
+    default: "BLAZE Wallet: AI-Powered Crypto Wallet for Everyday Payments",
     template: "%s | BLAZE Wallet",
   },
   description: "Pay with crypto anywhere. QuickPay, AI assistant, scam protection & 18+ blockchains. The wallet that makes crypto spendable.",
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "BLAZE Wallet - AI-Powered Crypto Wallet for Everyday Payments",
+    title: "BLAZE Wallet: AI-Powered Crypto Wallet for Everyday Payments",
     description: "Pay with crypto anywhere. QuickPay, AI assistant, scam protection & 18+ blockchains. The wallet that makes crypto spendable.",
     type: "website",
     url: "https://www.blazewallet.io",
@@ -59,14 +59,14 @@ export const metadata: Metadata = {
         url: "https://www.blazewallet.io/og-image.png",
         width: 1536,
         height: 1024,
-        alt: "BLAZE Wallet - AI-Powered Crypto Wallet for Everyday Payments",
+        alt: "BLAZE Wallet: AI-Powered Crypto Wallet for Everyday Payments",
       },
     ],
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "BLAZE Wallet - AI-Powered Crypto Wallet for Everyday Payments",
+    title: "BLAZE Wallet: AI-Powered Crypto Wallet for Everyday Payments",
     description: "Pay with crypto anywhere. QuickPay, AI assistant, scam protection & 18+ blockchains.",
     images: ["https://www.blazewallet.io/og-image.png"],
     creator: "@blazewallet_io",
@@ -107,7 +107,7 @@ export default function RootLayout({
       "name": "BLAZE Wallet"
     },
     "featureList": [
-      "QuickPay - fast crypto payments via QR code",
+      "QuickPay: fast crypto payments via QR code",
       "AI Transaction Assistant",
       "Smart Scam Detector",
       "Gas Optimizer with Smart Scheduling",

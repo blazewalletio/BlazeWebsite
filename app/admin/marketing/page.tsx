@@ -251,11 +251,11 @@ No other wallet has this. blazewallet.io`,
     title: 'Week 1 Recap',
     content: `This week we showed you what makes BLAZE different:
 
-• Smart Schedule - save up to 40% on gas
-• AI Assistant - talk to your wallet
-• QuickPay - pay with a QR scan
-• Scam Protection - see risks before sending
-• All-in-One - swap, bridge, on/off-ramp
+• Smart Schedule: save up to 40% on gas
+• AI Assistant: talk to your wallet
+• QuickPay: pay with a QR scan
+• Scam Protection: see risks before sending
+• All-in-One: swap, bridge, on and off ramp
 
 One wallet. Everything you need.
 
@@ -420,7 +420,7 @@ Which BLAZE feature are you most excited about?
     title: 'Why We Built BLAZE',
     content: `"We built BLAZE because crypto should be usable, not just holdable.
 
-Not faster transactions - that's blockchain dependent.
+Not faster transactions. That depends on the blockchain.
 
 But simpler, safer, and smarter.
 
@@ -476,7 +476,7 @@ Join the waitlist: blazewallet.io`,
     phase: 'Presale Buildup',
     type: 'thread',
     title: 'Tokenomics Reveal',
-    content: `🧵 BLAZE Token - Full Tokenomics
+    content: `🧵 BLAZE Token: Full Tokenomics
 
 Everything you need to know about $BLAZE:
 
@@ -537,7 +537,7 @@ blazewallet.io/presale`,
       stat: { value: '+100%', label: 'Founder Bonus' },
       bullets: ['🏆 Founders +100%', '⭐ Early Birds +75%', '🔥 Pioneers +50%', '💪 Adopters +30%'],
     },
-    tip: 'Highlight the Founder bonus - most compelling tier',
+    tip: 'Highlight the Founder bonus, it is the most compelling tier',
   },
   {
     id: 'w3d3',
@@ -1256,12 +1256,12 @@ blazewallet.io/presale`,
     title: 'Summary Post',
     content: `BLAZE in one post:
 
-🔥 Smart Schedule - save on gas
-🔥 AI Assistant - talk to your wallet
-🔥 QuickPay - pay with QR codes
-🔥 Scam Protection - stay safe
-🔥 All-in-One - swap, bridge, on/off-ramp
-🔥 18+ chains - one wallet for everything
+🔥 Smart Schedule: save on gas
+🔥 AI Assistant: talk to your wallet
+🔥 QuickPay: pay with QR codes
+🔥 Scam Protection: stay safe
+🔥 All-in-One: swap, bridge, on and off ramp
+🔥 18+ chains: one wallet for everything
 
 The wallet that makes crypto usable.
 

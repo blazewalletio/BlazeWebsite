@@ -157,7 +157,7 @@ export default function CommitmentForm() {
             <span className="text-gradient-brand">early bird price</span>
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Register your purchase intent now. No payment required - just let us know how much you plan to invest
+            Register your purchase intent now. No payment required. Just let us know how much you plan to invest
             and secure your tier pricing.
           </p>
         </motion.div>
