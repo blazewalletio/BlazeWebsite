@@ -54,7 +54,7 @@ WALLET_RELEASE_REPO=blazewalletio/BlazeWallet21-10
 WALLET_RELEASE_REPO_LABEL=BlazeWallet-Github
 WALLET_RELEASE_BRANCH=main
 NEXT_PUBLIC_X_PIXEL_ID=your_x_pixel_id
-NEXT_PUBLIC_X_LEAD_EVENT_ID=tw-r5ij4-r5ij6
+# NOTE: We only use standard X pixel events (e.g. Lead, SignUp). No custom "event id" is required.
 WALLET_SIGNUP_TRACKING_SECRET=choose_a_long_random_secret
 ```
 

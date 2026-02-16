@@ -32,8 +32,15 @@ declare global {
 const CONSENT_KEY = 'cookie_consent';
 const ATTRIBUTION_KEY = 'blaze_attribution_v1';
 const VISITOR_ID_KEY = 'blaze_visitor_id_v1';
-const X_LEAD_CONVERSION_EVENT_ID =
-  process.env.NEXT_PUBLIC_X_LEAD_EVENT_ID || 'tw-r5ij4-r5ij6';
+
+function isXDebugEnabled() {
+  if (typeof window === 'undefined') return false;
+  try {
+    return new URLSearchParams(window.location.search).has('debug_x');
+  } catch {
+    return false;
+  }
+}
 
 function getCookieConsent() {
   if (typeof window === 'undefined') return null;
@@ -188,7 +195,8 @@ export async function trackMarketingEvent(
   }
 
   if (options.xEventName && hasAnalyticsConsent()) {
-    const xPayload: Record<string, unknown> = { ...payload };
+    // Keep X payload minimal: sending unknown keys can cause events to be dropped.
+    const xPayload: Record<string, unknown> = {};
     if (typeof options.value === 'number') xPayload.value = options.value;
     if (options.currency) xPayload.currency = options.currency;
 
@@ -197,9 +205,9 @@ export async function trackMarketingEvent(
       if (typeof window.twq === 'function') {
         try {
           window.twq('track', options.xEventName as string, xPayload);
-          // X Ads conversion trackers in Event Manager can require explicit event IDs.
-          if (options.xEventName === 'Lead' && X_LEAD_CONVERSION_EVENT_ID) {
-            window.twq('event', X_LEAD_CONVERSION_EVENT_ID, xPayload);
+          if (isXDebugEnabled()) {
+            // eslint-disable-next-line no-console
+            console.info('[X Pixel] track', options.xEventName, xPayload);
           }
         } catch (error) {
           console.error('Failed to send X pixel event:', error);
