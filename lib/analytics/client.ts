@@ -214,7 +214,13 @@ export async function trackMarketingEvent(
   if (options.xEventName && hasAnalyticsConsent()) {
     // Keep X payload minimal: sending unknown keys can cause events to be dropped.
     const xPayload: Record<string, unknown> = {};
-    if (typeof options.value === 'number') xPayload.value = options.value;
+    if (typeof options.value === 'number') {
+      // X pixel supports legacy params (tw_sale_amount / tw_order_quantity). Setting them explicitly makes
+      // the resulting `adsct` request easier to verify in DevTools (you'll see tw_sale_amount=<value>).
+      xPayload.value = options.value;
+      xPayload.tw_sale_amount = options.value;
+      xPayload.tw_order_quantity = 1;
+    }
     if (options.currency) xPayload.currency = options.currency;
 
     // Retry briefly to avoid losing conversions when pixel bootstrap is still initializing.
