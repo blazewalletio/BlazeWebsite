@@ -42,6 +42,12 @@ function isXDebugEnabled() {
   }
 }
 
+function logXLead(status: string, details?: Record<string, unknown>) {
+  // Keep this always-on for Lead debugging; conversions are rare and this helps verify tracking in production.
+  // eslint-disable-next-line no-console
+  console.info(`[X Pixel][Lead] ${status}`, details || {});
+}
+
 function getCookieConsent() {
   if (typeof window === 'undefined') return null;
   const raw = window.localStorage.getItem(CONSENT_KEY);
@@ -194,6 +200,17 @@ export async function trackMarketingEvent(
     console.error('Failed to store marketing event:', error);
   }
 
+  if (options.xEventName && !hasAnalyticsConsent()) {
+    if (options.xEventName === 'Lead') {
+      logXLead('SKIPPED: no analytics consent (accept cookies to enable pixel)', {
+        eventName,
+        value: typeof options.value === 'number' ? options.value : undefined,
+        currency: options.currency,
+      });
+    }
+    return;
+  }
+
   if (options.xEventName && hasAnalyticsConsent()) {
     // Keep X payload minimal: sending unknown keys can cause events to be dropped.
     const xPayload: Record<string, unknown> = {};
@@ -205,12 +222,17 @@ export async function trackMarketingEvent(
       if (typeof window.twq === 'function') {
         try {
           window.twq('track', options.xEventName as string, xPayload);
-          if (isXDebugEnabled()) {
+          if (options.xEventName === 'Lead') {
+            logXLead('SENT', { eventName, ...xPayload });
+          } else if (isXDebugEnabled()) {
             // eslint-disable-next-line no-console
             console.info('[X Pixel] track', options.xEventName, xPayload);
           }
         } catch (error) {
           console.error('Failed to send X pixel event:', error);
+          if (options.xEventName === 'Lead') {
+            logXLead('ERROR while sending (see console error above)', { eventName, ...xPayload });
+          }
         }
         return;
       }
@@ -219,6 +241,9 @@ export async function trackMarketingEvent(
         window.setTimeout(() => sendXEvent(attempt + 1), 200);
       } else {
         console.warn(`X pixel not ready, skipped event: ${options.xEventName}`);
+        if (options.xEventName === 'Lead') {
+          logXLead('SKIPPED: pixel not ready after retries', { eventName, ...xPayload });
+        }
       }
     };
 
