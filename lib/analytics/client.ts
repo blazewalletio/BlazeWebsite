@@ -47,6 +47,15 @@ function isXDebugEnabled() {
   }
 }
 
+function isMetaDebugEnabled() {
+  if (typeof window === 'undefined') return false;
+  try {
+    return new URLSearchParams(window.location.search).has('debug_meta');
+  } catch {
+    return false;
+  }
+}
+
 function logXLead(status: string, details?: Record<string, unknown>) {
   // Keep this always-on for Lead debugging; conversions are rare and this helps verify tracking in production.
   // eslint-disable-next-line no-console
@@ -58,6 +67,13 @@ function logXEvent(status: string, details?: Record<string, unknown>) {
   if (!isXDebugEnabled()) return;
   // eslint-disable-next-line no-console
   console.info(`[X Pixel] ${status}`, details || {});
+}
+
+function logMetaEvent(status: string, details?: Record<string, unknown>) {
+  if (typeof window === 'undefined') return;
+  if (!isMetaDebugEnabled()) return;
+  // eslint-disable-next-line no-console
+  console.info(`[Meta Pixel] ${status}`, details || {});
 }
 
 function getCookieConsent() {
@@ -213,6 +229,12 @@ export async function trackMarketingEvent(
   }
 
   if (options.metaEventName && !hasAnalyticsConsent()) {
+    logMetaEvent('SKIPPED: no analytics consent', {
+      eventName,
+      metaEventName: options.metaEventName,
+      value: typeof options.value === 'number' ? options.value : undefined,
+      currency: options.currency,
+    });
     return;
   }
 
@@ -226,8 +248,14 @@ export async function trackMarketingEvent(
       if (typeof window.fbq === 'function') {
         try {
           window.fbq('track', options.metaEventName as string, metaPayload);
+          logMetaEvent('SENT', { eventName, metaEventName: options.metaEventName, ...metaPayload });
         } catch (error) {
           console.error('Failed to send Meta pixel event:', error);
+          logMetaEvent('ERROR while sending (see console error above)', {
+            eventName,
+            metaEventName: options.metaEventName,
+            ...metaPayload,
+          });
         }
         return;
       }
@@ -236,6 +264,11 @@ export async function trackMarketingEvent(
         window.setTimeout(() => sendMetaEvent(attempt + 1), 200);
       } else {
         console.warn(`Meta pixel not ready, skipped event: ${options.metaEventName}`);
+        logMetaEvent('SKIPPED: pixel not ready after retries', {
+          eventName,
+          metaEventName: options.metaEventName,
+          ...metaPayload,
+        });
       }
     };
 

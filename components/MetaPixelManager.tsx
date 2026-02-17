@@ -14,6 +14,21 @@ declare global {
 
 const META_PIXEL_SRC = 'https://connect.facebook.net/en_US/fbevents.js';
 
+function isMetaDebugEnabled() {
+  if (typeof window === 'undefined') return false;
+  try {
+    return new URLSearchParams(window.location.search).has('debug_meta');
+  } catch {
+    return false;
+  }
+}
+
+function logMeta(status: string, details?: Record<string, unknown>) {
+  if (!isMetaDebugEnabled()) return;
+  // eslint-disable-next-line no-console
+  console.info(`[Meta Pixel] ${status}`, details || {});
+}
+
 export default function MetaPixelManager() {
   const pathname = usePathname();
   const pixelId = useMemo(
@@ -57,6 +72,7 @@ export default function MetaPixelManager() {
 
     window.fbq?.('init', pixelId);
     window.fbq?.('track', 'PageView');
+    logMeta('INIT + PageView', { pixelId });
     window.__blazeMetaPixelInitialized = true;
   }, [pixelId, canTrack]);
 
@@ -64,6 +80,7 @@ export default function MetaPixelManager() {
     if (!canTrack || !window.__blazeMetaPixelInitialized) return;
     // Next.js App Router navigations do not reload the page; fire PageView on route changes.
     window.fbq?.('track', 'PageView');
+    logMeta('PageView (route change)', { path: pathname });
   }, [pathname, canTrack]);
 
   return null;
