@@ -21,11 +21,14 @@ type TrackOptions = {
   xEventName?: string;
   value?: number;
   currency?: string;
+  metaEventName?: string;
+  metaPayload?: Record<string, unknown>;
 };
 
 declare global {
   interface Window {
     twq?: (...args: any[]) => void;
+    fbq?: (...args: any[]) => void;
   }
 }
 
@@ -209,6 +212,36 @@ export async function trackMarketingEvent(
     console.error('Failed to store marketing event:', error);
   }
 
+  if (options.metaEventName && !hasAnalyticsConsent()) {
+    return;
+  }
+
+  if (options.metaEventName && hasAnalyticsConsent()) {
+    // Keep Meta payload minimal; unknown keys can reduce match quality.
+    const metaPayload: Record<string, unknown> = { ...(options.metaPayload || {}) };
+    if (typeof options.value === 'number') metaPayload.value = options.value;
+    if (options.currency) metaPayload.currency = options.currency;
+
+    const sendMetaEvent = (attempt = 0) => {
+      if (typeof window.fbq === 'function') {
+        try {
+          window.fbq('track', options.metaEventName as string, metaPayload);
+        } catch (error) {
+          console.error('Failed to send Meta pixel event:', error);
+        }
+        return;
+      }
+
+      if (attempt < 15) {
+        window.setTimeout(() => sendMetaEvent(attempt + 1), 200);
+      } else {
+        console.warn(`Meta pixel not ready, skipped event: ${options.metaEventName}`);
+      }
+    };
+
+    sendMetaEvent();
+  }
+
   if (options.xEventName && !hasAnalyticsConsent()) {
     if (options.xEventName === 'Lead') {
       logXLead('SKIPPED: no analytics consent (accept cookies to enable pixel)', {
@@ -283,6 +316,11 @@ export function trackPresaleIntentRegistered(data: {
 }) {
   return trackMarketingEvent('presale_intent_registered', data, {
     xEventName: 'Lead',
+    metaEventName: 'Lead',
+    metaPayload: {
+      content_name: 'BLAZE Presale',
+      content_category: 'presale',
+    },
     value: data.amountUsd,
     currency: 'USD',
   });
@@ -290,6 +328,19 @@ export function trackPresaleIntentRegistered(data: {
 
 export function trackWalletLaunchClick(sourceContext: string) {
   return trackMarketingEvent('wallet_launch_click', { sourceContext });
+}
+
+export function trackSupportContactSubmitted(data: { subject?: string | null }) {
+  return trackMarketingEvent(
+    'support_contact_submitted',
+    { subject: data.subject || null },
+    {
+      metaEventName: 'Contact',
+      metaPayload: {
+        content_category: 'support',
+      },
+    }
+  );
 }
 
 

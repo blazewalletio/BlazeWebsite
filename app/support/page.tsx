@@ -6,6 +6,7 @@ import Link from 'next/link';
 import TrackedLaunchAppLink from '@/components/TrackedLaunchAppLink';
 import Navbar from '@/components/Navbar';
 import { useState } from 'react';
+import { trackSupportContactSubmitted } from '@/lib/analytics/client';
 
 export default function SupportPage() {
   const [formData, setFormData] = useState({
@@ -41,6 +42,7 @@ export default function SupportPage() {
       setSubmitted(true);
       setIsLoading(false);
       setFormData({ name: '', email: '', subject: '', message: '' });
+      trackSupportContactSubmitted({ subject: formData.subject || null });
     } catch (err) {
       setError('Failed to send message. Please try again.');
       setIsLoading(false);

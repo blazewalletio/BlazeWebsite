@@ -28,7 +28,7 @@ export default function CookiePolicyPage() {
       title: 'Analytics cookies',
       required: false,
       description: 'Help us understand how visitors interact with our website.',
-      examples: ['Google Analytics', 'Page views', 'User journeys'],
+      examples: ['Google Analytics', 'Meta Pixel', 'Page views', 'User journeys'],
       color: 'bg-purple-100 text-purple-600'
     },
   ];
@@ -166,6 +166,8 @@ export default function CookiePolicyPage() {
                       { name: 'blaze_session', purpose: 'Session management', duration: 'Session', type: 'Essential' },
                       { name: '_ga', purpose: 'Google Analytics ID', duration: '2 years', type: 'Analytics' },
                       { name: '_gid', purpose: 'Google Analytics session', duration: '24 hours', type: 'Analytics' },
+                      { name: '_fbp', purpose: 'Meta Pixel browser identifier', duration: '3 months', type: 'Analytics' },
+                      { name: '_fbc', purpose: 'Meta click identifier (when present)', duration: '3 months', type: 'Analytics' },
                       { name: 'theme', purpose: 'Theme preference', duration: '1 year', type: 'Functional' },
                     ].map((cookie, i) => (
                       <tr key={i} className="border-b border-gray-100">
@@ -259,6 +261,12 @@ export default function CookiePolicyPage() {
                     improve our services. 
                     <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-orange-500 hover:underline">
                       Google's Privacy Policy
+                    </a>
+                  </li>
+                  <li>
+                    <strong>Meta Pixel:</strong> To measure the effectiveness of our marketing and understand conversions.
+                    <a href="https://www.facebook.com/privacy/policy/" target="_blank" rel="noopener noreferrer" className="text-orange-500 hover:underline">
+                      Meta's Privacy Policy
                     </a>
                   </li>
                   <li>

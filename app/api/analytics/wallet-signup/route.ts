@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { createAdminClient } from '@/lib/supabase/server';
+import { normalizeAndHashExternalId, sendMetaCapiEvent } from '@/lib/analytics/meta-capi';
 
 export async function POST(request: Request) {
   try {
@@ -81,6 +82,48 @@ export async function POST(request: Request) {
     if (error) {
       console.error('Failed to store wallet signup event:', error);
       return NextResponse.json({ success: false, error: 'Failed to store event' }, { status: 500 });
+    }
+
+    // Meta Conversions API (server-side): treat wallet signup as CompleteRegistration.
+    // This is independent of the website pixel and captures app-originated signups.
+    try {
+      const externalId =
+        typeof visitorId === 'string' && visitorId.length > 0
+          ? normalizeAndHashExternalId(visitorId)
+          : null;
+      const em =
+        typeof emailHash === 'string' && emailHash.length > 0 ? emailHash.toLowerCase() : null;
+
+      const actionSource = source === 'wallet_app' ? 'app' : 'website';
+      const eventId =
+        typeof walletUserId === 'string' && walletUserId.length > 0
+          ? `wallet_account_created:${walletUserId}`
+          : typeof walletAddress === 'string' && walletAddress.length > 0
+            ? `wallet_account_created:${walletAddress}`
+            : `wallet_account_created:${Date.now()}`;
+
+      const capiRes = await sendMetaCapiEvent({
+        event_name: 'CompleteRegistration',
+        event_time: Math.floor(Date.now() / 1000),
+        event_id: eventId,
+        action_source: actionSource,
+        event_source_url: 'https://www.blazewallet.io',
+        user_data: {
+          client_ip_address: ipAddress,
+          client_user_agent: userAgent,
+          em: em ? [em] : undefined,
+          external_id: externalId ? [externalId] : undefined,
+        },
+        custom_data: {
+          source,
+        },
+      });
+
+      if (!capiRes.ok && !capiRes.skipped) {
+        console.warn('Meta CAPI failed for wallet signup:', capiRes);
+      }
+    } catch (capiError) {
+      console.warn('Meta CAPI error for wallet signup:', capiError);
     }
 
     return NextResponse.json({ success: true });

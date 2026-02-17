@@ -8,6 +8,7 @@ import AuthHandler from "@/components/AuthHandler";
 import ClientOnly from "@/components/ClientOnly";
 import AnalyticsBootstrap from "@/components/AnalyticsBootstrap";
 import XPixelManager from "@/components/XPixelManager";
+import MetaPixelManager from "@/components/MetaPixelManager";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -299,6 +300,7 @@ export default function RootLayout({
         <ClientOnly>
           <AnalyticsBootstrap />
           <XPixelManager />
+          <MetaPixelManager />
           <ScrollProgress />
         </ClientOnly>
         {children}
