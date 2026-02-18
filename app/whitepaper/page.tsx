@@ -1076,7 +1076,7 @@ export default function WhitepaperPage() {
                       problems and bring the benefits of cryptocurrency to everyday users.
                     </p>
                     <div className="flex gap-2">
-                      <a href="https://twitter.com/blazewallet_io" className="text-sm text-gray-500 hover:text-orange-500">Twitter</a>
+                      <a href="https://x.com/blazewallet_io" className="text-sm text-gray-500 hover:text-orange-500">X</a>
                       <span className="text-gray-300">•</span>
                       <a href="https://linkedin.com" className="text-sm text-gray-500 hover:text-orange-500">LinkedIn</a>
               </div>
@@ -1123,7 +1123,7 @@ export default function WhitepaperPage() {
                 <TrackedLaunchAppLink sourceContext="whitepaper_cta" className="btn-light">
                   Try BLAZE Wallet
                 </TrackedLaunchAppLink>
-                <a href="https://t.me/blazewallet_io" target="_blank" rel="noopener noreferrer" className="px-6 py-3 bg-white/20 text-white rounded-xl font-semibold hover:bg-white/30 transition-colors">
+                <a href="https://t.me/ai4ldMZv0KgyN2Y8" target="_blank" rel="noopener noreferrer" className="px-6 py-3 bg-white/20 text-white rounded-xl font-semibold hover:bg-white/30 transition-colors">
                   Join community
                 </a>
               </div>

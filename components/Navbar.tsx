@@ -287,7 +287,7 @@ export default function Navbar() {
               {/* Social links */}
               <div className="flex justify-center gap-3 mb-4">
                 <a
-                  href="https://twitter.com/blazewallet_io"
+                  href="https://x.com/blazewallet_io"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-11 h-11 rounded-xl bg-gray-100 hover:bg-gray-200 active:bg-orange-100 flex items-center justify-center transition-colors"
@@ -296,7 +296,7 @@ export default function Navbar() {
                   <Twitter className="w-5 h-5 text-gray-600" />
                 </a>
                 <a
-                  href="https://t.me/blazewallet_io"
+                  href="https://t.me/ai4ldMZv0KgyN2Y8"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-11 h-11 rounded-xl bg-gray-100 hover:bg-gray-200 active:bg-orange-100 flex items-center justify-center transition-colors"

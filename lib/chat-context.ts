@@ -61,8 +61,8 @@ BLAZE Wallet is an AI-powered, non-custodial crypto wallet that makes managing d
 - Based in Groningen, Netherlands
 - KvK: 88929280
 - Email: info@blazewallet.io
-- Twitter: @blazewallet_io
-- Telegram: @blazewallet_io
+- X: https://x.com/blazewallet_io
+- Telegram: https://t.me/ai4ldMZv0KgyN2Y8
 
 ## Response Guidelines
 

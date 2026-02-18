@@ -366,7 +366,7 @@ export async function sendExclusiveBonusEmail(email: string, referralCode: strin
         <center>
           <a href="https://www.blazewallet.io/#commitment" class="btn">Lock In Your Bonus</a>
           <br>
-          <a href="https://t.me/blazewallet_io" class="btn btn-secondary mt-8">Join Telegram</a>
+          <a href="https://t.me/ai4ldMZv0KgyN2Y8" class="btn btn-secondary mt-8">Join Telegram</a>
         </center>
 
         <div class="divider"></div>

@@ -63,7 +63,7 @@ export default function SupportPage() {
       title: 'Telegram',
       description: 'Join our community',
       action: '@blazewallet_io',
-      href: 'https://t.me/blazewallet_io',
+      href: 'https://t.me/ai4ldMZv0KgyN2Y8',
       color: 'bg-blue-100 text-blue-600'
     },
     {
@@ -71,7 +71,7 @@ export default function SupportPage() {
       title: 'Twitter/X',
       description: 'Follow for updates',
       action: '@blazewallet_io',
-      href: 'https://twitter.com/blazewallet_io',
+      href: 'https://x.com/blazewallet_io',
       color: 'bg-gray-100 text-gray-600'
     },
   ];

@@ -71,8 +71,8 @@ export default function Footer() {
   };
 
   const socials = [
-    { icon: Twitter, href: 'https://twitter.com/blazewallet_io', label: 'Twitter' },
-    { icon: Send, href: 'https://t.me/blazewallet_io', label: 'Telegram' },
+    { icon: Twitter, href: 'https://x.com/blazewallet_io', label: 'X' },
+    { icon: Send, href: 'https://t.me/ai4ldMZv0KgyN2Y8', label: 'Telegram' },
     { icon: Github, href: 'https://github.com/blazewalletio', label: 'GitHub' },
     { icon: Mail, href: 'mailto:info@blazewallet.io', label: 'Email' },
   ];
@@ -210,7 +210,7 @@ export default function Footer() {
               </a>
               
               <a
-                href="https://t.me/blazewallet_io"
+                href="https://t.me/ai4ldMZv0KgyN2Y8"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group p-5 bg-gray-900/50 rounded-2xl border border-gray-700 hover:border-orange-500/50 hover:bg-gray-900 transition-all duration-300"
@@ -224,7 +224,7 @@ export default function Footer() {
               </a>
               
               <a
-                href="https://twitter.com/blazewallet_io"
+                href="https://x.com/blazewallet_io"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group p-5 bg-gray-900/50 rounded-2xl border border-gray-700 hover:border-orange-500/50 hover:bg-gray-900 transition-all duration-300"

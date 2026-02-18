@@ -141,9 +141,9 @@ export default function RootLayout({
       "addressCountry": "NL"
     },
     "sameAs": [
-      "https://twitter.com/blazewallet_io",
+      "https://x.com/blazewallet_io",
       "https://github.com/blazewalletio",
-      "https://t.me/blazewallet_io"
+      "https://t.me/ai4ldMZv0KgyN2Y8"
     ],
     "contactPoint": {
       "@type": "ContactPoint",
