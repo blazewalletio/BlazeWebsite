@@ -189,6 +189,20 @@ export default function CampaignsAdminPage() {
     exclusive_bonus: 'Promotes referral bonuses and rewards',
     presale_countdown: 'Final reminder before presale',
     commitment_apology: 'Commitment users: apology email (test-send only from here)',
+    commitment_confirmation: 'Commitment users: confirmation email (sample values for test send)',
+    commitment_day2_readiness: 'Commitment users: Day 2 readiness checklist',
+    commitment_day5_why_blaze: 'Commitment users: Day 5 why BLAZE',
+    commitment_day7_security: 'Commitment users: Day 7 security tips',
+    commitment_day10_tier: 'Commitment users: Day 10 tier recap (sample values for test send)',
+    commitment_day13_payment_prep: 'Commitment users: Day 13 payment preparation',
+    commitment_day18_how_presale_works: 'Commitment users: Day 18 how presale works',
+    commitment_tminus_48h: 'Commitment users: countdown email (48 hours)',
+    commitment_tminus_24h: 'Commitment users: countdown email (24 hours)',
+    commitment_tminus_12h: 'Commitment users: countdown email (12 hours)',
+    commitment_tminus_6h: 'Commitment users: countdown email (6 hours)',
+    commitment_tminus_3h: 'Commitment users: countdown email (3 hours)',
+    commitment_tminus_1h: 'Commitment users: countdown email (1 hour)',
+    commitment_live: 'Commitment users: live launch email',
   };
 
   const commitmentCampaignDays: { sequence: number; daysAfter: number; templateKey: string; label: string }[] = [
@@ -218,6 +232,20 @@ export default function CampaignsAdminPage() {
     { value: 'exclusive_bonus', label: '🎁 Exclusive bonus' },
     { value: 'presale_countdown', label: '📅 Presale countdown' },
     { value: 'commitment_apology', label: '🙏 Commitment: Apology (test)' },
+    { value: 'commitment_confirmation', label: '✅ Commitment: Confirmation (test)' },
+    { value: 'commitment_day2_readiness', label: '🎯 Commitment: Day 2 readiness' },
+    { value: 'commitment_day5_why_blaze', label: '🔥 Commitment: Day 5 why BLAZE' },
+    { value: 'commitment_day7_security', label: '🔒 Commitment: Day 7 security' },
+    { value: 'commitment_day10_tier', label: '🏷️ Commitment: Day 10 tier recap' },
+    { value: 'commitment_day13_payment_prep', label: '💳 Commitment: Day 13 payment prep' },
+    { value: 'commitment_day18_how_presale_works', label: '🧭 Commitment: Day 18 how presale works' },
+    { value: 'commitment_tminus_48h', label: '⏳ Commitment: T-48h countdown' },
+    { value: 'commitment_tminus_24h', label: '⏳ Commitment: T-24h countdown' },
+    { value: 'commitment_tminus_12h', label: '⏳ Commitment: T-12h countdown' },
+    { value: 'commitment_tminus_6h', label: '⏳ Commitment: T-6h countdown' },
+    { value: 'commitment_tminus_3h', label: '⏳ Commitment: T-3h countdown' },
+    { value: 'commitment_tminus_1h', label: '⏳ Commitment: T-1h countdown' },
+    { value: 'commitment_live', label: '🚀 Commitment: LIVE launch' },
   ];
 
   async function sendTestEmail() {

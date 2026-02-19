@@ -7,6 +7,15 @@ import {
   sendFomoPricingEmail,
   sendExclusiveBonusEmail,
   sendPresaleCountdownEmail,
+  sendCommitmentConfirmation,
+  sendCommitmentDay2ReadinessEmail,
+  sendCommitmentDay5WhyBlazeEmail,
+  sendCommitmentDay7SecurityEmail,
+  sendCommitmentDay10TierEmail,
+  sendCommitmentDay13PaymentPrepEmail,
+  sendCommitmentDay18HowPresaleWorksEmail,
+  sendCommitmentCountdownEmail,
+  sendCommitmentLiveEmail,
   sendCommitmentApologyEmail,
 } from '@/lib/email';
 import { PRESALE_CONSTANTS } from '@/lib/presale-constants';
@@ -76,9 +85,9 @@ export async function POST(request: Request) {
     }
 
     // Safety: some templates are not intended to be broadcast to all waitlist subscribers from here.
-    if (broadcast && template === 'commitment_apology') {
+    if (broadcast && (String(template).startsWith('commitment_') || template === 'commitment_apology')) {
       return NextResponse.json(
-        { error: 'This template can only be sent as a test email. Use the commitment apology tool for broadcasts.' },
+        { error: 'Commitment templates can only be sent as a test email from here (no broadcast).' },
         { status: 400 }
       );
     }
@@ -167,6 +176,101 @@ export async function POST(request: Request) {
             const apologyResult = await sendCommitmentApologyEmail(recipient.email, presaleDate.toISOString());
             success = apologyResult.success;
             break;
+
+          case 'commitment_confirmation': {
+            // Test-sending: use representative sample values. The real confirmation is sent on intent signup.
+            const confirmationResult = await sendCommitmentConfirmation({
+              email: recipient.email,
+              amountUsd: 500,
+              estimatedTokens: 60000,
+              bonusPercentage: 10,
+              tierName: 'Founders',
+            });
+            success = confirmationResult.success;
+            break;
+          }
+
+          case 'commitment_day2_readiness': {
+            const r = await sendCommitmentDay2ReadinessEmail(recipient.email);
+            success = r.success;
+            break;
+          }
+
+          case 'commitment_day5_why_blaze': {
+            const r = await sendCommitmentDay5WhyBlazeEmail(recipient.email);
+            success = r.success;
+            break;
+          }
+
+          case 'commitment_day7_security': {
+            const r = await sendCommitmentDay7SecurityEmail(recipient.email);
+            success = r.success;
+            break;
+          }
+
+          case 'commitment_day10_tier': {
+            const r = await sendCommitmentDay10TierEmail(recipient.email, {
+              tierNumber: 1,
+              amountUsd: 500,
+              estimatedTokens: 60000,
+            });
+            success = r.success;
+            break;
+          }
+
+          case 'commitment_day13_payment_prep': {
+            const r = await sendCommitmentDay13PaymentPrepEmail(recipient.email);
+            success = r.success;
+            break;
+          }
+
+          case 'commitment_day18_how_presale_works': {
+            const r = await sendCommitmentDay18HowPresaleWorksEmail(recipient.email);
+            success = r.success;
+            break;
+          }
+
+          case 'commitment_tminus_48h': {
+            const r = await sendCommitmentCountdownEmail(recipient.email, '48 hours', 'Open BLAZE Wallet');
+            success = r.success;
+            break;
+          }
+
+          case 'commitment_tminus_24h': {
+            const r = await sendCommitmentCountdownEmail(recipient.email, '24 hours', 'Open BLAZE Wallet');
+            success = r.success;
+            break;
+          }
+
+          case 'commitment_tminus_12h': {
+            const r = await sendCommitmentCountdownEmail(recipient.email, '12 hours', 'Open BLAZE Wallet');
+            success = r.success;
+            break;
+          }
+
+          case 'commitment_tminus_6h': {
+            const r = await sendCommitmentCountdownEmail(recipient.email, '6 hours', 'Open BLAZE Wallet');
+            success = r.success;
+            break;
+          }
+
+          case 'commitment_tminus_3h': {
+            const r = await sendCommitmentCountdownEmail(recipient.email, '3 hours', 'Open BLAZE Wallet');
+            success = r.success;
+            break;
+          }
+
+          case 'commitment_tminus_1h': {
+            const r = await sendCommitmentCountdownEmail(recipient.email, '1 hour', 'Open BLAZE Wallet');
+            success = r.success;
+            break;
+          }
+
+          case 'commitment_live': {
+            const r = await sendCommitmentLiveEmail(recipient.email);
+            success = r.success;
+            break;
+          }
 
           default:
             results.push({ email: recipient.email, success: false, error: 'Unknown template' });
