@@ -50,7 +50,7 @@ export default function SupportUsPage() {
             <p className="text-base sm:text-lg text-gray-300 max-w-3xl mx-auto">
               BLAZE is built by a small team with a big mission: make crypto payments safer and genuinely usable.
               If you&apos;d like to support ongoing development, you can donate in Bitcoin, Ethereum, or Solana.
-              It&apos;s completely optional — but sincerely appreciated.
+              It&apos;s completely optional. We sincerely appreciate it.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 justify-center mt-8">

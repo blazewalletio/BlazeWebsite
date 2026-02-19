@@ -18,7 +18,7 @@ export default function SupportBlazeTeaser() {
                 </h2>
                 <p className="text-gray-600">
                   If you&apos;d like to support ongoing development, you can optionally donate in BTC, ETH, or SOL.
-                  No pressure — it&apos;s completely optional.
+                  No pressure. It&apos;s completely optional.
                 </p>
                 <div className="flex items-center gap-2 mt-4 text-sm text-gray-500">
                   <ShieldCheck className="w-4 h-4 text-emerald-600" />

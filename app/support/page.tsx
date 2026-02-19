@@ -322,7 +322,7 @@ export default function SupportPage() {
               <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Want to support BLAZE?</h2>
               <p className="text-gray-600">
                 If you&apos;d like to support ongoing development, you can optionally donate in BTC, ETH, or SOL.
-                No pressure — it&apos;s completely optional.
+                No pressure. It&apos;s completely optional.
               </p>
             </div>
             <Link href="/support-us" className="btn-brand whitespace-nowrap">
