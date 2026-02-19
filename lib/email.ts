@@ -468,6 +468,71 @@ export async function sendCommitmentLiveEmail(email: string) {
   }
 }
 
+export async function sendCommitmentApologyEmail(email: string, presaleDateIso: string) {
+  try {
+    const d = new Date(presaleDateIso);
+    const readableDate = Number.isNaN(d.getTime())
+      ? 'March 16, 2026'
+      : d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+    await resend.emails.send({
+      from: FROM_EMAIL,
+      to: email,
+      subject: 'Quick update: presale reminder emails sent by mistake',
+      html: baseTemplate(`
+        <h1>Sorry about that 🙏</h1>
+        <p>
+          We had a small issue in our email system that caused multiple presale countdown reminders to be sent
+          to some users by mistake.
+        </p>
+
+        <div class="highlight">
+          <h3>Status</h3>
+          <p class="mb-0">
+            The issue has been fixed. Your inbox should now stay calm again.
+          </p>
+        </div>
+
+        <div class="stat-box">
+          <div class="tier-badge">Presale date</div>
+          <div class="stat-number mt-16">${readableDate}</div>
+          <div class="stat-label">Still planned as scheduled</div>
+        </div>
+
+        <div class="highlight">
+          <h3>Important reminder</h3>
+          <p class="mb-0">
+            To participate when the presale opens, please make sure you have a BLAZE Wallet account ready:
+            <br>
+            <a href="https://my.blazewallet.io" target="_blank" rel="noopener noreferrer">my.blazewallet.io</a>
+          </p>
+        </div>
+
+        <p>
+          If you want real-time updates (and to double-check official links), you can also join our Telegram community.
+        </p>
+
+        <center>
+          <a href="https://my.blazewallet.io" class="btn">Open BLAZE Wallet</a>
+          <br>
+          <a href="https://t.me/ai4ldMZv0KgyN2Y8" class="btn btn-secondary mt-8">Join Telegram</a>
+        </center>
+
+        <div class="divider"></div>
+
+        <p class="text-muted">
+          Thank you for your support and patience. We&apos;re building BLAZE with care, and we appreciate you being early.
+        </p>
+      `),
+    });
+
+    return { success: true };
+  } catch (error) {
+    console.error('Failed to send commitment apology email:', error);
+    return { success: false, error };
+  }
+}
+
 // =====================================================
 // DRIP CAMPAIGN EMAILS
 // =====================================================

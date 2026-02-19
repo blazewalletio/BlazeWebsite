@@ -30,6 +30,8 @@ export default function CommitmentsPage() {
   });
   const [sendingBulk, setSendingBulk] = useState(false);
   const [bulkResult, setBulkResult] = useState<{ sent: number; failed: number } | null>(null);
+  const [sendingApology, setSendingApology] = useState(false);
+  const [apologyResult, setApologyResult] = useState<{ sent: number; failed: number; total: number } | null>(null);
 
   const supabase = createClient();
 
@@ -127,6 +129,34 @@ export default function CommitmentsPage() {
     setBulkResult({ sent, failed });
     setSendingBulk(false);
     fetchCommitments();
+  }
+
+  async function sendApologyBlast() {
+    const ok = window.confirm(
+      'Send an apology email to commitment users who received countdown emails recently? This is a broadcast action.'
+    );
+    if (!ok) return;
+
+    setSendingApology(true);
+    setApologyResult(null);
+    try {
+      const res = await fetch('/api/email/commitment-apology', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sinceHours: 72 }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data?.success) {
+        console.error('Failed to send apology blast:', data?.error || data);
+        setSendingApology(false);
+        return;
+      }
+      setApologyResult({ sent: data.sent || 0, failed: data.failed || 0, total: data.total || 0 });
+    } catch (err) {
+      console.error('Error sending apology blast:', err);
+    } finally {
+      setSendingApology(false);
+    }
   }
 
   function exportCSV() {
@@ -240,6 +270,19 @@ export default function CommitmentsPage() {
                 Send reminders
               </button>
               <button
+                onClick={sendApologyBlast}
+                disabled={sendingApology}
+                className="flex items-center gap-2 px-4 py-3 bg-white text-gray-700 rounded-xl border border-gray-200 hover:bg-gray-50 transition-colors disabled:opacity-50"
+                title="Send apology email to affected commitment users"
+              >
+                {sendingApology ? (
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                ) : (
+                  <Mail className="w-5 h-5" />
+                )}
+                Apology email
+              </button>
+              <button
                 onClick={fetchCommitments}
                 className="flex items-center gap-2 px-4 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors"
               >
@@ -261,6 +304,16 @@ export default function CommitmentsPage() {
               <p className={bulkResult.failed > 0 ? 'text-yellow-700' : 'text-emerald-700'}>
                 ✅ Sent {bulkResult.sent} reminder emails
                 {bulkResult.failed > 0 && ` | ⚠️ ${bulkResult.failed} failed`}
+              </p>
+            </div>
+          )}
+
+          {apologyResult && (
+            <div className={`p-4 rounded-xl mb-6 ${apologyResult.failed > 0 ? 'bg-yellow-50 border border-yellow-200' : 'bg-emerald-50 border border-emerald-200'}`}>
+              <p className={apologyResult.failed > 0 ? 'text-yellow-700' : 'text-emerald-700'}>
+                ✅ Sent {apologyResult.sent} apology emails
+                {apologyResult.failed > 0 && ` | ⚠️ ${apologyResult.failed} failed`}
+                {` | Total: ${apologyResult.total}`}
               </p>
             </div>
           )}
