@@ -1,6 +1,9 @@
 // BLAZE Wallet Knowledge Base for AI Assistant
+//
+// Important: presale pricing/bonuses/dates can change and are managed in the admin.
+// The /api/chat route builds a dynamic system prompt that injects the current presale details.
 
-export const BLAZE_SYSTEM_PROMPT = `You are BLAZE Assistant, a friendly and knowledgeable AI helper for BLAZE Wallet - an AI-powered crypto wallet for everyday payments.
+export const BLAZE_SYSTEM_PROMPT_BASE = `You are BLAZE Assistant, a friendly and knowledgeable AI helper for BLAZE Wallet - an AI-powered crypto wallet for everyday payments.
 
 ## Your Personality
 - Friendly, helpful, and professional
@@ -37,17 +40,6 @@ BLAZE Wallet is an AI-powered, non-custodial crypto wallet that makes managing d
 - **Onramper**: Buy crypto with fiat (credit card, bank transfer)
 - **MoonPay**: Additional fiat on-ramp option
 
-### Presale & Token
-- **Presale**: Q1 2026 (February 1, 2026)
-- **Presale price**: $0.008333 per BLAZE token (58% off launch price)
-- **Launch price**: $0.02 per BLAZE token
-- **Bonus tiers**: Founders +100% (2x tokens!), Early Birds +75%, Pioneers +50%, Adopters +30%, Supporters +15%
-- **Presale allocation**: 120M BLAZE tokens (12% of supply)
-- **Total supply**: 1 billion BLAZE tokens
-- **Hard cap**: $1,000,000 | **Soft cap**: $200,000
-- **Min investment**: $100 | **Max investment**: $10,000 per wallet
-- **Referral program**: Users get unique referral codes. Top referrers get up to 100,000 bonus tokens!
-
 ### Roadmap
 - Q2 2025: Foundation & planning
 - Q3 2025: AI features, QuickPay, Li.Fi & Onramper integration
@@ -68,7 +60,7 @@ BLAZE Wallet is an AI-powered, non-custodial crypto wallet that makes managing d
 
 1. **Stay on topic**: Only answer questions about BLAZE Wallet, crypto basics, or related topics. For unrelated questions, politely redirect.
 
-2. **Be accurate**: Use the information above. Don't make up features or dates.
+2. **Be accurate**: Use the information above and the dynamic presale details (if provided). Don't make up numbers or dates.
 
 3. **Encourage action**: When relevant, encourage users to:
    - Join the waitlist for presale notifications
@@ -91,6 +83,69 @@ User: "What's the weather today?"
 You: "I'm here to help with BLAZE Wallet questions! For weather info, I'd recommend checking a weather app. Is there anything about BLAZE Wallet I can help you with? 😊"
 
 Remember: Be helpful, accurate, and represent BLAZE Wallet professionally!`;
+
+export type PricingTierForChat = {
+  tier_number: number;
+  tier_name: string;
+  min_buyers: number;
+  max_buyers: number;
+  price_usd: number;
+  bonus_percentage: number;
+  is_active: boolean;
+};
+
+function fmtUsdPrice(n: number) {
+  // Prices like 0.00417 shouldn't be rounded to 4 decimals (would become 0.0042).
+  // Use 5 decimals when needed.
+  if (!Number.isFinite(n)) return '';
+  const fixed = n < 0.01 ? n.toFixed(5) : n.toFixed(4);
+  return fixed.replace(/0+$/, '').replace(/\.$/, '');
+}
+
+export function buildBlazeSystemPrompt(opts: {
+  presaleDateIso?: string | null;
+  buyerCount?: number | null;
+  pricingTiers?: PricingTierForChat[] | null;
+}) {
+  const presaleDateIso = opts.presaleDateIso || null;
+  const buyerCount = typeof opts.buyerCount === 'number' ? opts.buyerCount : null;
+  const tiers = opts.pricingTiers || [];
+
+  const presaleLines: string[] = [];
+  presaleLines.push('### Presale & Token');
+
+  if (presaleDateIso) {
+    presaleLines.push(`- **Presale date**: ${presaleDateIso} (ISO)`);
+  } else {
+    presaleLines.push(`- **Presale date**: Not configured`);
+  }
+
+  if (buyerCount !== null) {
+    presaleLines.push(`- **Confirmed buyers so far**: ${buyerCount}`);
+  }
+
+  if (tiers.length > 0) {
+    const activeTiers = tiers.filter((t) => t.is_active);
+    const tierList = (activeTiers.length > 0 ? activeTiers : tiers)
+      .slice(0, 10)
+      .map((t) => {
+        const price = fmtUsdPrice(Number(t.price_usd));
+        const bonus = Number(t.bonus_percentage) || 0;
+        const range = `${t.min_buyers}-${t.max_buyers}`;
+        return `  - Tier ${t.tier_number} (${t.tier_name}, buyers ${range}): $${price} +${bonus}% bonus tokens`;
+      });
+
+    presaleLines.push('- **Pricing tiers (price + bonus)**:');
+    presaleLines.push(...tierList);
+  } else {
+    presaleLines.push('- **Pricing tiers**: Not available');
+  }
+
+  presaleLines.push('- **Contribution limits**: Min $100 | Max $10,000 per wallet (website enforced)');
+
+  // Keep the base prompt stable and inject current presale details as an appendix.
+  return `${BLAZE_SYSTEM_PROMPT_BASE}\n\n${presaleLines.join('\n')}`;
+}
 
 export const QUICK_QUESTIONS = [
   "What is QuickPay?",

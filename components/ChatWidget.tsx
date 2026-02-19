@@ -325,14 +325,16 @@ export default function ChatWidget() {
                       <div className={`px-4 py-3 rounded-2xl text-sm ${
                         message.role === 'user'
                           ? 'bg-gradient-to-br from-orange-500 to-yellow-500 text-white rounded-tr-sm'
-                          : 'bg-white border border-gray-200 text-gray-700 rounded-tl-sm'
+                          : 'bg-white border border-gray-200 text-gray-800 rounded-tl-sm'
                       }`}>
+                        <span className="whitespace-pre-wrap break-words">
                         {message.content || (
                           <div className="flex items-center gap-2">
                             <Loader2 className="w-4 h-4 animate-spin" />
                             <span className="text-gray-400">Thinking...</span>
                           </div>
                         )}
+                        </span>
                       </div>
                       
                       {/* Message actions */}

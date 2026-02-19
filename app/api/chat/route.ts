@@ -1,6 +1,7 @@
 import OpenAI from 'openai';
 import { NextRequest, NextResponse } from 'next/server';
-import { BLAZE_SYSTEM_PROMPT } from '@/lib/chat-context';
+import { buildBlazeSystemPrompt, type PricingTierForChat } from '@/lib/chat-context';
+import { createClient as createSupabaseClient } from '@supabase/supabase-js';
 
 // Lazy initialization to avoid build errors
 let openai: OpenAI | null = null;
@@ -15,6 +16,50 @@ function getOpenAI(): OpenAI {
     });
   }
   return openai;
+}
+
+function createServiceRoleClient() {
+  return createSupabaseClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
+}
+
+function parsePresaleDateFromSettings(value: unknown) {
+  if (typeof value !== 'string') return null;
+  let raw = value;
+  try {
+    const parsed = JSON.parse(value);
+    if (typeof parsed === 'string') raw = parsed;
+  } catch {
+    // ignore
+  }
+  const d = new Date(raw);
+  if (Number.isNaN(d.getTime())) return null;
+  return d.toISOString();
+}
+
+async function getChatDynamicContext() {
+  try {
+    const supabase = createServiceRoleClient();
+
+    const [{ data: settingsRow }, { data: tiers }, { count: buyerCount }] = await Promise.all([
+      supabase.from('site_settings').select('value').eq('key', 'presale_date').maybeSingle(),
+      supabase.from('pricing_tiers').select('*').order('tier_number'),
+      supabase
+        .from('presale_buyers')
+        .select('*', { count: 'exact', head: true })
+        .in('status', ['confirmed', 'completed']),
+    ]);
+
+    return {
+      presaleDateIso: parsePresaleDateFromSettings(settingsRow?.value),
+      pricingTiers: (tiers || []) as PricingTierForChat[],
+      buyerCount: buyerCount ?? null,
+    };
+  } catch {
+    return { presaleDateIso: null, pricingTiers: null, buyerCount: null };
+  }
 }
 
 // Rate limiting map (in production, use Redis or similar)
@@ -67,11 +112,14 @@ export async function POST(request: NextRequest) {
     // Limit conversation history to last 10 messages
     const recentMessages = messages.slice(-10);
 
+    const dynamicContext = await getChatDynamicContext();
+    const systemPrompt = buildBlazeSystemPrompt(dynamicContext);
+
     // Create completion with streaming
     const response = await getOpenAI().chat.completions.create({
       model: 'gpt-4o-mini',
       messages: [
-        { role: 'system', content: BLAZE_SYSTEM_PROMPT },
+        { role: 'system', content: systemPrompt },
         ...recentMessages,
       ],
       max_tokens: 500,
