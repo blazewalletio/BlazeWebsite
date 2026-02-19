@@ -51,10 +51,11 @@ export default function Footer() {
 
   const links = {
     product: [
-      { label: 'Features', href: '#features' },
-      { label: 'How it works', href: '#demo' },
-      { label: 'Tokenomics', href: '#tokenomics' },
-      { label: 'FAQ', href: '#faq' },
+      // Use absolute hash links so they work from any page, not only the homepage.
+      { label: 'Features', href: '/#features' },
+      { label: 'How it works', href: '/#demo' },
+      { label: 'Tokenomics', href: '/#tokenomics' },
+      { label: 'FAQ', href: '/#faq' },
       { label: 'Launch app', href: 'https://my.blazewallet.io', external: true },
     ],
     resources: [

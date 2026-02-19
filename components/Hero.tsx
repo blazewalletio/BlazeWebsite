@@ -167,10 +167,10 @@ export default function Hero() {
                       {/* Screen Content */}
                       <div className="absolute inset-0">
                         <Image
-                          src="/blaze_screen.png"
+                          src="/walletblaze.png"
                           alt="BLAZE Wallet App"
                           fill
-                          className="object-cover object-top"
+                          className="object-cover object-center"
                           priority
                           sizes="280px"
                           loading="eager"
