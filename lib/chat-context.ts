@@ -84,72 +84,135 @@ You: "I'm here to help with BLAZE Wallet questions! For weather info, I'd recomm
 
 Remember: Be helpful, accurate, and represent BLAZE Wallet professionally!`;
 
-export type PricingTierForChat = {
-  tier_number: number;
-  tier_name: string;
-  min_buyers: number;
-  max_buyers: number;
-  price_usd: number;
-  bonus_percentage: number;
-  is_active: boolean;
+export type ChatDynamicContext = {
+  presaleDateIso?: string | null;
+  buyerCount?: number | null;
+  presalePriceUsd?: number | null;
+  launchPriceUsd?: number | null;
+  presaleDiscountPct?: number | null;
+  bonusTiers?: Array<{
+    tier_number: number;
+    tier_name: string;
+    min_buyers: number;
+    max_buyers: number;
+    bonus_percentage: number;
+  }> | null;
+  minContributionUsd?: number | null;
+  maxContributionUsd?: number | null;
+  donation?: {
+    btcAddress?: string | null;
+    ethAddress?: string | null;
+    solAddress?: string | null;
+  } | null;
 };
 
 function fmtUsdPrice(n: number) {
-  // Prices like 0.00417 shouldn't be rounded to 4 decimals (would become 0.0042).
-  // Use 5 decimals when needed.
   if (!Number.isFinite(n)) return '';
-  const fixed = n < 0.01 ? n.toFixed(5) : n.toFixed(4);
+  // Token prices often need more precision than fiat prices.
+  const fixed = n < 0.01 ? n.toFixed(6) : n.toFixed(4);
   return fixed.replace(/0+$/, '').replace(/\.$/, '');
 }
 
-export function buildBlazeSystemPrompt(opts: {
-  presaleDateIso?: string | null;
-  buyerCount?: number | null;
-  pricingTiers?: PricingTierForChat[] | null;
-}) {
-  const presaleDateIso = opts.presaleDateIso || null;
-  const buyerCount = typeof opts.buyerCount === 'number' ? opts.buyerCount : null;
-  const tiers = opts.pricingTiers || [];
+function fmtIsoToUtcHuman(iso: string) {
+  try {
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return iso;
+    return d.toUTCString().replace('GMT', 'UTC');
+  } catch {
+    return iso;
+  }
+}
+
+function getCurrentBonusTier(buyerCount: number, tiers: NonNullable<ChatDynamicContext['bonusTiers']>) {
+  return (
+    tiers.find((t) => buyerCount >= t.min_buyers - 1 && buyerCount < t.max_buyers) ||
+    tiers[0] ||
+    null
+  );
+}
+
+export function buildBlazeSystemPrompt(ctx: ChatDynamicContext) {
+  const presaleDateIso = ctx.presaleDateIso || null;
+  const buyerCount = typeof ctx.buyerCount === 'number' ? ctx.buyerCount : null;
+  const presalePriceUsd = typeof ctx.presalePriceUsd === 'number' ? ctx.presalePriceUsd : null;
+  const launchPriceUsd = typeof ctx.launchPriceUsd === 'number' ? ctx.launchPriceUsd : null;
+  const presaleDiscountPct = typeof ctx.presaleDiscountPct === 'number' ? ctx.presaleDiscountPct : null;
+  const bonusTiers = ctx.bonusTiers || [];
+  const minContributionUsd = typeof ctx.minContributionUsd === 'number' ? ctx.minContributionUsd : 100;
+  const maxContributionUsd = typeof ctx.maxContributionUsd === 'number' ? ctx.maxContributionUsd : 10_000;
 
   const presaleLines: string[] = [];
-  presaleLines.push('### Presale & Token');
+  presaleLines.push('### Presale (Website-accurate)');
+  presaleLines.push('- Registering a presale intent is **not a payment**. It reserves your spot and you receive instructions at launch.');
+  presaleLines.push(`- Intent limits: **$${minContributionUsd} min** and **$${maxContributionUsd.toLocaleString()} max** per wallet.`);
+  presaleLines.push('- Best link to register: https://www.blazewallet.io/presale#commitment');
 
   if (presaleDateIso) {
-    presaleLines.push(`- **Presale date**: ${presaleDateIso} (ISO)`);
+    presaleLines.push(`- Presale date/time (UTC): ${fmtIsoToUtcHuman(presaleDateIso)}`);
   } else {
-    presaleLines.push(`- **Presale date**: Not configured`);
+    presaleLines.push(`- Presale date/time: Not configured in admin settings`);
+  }
+
+  if (presalePriceUsd !== null) {
+    presaleLines.push(`- Presale price: $${fmtUsdPrice(presalePriceUsd)} per token`);
+  }
+  if (launchPriceUsd !== null) {
+    presaleLines.push(`- Launch price: $${fmtUsdPrice(launchPriceUsd)} per token`);
+  }
+  if (presaleDiscountPct !== null) {
+    presaleLines.push(`- Discount vs launch: ${presaleDiscountPct}%`);
   }
 
   if (buyerCount !== null) {
-    presaleLines.push(`- **Confirmed buyers so far**: ${buyerCount}`);
+    presaleLines.push(`- Confirmed buyers so far: ${buyerCount}`);
   }
 
-  if (tiers.length > 0) {
-    const activeTiers = tiers.filter((t) => t.is_active);
-    const tierList = (activeTiers.length > 0 ? activeTiers : tiers)
-      .slice(0, 10)
-      .map((t) => {
-        const price = fmtUsdPrice(Number(t.price_usd));
-        const bonus = Number(t.bonus_percentage) || 0;
-        const range = `${t.min_buyers}-${t.max_buyers}`;
-        return `  - Tier ${t.tier_number} (${t.tier_name}, buyers ${range}): $${price} +${bonus}% bonus tokens`;
-      });
-
-    presaleLines.push('- **Pricing tiers (price + bonus)**:');
-    presaleLines.push(...tierList);
-  } else {
-    presaleLines.push('- **Pricing tiers**: Not available');
+  if (bonusTiers.length > 0) {
+    presaleLines.push('- Bonus tiers (extra tokens):');
+    for (const t of bonusTiers.slice(0, 12)) {
+      presaleLines.push(
+        `  - ${t.tier_name} (buyers ${t.min_buyers}-${t.max_buyers}): +${t.bonus_percentage}%`
+      );
+    }
+    if (buyerCount !== null) {
+      const currentTier = getCurrentBonusTier(buyerCount, bonusTiers);
+      if (currentTier) {
+        const spotsRemaining = Math.max(0, currentTier.max_buyers - buyerCount);
+        presaleLines.push(
+          `- Current tier (by buyer count): ${currentTier.tier_name} (+${currentTier.bonus_percentage}%), spots remaining approx: ${spotsRemaining}`
+        );
+      }
+    }
   }
 
-  presaleLines.push('- **Contribution limits**: Min $100 | Max $10,000 per wallet (website enforced)');
+  presaleLines.push('- Participation: the presale is executed through your BLAZE Wallet account (my.blazewallet.io).');
+  presaleLines.push('- At launch you can purchase using ETH, BTC, USDT, and via BSC (as communicated in our presale emails).');
+  presaleLines.push('- Official updates: Telegram https://t.me/ai4ldMZv0KgyN2Y8 and X https://x.com/blazewallet_io');
 
-  // Keep the base prompt stable and inject current presale details as an appendix.
-  return `${BLAZE_SYSTEM_PROMPT_BASE}\n\n${presaleLines.join('\n')}`;
+  const supportLines: string[] = [];
+  supportLines.push('### Support BLAZE (Optional donations)');
+  supportLines.push('- Page: https://www.blazewallet.io/support-us');
+  if (ctx.donation?.btcAddress) supportLines.push(`- BTC address: ${ctx.donation.btcAddress}`);
+  if (ctx.donation?.ethAddress) supportLines.push(`- ETH address: ${ctx.donation.ethAddress}`);
+  if (ctx.donation?.solAddress) supportLines.push(`- SOL address: ${ctx.donation.solAddress}`);
+  supportLines.push('- Donations are optional and voluntary. Always double-check the address and network.');
+  supportLines.push('- Support/contact page: https://www.blazewallet.io/support');
+
+  const conversionLines: string[] = [];
+  conversionLines.push('### Conversion guidelines');
+  conversionLines.push('- If a user asks anything presale-related, guide them to register intent at /presale#commitment.');
+  conversionLines.push('- If they show high intent, remind them: create/sign into account at my.blazewallet.io and join Telegram for updates.');
+  conversionLines.push('- Keep answers accurate; if unsure, suggest contacting info@blazewallet.io.');
+
+  return `${BLAZE_SYSTEM_PROMPT_BASE}\n\n${presaleLines.join('\n')}\n\n${supportLines.join('\n')}\n\n${conversionLines.join('\n')}`;
 }
 
 export const QUICK_QUESTIONS = [
   "What is QuickPay?",
   "When is the presale?",
+  "How do I register a presale intent?",
+  "What are the bonus tiers?",
+  "How can I support BLAZE?",
   "Is BLAZE Wallet safe?",
   "Which blockchains are supported?",
 ];

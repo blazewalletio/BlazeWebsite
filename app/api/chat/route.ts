@@ -1,7 +1,8 @@
 import OpenAI from 'openai';
 import { NextRequest, NextResponse } from 'next/server';
-import { buildBlazeSystemPrompt, type PricingTierForChat } from '@/lib/chat-context';
+import { buildBlazeSystemPrompt, type ChatDynamicContext } from '@/lib/chat-context';
 import { createClient as createSupabaseClient } from '@supabase/supabase-js';
+import { BONUS_TIERS, PRESALE_CONSTANTS } from '@/lib/presale-constants';
 
 // Lazy initialization to avoid build errors
 let openai: OpenAI | null = null;
@@ -43,22 +44,66 @@ async function getChatDynamicContext() {
   try {
     const supabase = createServiceRoleClient();
 
-    const [{ data: settingsRow }, { data: tiers }, { count: buyerCount }] = await Promise.all([
+    const [{ data: settingsRow }, { count: buyerCount }] = await Promise.all([
       supabase.from('site_settings').select('value').eq('key', 'presale_date').maybeSingle(),
-      supabase.from('pricing_tiers').select('*').order('tier_number'),
       supabase
         .from('presale_buyers')
         .select('*', { count: 'exact', head: true })
         .in('status', ['confirmed', 'completed']),
     ]);
 
-    return {
-      presaleDateIso: parsePresaleDateFromSettings(settingsRow?.value),
-      pricingTiers: (tiers || []) as PricingTierForChat[],
-      buyerCount: buyerCount ?? null,
+    const donation = {
+      btcAddress:
+        process.env.NEXT_PUBLIC_DONATION_BTC_ADDRESS || 'bc1qj256llkdxgg7ersgx3mxjwz3mgdth8jcrmk6gm',
+      ethAddress:
+        process.env.NEXT_PUBLIC_DONATION_ETH_ADDRESS || '0x3e1F7a94bB62b76CC52CE075b627c2730C2e0124',
+      solAddress:
+        process.env.NEXT_PUBLIC_DONATION_SOL_ADDRESS || 'Cx5XppzCtAVDUmmJggayZGfNTy97X3FfYcyiW9g8N1eo',
     };
+
+    const ctx: ChatDynamicContext = {
+      presaleDateIso: parsePresaleDateFromSettings(settingsRow?.value),
+      buyerCount: buyerCount ?? null,
+      presalePriceUsd: PRESALE_CONSTANTS.presalePrice,
+      launchPriceUsd: PRESALE_CONSTANTS.launchPrice,
+      presaleDiscountPct: PRESALE_CONSTANTS.presaleDiscount,
+      bonusTiers: BONUS_TIERS.map((t) => ({
+        tier_number: t.tier_number,
+        tier_name: t.tier_name,
+        min_buyers: t.min_buyers,
+        max_buyers: t.max_buyers,
+        bonus_percentage: t.bonus_percentage,
+      })),
+      minContributionUsd: PRESALE_CONSTANTS.minContribution,
+      maxContributionUsd: PRESALE_CONSTANTS.maxContribution,
+      donation,
+    };
+    return ctx;
   } catch {
-    return { presaleDateIso: null, pricingTiers: null, buyerCount: null };
+    return {
+      presaleDateIso: null,
+      buyerCount: null,
+      presalePriceUsd: PRESALE_CONSTANTS.presalePrice,
+      launchPriceUsd: PRESALE_CONSTANTS.launchPrice,
+      presaleDiscountPct: PRESALE_CONSTANTS.presaleDiscount,
+      bonusTiers: BONUS_TIERS.map((t) => ({
+        tier_number: t.tier_number,
+        tier_name: t.tier_name,
+        min_buyers: t.min_buyers,
+        max_buyers: t.max_buyers,
+        bonus_percentage: t.bonus_percentage,
+      })),
+      minContributionUsd: PRESALE_CONSTANTS.minContribution,
+      maxContributionUsd: PRESALE_CONSTANTS.maxContribution,
+      donation: {
+        btcAddress:
+          process.env.NEXT_PUBLIC_DONATION_BTC_ADDRESS || 'bc1qj256llkdxgg7ersgx3mxjwz3mgdth8jcrmk6gm',
+        ethAddress:
+          process.env.NEXT_PUBLIC_DONATION_ETH_ADDRESS || '0x3e1F7a94bB62b76CC52CE075b627c2730C2e0124',
+        solAddress:
+          process.env.NEXT_PUBLIC_DONATION_SOL_ADDRESS || 'Cx5XppzCtAVDUmmJggayZGfNTy97X3FfYcyiW9g8N1eo',
+      },
+    } satisfies ChatDynamicContext;
   }
 }
 
