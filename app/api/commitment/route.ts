@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { createClient as createSupabaseClient } from '@supabase/supabase-js';
 import {
   sendCommitmentConfirmation,
@@ -27,14 +27,14 @@ function generateReferralCode(): string {
   return code;
 }
 
-function getCountryCodeFromHeaders(headers: Headers): string | null {
-  const raw =
-    (headers.get('x-vercel-ip-country') ||
-      headers.get('cf-ipcountry') ||
-      '')!
-      .toString()
-      .trim()
-      .toUpperCase();
+function getCountryCode(request: NextRequest): string | null {
+  const header =
+    request.headers.get('x-vercel-ip-country') ||
+    request.headers.get('cf-ipcountry') ||
+    null;
+  const geoCountry = (request as any)?.geo?.country ?? null;
+
+  const raw = (geoCountry || header || '').toString().trim().toUpperCase();
 
   if (!raw || raw === 'XX' || raw === 'T1') return null;
   if (!/^[A-Z]{2}$/.test(raw)) return null;
@@ -42,7 +42,7 @@ function getCountryCodeFromHeaders(headers: Headers): string | null {
 }
 
 // GET: Fetch user's commitment
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const email = searchParams.get('email');
@@ -73,7 +73,7 @@ export async function GET(request: Request) {
 }
 
 // POST: Create or update commitment
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { email, intendedAmountUsd, notes } = body;
@@ -107,7 +107,7 @@ export async function POST(request: Request) {
       headers.get('x-real-ip') ||
       null;
     const userAgent = headers.get('user-agent') || null;
-    const countryCode = getCountryCodeFromHeaders(headers);
+    const countryCode = getCountryCode(request);
 
     // Get current commitment count to determine tier
     const { count: commitmentCount } = await supabase
