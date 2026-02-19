@@ -144,11 +144,16 @@ export default function AdminWaitlist() {
     if (!ok) return;
 
     setBackfilling(true);
-    setBackfillMsg(null);
+    setBackfillMsg('Backfill started...');
     try {
+      const { data: sessionData } = await supabase.auth.getSession();
+      const accessToken = sessionData?.session?.access_token || null;
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+      if (accessToken) headers['Authorization'] = `Bearer ${accessToken}`;
+
       const res = await fetch('/api/admin/backfill-country', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify({ target: 'waitlist', limit: 200 }),
       });
       const data = await res.json();

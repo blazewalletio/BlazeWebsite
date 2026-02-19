@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createAdminClient, createClient } from '@/lib/supabase/server';
 import { lookupCountryCodeFromIp } from '@/lib/geo/ip-country';
+import { createClient as createSupabaseJsClient } from '@supabase/supabase-js';
 
 type BackfillTarget = 'waitlist' | 'commitments';
 
@@ -10,10 +11,27 @@ function jsonError(message: string, status = 400) {
 
 export async function POST(request: Request) {
   try {
-    // Require an authenticated admin user session (same auth model as other admin pages).
-    const authClient = createClient();
-    const { data: authData } = await authClient.auth.getUser();
-    if (!authData?.user) return jsonError('Unauthorized', 401);
+    // Require an authenticated user session.
+    // Primary: Bearer token from the admin UI (works even if cookie-refresh middleware isn't set up).
+    // Fallback: cookie-based session (works when @supabase/ssr cookies are present).
+    const authHeader = request.headers.get('authorization') || '';
+    const bearer = authHeader.toLowerCase().startsWith('bearer ') ? authHeader.slice(7).trim() : null;
+
+    let hasValidUser = false;
+    if (bearer) {
+      const supabaseAuth = createSupabaseJsClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+      );
+      const { data } = await supabaseAuth.auth.getUser(bearer);
+      hasValidUser = Boolean(data?.user);
+    } else {
+      const authClient = createClient();
+      const { data: authData } = await authClient.auth.getUser();
+      hasValidUser = Boolean(authData?.user);
+    }
+
+    if (!hasValidUser) return jsonError('Unauthorized', 401);
 
     const body = await request.json().catch(() => ({}));
     const target = String(body?.target || '') as BackfillTarget;
