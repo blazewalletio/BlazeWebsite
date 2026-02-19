@@ -7,8 +7,23 @@ import {
   sendFomoPricingEmail,
   sendExclusiveBonusEmail,
   sendPresaleCountdownEmail,
+  sendCommitmentApologyEmail,
 } from '@/lib/email';
 import { PRESALE_CONSTANTS } from '@/lib/presale-constants';
+
+function parsePresaleDateFromSettings(value: unknown) {
+  if (typeof value !== 'string') return null;
+  let raw = value;
+  try {
+    const parsed = JSON.parse(value);
+    if (typeof parsed === 'string') raw = parsed;
+  } catch {
+    // ignore
+  }
+  const d = new Date(raw);
+  if (Number.isNaN(d.getTime())) return null;
+  return d;
+}
 
 // POST: Send a specific email to a specific address or broadcast to all
 export async function POST(request: Request) {
@@ -60,6 +75,14 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'No recipients found' }, { status: 400 });
     }
 
+    // Safety: some templates are not intended to be broadcast to all waitlist subscribers from here.
+    if (broadcast && template === 'commitment_apology') {
+      return NextResponse.json(
+        { error: 'This template can only be sent as a test email. Use the commitment apology tool for broadcasts.' },
+        { status: 400 }
+      );
+    }
+
     // Get data for emails
     const { count: waitlistCount } = await supabase
       .from('waitlist')
@@ -73,6 +96,14 @@ export async function POST(request: Request) {
       .limit(1);
 
     const currentTier = tierData?.[0];
+
+    const { data: settingsRow } = await supabase
+      .from('site_settings')
+      .select('value')
+      .eq('key', 'presale_date')
+      .maybeSingle();
+    const presaleDate =
+      parsePresaleDateFromSettings(settingsRow?.value) || new Date('2026-03-16T12:00:00Z');
 
     // Send emails
     for (const recipient of recipients) {
@@ -130,6 +161,11 @@ export async function POST(request: Request) {
               daysUntil
             );
             success = countdownResult.success;
+            break;
+
+          case 'commitment_apology':
+            const apologyResult = await sendCommitmentApologyEmail(recipient.email, presaleDate.toISOString());
+            success = apologyResult.success;
             break;
 
           default:

@@ -125,6 +125,7 @@ export default function CampaignsAdminPage() {
     fomo_pricing: 'Highlights tiered pricing urgency',
     exclusive_bonus: 'Promotes referral bonuses and rewards',
     presale_countdown: 'Final reminder before presale',
+    commitment_apology: 'Commitment users: apology email (test-send only from here)',
   };
 
   const templateOptions = [
@@ -134,6 +135,7 @@ export default function CampaignsAdminPage() {
     { value: 'fomo_pricing', label: '⏰ FOMO pricing' },
     { value: 'exclusive_bonus', label: '🎁 Exclusive bonus' },
     { value: 'presale_countdown', label: '📅 Presale countdown' },
+    { value: 'commitment_apology', label: '🙏 Commitment: Apology (test)' },
   ];
 
   async function sendTestEmail() {
