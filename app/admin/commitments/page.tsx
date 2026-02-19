@@ -33,6 +33,8 @@ export default function CommitmentsPage() {
   const [bulkResult, setBulkResult] = useState<{ sent: number; failed: number } | null>(null);
   const [sendingApology, setSendingApology] = useState(false);
   const [apologyResult, setApologyResult] = useState<{ sent: number; failed: number; total: number } | null>(null);
+  const [backfilling, setBackfilling] = useState(false);
+  const [backfillMsg, setBackfillMsg] = useState<string | null>(null);
 
   const supabase = createClient();
 
@@ -160,6 +162,34 @@ export default function CommitmentsPage() {
     }
   }
 
+  async function backfillCountries() {
+    const ok = window.confirm(
+      'Backfill missing country codes for existing commitments?\n\nThis will use the linked waitlist IP (if available).'
+    );
+    if (!ok) return;
+
+    setBackfilling(true);
+    setBackfillMsg(null);
+    try {
+      const res = await fetch('/api/admin/backfill-country', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ target: 'commitments', limit: 200 }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data?.success) {
+        setBackfillMsg(data?.error || 'Backfill failed');
+      } else {
+        setBackfillMsg(`Backfilled: ${data.updated} updated, ${data.skipped} skipped`);
+        await fetchCommitments();
+      }
+    } catch (e: any) {
+      setBackfillMsg(e?.message || 'Backfill failed');
+    } finally {
+      setBackfilling(false);
+    }
+  }
+
   function exportCSV() {
     const headers = ['Email', 'Country', 'Amount USD', 'Est. Tokens', 'Tier', 'Converted', 'Created At'];
     const rows = commitments.map(c => [
@@ -260,6 +290,15 @@ export default function CommitmentsPage() {
             </div>
             <div className="flex gap-2">
               <button
+                onClick={backfillCountries}
+                disabled={backfilling}
+                className="flex items-center gap-2 px-4 py-3 bg-gray-900 text-white rounded-xl hover:bg-gray-800 transition-colors disabled:opacity-50"
+                title="Fill missing country codes for existing commitments"
+              >
+                {backfilling ? <Loader2 className="w-5 h-5 animate-spin" /> : <RefreshCw className="w-5 h-5" />}
+                Backfill
+              </button>
+              <button
                 onClick={sendBulkReminders}
                 disabled={sendingBulk}
                 className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-yellow-500 text-white rounded-xl hover:from-orange-600 hover:to-yellow-600 transition-all disabled:opacity-50"
@@ -317,6 +356,12 @@ export default function CommitmentsPage() {
                 {apologyResult.failed > 0 && ` | ⚠️ ${apologyResult.failed} failed`}
                 {` | Total: ${apologyResult.total}`}
               </p>
+            </div>
+          )}
+
+          {backfillMsg && (
+            <div className="p-4 rounded-xl mb-6 bg-white border border-gray-200 text-gray-700">
+              {backfillMsg}
             </div>
           )}
 

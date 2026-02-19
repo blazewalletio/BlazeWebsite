@@ -32,6 +32,8 @@ export default function AdminWaitlist() {
   const [total, setTotal] = useState(0);
   const [user, setUser] = useState<any>(null);
   const [deleting, setDeleting] = useState(false);
+  const [backfilling, setBackfilling] = useState(false);
+  const [backfillMsg, setBackfillMsg] = useState<string | null>(null);
   
   const pageSize = 20;
   const router = useRouter();
@@ -135,6 +137,34 @@ export default function AdminWaitlist() {
     URL.revokeObjectURL(url);
   };
 
+  const handleBackfillCountries = async () => {
+    const ok = confirm(
+      'Backfill missing country codes for existing waitlist signups?\n\nThis will look up country by stored IP address for rows where country is empty.'
+    );
+    if (!ok) return;
+
+    setBackfilling(true);
+    setBackfillMsg(null);
+    try {
+      const res = await fetch('/api/admin/backfill-country', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ target: 'waitlist', limit: 200 }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data?.success) {
+        setBackfillMsg(data?.error || 'Backfill failed');
+      } else {
+        setBackfillMsg(`Backfilled: ${data.updated} updated, ${data.skipped} skipped`);
+        await loadData();
+      }
+    } catch (e: any) {
+      setBackfillMsg(e?.message || 'Backfill failed');
+    } finally {
+      setBackfilling(false);
+    }
+  };
+
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       month: 'short',
@@ -167,14 +197,30 @@ export default function AdminWaitlist() {
               <h1 className="text-2xl lg:text-3xl font-bold text-gray-900">Waitlist</h1>
               <p className="text-gray-500 mt-1">{total.toLocaleString()} total signups</p>
             </div>
-            <button
-              onClick={handleExport}
-              className="flex items-center gap-2 px-4 py-2 bg-orange-500 text-white rounded-xl font-medium hover:bg-orange-600 transition-colors"
-            >
-              <Download className="w-4 h-4" />
-              Export CSV
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handleBackfillCountries}
+                disabled={backfilling}
+                className="flex items-center gap-2 px-4 py-2 bg-gray-900 text-white rounded-xl font-medium hover:bg-gray-800 transition-colors disabled:opacity-50"
+                title="Fill missing country codes for existing rows"
+              >
+                {backfilling ? 'Backfilling...' : 'Backfill countries'}
+              </button>
+              <button
+                onClick={handleExport}
+                className="flex items-center gap-2 px-4 py-2 bg-orange-500 text-white rounded-xl font-medium hover:bg-orange-600 transition-colors"
+              >
+                <Download className="w-4 h-4" />
+                Export CSV
+              </button>
+            </div>
           </div>
+
+          {backfillMsg && (
+            <div className="mb-6 p-4 rounded-xl border border-gray-200 bg-white text-gray-700">
+              {backfillMsg}
+            </div>
+          )}
 
           {/* Filters and actions */}
           <div className="bg-white rounded-2xl border border-gray-200 mb-6">
