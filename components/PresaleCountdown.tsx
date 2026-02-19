@@ -235,6 +235,19 @@ function PresaleCountdownInner() {
                 </div>
                 <span className="text-emerald-400 font-medium">You're on the list! Check your email for confirmation.</span>
               </div>
+
+              <div className="text-center text-sm text-gray-300">
+                Get updates faster.{' '}
+                <a
+                  href="https://t.me/ai4ldMZv0KgyN2Y8"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-orange-400 hover:text-orange-300 font-semibold hover:underline"
+                >
+                  Join our Telegram community
+                </a>
+                .
+              </div>
               
               {/* Referral code box */}
               {myReferralCode && (

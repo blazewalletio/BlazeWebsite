@@ -309,7 +309,16 @@ export default function PresaleTeaser() {
                     <div className="mb-4 flex items-center gap-2 text-emerald-300 bg-emerald-500/10 border border-emerald-500/30 px-3 py-2 rounded-xl text-sm">
                       <CheckCircle2 className="w-4 h-4 flex-shrink-0" />
                       <span>
-                        Intent registered: ${submitSuccess.amountUsd.toLocaleString()} ({submitSuccess.tierName} tier).
+                        Intent registered: ${submitSuccess.amountUsd.toLocaleString()} ({submitSuccess.tierName} tier).{' '}
+                        <a
+                          href="https://t.me/ai4ldMZv0KgyN2Y8"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-orange-200 hover:text-white font-semibold underline underline-offset-2"
+                        >
+                          Join Telegram
+                        </a>
+                        .
                       </span>
                     </div>
                   )}

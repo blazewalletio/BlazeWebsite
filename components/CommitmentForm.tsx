@@ -186,6 +186,18 @@ export default function CommitmentForm() {
                     <p className="text-gray-600 mb-6">
                       We've recorded your purchase intent. You'll receive a confirmation email shortly.
                     </p>
+                    <p className="text-sm text-gray-600 mb-6">
+                      Want updates and announcements in real time?{' '}
+                      <a
+                        href="https://t.me/ai4ldMZv0KgyN2Y8"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-orange-600 hover:text-orange-700 font-semibold hover:underline"
+                      >
+                        Join our Telegram community
+                      </a>
+                      .
+                    </p>
 
                     <div className="bg-gradient-to-br from-orange-50 to-yellow-50 rounded-2xl p-6 text-left mb-6">
                       <div className="grid grid-cols-2 gap-4">

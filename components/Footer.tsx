@@ -283,6 +283,20 @@ export default function Footer() {
               )}
             </button>
           </form>
+          {submitted && !error && (
+            <p className="text-gray-400 text-sm mt-3">
+              Want updates faster?{' '}
+              <a
+                href="https://t.me/ai4ldMZv0KgyN2Y8"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-orange-400 hover:text-orange-300 font-semibold hover:underline"
+              >
+                Join our Telegram community
+              </a>
+              .
+            </p>
+          )}
           {error && (
             <p className="text-red-400 text-sm mt-2" role="alert" aria-live="polite">{error}</p>
           )}
