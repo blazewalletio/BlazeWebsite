@@ -7,6 +7,7 @@ import TrackedLaunchAppLink from '@/components/TrackedLaunchAppLink';
 import Navbar from '@/components/Navbar';
 import { useState } from 'react';
 import { trackSupportContactSubmitted } from '@/lib/analytics/client';
+import Footer from '@/components/Footer';
 
 export default function SupportPage() {
   const [formData, setFormData] = useState({
@@ -349,12 +350,7 @@ export default function SupportPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-8 border-t border-gray-200 bg-white">
-        <div className="container-main text-center text-gray-500 text-sm">
-          © 2025 BLAZE Wallet. All rights reserved. KvK: 88929280
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
