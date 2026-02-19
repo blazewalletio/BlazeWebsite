@@ -129,25 +129,34 @@ export default function Navbar() {
             </TrackedLaunchAppLink>
           </div>
 
-          {/* Mobile menu button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className={`md:hidden w-10 h-10 flex items-center justify-center rounded-xl transition-all ${
-              isOpen
-                ? 'bg-orange-500 text-white'
-                : useLightTheme 
-                  ? 'hover:bg-gray-100 text-gray-900' 
-                  : 'hover:bg-white/10 text-white'
-            }`}
-            aria-label="Toggle menu"
-            aria-expanded={isOpen}
-          >
-            {isOpen ? (
-              <X className="w-5 h-5" />
-            ) : (
-              <Menu className="w-5 h-5" />
-            )}
-          </button>
+          {/* Mobile top bar actions */}
+          <div className="md:hidden flex items-center gap-2">
+            <TrackedLaunchAppLink
+              sourceContext="navbar_mobile_top_cta"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Launch app"
+              className="btn-brand px-4 py-2 text-sm inline-flex items-center gap-2 shadow-sm shadow-orange-500/20"
+            >
+              <Wallet className="w-4 h-4" />
+              <span>Launch</span>
+            </TrackedLaunchAppLink>
+
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className={`w-10 h-10 flex items-center justify-center rounded-xl transition-all ${
+                isOpen
+                  ? 'bg-orange-500 text-white'
+                  : useLightTheme
+                    ? 'hover:bg-gray-100 text-gray-900'
+                    : 'hover:bg-white/10 text-white'
+              }`}
+              aria-label="Toggle menu"
+              aria-expanded={isOpen}
+            >
+              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
         </div>
       </div>
 
