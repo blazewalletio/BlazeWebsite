@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import TrackedLaunchAppLink from '@/components/TrackedLaunchAppLink';
+import { trackWalletLaunchClick } from '@/lib/analytics/client';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -131,16 +132,17 @@ export default function Navbar() {
 
           {/* Mobile top bar actions */}
           <div className="md:hidden flex items-center gap-2">
-            <TrackedLaunchAppLink
-              sourceContext="navbar_mobile_top_cta"
+            <a
+              href="https://my.blazewallet.io/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Launch app"
               className="btn-brand px-4 py-2 text-sm inline-flex items-center gap-2 shadow-sm shadow-orange-500/20"
+              onClick={() => trackWalletLaunchClick('navbar_mobile_top_cta')}
             >
               <Wallet className="w-4 h-4" />
               <span>Launch</span>
-            </TrackedLaunchAppLink>
+            </a>
 
             <button
               onClick={() => setIsOpen(!isOpen)}
