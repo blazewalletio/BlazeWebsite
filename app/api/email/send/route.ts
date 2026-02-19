@@ -153,8 +153,8 @@ export async function POST(request: Request) {
             break;
 
           case 'presale_countdown':
-            const presaleDate = new Date('2026-03-01');
-            const daysUntil = Math.ceil((presaleDate.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+            const presaleCountdownDate = new Date('2026-03-01');
+            const daysUntil = Math.ceil((presaleCountdownDate.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
             const countdownResult = await sendPresaleCountdownEmail(
               recipient.email,
               recipient.referral_code || 'BLAZE',
