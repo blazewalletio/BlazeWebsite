@@ -12,6 +12,7 @@ import Navbar from '@/components/Navbar';
 import PresaleTeaser from '@/components/PresaleTeaser';
 import ProductStatus from '@/components/ProductStatus';
 import ClientOnly from '@/components/ClientOnly';
+import SupportBlazeTeaser from '@/components/SupportBlazeTeaser';
 
 export default function Home() {
   return (
@@ -33,6 +34,7 @@ export default function Home() {
         <Tokenomics />
         <Roadmap />
         <FAQ />
+        <SupportBlazeTeaser />
         <Footer />
       </ClientOnly>
     </main>
