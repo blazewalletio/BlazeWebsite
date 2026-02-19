@@ -92,7 +92,18 @@ export async function GET(request: Request) {
 
       if (!eligibleUsers || eligibleUsers.length === 0) continue;
 
-      for (const user of eligibleUsers) {
+      // Commitment users get a separate, higher-intent email flow. Exclude them from waitlist drip.
+      const eligibleEmails = eligibleUsers.map((u) => u.email).filter(Boolean);
+      const { data: commitmentEmails } = await supabase
+        .from('commitments')
+        .select('email')
+        .in('email', eligibleEmails);
+      const commitmentSet = new Set((commitmentEmails || []).map((r: any) => String(r.email)));
+      const filteredUsers = eligibleUsers.filter((u) => !commitmentSet.has(String(u.email)));
+
+      if (filteredUsers.length === 0) continue;
+
+      for (const user of filteredUsers) {
         // Check if email was already sent
         const { data: existingSend } = await supabase
           .from('email_sends')

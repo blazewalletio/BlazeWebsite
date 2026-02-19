@@ -97,10 +97,19 @@ export async function sendCommitmentConfirmation({
     await resend.emails.send({
       from: FROM_EMAIL,
       to: email,
-      subject: '✅ Your BLAZE Purchase Intent is Registered!',
+      subject: '✅ Your BLAZE Presale Intent is Confirmed',
       html: baseTemplate(`
         <h1>Intent Registered! 🎯</h1>
-        <p>Great news! We've recorded your purchase intent for the BLAZE presale.</p>
+        <p>Great news! We've recorded your presale intent for BLAZE.</p>
+
+        <div class="highlight">
+          <h3>Important next step</h3>
+          <p class="mb-0">
+            To participate when the presale opens, please make sure you have a BLAZE Wallet account ready:
+            <br>
+            <a href="https://my.blazewallet.io" target="_blank" rel="noopener noreferrer">my.blazewallet.io</a>
+          </p>
+        </div>
         
         <div class="stat-box">
           <div class="tier-badge">${tierName} Tier</div>
@@ -122,20 +131,339 @@ export async function sendCommitmentConfirmation({
 
         <h2>What happens next?</h2>
         <ul>
-          <li>📧 You'll receive regular updates about the presale</li>
-          <li>⏰ We'll notify you 48 hours before the presale opens</li>
-          <li>🎯 Your commitment helps us plan, and you can adjust it anytime</li>
+          <li>📧 You'll receive a short follow-up sequence to help you prepare</li>
+          <li>⏰ We'll send reminders as we get closer to launch (48h, 24h, and more)</li>
+          <li>👛 Make sure you can log into your BLAZE Wallet account (my.blazewallet.io)</li>
           <li>💰 Payment is only required when the presale goes live</li>
         </ul>
 
         <center>
           <a href="https://www.blazewallet.io" class="btn">View Presale Details</a>
+          <br>
+          <a href="https://t.me/ai4ldMZv0KgyN2Y8" class="btn btn-secondary mt-8">Join Telegram for updates</a>
         </center>
       `),
     });
     return { success: true };
   } catch (error) {
     console.error('Failed to send commitment confirmation:', error);
+    return { success: false, error };
+  }
+}
+
+// =====================================================
+// COMMITMENT (INTENT) FOLLOW-UP FLOW
+// =====================================================
+
+export async function sendCommitmentDay2ReadinessEmail(email: string) {
+  try {
+    await resend.emails.send({
+      from: FROM_EMAIL,
+      to: email,
+      subject: 'Your 3-minute presale readiness checklist',
+      html: baseTemplate(`
+        <h1>Get Ready for Presale ✅</h1>
+        <p>Quick checklist so you can move fast when the presale goes live.</p>
+
+        <div class="highlight">
+          <h3>1) Create your BLAZE Wallet account</h3>
+          <p class="mb-0">
+            You&apos;ll need a BLAZE Wallet account to participate:
+            <br>
+            <a href="https://my.blazewallet.io" target="_blank" rel="noopener noreferrer">my.blazewallet.io</a>
+          </p>
+        </div>
+
+        <div class="highlight">
+          <h3>2) Save the official links</h3>
+          <p class="mb-0">
+            Website: <a href="https://www.blazewallet.io" target="_blank" rel="noopener noreferrer">blazewallet.io</a><br>
+            App: <a href="https://my.blazewallet.io" target="_blank" rel="noopener noreferrer">my.blazewallet.io</a>
+          </p>
+        </div>
+
+        <div class="highlight">
+          <h3>3) Security reminder</h3>
+          <p class="mb-0">
+            We will never ask for your seed phrase. Be careful with fake links and impersonators.
+          </p>
+        </div>
+
+        <center>
+          <a href="https://my.blazewallet.io" class="btn">Open BLAZE Wallet</a>
+          <br>
+          <a href="https://t.me/ai4ldMZv0KgyN2Y8" class="btn btn-secondary mt-8">Join Telegram</a>
+        </center>
+      `),
+    });
+    return { success: true };
+  } catch (error) {
+    console.error('Failed to send commitment day2 readiness email:', error);
+    return { success: false, error };
+  }
+}
+
+export async function sendCommitmentDay5WhyBlazeEmail(email: string) {
+  try {
+    await resend.emails.send({
+      from: FROM_EMAIL,
+      to: email,
+      subject: 'Why BLAZE? A quick overview of what you’re backing',
+      html: baseTemplate(`
+        <h1>Why BLAZE 🔥</h1>
+        <p>You registered a presale intent because you see potential. Here&apos;s the short version of what we&apos;re building.</p>
+
+        <div class="highlight">
+          <h3>What makes BLAZE different</h3>
+          <ul class="list-compact">
+            <li><strong>QuickPay:</strong> fast payments by scanning a QR code</li>
+            <li><strong>AI scam protection:</strong> warnings before you sign risky transactions</li>
+            <li><strong>Multi-chain:</strong> manage assets across major networks</li>
+            <li><strong>Non-custodial:</strong> your keys stay yours</li>
+          </ul>
+        </div>
+
+        <p>We&apos;ll send clear instructions when the presale opens so you can participate without stress.</p>
+
+        <center>
+          <a href="https://www.blazewallet.io/whitepaper" class="btn">Read the Whitepaper</a>
+        </center>
+      `),
+    });
+    return { success: true };
+  } catch (error) {
+    console.error('Failed to send commitment day5 why blaze email:', error);
+    return { success: false, error };
+  }
+}
+
+export async function sendCommitmentDay7SecurityEmail(email: string) {
+  try {
+    await resend.emails.send({
+      from: FROM_EMAIL,
+      to: email,
+      subject: 'Stay safe: official links and presale security tips',
+      html: baseTemplate(`
+        <h1>Presale Security Checklist 🔒</h1>
+        <p>Presales attract impersonators. Here&apos;s how to stay safe.</p>
+
+        <div class="highlight">
+          <h3>Golden rules</h3>
+          <ul class="list-compact">
+            <li>We will never DM you first.</li>
+            <li>We will never ask for your seed phrase or private keys.</li>
+            <li>Only use official links.</li>
+          </ul>
+        </div>
+
+        <div class="highlight">
+          <h3>Official links</h3>
+          <p class="mb-0">
+            Website: <a href="https://www.blazewallet.io" target="_blank" rel="noopener noreferrer">https://www.blazewallet.io</a><br>
+            Wallet: <a href="https://my.blazewallet.io" target="_blank" rel="noopener noreferrer">https://my.blazewallet.io</a><br>
+            Telegram: <a href="https://t.me/ai4ldMZv0KgyN2Y8" target="_blank" rel="noopener noreferrer">https://t.me/ai4ldMZv0KgyN2Y8</a><br>
+            X: <a href="https://x.com/blazewallet_io" target="_blank" rel="noopener noreferrer">https://x.com/blazewallet_io</a>
+          </p>
+        </div>
+
+        <center>
+          <a href="https://t.me/ai4ldMZv0KgyN2Y8" class="btn btn-secondary">Join Telegram</a>
+        </center>
+      `),
+    });
+    return { success: true };
+  } catch (error) {
+    console.error('Failed to send commitment day7 security email:', error);
+    return { success: false, error };
+  }
+}
+
+export async function sendCommitmentDay10TierEmail(email: string, details: { tierNumber: number; amountUsd: number; estimatedTokens: number }) {
+  try {
+    await resend.emails.send({
+      from: FROM_EMAIL,
+      to: email,
+      subject: 'Your intent details: tier and estimated allocation (clear breakdown)',
+      html: baseTemplate(`
+        <h1>Your Presale Intent Details 🎯</h1>
+        <p>Here&apos;s a clear summary of what you registered, so you can keep it for reference.</p>
+
+        <div class="stat-box">
+          <div class="tier-badge">Tier ${details.tierNumber}</div>
+          <div class="stat-number mt-16">$${details.amountUsd.toLocaleString()}</div>
+          <div class="stat-label">Intended amount</div>
+        </div>
+
+        <div class="highlight">
+          <h3>Estimated allocation</h3>
+          <p class="mb-0"><strong>${details.estimatedTokens.toLocaleString()} BLAZE</strong> (estimate)</p>
+        </div>
+
+        <center>
+          <a href="https://www.blazewallet.io/#tokenomics" class="btn">Review Tokenomics</a>
+        </center>
+      `),
+    });
+    return { success: true };
+  } catch (error) {
+    console.error('Failed to send commitment day10 tier email:', error);
+    return { success: false, error };
+  }
+}
+
+export async function sendCommitmentDay13PaymentPrepEmail(email: string) {
+  try {
+    await resend.emails.send({
+      from: FROM_EMAIL,
+      to: email,
+      subject: 'Quick prep: make launch day stress-free',
+      html: baseTemplate(`
+        <h1>Launch Day Prep ⚡</h1>
+        <p>A little preparation now makes it much easier to participate when the presale opens.</p>
+
+        <div class="highlight">
+          <h3>Make sure you can sign in</h3>
+          <p class="mb-0">
+            Confirm you can log into your BLAZE Wallet account:
+            <br>
+            <a href="https://my.blazewallet.io" target="_blank" rel="noopener noreferrer">my.blazewallet.io</a>
+          </p>
+        </div>
+
+        <div class="highlight">
+          <h3>Have your preferred payment ready</h3>
+          <p class="mb-0">
+            We&apos;ll share final step-by-step instructions closer to launch. Being prepared helps you move quickly.
+          </p>
+        </div>
+
+        <center>
+          <a href="https://my.blazewallet.io" class="btn">Open BLAZE Wallet</a>
+        </center>
+      `),
+    });
+    return { success: true };
+  } catch (error) {
+    console.error('Failed to send commitment day13 payment prep email:', error);
+    return { success: false, error };
+  }
+}
+
+export async function sendCommitmentDay18HowPresaleWorksEmail(email: string) {
+  try {
+    await resend.emails.send({
+      from: FROM_EMAIL,
+      to: email,
+      subject: 'How the presale will work (simple explanation)',
+      html: baseTemplate(`
+        <h1>How the Presale Works 📘</h1>
+        <p>Here&apos;s a simple overview of how you&apos;ll participate when the presale opens.</p>
+
+        <div class="highlight">
+          <h3>Step 1: Have a BLAZE Wallet account</h3>
+          <p class="mb-0">
+            The presale will be executed through your BLAZE Wallet account.
+            Please make sure your account is ready at:
+            <br>
+            <a href="https://my.blazewallet.io" target="_blank" rel="noopener noreferrer">my.blazewallet.io</a>
+          </p>
+        </div>
+
+        <div class="highlight">
+          <h3>Step 2: Purchase when the presale is live</h3>
+          <p class="mb-0">
+            When the presale opens, you&apos;ll be able to purchase BLAZE tokens using ETH, BTC, USDT, and via BSC.
+            You&apos;ll receive clear step-by-step instructions in the final countdown emails.
+          </p>
+        </div>
+
+        <div class="highlight">
+          <h3>Safety reminder</h3>
+          <p class="mb-0">
+            We will never ask for your seed phrase. Only use official links and announcements.
+          </p>
+        </div>
+
+        <center>
+          <a href="https://my.blazewallet.io" class="btn">Open BLAZE Wallet</a>
+          <br>
+          <a href="https://t.me/ai4ldMZv0KgyN2Y8" class="btn btn-secondary mt-8">Join Telegram for updates</a>
+        </center>
+      `),
+    });
+    return { success: true };
+  } catch (error) {
+    console.error('Failed to send commitment day18 how presale works email:', error);
+    return { success: false, error };
+  }
+}
+
+export async function sendCommitmentCountdownEmail(
+  email: string,
+  hoursLabel: string,
+  primaryCtaLabel: string
+) {
+  try {
+    await resend.emails.send({
+      from: FROM_EMAIL,
+      to: email,
+      subject: `⏰ Presale reminder: ${hoursLabel}`,
+      html: baseTemplate(`
+        <h1>Presale Reminder ⏰</h1>
+        <p>${hoursLabel} until presale.</p>
+
+        <div class="highlight">
+          <h3>Be ready</h3>
+          <ul class="list-compact">
+            <li>Log into your BLAZE Wallet account</li>
+            <li>Use only official links</li>
+            <li>Watch Telegram for status updates</li>
+          </ul>
+        </div>
+
+        <center>
+          <a href="https://my.blazewallet.io" class="btn">${primaryCtaLabel}</a>
+          <br>
+          <a href="https://t.me/ai4ldMZv0KgyN2Y8" class="btn btn-secondary mt-8">Join Telegram</a>
+        </center>
+      `),
+    });
+    return { success: true };
+  } catch (error) {
+    console.error('Failed to send commitment countdown email:', error);
+    return { success: false, error };
+  }
+}
+
+export async function sendCommitmentLiveEmail(email: string) {
+  try {
+    await resend.emails.send({
+      from: FROM_EMAIL,
+      to: email,
+      subject: '🚀 Presale is LIVE: open BLAZE Wallet to purchase',
+      html: baseTemplate(`
+        <h1>Presale is LIVE 🚀</h1>
+        <p>Your intent is recorded. You can now participate in the presale.</p>
+
+        <div class="highlight">
+          <h3>Open BLAZE Wallet</h3>
+          <p class="mb-0">
+            Use your BLAZE Wallet account to purchase.
+            <br>
+            <a href="https://my.blazewallet.io" target="_blank" rel="noopener noreferrer">my.blazewallet.io</a>
+          </p>
+        </div>
+
+        <center>
+          <a href="https://my.blazewallet.io" class="btn">Open BLAZE Wallet</a>
+          <br>
+          <a href="https://t.me/ai4ldMZv0KgyN2Y8" class="btn btn-secondary mt-8">Telegram status updates</a>
+        </center>
+      `),
+    });
+    return { success: true };
+  } catch (error) {
+    console.error('Failed to send commitment live email:', error);
     return { success: false, error };
   }
 }

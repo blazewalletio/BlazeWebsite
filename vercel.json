@@ -9,6 +9,10 @@
     {
       "path": "/api/cron/drip-campaign",
       "schedule": "0 9 * * *"
+    },
+    {
+      "path": "/api/cron/commitment-campaign",
+      "schedule": "*/15 * * * *"
     }
   ]
 }
