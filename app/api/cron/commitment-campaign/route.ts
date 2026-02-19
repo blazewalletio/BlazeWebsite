@@ -25,8 +25,21 @@ type CommitmentRow = {
 
 function getPresaleDate(value: unknown) {
   // site_settings.value is JSONB; for presale_date it is stored as a JSON string.
-  if (typeof value === 'string') return new Date(value);
-  return null;
+  if (typeof value !== 'string') return null;
+
+  // `site_settings.value` is stored as JSON (stringified), so it often looks like:
+  // "\"2026-03-16T12:00:00Z\"" (including quotes). Parse it safely.
+  let raw = value;
+  try {
+    const parsed = JSON.parse(value);
+    if (typeof parsed === 'string') raw = parsed;
+  } catch {
+    // If it isn't valid JSON, fall back to the raw string.
+  }
+
+  const d = new Date(raw);
+  if (Number.isNaN(d.getTime())) return null;
+  return d;
 }
 
 export async function GET(request: Request) {
@@ -55,6 +68,14 @@ export async function GET(request: Request) {
 
     const presaleDate =
       getPresaleDate(settingsRow?.value) || new Date('2026-03-01T12:00:00Z');
+
+    if (Number.isNaN(presaleDate.getTime())) {
+      // Safety guard: never send countdown blasts if presale_date is misconfigured/unparseable.
+      return NextResponse.json(
+        { success: false, error: 'Invalid presale_date in site_settings' },
+        { status: 500 }
+      );
+    }
 
     const dayCampaigns: { templateKey: string; daysAfterIntent: number }[] = [
       { templateKey: 'commitment_day2_readiness', daysAfterIntent: 2 },
