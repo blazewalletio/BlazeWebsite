@@ -17,6 +17,24 @@ function generateReferralCode(): string {
   return code;
 }
 
+function getCountryCode(request: NextRequest): string | null {
+  // Prefer Vercel's explicit header. Fallback to geo if present.
+  const header =
+    request.headers.get('x-vercel-ip-country') ||
+    request.headers.get('cf-ipcountry') ||
+    null;
+
+  const geoCountry = (request as any)?.geo?.country ?? null;
+  const raw = (geoCountry || header || '').toString().trim().toUpperCase();
+
+  // Common "unknown"/special values:
+  // - "XX" sometimes used as unknown
+  // - "T1" is used by some providers for Tor/anonymous traffic
+  if (!raw || raw === 'XX' || raw === 'T1') return null;
+  if (!/^[A-Z]{2}$/.test(raw)) return null;
+  return raw;
+}
+
 export async function POST(request: NextRequest) {
   try {
     const { email, source = 'presale_countdown', ref } = await request.json();
@@ -31,6 +49,7 @@ export async function POST(request: NextRequest) {
     // Get client info
     const ip = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown';
     const userAgent = request.headers.get('user-agent') || 'unknown';
+    const countryCode = getCountryCode(request);
 
     // Generate unique referral code
     const referralCode = generateReferralCode();
@@ -43,6 +62,7 @@ export async function POST(request: NextRequest) {
         source,
         ip_address: ip,
         user_agent: userAgent,
+        country_code: countryCode,
         referral_code: referralCode,
         referred_by: ref || null,
       })

@@ -16,6 +16,7 @@ interface Commitment {
   converted: boolean;
   converted_at: string | null;
   created_at: string;
+  country_code?: string | null;
 }
 
 export default function CommitmentsPage() {
@@ -160,9 +161,10 @@ export default function CommitmentsPage() {
   }
 
   function exportCSV() {
-    const headers = ['Email', 'Amount USD', 'Est. Tokens', 'Tier', 'Converted', 'Created At'];
+    const headers = ['Email', 'Country', 'Amount USD', 'Est. Tokens', 'Tier', 'Converted', 'Created At'];
     const rows = commitments.map(c => [
       c.email,
+      c.country_code || '',
       c.intended_amount_usd,
       c.intended_amount_tokens,
       c.commitment_tier,
@@ -334,6 +336,7 @@ export default function CommitmentsPage() {
                   <thead className="bg-gray-50 border-b border-gray-200">
                     <tr>
                       <th className="text-left px-6 py-4 text-sm font-semibold text-gray-900">Email</th>
+                      <th className="text-left px-6 py-4 text-sm font-semibold text-gray-900">Country</th>
                       <th className="text-left px-6 py-4 text-sm font-semibold text-gray-900">Amount</th>
                       <th className="text-left px-6 py-4 text-sm font-semibold text-gray-900">Est. tokens</th>
                       <th className="text-left px-6 py-4 text-sm font-semibold text-gray-900">Tier</th>
@@ -347,6 +350,9 @@ export default function CommitmentsPage() {
                       <tr key={commitment.id} className="hover:bg-gray-50">
                         <td className="px-6 py-4">
                           <div className="font-medium text-gray-900">{commitment.email}</div>
+                        </td>
+                        <td className="px-6 py-4">
+                          <div className="text-gray-900 font-medium">{commitment.country_code || '-'}</div>
                         </td>
                         <td className="px-6 py-4">
                           <div className="font-bold text-emerald-600">

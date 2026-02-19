@@ -27,6 +27,20 @@ function generateReferralCode(): string {
   return code;
 }
 
+function getCountryCodeFromHeaders(headers: Headers): string | null {
+  const raw =
+    (headers.get('x-vercel-ip-country') ||
+      headers.get('cf-ipcountry') ||
+      '')!
+      .toString()
+      .trim()
+      .toUpperCase();
+
+  if (!raw || raw === 'XX' || raw === 'T1') return null;
+  if (!/^[A-Z]{2}$/.test(raw)) return null;
+  return raw;
+}
+
 // GET: Fetch user's commitment
 export async function GET(request: Request) {
   try {
@@ -87,6 +101,13 @@ export async function POST(request: Request) {
     }
 
     const supabase = createServiceRoleClient();
+    const headers = request.headers;
+    const ipAddress =
+      headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
+      headers.get('x-real-ip') ||
+      null;
+    const userAgent = headers.get('user-agent') || null;
+    const countryCode = getCountryCodeFromHeaders(headers);
 
     // Get current commitment count to determine tier
     const { count: commitmentCount } = await supabase
@@ -128,6 +149,9 @@ export async function POST(request: Request) {
           email: normalizedEmail,
           source: 'commitment',
           referral_code: referralCode,
+          ip_address: ipAddress,
+          user_agent: userAgent,
+          country_code: countryCode,
         })
         .select('id, referral_code')
         .single();
@@ -180,6 +204,7 @@ export async function POST(request: Request) {
         intended_amount_tokens: Math.round(totalTokens),
         commitment_tier: currentTier.tier_number,
         notes: notes || null,
+        country_code: countryCode,
         updated_at: new Date().toISOString(),
       })
       .select()

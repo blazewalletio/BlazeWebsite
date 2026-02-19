@@ -20,6 +20,7 @@ interface WaitlistEntry {
   email: string;
   created_at: string;
   source: string;
+  country_code?: string | null;
 }
 
 export default function AdminWaitlist() {
@@ -119,9 +120,9 @@ export default function AdminWaitlist() {
 
   const handleExport = () => {
     const csv = [
-      ['Email', 'Source', 'Date'].join(','),
+      ['Email', 'Country', 'Source', 'Date'].join(','),
       ...entries.map((e) =>
-        [e.email, e.source || 'presale', new Date(e.created_at).toISOString()].join(',')
+        [e.email, e.country_code || '', e.source || 'presale', new Date(e.created_at).toISOString()].join(',')
       ),
     ].join('\n');
 
@@ -220,6 +221,7 @@ export default function AdminWaitlist() {
                       />
                     </th>
                     <th className="p-4 text-left text-sm font-semibold text-gray-600">Email</th>
+                    <th className="p-4 text-left text-sm font-semibold text-gray-600">Country</th>
                     <th className="p-4 text-left text-sm font-semibold text-gray-600">Source</th>
                     <th className="p-4 text-left text-sm font-semibold text-gray-600">Date</th>
                   </tr>
@@ -227,13 +229,13 @@ export default function AdminWaitlist() {
                 <tbody>
                   {loading ? (
                     <tr>
-                      <td colSpan={4} className="p-8 text-center text-gray-500">
+                      <td colSpan={5} className="p-8 text-center text-gray-500">
                         Loading...
                       </td>
                     </tr>
                   ) : entries.length === 0 ? (
                     <tr>
-                      <td colSpan={4} className="p-8 text-center text-gray-500">
+                      <td colSpan={5} className="p-8 text-center text-gray-500">
                         {search ? 'No results found' : 'No signups yet'}
                       </td>
                     </tr>
@@ -255,6 +257,11 @@ export default function AdminWaitlist() {
                         </td>
                         <td className="p-4">
                           <span className="font-medium text-gray-900">{entry.email}</span>
+                        </td>
+                        <td className="p-4">
+                          <span className="text-sm font-medium text-gray-900">
+                            {entry.country_code || '-'}
+                          </span>
                         </td>
                         <td className="p-4">
                           <span className="px-2 py-1 text-xs font-medium bg-gray-100 text-gray-600 rounded-full">
