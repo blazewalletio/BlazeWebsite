@@ -24,16 +24,32 @@ interface EmailSend {
   status: string;
 }
 
+interface CommitmentEmailSend {
+  id: string;
+  email: string;
+  template_key: string;
+  status: string;
+  created_at: string;
+  error?: string | null;
+}
+
 export default function CampaignsAdminPage() {
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
   const [recentSends, setRecentSends] = useState<EmailSend[]>([]);
+  const [recentCommitmentSends, setRecentCommitmentSends] = useState<CommitmentEmailSend[]>([]);
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({
     totalSent: 0,
     sentToday: 0,
     activeSubscribers: 0,
   });
+  const [commitmentStats, setCommitmentStats] = useState({
+    totalSent: 0,
+    sentToday: 0,
+    activeCommitments: 0,
+  });
   const [runningCron, setRunningCron] = useState(false);
+  const [runningCommitmentCron, setRunningCommitmentCron] = useState(false);
   const [testEmail, setTestEmail] = useState('');
   const [selectedTemplate, setSelectedTemplate] = useState('welcome');
   const [sendingTest, setSendingTest] = useState(false);
@@ -62,6 +78,13 @@ export default function CampaignsAdminPage() {
       .order('sent_at', { ascending: false })
       .limit(50);
 
+    // Fetch recent commitment sends
+    const { data: commitmentSendsData } = await supabase
+      .from('commitment_email_sends')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .limit(50);
+
     // Fetch stats
     const { count: totalSent } = await supabase
       .from('email_sends')
@@ -79,12 +102,33 @@ export default function CampaignsAdminPage() {
       .select('*', { count: 'exact', head: true })
       .eq('email_paused', false);
 
+    // Commitment email stats
+    const { count: commitmentTotalSent } = await supabase
+      .from('commitment_email_sends')
+      .select('*', { count: 'exact', head: true });
+
+    const { count: commitmentSentToday } = await supabase
+      .from('commitment_email_sends')
+      .select('*', { count: 'exact', head: true })
+      .gte('created_at', today.toISOString());
+
+    const { count: activeCommitments } = await supabase
+      .from('commitments')
+      .select('*', { count: 'exact', head: true })
+      .eq('email_paused', false);
+
     setCampaigns(campaignsData || []);
     setRecentSends(sendsData || []);
+    setRecentCommitmentSends((commitmentSendsData as CommitmentEmailSend[]) || []);
     setStats({
       totalSent: totalSent || 0,
       sentToday: sentToday || 0,
       activeSubscribers: activeSubscribers || 0,
+    });
+    setCommitmentStats({
+      totalSent: commitmentTotalSent || 0,
+      sentToday: commitmentSentToday || 0,
+      activeCommitments: activeCommitments || 0,
     });
     setLoading(false);
   }
@@ -118,6 +162,25 @@ export default function CampaignsAdminPage() {
     setRunningCron(false);
   }
 
+  async function runCommitmentCampaign() {
+    setRunningCommitmentCron(true);
+    try {
+      const res = await fetch('/api/cron/commitment-campaign', {
+        method: 'GET',
+        headers: {
+          // Note: this is the same approach as the waitlist drip admin trigger.
+          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_CRON_SECRET || 'dev-secret'}`,
+        },
+      });
+      const data = await res.json();
+      console.log('Commitment campaign result:', data);
+      await fetchData();
+    } catch (err) {
+      console.error('Failed to run commitment campaign:', err);
+    }
+    setRunningCommitmentCron(false);
+  }
+
   const templateDescriptions: Record<string, string> = {
     welcome: 'Sent immediately when user signs up',
     why_blaze: 'Explains BLAZE features and benefits',
@@ -127,6 +190,25 @@ export default function CampaignsAdminPage() {
     presale_countdown: 'Final reminder before presale',
     commitment_apology: 'Commitment users: apology email (test-send only from here)',
   };
+
+  const commitmentCampaignDays: { sequence: number; daysAfter: number; templateKey: string; label: string }[] = [
+    { sequence: 1, daysAfter: 2, templateKey: 'commitment_day2_readiness', label: 'Readiness checklist + create your wallet account' },
+    { sequence: 2, daysAfter: 5, templateKey: 'commitment_day5_why_blaze', label: 'Why BLAZE (high-intent version)' },
+    { sequence: 3, daysAfter: 7, templateKey: 'commitment_day7_security', label: 'Security & staying safe before presale' },
+    { sequence: 4, daysAfter: 10, templateKey: 'commitment_day10_tier', label: 'Your tier + intended amount recap' },
+    { sequence: 5, daysAfter: 13, templateKey: 'commitment_day13_payment_prep', label: 'Payment preparation (ETH/BTC/USDT + BSC)' },
+    { sequence: 6, daysAfter: 18, templateKey: 'commitment_day18_how_presale_works', label: 'How the presale works (full explanation)' },
+  ];
+
+  const commitmentCampaignCountdowns: { sequence: number; offsetHours: number; templateKey: string; label: string }[] = [
+    { sequence: 1, offsetHours: 48, templateKey: 'commitment_tminus_48h', label: 'T-48h' },
+    { sequence: 2, offsetHours: 24, templateKey: 'commitment_tminus_24h', label: 'T-24h' },
+    { sequence: 3, offsetHours: 12, templateKey: 'commitment_tminus_12h', label: 'T-12h' },
+    { sequence: 4, offsetHours: 6, templateKey: 'commitment_tminus_6h', label: 'T-6h' },
+    { sequence: 5, offsetHours: 3, templateKey: 'commitment_tminus_3h', label: 'T-3h' },
+    { sequence: 6, offsetHours: 1, templateKey: 'commitment_tminus_1h', label: 'T-1h' },
+    { sequence: 7, offsetHours: 0, templateKey: 'commitment_live', label: 'LIVE' },
+  ];
 
   const templateOptions = [
     { value: 'welcome', label: '🔥 Welcome to waitlist' },
@@ -336,6 +418,94 @@ export default function CampaignsAdminPage() {
             )}
           </div>
 
+          {/* Commitment (Presale intent) campaign */}
+          <div className="bg-white rounded-xl border border-gray-200 p-6 mb-8">
+            <div className="flex items-start justify-between gap-4 mb-6">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-indigo-600 rounded-xl flex items-center justify-center">
+                  <Calendar className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <h2 className="text-lg font-bold text-gray-900">Commitment (presale intent) campaign</h2>
+                  <p className="text-sm text-gray-500">
+                    This flow is separate from the waitlist drip and uses `commitment_email_sends` for dedupe/logging.
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={runCommitmentCampaign}
+                disabled={runningCommitmentCron}
+                className="flex items-center gap-2 px-5 py-3 bg-gray-900 text-white rounded-xl hover:bg-gray-800 transition-colors disabled:opacity-50"
+              >
+                {runningCommitmentCron ? (
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                ) : (
+                  <Play className="w-5 h-5" />
+                )}
+                Run commitment campaign now
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+              <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
+                <div className="text-sm text-gray-600 mb-1">Total commitment emails sent</div>
+                <div className="text-2xl font-bold text-gray-900">{commitmentStats.totalSent.toLocaleString()}</div>
+              </div>
+              <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
+                <div className="text-sm text-gray-600 mb-1">Commitment emails sent today</div>
+                <div className="text-2xl font-bold text-gray-900">{commitmentStats.sentToday.toLocaleString()}</div>
+              </div>
+              <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
+                <div className="text-sm text-gray-600 mb-1">Active commitment users</div>
+                <div className="text-2xl font-bold text-gray-900">{commitmentStats.activeCommitments.toLocaleString()}</div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div>
+                <h3 className="font-bold text-gray-900 mb-3">Drip sequence (days after intent)</h3>
+                <div className="space-y-2">
+                  {commitmentCampaignDays.map((c) => (
+                    <div key={c.templateKey} className="rounded-xl border border-gray-200 p-4">
+                      <div className="flex items-start justify-between gap-4">
+                        <div className="min-w-0">
+                          <div className="font-medium text-gray-900 truncate">
+                            {c.sequence}. Day {c.daysAfter} — {c.label}
+                          </div>
+                          <div className="text-sm text-gray-500 mt-1">{c.templateKey}</div>
+                        </div>
+                        <span className="px-2 py-1 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700 border border-indigo-100">
+                          Day {c.daysAfter}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h3 className="font-bold text-gray-900 mb-3">Countdown sequence (relative to presale date)</h3>
+                <div className="space-y-2">
+                  {commitmentCampaignCountdowns.map((c) => (
+                    <div key={c.templateKey} className="rounded-xl border border-gray-200 p-4">
+                      <div className="flex items-start justify-between gap-4">
+                        <div className="min-w-0">
+                          <div className="font-medium text-gray-900 truncate">
+                            {c.sequence}. {c.label}
+                          </div>
+                          <div className="text-sm text-gray-500 mt-1">{c.templateKey}</div>
+                        </div>
+                        <span className="px-2 py-1 rounded-full text-xs font-medium bg-orange-50 text-orange-700 border border-orange-100">
+                          {c.offsetHours === 0 ? 'At launch' : `${c.offsetHours}h before`}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Campaign Sequence */}
             <div>
@@ -447,6 +617,62 @@ export default function CampaignsAdminPage() {
                   </div>
                 )}
               </div>
+            </div>
+          </div>
+
+          {/* Recent Commitment Sends */}
+          <div className="mt-8">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-bold text-gray-900">Recent commitment emails sent</h2>
+              <button
+                onClick={fetchData}
+                className="p-2 text-gray-600 hover:text-gray-900 transition-colors"
+                title="Refresh"
+              >
+                <RefreshCw className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+              {loading ? (
+                <div className="flex items-center justify-center py-12">
+                  <Loader2 className="w-8 h-8 animate-spin text-indigo-600" />
+                </div>
+              ) : recentCommitmentSends.length === 0 ? (
+                <div className="text-center py-12 text-gray-500">No commitment emails sent yet</div>
+              ) : (
+                <div className="divide-y divide-gray-100 max-h-96 overflow-y-auto">
+                  {recentCommitmentSends.map((send) => (
+                    <div key={send.id} className="px-4 py-3 hover:bg-gray-50">
+                      <div className="flex items-center justify-between gap-4">
+                        <div className="min-w-0 flex-1">
+                          <div className="font-medium text-gray-900 truncate">{send.email}</div>
+                          <div className="text-sm text-gray-500 truncate">{send.template_key}</div>
+                          {send.error ? (
+                            <div className="text-xs text-red-600 mt-1 truncate">{send.error}</div>
+                          ) : null}
+                        </div>
+                        <div className="text-right whitespace-nowrap">
+                          <span
+                            className={`px-2 py-1 rounded-full text-xs font-medium ${
+                              send.status === 'sent'
+                                ? 'bg-emerald-100 text-emerald-700'
+                                : send.status === 'failed'
+                                  ? 'bg-red-100 text-red-700'
+                                  : 'bg-gray-100 text-gray-700'
+                            }`}
+                          >
+                            {send.status}
+                          </span>
+                          <div className="text-xs text-gray-400 mt-1">
+                            {new Date(send.created_at).toLocaleString()}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 
