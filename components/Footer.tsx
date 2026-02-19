@@ -62,6 +62,7 @@ export default function Footer() {
       { label: 'Documentation', href: '/documentation' },
       { label: 'Updates', href: '/updates' },
       { label: 'Support', href: '/support' },
+      { label: 'Support BLAZE', href: '/support-us' },
     ],
     legal: [
       { label: 'Privacy policy', href: '/privacy' },

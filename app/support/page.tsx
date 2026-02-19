@@ -313,6 +313,24 @@ export default function SupportPage() {
         </div>
       </section>
 
+      {/* Optional support */}
+      <section className="py-12 bg-gray-50 border-t border-gray-200">
+        <div className="container-main">
+          <div className="card p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+            <div>
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Want to support BLAZE?</h2>
+              <p className="text-gray-600">
+                If you&apos;d like to support ongoing development, you can optionally donate in BTC or ETH.
+                No pressure — it&apos;s completely optional.
+              </p>
+            </div>
+            <Link href="/support-us" className="btn-brand whitespace-nowrap">
+              Support BLAZE
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="py-16 bg-white border-t border-gray-200">
         <div className="container-main">
