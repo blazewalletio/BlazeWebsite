@@ -7,12 +7,13 @@ type DonationAddressCardProps = {
   title: string;
   networkLabel: string;
   address: string | null | undefined;
-  uriPrefix: 'bitcoin' | 'ethereum';
+  uriPrefix: 'bitcoin' | 'ethereum' | 'solana';
   note?: string;
 };
 
-function buildWalletUri(uriPrefix: 'bitcoin' | 'ethereum', address: string) {
-  // Keep it simple (no amount/message). Wallet support varies across platforms.
+function buildWalletUri(uriPrefix: 'bitcoin' | 'ethereum' | 'solana', address: string) {
+  // Keep it simple (no amount/message). Wallet support varies across wallets/platforms.
+  // BTC/ETH use common URI schemes; Solana wallets vary, but `solana:` is widely recognized.
   return `${uriPrefix}:${address}`;
 }
 

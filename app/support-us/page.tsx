@@ -11,8 +11,13 @@ export const metadata = {
 };
 
 export default function SupportUsPage() {
-  const btcAddress = process.env.NEXT_PUBLIC_DONATION_BTC_ADDRESS || '';
-  const ethAddress = process.env.NEXT_PUBLIC_DONATION_ETH_ADDRESS || '';
+  // Public donation addresses; can be overridden via env vars for flexibility.
+  const btcAddress =
+    process.env.NEXT_PUBLIC_DONATION_BTC_ADDRESS || 'bc1qj256llkdxgg7ersgx3mxjwz3mgdth8jcrmk6gm';
+  const ethAddress =
+    process.env.NEXT_PUBLIC_DONATION_ETH_ADDRESS || '0x3e1F7a94bB62b76CC52CE075b627c2730C2e0124';
+  const solAddress =
+    process.env.NEXT_PUBLIC_DONATION_SOL_ADDRESS || 'Cx5XppzCtAVDUmmJggayZGfNTy97X3FfYcyiW9g8N1eo';
 
   return (
     <main className="min-h-screen bg-white">
@@ -73,14 +78,14 @@ export default function SupportUsPage() {
                 Thank you
               </div>
               <h2 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-2">
-                Donate in BTC or ETH
+                Donate in BTC, ETH, or SOL
               </h2>
               <p className="text-gray-600 max-w-2xl mx-auto">
                 If you choose to donate, please only send funds on the correct network.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               <DonationAddressCard
                 title="Bitcoin donation address"
                 networkLabel="Bitcoin (BTC)"
@@ -95,6 +100,14 @@ export default function SupportUsPage() {
                 address={ethAddress}
                 uriPrefix="ethereum"
                 note="Send only ETH on Ethereum mainnet to this address."
+              />
+
+              <DonationAddressCard
+                title="Solana donation address"
+                networkLabel="Solana (SOL)"
+                address={solAddress}
+                uriPrefix="solana"
+                note="Send only SOL on the Solana network to this address."
               />
             </div>
 
