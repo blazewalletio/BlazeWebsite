@@ -52,7 +52,8 @@ export async function sendWelcomeEmail(email: string, referralCode: string) {
         <div class="highlight">
           <h3>What you'll get:</h3>
           <p class="mb-0">
-            ✨ Early access at <strong>$0.008333</strong> (58% off $0.02 launch price) + bonus tokens<br>
+            ✨ Presale opportunity at <strong>$0.008333</strong> (58% off $0.02 launch price) + bonus tokens<br>
+            ⚡ Registering intent unlocks a <strong>48-hour early-access window</strong> before public launch<br>
             🔔 Exclusive updates and announcements<br>
             🎁 Special bonuses for early supporters
           </p>
@@ -125,7 +126,7 @@ export async function sendCommitmentConfirmation({
           </p>
         </div>
 
-        <p>This is not a payment. It is your commitment to participate. When the presale opens, you'll receive priority access and a reminder email with payment instructions.</p>
+        <p>This is not a payment. It is your commitment to participate. You&apos;ll get a 48-hour early-access window before public launch, plus reminder emails with payment instructions.</p>
 
         <div class="divider"></div>
 
@@ -163,7 +164,7 @@ export async function sendCommitmentDay2ReadinessEmail(email: string) {
       subject: 'Your 3-minute presale readiness checklist',
       html: baseTemplate(`
         <h1>Get Ready for Presale ✅</h1>
-        <p>Quick checklist so you can move fast when the presale goes live.</p>
+        <p>Quick checklist so you can move fast when your 48-hour early-access window opens.</p>
 
         <div class="highlight">
           <h3>1) Create your BLAZE Wallet account</h3>
@@ -223,7 +224,7 @@ export async function sendCommitmentDay5WhyBlazeEmail(email: string) {
           </ul>
         </div>
 
-        <p>We&apos;ll send clear instructions when the presale opens so you can participate without stress.</p>
+        <p>We&apos;ll send clear instructions before your 48-hour early-access window opens so you can participate without stress.</p>
 
         <center>
           <a href="https://www.blazewallet.io/whitepaper" class="btn">Read the Whitepaper</a>
@@ -319,7 +320,7 @@ export async function sendCommitmentDay13PaymentPrepEmail(email: string) {
       subject: 'Quick prep: make launch day stress-free',
       html: baseTemplate(`
         <h1>Launch Day Prep ⚡</h1>
-        <p>A little preparation now makes it much easier to participate when the presale opens.</p>
+        <p>A little preparation now makes it much easier to participate when your 48-hour early-access window opens.</p>
 
         <div class="highlight">
           <h3>Make sure you can sign in</h3>
@@ -357,7 +358,7 @@ export async function sendCommitmentDay18HowPresaleWorksEmail(email: string) {
       subject: 'How the presale will work (simple explanation)',
       html: baseTemplate(`
         <h1>How the Presale Works 📘</h1>
-        <p>Here&apos;s a simple overview of how you&apos;ll participate when the presale opens.</p>
+        <p>Here&apos;s a simple overview of how you&apos;ll participate during your 48-hour early-access window.</p>
 
         <div class="highlight">
           <h3>Step 1: Have a BLAZE Wallet account</h3>
@@ -370,9 +371,9 @@ export async function sendCommitmentDay18HowPresaleWorksEmail(email: string) {
         </div>
 
         <div class="highlight">
-          <h3>Step 2: Purchase when the presale is live</h3>
+          <h3>Step 2: Purchase in your early-access window</h3>
           <p class="mb-0">
-            When the presale opens, you&apos;ll be able to purchase BLAZE tokens using ETH, BTC, USDT, and via BSC.
+            During your 48-hour early-access window, you&apos;ll be able to purchase BLAZE tokens using ETH, BTC, USDT, and via BSC.
             You&apos;ll receive clear step-by-step instructions in the final countdown emails.
           </p>
         </div>
@@ -410,7 +411,7 @@ export async function sendCommitmentCountdownEmail(
       subject: `⏰ Presale reminder: ${hoursLabel}`,
       html: baseTemplate(`
         <h1>Presale Reminder ⏰</h1>
-        <p>${hoursLabel} until presale.</p>
+        <p>${hoursLabel} until your early-access window opens.</p>
 
         <div class="highlight">
           <h3>Be ready</h3>
@@ -440,10 +441,10 @@ export async function sendCommitmentLiveEmail(email: string) {
     await resend.emails.send({
       from: FROM_EMAIL,
       to: email,
-      subject: '🚀 Presale is LIVE: open BLAZE Wallet to purchase',
+      subject: '🚀 Your early-access window is LIVE: open BLAZE Wallet to purchase',
       html: baseTemplate(`
-        <h1>Presale is LIVE 🚀</h1>
-        <p>Your intent is recorded. You can now participate in the presale.</p>
+        <h1>Your Early Access is LIVE 🚀</h1>
+        <p>Your intent is recorded. You can now participate before the public presale opens.</p>
 
         <div class="highlight">
           <h3>Open BLAZE Wallet</h3>
@@ -602,7 +603,7 @@ export async function sendSocialProofEmail(email: string, referralCode: string, 
           <div class="stat-label">People on the BLAZE waitlist</div>
         </div>
 
-        <p>The BLAZE community is growing fast! Every day, more people are joining the waitlist for early access to the presale.</p>
+        <p>The BLAZE community is growing fast! Every day, more people are joining the waitlist for updates and registering intent for 48-hour early access.</p>
         
         <div class="highlight">
           <h3>Why are people excited?</h3>
@@ -728,7 +729,7 @@ export async function sendExclusiveBonusEmail(email: string, referralCode: strin
           <ul class="list-compact">
             <li><strong>Early Bird Bonus:</strong> Up to 50% extra tokens on your purchase</li>
             <li><strong>Referral Rewards:</strong> Bonus tokens for every friend who joins</li>
-            <li><strong>Priority Access:</strong> First in line when presale opens</li>
+            <li><strong>48-hour Early Access:</strong> Intent registrations get access before public launch</li>
             <li><strong>VIP Support:</strong> Direct access to our founding team</li>
           </ul>
         </div>
@@ -799,7 +800,7 @@ export async function sendPresaleCountdownEmail(email: string, referralCode: str
           <h3>Presale Checklist:</h3>
           <ul class="list-compact">
             <li>✅ <strong>Join the waitlist</strong>: Done!</li>
-            <li>☐ <strong>Register your purchase intent</strong>: Lock in your spot</li>
+            <li>☐ <strong>Register your purchase intent</strong>: Lock in your spot and unlock 48-hour early access</li>
             <li>☐ <strong>Prepare your wallet</strong>: Keep your preferred wallet and gas-ready network set up</li>
             <li>☐ <strong>Set up a wallet</strong>: MetaMask, Trust Wallet, etc.</li>
           </ul>
@@ -807,8 +808,8 @@ export async function sendPresaleCountdownEmail(email: string, referralCode: str
 
         <h2>What to Expect:</h2>
         <ul>
-          <li>📧 <strong>48 hours before:</strong> You'll receive detailed instructions</li>
-          <li>🚀 <strong>At launch:</strong> Priority access for waitlist members</li>
+          <li>📧 <strong>48 hours before public launch:</strong> Intent participants receive detailed instructions</li>
+          <li>🚀 <strong>At launch:</strong> Public presale opens for everyone</li>
           <li>⚡ <strong>During presale:</strong> First-come, first-served per tier</li>
           <li>🔒 <strong>After purchase:</strong> Tokens locked until TGE</li>
         </ul>

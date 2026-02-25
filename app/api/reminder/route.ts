@@ -87,11 +87,11 @@ export async function POST(request: Request) {
           </p>
         </div>
 
-        <p>Remember, this is just a commitment - you only pay when the presale goes live. But registering your intent ensures you get:</p>
+        <p>Remember, this is just a commitment. You only pay when your early-access window opens. Registering your intent ensures you get:</p>
         <ul>
-          <li>✅ Priority access when presale opens</li>
+          <li>✅ A 48-hour early-access window before public launch</li>
           <li>✅ Reserved allocation at your tier</li>
-          <li>✅ 48-hour advance notification</li>
+          <li>✅ Advance reminders and launch instructions</li>
           <li>✅ Payment instructions sent directly</li>
         </ul>
 
