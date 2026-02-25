@@ -154,7 +154,7 @@ export default function PresaleTeaser() {
               <span className="text-gradient-brand">58% off</span>
             </h2>
             <p className="text-sm sm:text-lg text-gray-400 max-w-2xl mx-auto">
-              Register your intent directly here. No payment required.
+              Register your intent directly here. No payment required. Registered intents get 48-hour early access.
             </p>
           </div>
 
@@ -332,6 +332,7 @@ export default function PresaleTeaser() {
                       <CheckCircle2 className="w-4 h-4 flex-shrink-0" />
                       <span>
                         Intent registered: ${submitSuccess.amountUsd.toLocaleString()} ({submitSuccess.tierName} tier).{' '}
+                        48-hour early access is included.{' '}
                         <a
                           href="https://t.me/ai4ldMZv0KgyN2Y8"
                           target="_blank"
@@ -361,7 +362,7 @@ export default function PresaleTeaser() {
                   </button>
 
                   <p className="text-center text-gray-500 text-xs sm:text-sm mt-3">
-                    No payment required. One intent per email.
+                    No payment required. One intent per email. 48-hour early access included.
                   </p>
                 </form>
 
@@ -382,7 +383,7 @@ export default function PresaleTeaser() {
             {[
               { icon: Zap, text: 'Email confirmation' },
               { icon: Users, text: 'Non-custodial' },
-              { icon: Clock, text: 'Priority access' },
+              { icon: Clock, text: '48h early access' },
             ].map((item, index) => (
               <div key={index} className="flex items-center gap-2 text-gray-400 text-sm">
                 <item.icon className="w-4 h-4 sm:w-5 sm:h-5 text-orange-400" />

@@ -175,7 +175,7 @@ export default function CommitmentForm() {
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Register your purchase intent now. No payment required. Just let us know how much you plan to invest
-            and secure your tier pricing.
+            and secure your tier pricing. Registered intents get 48-hour early access before public opening.
           </p>
         </motion.div>
 
@@ -201,7 +201,7 @@ export default function CommitmentForm() {
                     </div>
                     <h3 className="text-2xl font-bold text-gray-900 mb-2">Intent registered!</h3>
                     <p className="text-gray-600 mb-6">
-                      We've recorded your purchase intent. You'll receive a confirmation email shortly.
+                      We've recorded your purchase intent. You'll receive a confirmation email shortly, including details for your 48-hour early-access window.
                     </p>
                     <p className="text-sm text-gray-600 mb-6">
                       Want updates and announcements in real time?{' '}
@@ -378,7 +378,7 @@ export default function CommitmentForm() {
                     This is not a payment. You're only registering your interest.
                   </p>
                   <p className="text-xs text-gray-500 text-center mt-1">
-                    One intent per email • Confirmation email sent automatically.
+                    One intent per email • 48-hour early access • Confirmation email sent automatically.
                   </p>
                 </motion.form>
               )}
@@ -453,8 +453,8 @@ export default function CommitmentForm() {
                     <Zap className="w-4 h-4 text-orange-600" />
                   </div>
                   <div>
-                    <div className="font-medium text-gray-900">Priority access</div>
-                    <div className="text-sm text-gray-600">Be first in line when presale opens</div>
+                    <div className="font-medium text-gray-900">48-hour early access</div>
+                    <div className="text-sm text-gray-600">Get access 48 hours before the public presale opens</div>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">

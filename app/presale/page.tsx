@@ -14,8 +14,9 @@ export default function PresalePage() {
   const presalePrice = PRESALE_CONSTANTS.presalePrice;
   const faqs = [
     ['What is the BLAZE presale?', 'The presale gives early supporters access to BLAZE tokens at a discounted price before public launch.'],
+    ['Why should I register my presale intent?', 'Registered intent participants receive a 48-hour early-access window before the public presale. It helps us prepare your launch instructions in advance.'],
     ['What amount can I register?', 'You can register any intent between $100 and $10,000 per wallet. Most early supporters currently choose around $500, but the final amount is fully up to you.'],
-    ['Do I pay immediately?', 'No. Registering intent is not a payment. You reserve your spot and receive payment instructions when the presale goes live.'],
+    ['Do I pay immediately?', 'No. Registering intent is not a payment. You reserve your spot, unlock 48-hour early access, and receive payment instructions when your access window opens.'],
     ['Can I increase my intent later?', 'At the moment we allow one intent per email in the form flow. If you want to increase or adjust your intent, contact support and we can assist.'],
   ] as const;
 
@@ -45,14 +46,14 @@ export default function PresalePage() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500" />
               </span>
-              Early bird presale access
+              48-hour early presale access
             </div>
 
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-5 leading-tight tracking-tight">
               Get BLAZE tokens at <span className="text-gradient-brand">{presaleDiscount}% off</span>
             </h1>
             <p className="text-base sm:text-lg text-gray-300 max-w-3xl mx-auto mb-7 sm:mb-9">
-              Fixed presale price of ${presalePrice.toFixed(6)} per token. Early supporters get bonus tokens and priority access.
+              Fixed presale price of ${presalePrice.toFixed(6)} per token. Early supporters get bonus tokens and a 48-hour early-access window.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8 sm:mb-10 max-w-md sm:max-w-none mx-auto">
@@ -96,6 +97,10 @@ export default function PresalePage() {
                 <CheckCircle2 className="w-4 h-4 text-emerald-400" />
                 No upfront payment
               </span>
+              <span className="inline-flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                48-hour early access
+              </span>
             </div>
           </div>
         </div>
@@ -109,7 +114,7 @@ export default function PresalePage() {
                 <CheckCircle2 className="w-6 h-6 text-emerald-600" />
                 </div>
               <h3 className="text-lg font-bold text-gray-900 mb-1">No upfront payment</h3>
-              <p className="text-gray-600">Register intent first, complete purchase when the presale goes live.</p>
+              <p className="text-gray-600">Register intent first to unlock your 48-hour early-access window, then complete purchase when it opens.</p>
                       </div>
             <div className="card card-hover p-5 sm:p-6">
               <div className="icon-box bg-orange-100 mb-4">
@@ -151,7 +156,7 @@ export default function PresalePage() {
               <div className="card p-4 sm:p-5">
                 <div className="text-xs font-semibold text-orange-600 mb-2">STEP 2</div>
                 <h3 className="font-bold text-gray-900 mb-1">Receive confirmation</h3>
-                <p className="text-sm text-gray-600">Get confirmation and your referral link instantly in the same flow.</p>
+                <p className="text-sm text-gray-600">Get confirmation, your referral link, and reminders for your 48-hour early-access window.</p>
               </div>
               <div className="card p-4 sm:p-5">
                 <div className="text-xs font-semibold text-orange-600 mb-2">STEP 3</div>

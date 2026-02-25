@@ -143,7 +143,7 @@ export function buildBlazeSystemPrompt(ctx: ChatDynamicContext) {
 
   const presaleLines: string[] = [];
   presaleLines.push('### Presale (Website-accurate)');
-  presaleLines.push('- Registering a presale intent is **not a payment**. It reserves your spot and you receive instructions at launch.');
+  presaleLines.push('- Registering a presale intent is **not a payment**. It reserves your spot, gives you **48-hour early access** before public launch, and you receive instructions when your window opens.');
   presaleLines.push(`- Intent limits: **$${minContributionUsd} min** and **$${maxContributionUsd.toLocaleString()} max** per wallet.`);
   presaleLines.push('- Best link to register: https://www.blazewallet.io/presale?intent=500#commitment');
 
@@ -201,6 +201,7 @@ export function buildBlazeSystemPrompt(ctx: ChatDynamicContext) {
   const conversionLines: string[] = [];
   conversionLines.push('### Conversion guidelines');
   conversionLines.push('- If a user asks anything presale-related, guide them to register intent at /presale?intent=500#commitment.');
+  conversionLines.push('- Make the key benefit explicit: registered intent participants get 48-hour early access compared to users without intent.');
   conversionLines.push('- If they show high intent, remind them: create/sign into account at my.blazewallet.io and join Telegram for updates.');
   conversionLines.push('- Keep answers accurate; if unsure, suggest contacting info@blazewallet.io.');
 

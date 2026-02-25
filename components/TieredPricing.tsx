@@ -252,7 +252,7 @@ export default function TieredPricing() {
             <Zap className="w-5 h-5" />
           </a>
           <p className="text-gray-400 text-sm mt-4">
-            No payment required - just register your interest to secure your tier
+            No payment required. Register your intent to secure your tier and get 48-hour early access.
           </p>
         </motion.div>
       </div>
