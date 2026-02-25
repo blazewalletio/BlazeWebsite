@@ -289,7 +289,7 @@ export default function ChatWidget() {
                             </p>
                           </div>
                           <a
-                            href="/presale#commitment"
+                            href="/presale?intent=500#commitment"
                             className="shrink-0 inline-flex items-center justify-center px-4 py-2 rounded-xl bg-gradient-to-r from-orange-500 to-yellow-500 text-white text-sm font-semibold shadow-sm hover:from-orange-600 hover:to-yellow-600 transition-colors"
                           >
                             Reserve spot

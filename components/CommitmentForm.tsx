@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Target, Zap, Calculator, Check, AlertCircle, Loader2, TrendingUp, Gift, Shield, Clock } from 'lucide-react';
 import { BONUS_TIERS, PRESALE_CONSTANTS } from '@/lib/presale-constants';
 import { trackPresaleIntentRegistered } from '@/lib/analytics/client';
+import { useSearchParams } from 'next/navigation';
 
 interface PricingTier {
   tier_number: number;
@@ -25,10 +26,12 @@ interface CommitmentResult {
 }
 
 const SUGGESTED_AMOUNTS = [100, 250, 500, 1000, 2500, 5000];
+const POPULAR_AMOUNT = 500;
 
 export default function CommitmentForm() {
+  const searchParams = useSearchParams();
   const [email, setEmail] = useState('');
-  const [amount, setAmount] = useState<number>(100);
+  const [amount, setAmount] = useState<number>(POPULAR_AMOUNT);
   const [customAmount, setCustomAmount] = useState('');
   const [isCustom, setIsCustom] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -84,6 +87,18 @@ export default function CommitmentForm() {
     return () => clearInterval(timer);
   }, [presaleTimestamp]);
 
+  // Optional prefill via query param, e.g. /presale?intent=500#commitment
+  useEffect(() => {
+    const raw = searchParams.get('intent');
+    if (!raw) return;
+    const parsed = Number(raw);
+    if (!Number.isFinite(parsed)) return;
+    if (parsed < PRESALE_CONSTANTS.minContribution || parsed > PRESALE_CONSTANTS.maxContribution) return;
+    setAmount(parsed);
+    setIsCustom(false);
+    setCustomAmount('');
+  }, [searchParams]);
+
   // Calculate estimated tokens
   const pricePerToken = currentTier?.price_usd || PRESALE_CONSTANTS.presalePrice;
   const bonusPercentage = currentTier?.bonus_percentage ?? BONUS_TIERS[0].bonus_percentage;
@@ -91,6 +106,8 @@ export default function CommitmentForm() {
   const baseTokens = effectiveAmount / pricePerToken;
   const bonusTokens = baseTokens * (bonusPercentage / 100);
   const totalTokens = baseTokens + bonusTokens;
+  const estimateTokensForAmount = (usd: number) =>
+    Math.round((usd / pricePerToken) * (1 + bonusPercentage / 100));
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -257,7 +274,7 @@ export default function CommitmentForm() {
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       How much do you plan to invest?
                     </label>
-                    <div className="grid grid-cols-3 gap-2 mb-3">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-3">
                       {SUGGESTED_AMOUNTS.map((value) => (
                         <button
                           key={value}
@@ -266,13 +283,31 @@ export default function CommitmentForm() {
                             setAmount(value);
                             setIsCustom(false);
                           }}
-                          className={`py-3 rounded-xl font-medium transition-all ${
+                          className={`relative py-2.5 rounded-xl transition-all text-left px-3 ${
                             !isCustom && amount === value
                               ? 'bg-gradient-to-r from-orange-500 to-yellow-500 text-white shadow-lg shadow-orange-500/30'
                               : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                           }`}
                         >
-                          ${value.toLocaleString()}
+                          {value === POPULAR_AMOUNT && (
+                            <span
+                              className={`absolute -top-2 right-2 text-[10px] px-2 py-0.5 rounded-full font-semibold ${
+                                !isCustom && amount === value
+                                  ? 'bg-white/25 text-white border border-white/30'
+                                  : 'bg-orange-100 text-orange-700 border border-orange-200'
+                              }`}
+                            >
+                              Popular
+                            </span>
+                          )}
+                          <div className="font-semibold">${value.toLocaleString()}</div>
+                          <div
+                            className={`text-[11px] ${
+                              !isCustom && amount === value ? 'text-white/85' : 'text-gray-500'
+                            }`}
+                          >
+                            ~{estimateTokensForAmount(value).toLocaleString()} tokens incl. bonus
+                          </div>
                         </button>
                       ))}
                     </div>
@@ -294,7 +329,9 @@ export default function CommitmentForm() {
                         }`}
                       />
                     </div>
-                    <p className="text-xs text-gray-500 mt-2">Min $100. Max $10,000.</p>
+                    <p className="text-xs text-gray-500 mt-2">
+                      Popular with early supporters: $500. You can choose any amount from $100 to $10,000.
+                    </p>
                   </div>
 
                   {/* Error */}

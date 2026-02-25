@@ -16,10 +16,13 @@ interface PricingTier {
   max_buyers: number;
 }
 
+const PRESET_AMOUNTS = [100, 250, 500, 1000, 2500];
+const POPULAR_AMOUNT = 500;
+
 export default function PresaleTeaser() {
   const [currentTier, setCurrentTier] = useState<PricingTier | null>(null);
   const [waitlistCount, setWaitlistCount] = useState(0);
-  const [inputAmount, setInputAmount] = useState(250);
+  const [inputAmount, setInputAmount] = useState(POPULAR_AMOUNT);
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showMobileDetails, setShowMobileDetails] = useState(false);
@@ -56,6 +59,8 @@ export default function PresaleTeaser() {
   const baseTokens = inputAmount / PRESALE_PRICE;
   const bonusTokens = baseTokens * (bonusPercentage / 100);
   const totalTokens = baseTokens + bonusTokens;
+  const estimateTokensForAmount = (usd: number) =>
+    Math.round((usd / PRESALE_PRICE) * (1 + bonusPercentage / 100));
   const presaleDiscount = Math.round((1 - PRESALE_PRICE / LAUNCH_PRICE) * 100);
 
   const HARD_CAP = PRESALE_CONSTANTS.hardCap;
@@ -269,22 +274,39 @@ export default function PresaleTeaser() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-3 gap-2 mb-4">
-                    {[100, 250, 500, 1000, 2500].map((amount) => (
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-4">
+                    {PRESET_AMOUNTS.map((amount) => (
                       <button
                         key={amount}
                         type="button"
                         onClick={() => setInputAmount(amount)}
-                        className={`py-2 rounded-lg text-xs sm:text-sm font-medium transition-all ${
+                        className={`relative py-2 px-2 rounded-lg text-left transition-all ${
                           inputAmount === amount
-                            ? 'bg-orange-500 text-white'
-                            : 'bg-white/10 text-gray-400 hover:bg-white/20 hover:text-white'
+                            ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
+                            : 'bg-white/10 text-gray-300 hover:bg-white/20 hover:text-white'
                         }`}
                       >
-                        ${amount}
+                        {amount === POPULAR_AMOUNT && (
+                          <span
+                            className={`absolute -top-2 right-1 text-[10px] px-1.5 py-0.5 rounded-full font-semibold ${
+                              inputAmount === amount
+                                ? 'bg-white/20 text-white border border-white/30'
+                                : 'bg-orange-500/20 text-orange-300 border border-orange-500/30'
+                            }`}
+                          >
+                            Popular
+                          </span>
+                        )}
+                        <div className="text-sm sm:text-base font-semibold">${amount.toLocaleString()}</div>
+                        <div className={`text-[10px] sm:text-[11px] ${inputAmount === amount ? 'text-white/85' : 'text-gray-400'}`}>
+                          ~{estimateTokensForAmount(amount).toLocaleString()} tokens
+                        </div>
                       </button>
                     ))}
                   </div>
+                  <p className="text-xs text-gray-400 mb-4">
+                    Popular with early supporters: $500. You can choose any amount from $100 to $10,000.
+                  </p>
 
                   <div className="bg-gradient-to-br from-orange-500/20 to-yellow-500/20 rounded-xl p-4 sm:p-6 border border-orange-500/20 mb-4">
                     <div className="text-gray-400 text-xs sm:text-sm mb-2">Estimated tokens</div>
@@ -345,7 +367,7 @@ export default function PresaleTeaser() {
 
                 <div className="mt-4 sm:mt-5 text-center">
                   <Link
-                    href="/presale"
+                    href="/presale?intent=500#commitment"
                     className="text-sm text-gray-400 hover:text-white transition-colors inline-flex items-center gap-1"
                   >
                     Open full presale page
