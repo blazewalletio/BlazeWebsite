@@ -285,7 +285,7 @@ export default function ChatWidget() {
                             <div className="text-xs font-semibold text-orange-600">Presale</div>
                             <div className="font-bold text-gray-900 mt-1">Register your presale intent</div>
                             <p className="text-sm text-gray-600 mt-1">
-                              No upfront payment. Reserve your spot and get launch-day instructions.
+                              No upfront payment. Reserve your spot and get 48-hour early access before public launch.
                             </p>
                           </div>
                           <a

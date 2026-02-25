@@ -13,7 +13,7 @@ export default function PresalePage() {
   const launchPrice = PRESALE_CONSTANTS.launchPrice;
   const presalePrice = PRESALE_CONSTANTS.presalePrice;
   const faqs = [
-    ['What is the BLAZE presale?', 'The presale gives early supporters access to BLAZE tokens at a discounted price before public launch.'],
+    ['What is the BLAZE presale?', 'The presale gives early supporters access to BLAZE tokens at a discounted price. Registered intent participants receive a 48-hour early-access window before the public launch.'],
     ['Why should I register my presale intent?', 'Registered intent participants receive a 48-hour early-access window before the public presale. It helps us prepare your launch instructions in advance.'],
     ['What amount can I register?', 'You can register any intent between $100 and $10,000 per wallet. Most early supporters currently choose around $500, but the final amount is fully up to you.'],
     ['Do I pay immediately?', 'No. Registering intent is not a payment. You reserve your spot, unlock 48-hour early access, and receive payment instructions when your access window opens.'],
@@ -179,7 +179,7 @@ export default function PresalePage() {
                 Presale FAQ
               </div>
               <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">Frequently asked questions</h2>
-              <p className="text-gray-600">Everything about intent registration and presale access.</p>
+              <p className="text-gray-600">Everything about intent registration and your 48-hour early-access benefits.</p>
             </div>
             <div className="space-y-3 sm:space-y-4">
               {faqs.map(([question, answer]) => (

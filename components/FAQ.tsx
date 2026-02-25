@@ -27,7 +27,7 @@ const faqs = [
   },
   {
     question: 'When is the BLAZE token presale?',
-    answer: 'The BLAZE token presale is scheduled for Q1 2026, alongside the launch of our iOS and Android apps. Early supporters will get access to discounted tokens before the public launch. Join our community to stay updated on exact dates.',
+    answer: 'The BLAZE token presale is scheduled for Q1 2026, alongside the launch of our iOS and Android apps. Registered presale intent participants get a 48-hour early-access window before public launch. Join our community to stay updated on exact dates.',
   },
 ];
 
