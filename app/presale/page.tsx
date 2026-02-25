@@ -14,9 +14,9 @@ export default function PresalePage() {
   const presalePrice = PRESALE_CONSTANTS.presalePrice;
   const faqs = [
     ['What is the BLAZE presale?', 'The presale gives early supporters access to BLAZE tokens at a discounted price before public launch.'],
-    ['How much is the minimum intent?', 'The minimum intent amount is $100 and maximum is $10,000 per wallet.'],
+    ['What amount can I register?', 'You can register any intent between $100 and $10,000 per wallet. Most early supporters currently choose around $500, but the final amount is fully up to you.'],
     ['Do I pay immediately?', 'No. Registering intent is not a payment. You reserve your spot and receive payment instructions when the presale goes live.'],
-    ['What does the referral program do?', 'Each signup gets a referral code. Referrals move you up the leaderboard and unlock bonus token rewards.'],
+    ['Can I increase my intent later?', 'At the moment we allow one intent per email in the form flow. If you want to increase or adjust your intent, contact support and we can assist.'],
   ] as const;
 
   return (

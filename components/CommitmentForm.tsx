@@ -377,6 +377,9 @@ export default function CommitmentForm() {
                   <p className="text-xs text-gray-500 text-center mt-4">
                     This is not a payment. You're only registering your interest.
                   </p>
+                  <p className="text-xs text-gray-500 text-center mt-1">
+                    One intent per email • Confirmation email sent automatically.
+                  </p>
                 </motion.form>
               )}
             </AnimatePresence>
