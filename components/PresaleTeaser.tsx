@@ -280,7 +280,7 @@ export default function PresaleTeaser() {
                         key={amount}
                         type="button"
                         onClick={() => setInputAmount(amount)}
-                        className={`relative py-2 px-2 rounded-lg text-left transition-all ${
+                        className={`relative py-2.5 px-2.5 rounded-lg text-left transition-all ${
                           inputAmount === amount
                             ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
                             : 'bg-white/10 text-gray-300 hover:bg-white/20 hover:text-white'
@@ -288,22 +288,22 @@ export default function PresaleTeaser() {
                       >
                         {amount === POPULAR_AMOUNT && (
                           <span
-                            className={`absolute -top-2 right-1 text-[10px] px-1.5 py-0.5 rounded-full font-semibold ${
+                            className={`absolute top-1.5 right-1.5 z-10 text-[10px] px-2 py-0.5 rounded-full font-semibold shadow-sm ${
                               inputAmount === amount
-                                ? 'bg-white/20 text-white border border-white/30'
-                                : 'bg-orange-500/20 text-orange-300 border border-orange-500/30'
+                                ? 'bg-white text-orange-700 border border-white'
+                                : 'bg-orange-600 text-white border border-orange-600'
                             }`}
                           >
                             Popular
                           </span>
                         )}
                         <div className="text-sm sm:text-base font-semibold">${amount.toLocaleString()}</div>
-                        <div className={`text-[10px] sm:text-[11px] ${inputAmount === amount ? 'text-white/85' : 'text-gray-400'}`}>
-                          ~{estimateTokensForAmount(amount).toLocaleString()} tokens
-                        </div>
                       </button>
                     ))}
                   </div>
+                  <p className="text-xs text-gray-400 mb-2">
+                    Estimated allocation at this amount: ~{estimateTokensForAmount(inputAmount).toLocaleString()} tokens incl. bonus.
+                  </p>
                   <p className="text-xs text-gray-400 mb-4">
                     Popular with early supporters: $500. You can choose any amount from $100 to $10,000.
                   </p>

@@ -291,25 +291,21 @@ export default function CommitmentForm() {
                         >
                           {value === POPULAR_AMOUNT && (
                             <span
-                              className={`absolute -top-2 right-2 text-[10px] px-2 py-0.5 rounded-full font-semibold ${
+                              className={`absolute top-1.5 right-1.5 z-10 text-[10px] px-2 py-0.5 rounded-full font-semibold shadow-sm ${
                                 !isCustom && amount === value
-                                  ? 'bg-white/25 text-white border border-white/30'
-                                  : 'bg-orange-100 text-orange-700 border border-orange-200'
+                                  ? 'bg-white text-orange-700 border border-white'
+                                  : 'bg-orange-600 text-white border border-orange-600'
                               }`}
                             >
                               Popular
                             </span>
                           )}
                           <div className="font-semibold">${value.toLocaleString()}</div>
-                          <div
-                            className={`text-[11px] ${
-                              !isCustom && amount === value ? 'text-white/85' : 'text-gray-500'
-                            }`}
-                          >
-                            ~{estimateTokensForAmount(value).toLocaleString()} tokens incl. bonus
-                          </div>
                         </button>
                       ))}
+                    </div>
+                    <div className="text-xs text-gray-500 mb-1">
+                      Estimated allocation at this amount: ~{estimateTokensForAmount(effectiveAmount || amount).toLocaleString()} tokens incl. bonus.
                     </div>
                     <div className="relative">
                       <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-medium">$</span>
