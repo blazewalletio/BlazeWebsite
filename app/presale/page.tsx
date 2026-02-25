@@ -6,7 +6,6 @@ import dynamic from 'next/dynamic';
 import { PRESALE_CONSTANTS } from '@/lib/presale-constants';
 
 const CommitmentForm = dynamic(() => import('@/components/CommitmentForm'), { ssr: false });
-const Leaderboard = dynamic(() => import('@/components/Leaderboard'), { ssr: false });
 const PresaleStickyCTA = dynamic(() => import('@/components/PresaleStickyCTA'), { ssr: false });
 
 export default function PresalePage() {
@@ -165,7 +164,6 @@ export default function PresalePage() {
       </section>
 
       <CommitmentForm />
-      <Leaderboard />
 
       <section className="py-14 sm:py-20 lg:py-24 bg-gray-50 border-t border-gray-100">
         <div className="container-main">
