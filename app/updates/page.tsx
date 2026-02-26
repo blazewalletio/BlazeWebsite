@@ -10,8 +10,21 @@ import {
 } from '@/lib/wallet-updates-server';
 import { Activity, Clock3, ExternalLink, Tag } from 'lucide-react';
 import Link from 'next/link';
+import { buildPageMetadata } from '@/lib/seo/metadata';
 
 export const dynamic = 'force-dynamic';
+export const metadata = buildPageMetadata({
+  title: 'BLAZE Updates: Wallet Release Notes and Product Sync',
+  description:
+    'Track the latest BLAZE wallet updates, release syncs, and commit-backed product changes in one transparent changelog.',
+  path: '/updates',
+  keywords: [
+    'BLAZE updates',
+    'wallet release notes',
+    'crypto wallet changelog',
+    'BLAZE product updates',
+  ],
+});
 
 export default async function UpdatesPage() {
   const repoLabel = getWalletRepoLabel();

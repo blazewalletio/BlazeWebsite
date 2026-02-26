@@ -1,23 +1,19 @@
 import { Metadata } from 'next';
+import { buildPageMetadata } from '@/lib/seo/metadata';
 
-export const metadata: Metadata = {
-  title: 'BLAZE Documentation: Guides & Tutorials',
-  description: 'Learn how to use BLAZE Wallet. Setup guides, QuickPay tutorials, AI features, and security best practices.',
-  keywords: 'BLAZE documentation, crypto wallet guide, QuickPay tutorial, wallet setup, AI wallet features, security guide',
-  openGraph: {
-    title: 'BLAZE Documentation: Guides & Tutorials',
-    description: 'Learn how to use BLAZE Wallet. Setup guides, QuickPay tutorials, AI features, and security best practices.',
-    url: 'https://www.blazewallet.io/documentation',
-    type: 'website',
-  },
-  twitter: {
-    title: 'BLAZE Documentation: Guides & Tutorials',
-    description: 'Learn how to use BLAZE Wallet. Setup guides, QuickPay tutorials, AI features, and security best practices.',
-  },
-  alternates: {
-    canonical: 'https://www.blazewallet.io/documentation',
-  },
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: 'BLAZE Documentation: Guides and Tutorials',
+  description:
+    'Learn how to use BLAZE Wallet with setup guides, QuickPay tutorials, AI feature walkthroughs, and security best practices.',
+  path: '/documentation',
+  keywords: [
+    'BLAZE documentation',
+    'crypto wallet guide',
+    'QuickPay tutorial',
+    'wallet security best practices',
+    'AI wallet features',
+  ],
+});
 
 export default function DocumentationLayout({
   children,

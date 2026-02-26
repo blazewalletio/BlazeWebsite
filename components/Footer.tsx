@@ -63,6 +63,7 @@ export default function Footer() {
     resources: [
       { label: 'Whitepaper', href: '/whitepaper' },
       { label: 'Documentation', href: '/documentation' },
+      { label: 'Learn', href: '/learn' },
       { label: 'Updates', href: '/updates' },
       { label: 'Support', href: '/support' },
       { label: 'Support BLAZE', href: '/support-us' },

@@ -4,9 +4,23 @@ import { ArrowRight, CheckCircle2, Shield, Users, Zap } from 'lucide-react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { PRESALE_CONSTANTS } from '@/lib/presale-constants';
+import { buildPageMetadata } from '@/lib/seo/metadata';
 
 const CommitmentForm = dynamic(() => import('@/components/CommitmentForm'), { ssr: false });
 const PresaleStickyCTA = dynamic(() => import('@/components/PresaleStickyCTA'), { ssr: false });
+
+export const metadata = buildPageMetadata({
+  title: 'BLAZE Presale: Register Your Intent for 48h Early Access',
+  description: `Register your BLAZE presale intent at $${PRESALE_CONSTANTS.presalePrice.toFixed(6)} per token (${PRESALE_CONSTANTS.presaleDiscount}% off launch price). No upfront payment. One intent per email.`,
+  path: '/presale',
+  keywords: [
+    'BLAZE presale',
+    'crypto presale intent',
+    'token presale',
+    'BLAZE token price',
+    'early access crypto presale',
+  ],
+});
 
 export default function PresalePage() {
   const presaleDiscount = PRESALE_CONSTANTS.presaleDiscount;

@@ -1,67 +1,100 @@
 import { MetadataRoute } from 'next';
+import { getWalletUpdates } from '@/lib/wallet-updates-server';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+function parseSafeDate(value?: string) {
+  if (!value) return null;
+  const parsed = new Date(value);
+  return Number.isNaN(parsed.getTime()) ? null : parsed;
+}
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://www.blazewallet.io';
-  const lastModified = new Date();
+  const baselineDate = new Date('2026-02-26T00:00:00.000Z');
+  const { updates } = await getWalletUpdates(1);
+  const updatesLastModified = parseSafeDate(updates[0]?.date) || baselineDate;
 
   return [
     {
       url: baseUrl,
-      lastModified,
+      lastModified: updatesLastModified,
       changeFrequency: 'weekly',
       priority: 1.0,
     },
     {
       url: `${baseUrl}/whitepaper`,
-      lastModified,
+      lastModified: baselineDate,
       changeFrequency: 'monthly',
       priority: 0.9,
     },
     {
       url: `${baseUrl}/documentation`,
-      lastModified,
+      lastModified: baselineDate,
       changeFrequency: 'weekly',
       priority: 0.8,
     },
     {
       url: `${baseUrl}/support`,
-      lastModified,
+      lastModified: baselineDate,
       changeFrequency: 'monthly',
       priority: 0.7,
     },
     {
       url: `${baseUrl}/support-us`,
-      lastModified,
+      lastModified: baselineDate,
       changeFrequency: 'monthly',
       priority: 0.6,
     },
     {
       url: `${baseUrl}/presale`,
-      lastModified,
+      lastModified: baselineDate,
       changeFrequency: 'daily',
       priority: 0.9,
     },
     {
       url: `${baseUrl}/updates`,
-      lastModified,
+      lastModified: updatesLastModified,
       changeFrequency: 'weekly',
       priority: 0.7,
     },
     {
+      url: `${baseUrl}/learn`,
+      lastModified: baselineDate,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/learn/crypto-wallet-for-daily-payments`,
+      lastModified: baselineDate,
+      changeFrequency: 'monthly',
+      priority: 0.75,
+    },
+    {
+      url: `${baseUrl}/learn/pay-with-usdc-qr-code`,
+      lastModified: baselineDate,
+      changeFrequency: 'monthly',
+      priority: 0.75,
+    },
+    {
+      url: `${baseUrl}/learn/non-custodial-wallet-security`,
+      lastModified: baselineDate,
+      changeFrequency: 'monthly',
+      priority: 0.75,
+    },
+    {
       url: `${baseUrl}/privacy`,
-      lastModified,
+      lastModified: baselineDate,
       changeFrequency: 'yearly',
       priority: 0.5,
     },
     {
       url: `${baseUrl}/terms`,
-      lastModified,
+      lastModified: baselineDate,
       changeFrequency: 'yearly',
       priority: 0.5,
     },
     {
       url: `${baseUrl}/cookies`,
-      lastModified,
+      lastModified: baselineDate,
       changeFrequency: 'yearly',
       priority: 0.3,
     },

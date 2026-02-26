@@ -12,6 +12,21 @@ import Navbar from '@/components/Navbar';
 import PresaleTeaser from '@/components/PresaleTeaser';
 import ProductStatus from '@/components/ProductStatus';
 import SupportBlazeTeaser from '@/components/SupportBlazeTeaser';
+import { buildPageMetadata } from '@/lib/seo/metadata';
+
+export const metadata = buildPageMetadata({
+  title: 'BLAZE Wallet: AI Crypto Wallet for Everyday Payments',
+  description:
+    'Use QuickPay to pay with crypto in seconds. BLAZE Wallet combines non-custodial security, scam protection, and multi-chain support for daily use.',
+  path: '/',
+  keywords: [
+    'AI crypto wallet',
+    'crypto wallet for payments',
+    'non-custodial wallet',
+    'QuickPay wallet',
+    'multi-chain wallet',
+  ],
+});
 
 export default function Home() {
   return (

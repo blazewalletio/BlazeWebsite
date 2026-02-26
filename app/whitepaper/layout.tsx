@@ -1,23 +1,19 @@
 import { Metadata } from 'next';
+import { buildPageMetadata } from '@/lib/seo/metadata';
 
-export const metadata: Metadata = {
-  title: 'BLAZE Whitepaper: Vision, Tokenomics and Roadmap',
-  description: 'Complete whitepaper: QuickPay technology, token distribution, staking rewards up to 20% APY, and our roadmap to global crypto payments.',
-  keywords: 'BLAZE whitepaper, crypto whitepaper, tokenomics, QuickPay, staking rewards, DeFi roadmap, BLAZE token',
-  openGraph: {
-    title: 'BLAZE Whitepaper: Vision, Tokenomics and Roadmap',
-    description: 'Complete whitepaper: QuickPay technology, token distribution, staking rewards up to 20% APY, and our roadmap to global crypto payments.',
-    url: 'https://www.blazewallet.io/whitepaper',
-    type: 'article',
-  },
-  twitter: {
-    title: 'BLAZE Whitepaper: Vision, Tokenomics and Roadmap',
-    description: 'Complete whitepaper: QuickPay technology, token distribution, staking rewards up to 20% APY, and our roadmap to global crypto payments.',
-  },
-  alternates: {
-    canonical: 'https://www.blazewallet.io/whitepaper',
-  },
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: 'BLAZE Whitepaper: Vision, Tokenomics, and Roadmap',
+  description:
+    'Read the BLAZE whitepaper with QuickPay architecture, tokenomics, security principles, and roadmap milestones for everyday crypto payments.',
+  path: '/whitepaper',
+  keywords: [
+    'BLAZE whitepaper',
+    'crypto wallet whitepaper',
+    'tokenomics',
+    'QuickPay architecture',
+    'BLAZE roadmap',
+  ],
+});
 
 export default function WhitepaperLayout({
   children,

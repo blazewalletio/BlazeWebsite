@@ -3,12 +3,20 @@ import Footer from '@/components/Footer';
 import DonationAddressCard from '@/components/DonationAddressCard';
 import Link from 'next/link';
 import { HeartHandshake, Shield, Sparkles, ArrowRight } from 'lucide-react';
+import { buildPageMetadata } from '@/lib/seo/metadata';
 
-export const metadata = {
-  title: 'Support BLAZE',
+export const metadata = buildPageMetadata({
+  title: 'Support BLAZE: Optional Donations and Community Support',
   description:
-    'Optional donations help fund infrastructure, security, and continued development of BLAZE Wallet.',
-};
+    'Support BLAZE Wallet with optional BTC, ETH, or SOL donations, or help by joining the community and sharing product feedback.',
+  path: '/support-us',
+  keywords: [
+    'support BLAZE',
+    'BLAZE donation',
+    'crypto donation addresses',
+    'support crypto wallet development',
+  ],
+});
 
 export default function SupportUsPage() {
   // Public donation addresses; can be overridden via env vars for flexibility.
