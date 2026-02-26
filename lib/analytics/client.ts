@@ -383,13 +383,12 @@ export function trackPresaleIntentRegistered(data: {
   tierName: string;
   bonusPercentage: number;
 }) {
-  trackMetaCustomEvent('IntentFormSubmitted', {
-    value: data.amountUsd,
-    currency: 'USD',
-  });
-
   return trackMarketingEvent('presale_intent_registered', data, {
     xEventName: 'Lead',
+    metaEventName: 'CompleteRegistration',
+    metaPayload: {
+      content_name: 'Presale Intent',
+    },
     value: data.amountUsd,
     currency: 'USD',
   });
