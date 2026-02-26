@@ -1,7 +1,7 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
-import { BookOpen, Shield, QrCode, ArrowRight, Sparkles } from 'lucide-react';
+import { BookOpen, Shield, QrCode, ArrowRight, Sparkles, Wallet, DollarSign, Network } from 'lucide-react';
 
 const guides = [
   {
@@ -27,6 +27,38 @@ const guides = [
     href: '/learn/non-custodial-wallet-security',
     icon: Shield,
     chip: 'Security',
+  },
+  {
+    title: 'Crypto payment fees explained',
+    description:
+      'Understand network fees, confirmation timing, and practical ways to reduce costs.',
+    href: '/learn/crypto-payment-fees-explained',
+    icon: DollarSign,
+    chip: 'Fees',
+  },
+  {
+    title: 'How to avoid crypto payment scams',
+    description:
+      'A practical checklist to spot risky links, addresses, and fake support flows.',
+    href: '/learn/avoid-crypto-payment-scams',
+    icon: Shield,
+    chip: 'Safety',
+  },
+  {
+    title: 'Multi-chain wallet guide',
+    description:
+      'Learn network selection, asset routing, and daily multi-chain wallet habits.',
+    href: '/learn/multi-chain-wallet-guide',
+    icon: Network,
+    chip: 'Multi-chain',
+  },
+  {
+    title: 'Wallet vs exchange wallet',
+    description:
+      'When to use non-custodial wallets vs exchange accounts for different goals.',
+    href: '/learn/crypto-wallet-vs-exchange-wallet',
+    icon: Wallet,
+    chip: 'Fundamentals',
   },
 ];
 

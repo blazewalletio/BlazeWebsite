@@ -1,23 +1,18 @@
 import { Metadata } from 'next';
+import { buildPageMetadata } from '@/lib/seo/metadata';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: 'Cookie Policy: BLAZE Wallet',
-  description: 'Information about cookies on blazewallet.io. Manage your preferences and learn what data we collect.',
-  keywords: 'BLAZE cookies, cookie policy, website cookies, privacy preferences',
-  openGraph: {
-    title: 'Cookie Policy: BLAZE Wallet',
-    description: 'Information about cookies on blazewallet.io. Manage your preferences and learn what data we collect.',
-    url: 'https://www.blazewallet.io/cookies',
-    type: 'website',
-  },
-  twitter: {
-    title: 'Cookie Policy: BLAZE Wallet',
-    description: 'Information about cookies on blazewallet.io. Manage your preferences and learn what data we collect.',
-  },
-  alternates: {
-    canonical: 'https://www.blazewallet.io/cookies',
-  },
-};
+  description:
+    'Learn which cookies BLAZE uses, what they do, and how to manage your cookie preferences on blazewallet.io.',
+  path: '/cookies',
+  keywords: [
+    'BLAZE cookie policy',
+    'website cookies',
+    'cookie preferences',
+    'privacy settings',
+  ],
+});
 
 export default function CookiesLayout({
   children,

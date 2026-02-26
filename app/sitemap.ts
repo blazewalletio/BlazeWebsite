@@ -81,6 +81,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.75,
     },
     {
+      url: `${baseUrl}/learn/crypto-payment-fees-explained`,
+      lastModified: baselineDate,
+      changeFrequency: 'monthly',
+      priority: 0.75,
+    },
+    {
+      url: `${baseUrl}/learn/avoid-crypto-payment-scams`,
+      lastModified: baselineDate,
+      changeFrequency: 'monthly',
+      priority: 0.75,
+    },
+    {
+      url: `${baseUrl}/learn/multi-chain-wallet-guide`,
+      lastModified: baselineDate,
+      changeFrequency: 'monthly',
+      priority: 0.75,
+    },
+    {
+      url: `${baseUrl}/learn/crypto-wallet-vs-exchange-wallet`,
+      lastModified: baselineDate,
+      changeFrequency: 'monthly',
+      priority: 0.75,
+    },
+    {
       url: `${baseUrl}/privacy`,
       lastModified: baselineDate,
       changeFrequency: 'yearly',

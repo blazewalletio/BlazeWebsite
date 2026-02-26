@@ -1,23 +1,18 @@
 import { Metadata } from 'next';
+import { buildPageMetadata } from '@/lib/seo/metadata';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: 'Privacy Policy: BLAZE Wallet',
-  description: 'How we protect your data. GDPR compliant, non-custodial wallet. Your keys, your crypto, your privacy.',
-  keywords: 'BLAZE privacy policy, crypto wallet privacy, GDPR, data protection, non-custodial wallet',
-  openGraph: {
-    title: 'Privacy Policy: BLAZE Wallet',
-    description: 'How we protect your data. GDPR compliant, non-custodial wallet. Your keys, your crypto, your privacy.',
-    url: 'https://www.blazewallet.io/privacy',
-    type: 'website',
-  },
-  twitter: {
-    title: 'Privacy Policy: BLAZE Wallet',
-    description: 'How we protect your data. GDPR compliant, non-custodial wallet. Your keys, your crypto, your privacy.',
-  },
-  alternates: {
-    canonical: 'https://www.blazewallet.io/privacy',
-  },
-};
+  description:
+    'Read how BLAZE Wallet handles personal data, cookies, and privacy rights for users of our website and wallet services.',
+  path: '/privacy',
+  keywords: [
+    'BLAZE privacy policy',
+    'crypto wallet privacy',
+    'GDPR crypto wallet',
+    'data protection policy',
+  ],
+});
 
 export default function PrivacyLayout({
   children,

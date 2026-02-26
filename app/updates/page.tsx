@@ -162,6 +162,31 @@ export default async function UpdatesPage() {
         </div>
       </section>
 
+      <section className="py-10 md:py-12 bg-gray-50 border-t border-gray-100">
+        <div className="container-main">
+          <div className="card p-6 md:p-7">
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">Recommended reading</h2>
+            <p className="text-gray-600 mb-5">
+              Use these practical guides to apply wallet updates in your daily crypto flow.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <Link href="/learn/crypto-wallet-for-daily-payments" className="card card-hover p-4">
+                <div className="font-semibold text-gray-900">Daily payment guide</div>
+                <div className="text-sm text-gray-600 mt-1">Practical setup for real-world wallet usage.</div>
+              </Link>
+              <Link href="/learn/crypto-payment-fees-explained" className="card card-hover p-4">
+                <div className="font-semibold text-gray-900">Fee optimization guide</div>
+                <div className="text-sm text-gray-600 mt-1">Reduce cost and failed payment attempts.</div>
+              </Link>
+              <Link href="/learn/non-custodial-wallet-security" className="card card-hover p-4">
+                <div className="font-semibold text-gray-900">Security guide</div>
+                <div className="text-sm text-gray-600 mt-1">Key safety habits for wallet users.</div>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <Footer />
     </main>
   );

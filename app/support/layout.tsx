@@ -1,23 +1,18 @@
 import { Metadata } from 'next';
+import { buildPageMetadata } from '@/lib/seo/metadata';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: 'BLAZE Support: Help Center and Contact',
-  description: 'Get help with BLAZE Wallet. Contact our team via email or Telegram. Average response time under 24 hours.',
-  keywords: 'BLAZE support, crypto wallet help, contact BLAZE, customer service, wallet support',
-  openGraph: {
-    title: 'BLAZE Support: Help Center and Contact',
-    description: 'Get help with BLAZE Wallet. Contact our team via email or Telegram. Average response time under 24 hours.',
-    url: 'https://www.blazewallet.io/support',
-    type: 'website',
-  },
-  twitter: {
-    title: 'BLAZE Support: Help Center and Contact',
-    description: 'Get help with BLAZE Wallet. Contact our team via email or Telegram. Average response time under 24 hours.',
-  },
-  alternates: {
-    canonical: 'https://www.blazewallet.io/support',
-  },
-};
+  description:
+    'Get help with BLAZE Wallet via support guides, email, and Telegram. Find answers for setup, security, and payment flows.',
+  path: '/support',
+  keywords: [
+    'BLAZE support',
+    'crypto wallet help',
+    'wallet support center',
+    'BLAZE contact',
+  ],
+});
 
 export default function SupportLayout({
   children,
