@@ -213,8 +213,9 @@
 
 /* Accessibility */
 .skip-to-content {
-  @apply absolute -top-10 left-0 bg-sky-500 text-white px-4 py-2 z-50;
-  @apply focus:top-0 transition-all;
+  @apply fixed -top-10 left-0 bg-sky-500 text-white px-4 py-2 transition-all;
+  @apply focus:top-0;
+  z-index: 100;
 }
 
 *:focus-visible {

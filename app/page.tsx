@@ -11,7 +11,6 @@ import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
 import PresaleTeaser from '@/components/PresaleTeaser';
 import ProductStatus from '@/components/ProductStatus';
-import ClientOnly from '@/components/ClientOnly';
 import SupportBlazeTeaser from '@/components/SupportBlazeTeaser';
 
 export default function Home() {
@@ -20,9 +19,8 @@ export default function Home() {
       <a href="#main-content" className="skip-to-content">
         Skip to main content
       </a>
-      <ClientOnly>
-        <Navbar />
-        <div id="main-content" className="sr-only">Main content</div>
+      <Navbar />
+      <div id="main-content" tabIndex={-1}>
         <Hero />
         <ProductStatus />
         <QuickPay />
@@ -36,7 +34,7 @@ export default function Home() {
         <FAQ />
         <SupportBlazeTeaser />
         <Footer />
-      </ClientOnly>
+      </div>
     </main>
   );
 }

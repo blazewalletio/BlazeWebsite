@@ -26,9 +26,8 @@ export default function PresalePage() {
         Skip to main content
       </a>
       <Navbar />
-      <div id="main-content" className="sr-only">Main content</div>
 
-      <section className="relative overflow-hidden pt-24 sm:pt-28 pb-14 sm:pb-20">
+      <section id="main-content" tabIndex={-1} className="relative overflow-hidden pt-24 sm:pt-28 pb-14 sm:pb-20">
         <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
         <div className="absolute top-0 left-1/4 w-[460px] h-[460px] bg-orange-500/20 rounded-full blur-[110px]" />
         <div className="absolute bottom-0 right-1/4 w-[360px] h-[360px] bg-yellow-500/15 rounded-full blur-[90px]" />

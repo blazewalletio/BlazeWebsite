@@ -86,7 +86,7 @@ export default function Navbar() {
       <div className="container-main">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <a href="/" className="flex items-center gap-2 font-bold text-xl">
+          <Link href="/" className="flex items-center gap-2 font-bold text-xl">
             <Image 
               src="/blaze-logo.png" 
               alt="BLAZE" 
@@ -95,7 +95,7 @@ export default function Navbar() {
               className="rounded-lg"
             />
             <span className={useLightTheme ? 'text-gray-900' : 'text-white'}>BLAZE</span>
-          </a>
+          </Link>
 
           {/* Desktop menu */}
           <div className="hidden md:flex items-center gap-6">

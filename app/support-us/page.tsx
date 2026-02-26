@@ -27,12 +27,12 @@ export default function SupportUsPage() {
 
       <Navbar />
 
-      <div id="main-content" className="sr-only">
-        Main content
-      </div>
-
       {/* Hero */}
-      <section className="pt-32 pb-14 sm:pb-16 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden">
+      <section
+        id="main-content"
+        tabIndex={-1}
+        className="pt-32 pb-14 sm:pb-16 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden"
+      >
         <div className="absolute top-0 left-1/4 w-[460px] h-[460px] bg-orange-500/20 rounded-full blur-[110px]" />
         <div className="absolute bottom-0 right-1/4 w-[360px] h-[360px] bg-yellow-500/15 rounded-full blur-[90px]" />
 
