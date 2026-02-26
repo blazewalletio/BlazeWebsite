@@ -342,11 +342,52 @@ export async function trackMarketingEvent(
   }
 }
 
+function trackMetaCustomEvent(eventName: string, payload: Record<string, unknown> = {}) {
+  if (typeof window === 'undefined') return;
+  if (!hasAnalyticsConsent()) {
+    logMetaEvent('SKIPPED custom event: no analytics consent', { eventName });
+    return;
+  }
+
+  const sendMetaCustom = (attempt = 0) => {
+    if (typeof window.fbq === 'function') {
+      try {
+        window.fbq('trackCustom', eventName, payload);
+        logMetaEvent('SENT custom event', { eventName, ...payload });
+      } catch (error) {
+        console.error('Failed to send Meta custom event:', error);
+        logMetaEvent('ERROR custom event while sending (see console error above)', {
+          eventName,
+          ...payload,
+        });
+      }
+      return;
+    }
+
+    if (attempt < 15) {
+      window.setTimeout(() => sendMetaCustom(attempt + 1), 200);
+    } else {
+      console.warn(`Meta pixel not ready, skipped custom event: ${eventName}`);
+      logMetaEvent('SKIPPED custom event: pixel not ready after retries', {
+        eventName,
+        ...payload,
+      });
+    }
+  };
+
+  sendMetaCustom();
+}
+
 export function trackPresaleIntentRegistered(data: {
   amountUsd: number;
   tierName: string;
   bonusPercentage: number;
 }) {
+  trackMetaCustomEvent('IntentFormSubmitted', {
+    value: data.amountUsd,
+    currency: 'USD',
+  });
+
   return trackMarketingEvent('presale_intent_registered', data, {
     xEventName: 'Lead',
     metaEventName: 'Lead',
