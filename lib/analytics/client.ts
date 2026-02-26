@@ -390,11 +390,6 @@ export function trackPresaleIntentRegistered(data: {
 
   return trackMarketingEvent('presale_intent_registered', data, {
     xEventName: 'Lead',
-    metaEventName: 'Lead',
-    metaPayload: {
-      content_name: 'BLAZE Presale',
-      content_category: 'presale',
-    },
     value: data.amountUsd,
     currency: 'USD',
   });
