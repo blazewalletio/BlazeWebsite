@@ -154,7 +154,7 @@ export default function PresaleTeaser() {
               <span className="text-gradient-brand">58% off</span>
             </h2>
             <p className="text-sm sm:text-lg text-gray-400 max-w-2xl mx-auto">
-              Register your intent directly here. No payment required. Registered intents get 48-hour early access.
+              BLAZE Wallet is our main app. This presale is for BLAZE Token ($BLAZE), the utility token used for cashback, staking, governance, and fee discounts in the wallet ecosystem. Register your intent directly here with no upfront payment.
             </p>
           </div>
 

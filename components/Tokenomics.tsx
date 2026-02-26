@@ -5,9 +5,9 @@ import PresaleCountdown from './PresaleCountdown';
 import { useAnimateOnce } from '@/hooks/useAnimateOnce';
 
 const tokenInfo = [
-  { label: 'Total supply', value: '1B', description: '1 billion BLAZE' },
+  { label: 'Fixed supply', value: '1B', description: '1 billion BLAZE, no minting' },
   { label: 'Presale allocation', value: '120M', description: '12% for presale' },
-  { label: 'Launch price', value: '$0.02', description: 'Post-presale price' },
+  { label: 'Supply target', value: '700M', description: '10-year deflation target' },
 ];
 
 const distribution = [
@@ -21,10 +21,19 @@ const distribution = [
 ];
 
 const utilities = [
-  { icon: Flame, title: 'Deflationary', description: '0.1% burn per transfer' },
-  { icon: TrendingUp, title: 'Staking', description: '8-20% APY (Q1 2026)' },
-  { icon: Users, title: 'Governance', description: '1 token = 1 vote (Q2 2026)' },
-  { icon: Lock, title: 'Fee discounts', description: 'Up to 75% off' },
+  { icon: TrendingUp, title: 'Cashback', description: '2% on swap, send, and purchase activity' },
+  { icon: TrendingUp, title: 'Staking', description: '8% flex, 15% (6-month), 20% (1-year)' },
+  { icon: Users, title: 'Governance', description: '1 token = 1 vote on major decisions' },
+  { icon: Lock, title: 'Fee discounts', description: 'Up to 75% swap fee discounts by stake size' },
+  { icon: Lock, title: 'Premium tier', description: '10,000+ staked unlocks 2x cashback + extras' },
+  { icon: Coins, title: 'Launchpad access', description: 'Access for new token launches in ecosystem' },
+  { icon: Coins, title: 'NFT marketplace', description: 'Token utility for NFT marketplace purchases' },
+];
+
+const deflationary = [
+  '0.10% burn on every transfer',
+  '50% of wallet revenue used for quarterly buyback & burn',
+  'Unclaimed rewards burned after 2 years',
 ];
 
 export default function Tokenomics() {
@@ -43,7 +52,7 @@ export default function Tokenomics() {
             BLAZE <span className="text-gradient-brand">tokenomics</span>
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Transparent and fair distribution. Designed for long-term growth.
+            BLAZE Wallet is the product. BLAZE Token ($BLAZE) is the utility token used inside the wallet ecosystem.
           </p>
         </div>
 
@@ -85,8 +94,8 @@ export default function Tokenomics() {
 
           {/* Utilities */}
           <div className={`card p-6 md:p-8 animate-entrance delay-3 ${isVisible ? 'is-visible' : ''}`}>
-            <h3 className="text-xl font-bold text-gray-900 mb-6">Token utility</h3>
-            <div className="grid grid-cols-2 gap-4">
+            <h3 className="text-xl font-bold text-gray-900 mb-6">Token utility in BLAZE Wallet</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {utilities.map((item, index) => (
                 <div key={index} className="p-4 bg-gray-50 rounded-xl">
                   <div className="icon-box-sm bg-gray-200 mb-3">
@@ -100,17 +109,19 @@ export default function Tokenomics() {
           </div>
         </div>
 
-        {/* Liquidity lock notice */}
+        {/* Deflationary model */}
         <div className={`card p-6 md:p-8 bg-orange-50 border-orange-200 animate-entrance delay-4 ${isVisible ? 'is-visible' : ''}`}>
           <div className="flex flex-col md:flex-row items-center gap-6">
             <div className="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center flex-shrink-0">
-              <Lock className="w-8 h-8 text-orange-600" />
+              <Flame className="w-8 h-8 text-orange-600" />
             </div>
             <div className="flex-1 text-center md:text-left">
-              <h3 className="text-xl font-bold text-gray-900 mb-1">Liquidity locked</h3>
-              <p className="text-gray-600">
-                50% of raised funds locked for 1 year via smart contract for maximum security and trust.
-              </p>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Deflationary mechanics</h3>
+              <ul className="text-gray-600 space-y-1">
+                {deflationary.map((line) => (
+                  <li key={line}>{line}</li>
+                ))}
+              </ul>
             </div>
             <a
               href="/whitepaper"

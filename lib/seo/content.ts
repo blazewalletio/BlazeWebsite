@@ -25,6 +25,11 @@ export const SEO_PRODUCT_FACTS = {
 
 export const SEO_FAQS = [
   {
+    question: 'What is the difference between BLAZE Wallet and BLAZE Token?',
+    answer:
+      'BLAZE Wallet is the core crypto wallet product. BLAZE Token ($BLAZE) is the utility token used inside the BLAZE Wallet ecosystem for cashback, staking, governance, fee discounts, premium benefits, and other token-powered features.',
+  },
+  {
     question: 'What is BLAZE Wallet?',
     answer:
       'BLAZE is an AI-powered, non-custodial crypto wallet focused on everyday payments. It supports 18+ blockchain networks and includes features such as QuickPay, scam protection, and natural-language wallet actions.',
@@ -46,7 +51,7 @@ export const SEO_FAQS = [
   },
   {
     question: 'How does the BLAZE presale flow work?',
-    answer: `The presale intent flow starts at ${SEO_PRODUCT_FACTS.presalePriceLabel} per token (${SEO_PRODUCT_FACTS.presaleDiscountLabel} off the ${SEO_PRODUCT_FACTS.launchPriceLabel} launch price). You can register intent between ${SEO_PRODUCT_FACTS.minContributionLabel} and ${SEO_PRODUCT_FACTS.maxContributionLabel}, and participants get a 48-hour early-access window when presale opens.`,
+    answer: `The presale is for BLAZE Token ($BLAZE), the utility token inside BLAZE Wallet. The intent flow starts at ${SEO_PRODUCT_FACTS.presalePriceLabel} per token (${SEO_PRODUCT_FACTS.presaleDiscountLabel} off the ${SEO_PRODUCT_FACTS.launchPriceLabel} launch price). You can register intent between ${SEO_PRODUCT_FACTS.minContributionLabel} and ${SEO_PRODUCT_FACTS.maxContributionLabel}, and participants get a 48-hour early-access window when presale opens.`,
   },
 ] as const;
 

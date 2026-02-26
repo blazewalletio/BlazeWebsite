@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { ArrowRight, CheckCircle2, Shield, Users, Zap } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Shield, Users, Zap, Coins, TrendingUp, Flame } from 'lucide-react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { PRESALE_CONSTANTS } from '@/lib/presale-constants';
@@ -26,6 +26,17 @@ export default function PresalePage() {
   const presaleDiscount = PRESALE_CONSTANTS.presaleDiscount;
   const launchPrice = PRESALE_CONSTANTS.launchPrice;
   const presalePrice = PRESALE_CONSTANTS.presalePrice;
+  const utilityHighlights = [
+    '2% cashback on swap, send, and purchase activity in BLAZE Wallet',
+    'Staking: 8% APY (flex), 15% (6-month), 20% (1-year)',
+    'Fee discounts up to 75% on swaps (based on staked amount)',
+    'Governance voting: 1 token = 1 vote',
+  ];
+  const tokenMechanics = [
+    '0.10% burn on every transfer',
+    '50% of wallet revenue used for quarterly buyback & burn',
+    'Target supply path: 1B to 700M over 10 years',
+  ];
   const faqs = [
     ['What is the BLAZE presale?', 'The presale gives early supporters access to BLAZE tokens at a discounted price. Registered intent participants receive a 48-hour early-access window before the public launch.'],
     ['Why should I register my presale intent?', 'Registered intent participants receive a 48-hour early-access window before the public presale. It helps us prepare your launch instructions in advance.'],
@@ -176,6 +187,41 @@ export default function PresalePage() {
                 <h3 className="font-bold text-gray-900 mb-1">Complete at launch</h3>
                 <p className="text-sm text-gray-600">You get payment instructions once presale opens. No upfront payment.</p>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-10 sm:py-12 bg-white border-t border-gray-100">
+        <div className="container-main">
+          <div className="max-w-5xl mx-auto card p-5 sm:p-7 border border-gray-200">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange-100 text-orange-700 font-medium text-xs sm:text-sm mb-4">
+              <Coins className="w-4 h-4" />
+              BLAZE Wallet vs BLAZE Token
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+              BLAZE Wallet is the app. BLAZE Token ($BLAZE) powers utility inside it.
+            </h2>
+            <p className="text-gray-600 mb-6">
+              This presale is for BLAZE Token ($BLAZE), the utility token used across the BLAZE Wallet ecosystem.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+              {utilityHighlights.map((item) => (
+                <div key={item} className="rounded-xl bg-gray-50 border border-gray-100 p-4 text-sm text-gray-700">
+                  {item}
+                </div>
+              ))}
+            </div>
+            <div className="rounded-xl bg-orange-50 border border-orange-200 p-4">
+              <div className="flex items-center gap-2 font-semibold text-gray-900 mb-2">
+                <Flame className="w-4 h-4 text-orange-600" />
+                Deflationary model
+              </div>
+              <ul className="space-y-1 text-sm text-gray-700">
+                {tokenMechanics.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
