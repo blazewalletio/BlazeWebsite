@@ -395,6 +395,14 @@ export function trackPresaleIntentRegistered(data: {
   });
 }
 
+export function trackWaitlistSubmitted(data: { source: string }) {
+  trackMetaCustomEvent('WaitlistSubmitted', {
+    source: data.source,
+  });
+
+  return trackMarketingEvent('waitlist_submitted', data);
+}
+
 export function trackWalletLaunchClick(sourceContext: string) {
   return trackMarketingEvent('wallet_launch_click', { sourceContext });
 }

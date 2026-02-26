@@ -6,6 +6,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import TrackedLaunchAppLink from '@/components/TrackedLaunchAppLink';
+import { trackWaitlistSubmitted } from '@/lib/analytics/client';
 
 export default function Footer() {
   const [email, setEmail] = useState('');
@@ -38,6 +39,7 @@ export default function Footer() {
         }
       } else {
         setSubmitted(true);
+        trackWaitlistSubmitted({ source: 'newsletter_footer' });
       }
       
       setEmail('');

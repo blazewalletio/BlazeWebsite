@@ -4,6 +4,7 @@ import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Flame, Bell, Users, ArrowRight, Check, Sparkles, AlertCircle, Gift, Copy } from 'lucide-react';
 import { PRESALE_CONSTANTS } from '@/lib/presale-constants';
+import { trackWaitlistSubmitted } from '@/lib/analytics/client';
 
 interface TimeLeft {
   days: number;
@@ -111,6 +112,9 @@ function PresaleCountdownInner() {
       setWaitlistCount(data.count);
       setMyReferralCode(data.referralCode);
       setEmail('');
+      trackWaitlistSubmitted({
+        source: referredBy ? 'referral' : 'presale_countdown',
+      });
     } catch (err) {
       setError('Failed to join waitlist. Please try again.');
       setIsLoading(false);
