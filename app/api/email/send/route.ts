@@ -86,6 +86,14 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'No recipients found' }, { status: 400 });
     }
 
+    // Deduplicate by email (case-insensitive) so each address receives at most one email per request.
+    const seen = new Map<string, (typeof recipients)[0]>();
+    for (const r of recipients) {
+      const key = r.email.toLowerCase().trim();
+      if (!seen.has(key)) seen.set(key, r);
+    }
+    recipients = Array.from(seen.values());
+
     // Safety: some templates are not intended to be broadcast to all waitlist subscribers from here.
     if (broadcast && (String(template).startsWith('commitment_') || template === 'commitment_apology')) {
       return NextResponse.json(

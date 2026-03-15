@@ -489,7 +489,7 @@ export async function sendPresaleTomorrowEmail(
       subject: '🚀 Tomorrow 12:00 UTC: The BLAZE presale goes live',
       html: baseTemplate(`
         <h1>It's almost time 🔥</h1>
-        <p>After all the waiting – the BLAZE presale goes live tomorrow.</p>
+        <p>After all the waiting, the BLAZE presale goes live tomorrow.</p>
 
         <div class="stat-box">
           <div class="tier-badge">Presale start</div>
@@ -508,8 +508,9 @@ export async function sendPresaleTomorrowEmail(
         <h2>Get ready now</h2>
         <ul>
           <li>Make sure you can log into your BLAZE Wallet: <a href="https://my.blazewallet.io">my.blazewallet.io</a></li>
+          <li>Add funds to your BLAZE Wallet now (ETH, BTC, USDT or via BSC) so you're ready to buy as soon as the presale goes live tomorrow.</li>
           <li>Tomorrow at 12:00 UTC, open the presale and complete your purchase</li>
-          <li>We only use official links – we will never ask for your seed phrase</li>
+          <li>We only use official links. We will never ask for your seed phrase.</li>
         </ul>
 
         <center>
