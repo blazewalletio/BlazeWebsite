@@ -9,6 +9,7 @@ import {
   sendCommitmentDay7SecurityEmail,
   sendCommitmentCountdownEmail,
   sendCommitmentLiveEmail,
+  sendCommitmentPresaleLiveEmail,
 } from '@/lib/email';
 
 const CRON_SECRET = process.env.CRON_SECRET;
@@ -77,6 +78,15 @@ export async function GET(request: Request) {
       );
     }
 
+    // When true: only send the full "presale live" email at 12:00 UTC; no day-based or countdown emails.
+    const { data: onlyLiveRow } = await supabase
+      .from('site_settings')
+      .select('value')
+      .eq('key', 'commitment_campaign_only_live')
+      .maybeSingle();
+    const commitmentCampaignOnlyLive =
+      onlyLiveRow?.value === true || onlyLiveRow?.value === 'true';
+
     const dayCampaigns: { templateKey: string; daysAfterIntent: number }[] = [
       { templateKey: 'commitment_day2_readiness', daysAfterIntent: 2 },
       { templateKey: 'commitment_day5_why_blaze', daysAfterIntent: 5 },
@@ -109,6 +119,7 @@ export async function GET(request: Request) {
       }
     };
 
+    if (!commitmentCampaignOnlyLive) {
     for (const campaign of dayCampaigns) {
       const daysAgo = new Date(now);
       daysAgo.setDate(daysAgo.getDate() - campaign.daysAfterIntent);
@@ -164,6 +175,7 @@ export async function GET(request: Request) {
         results.push({ email: user.email, template: campaign.templateKey, success });
       }
     }
+    }
 
     // Countdown reminders (event-driven). Run this cron frequently (e.g. every 15 minutes).
     const countdownTemplates: {
@@ -182,6 +194,7 @@ export async function GET(request: Request) {
 
     const windowMs = 20 * 60 * 1000; // 20 minutes window to tolerate cron drift.
 
+    if (!commitmentCampaignOnlyLive) {
     for (const t of countdownTemplates) {
       const target = new Date(presaleDate.getTime() - t.offsetHours * 60 * 60 * 1000);
       if (now.getTime() < target.getTime() || now.getTime() >= target.getTime() + windowMs) continue;
@@ -229,11 +242,12 @@ export async function GET(request: Request) {
         if (commitmentsPage.length < pageSize) break;
       }
     }
+    }
 
-    // LIVE email (T0)
+    // LIVE email (T0) – at presale time. When commitment_campaign_only_live is true, send full "presale live" email.
     const liveTarget = presaleDate;
     if (now.getTime() >= liveTarget.getTime() && now.getTime() < liveTarget.getTime() + windowMs) {
-      const templateKey = 'commitment_live';
+      const templateKey = commitmentCampaignOnlyLive ? 'commitment_presale_live' : 'commitment_live';
       const { data: sentRows } = await supabase
         .from('commitment_email_sends')
         .select('commitment_id')
@@ -257,7 +271,9 @@ export async function GET(request: Request) {
 
           let success = false;
           try {
-            const res = await sendCommitmentLiveEmail(user.email);
+            const res = commitmentCampaignOnlyLive
+              ? await sendCommitmentPresaleLiveEmail(user.email)
+              : await sendCommitmentLiveEmail(user.email);
             success = Boolean((res as any)?.success);
           } catch {
             success = false;

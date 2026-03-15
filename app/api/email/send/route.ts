@@ -7,6 +7,7 @@ import {
   sendFomoPricingEmail,
   sendExclusiveBonusEmail,
   sendPresaleCountdownEmail,
+  sendPresaleTomorrowEmail,
   sendCommitmentConfirmation,
   sendCommitmentDay2ReadinessEmail,
   sendCommitmentDay5WhyBlazeEmail,
@@ -16,6 +17,7 @@ import {
   sendCommitmentDay18HowPresaleWorksEmail,
   sendCommitmentCountdownEmail,
   sendCommitmentLiveEmail,
+  sendCommitmentPresaleLiveEmail,
   sendCommitmentApologyEmail,
 } from '@/lib/email';
 import { PRESALE_CONSTANTS } from '@/lib/presale-constants';
@@ -172,6 +174,15 @@ export async function POST(request: Request) {
             success = countdownResult.success;
             break;
 
+          case 'presale_tomorrow':
+            const tomorrowResult = await sendPresaleTomorrowEmail(
+              recipient.email,
+              recipient.referral_code || 'BLAZE',
+              presaleDate
+            );
+            success = tomorrowResult.success;
+            break;
+
           case 'commitment_apology':
             const apologyResult = await sendCommitmentApologyEmail(recipient.email, presaleDate.toISOString());
             success = apologyResult.success;
@@ -268,6 +279,12 @@ export async function POST(request: Request) {
 
           case 'commitment_live': {
             const r = await sendCommitmentLiveEmail(recipient.email);
+            success = r.success;
+            break;
+          }
+
+          case 'commitment_presale_live': {
+            const r = await sendCommitmentPresaleLiveEmail(recipient.email);
             success = r.success;
             break;
           }

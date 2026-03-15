@@ -1,5 +1,6 @@
 import { Resend } from 'resend';
 import { generateWalletStyleEmailShell } from '@/lib/email-shell';
+import { PRESALE_CONSTANTS } from '@/lib/presale-constants';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM_EMAIL = 'BLAZE Wallet <info@blazewallet.io>';
@@ -465,6 +466,133 @@ export async function sendCommitmentLiveEmail(email: string) {
     return { success: true };
   } catch (error) {
     console.error('Failed to send commitment live email:', error);
+    return { success: false, error };
+  }
+}
+
+// Presale tomorrow announcement – send now to waitlist (broadcast). Same style as other emails.
+export async function sendPresaleTomorrowEmail(
+  email: string,
+  referralCode: string,
+  presaleDate: Date
+) {
+  const dateLabel = presaleDate.toLocaleDateString('en-GB', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+  try {
+    await resend.emails.send({
+      from: FROM_EMAIL,
+      to: email,
+      subject: '🚀 Tomorrow 12:00 UTC: The BLAZE presale goes live',
+      html: baseTemplate(`
+        <h1>It's almost time 🔥</h1>
+        <p>After all the waiting – the BLAZE presale goes live tomorrow.</p>
+
+        <div class="stat-box">
+          <div class="tier-badge">Presale start</div>
+          <div class="stat-number mt-16">${dateLabel}</div>
+          <div class="stat-label">12:00 UTC</div>
+        </div>
+
+        <div class="highlight">
+          <h3>What you get</h3>
+          <p class="mb-0">
+            <strong>$${PRESALE_CONSTANTS.presalePrice.toFixed(6)}</strong> per BLAZE token (${PRESALE_CONSTANTS.presaleDiscount}% off the $0.02 launch price).<br>
+            If you registered your intent, you have <strong>48-hour early access</strong> before the public launch.
+          </p>
+        </div>
+
+        <h2>Get ready now</h2>
+        <ul>
+          <li>Make sure you can log into your BLAZE Wallet: <a href="https://my.blazewallet.io">my.blazewallet.io</a></li>
+          <li>Tomorrow at 12:00 UTC, open the presale and complete your purchase</li>
+          <li>We only use official links – we will never ask for your seed phrase</li>
+        </ul>
+
+        <center>
+          <a href="https://www.blazewallet.io/presale" class="btn">Open presale page</a>
+          <br>
+          <a href="https://my.blazewallet.io" class="btn btn-secondary mt-8">Open BLAZE Wallet</a>
+          <br>
+          <a href="https://t.me/ai4ldMZv0KgyN2Y8" class="btn btn-secondary mt-8">Join Telegram for updates</a>
+        </center>
+
+        ${referralCode ? `
+        <div class="divider"></div>
+        <div class="referral-box">
+          <p class="text-muted">Share with friends:</p>
+          <p class="mb-0"><a href="https://www.blazewallet.io?ref=${referralCode}">blazewallet.io?ref=${referralCode}</a></p>
+        </div>
+        ` : ''}
+      `),
+    });
+    return { success: true };
+  } catch (error) {
+    console.error('Failed to send presale tomorrow email:', error);
+    return { success: false, error };
+  }
+}
+
+// Full "presale is live" email for commitment list – sent at 12:00 UTC. Steps + tiers, same style.
+export async function sendCommitmentPresaleLiveEmail(email: string) {
+  try {
+    await resend.emails.send({
+      from: FROM_EMAIL,
+      to: email,
+      subject: '🚀 The BLAZE presale is live – buy your tokens now',
+      html: baseTemplate(`
+        <h1>The presale is LIVE 🚀</h1>
+        <p>Your early-access window is open. You can now buy BLAZE tokens.</p>
+
+        <div class="highlight">
+          <h3>Do this now</h3>
+          <ol class="list-compact">
+            <li><strong>Log in</strong> to your BLAZE Wallet: <a href="https://my.blazewallet.io">my.blazewallet.io</a></li>
+            <li><strong>Go to the presale</strong> / token purchase section in the app</li>
+            <li><strong>Choose your amount</strong> (min $100, max $10,000 per wallet)</li>
+            <li><strong>Pay</strong> with ETH, BTC, USDT or via BSC – as communicated in our earlier emails</li>
+          </ol>
+        </div>
+
+        <div class="stat-box">
+          <div class="price-tag mt-16">$${PRESALE_CONSTANTS.presalePrice.toFixed(6)}</div>
+          <div class="stat-label">Per BLAZE token (${PRESALE_CONSTANTS.presaleDiscount}% off $0.02 launch price)</div>
+        </div>
+
+        <h2>Bonus tiers</h2>
+        <p>Early supporters get extra tokens. First-come, first-served per tier:</p>
+        <table class="pricing-table">
+          <tr><td><strong>Founders</strong> (1–100)</td><td class="text-right">+100% bonus</td></tr>
+          <tr><td><strong>Early Birds</strong> (101–250)</td><td class="text-right">+75% bonus</td></tr>
+          <tr><td><strong>Pioneers</strong> (251–500)</td><td class="text-right">+50% bonus</td></tr>
+          <tr><td><strong>Adopters</strong> (501–1000)</td><td class="text-right">+30% bonus</td></tr>
+          <tr><td><strong>Supporters</strong> (1001–2000)</td><td class="text-right">+15% bonus</td></tr>
+          <tr><td><strong>Public</strong></td><td class="text-right">No bonus</td></tr>
+        </table>
+
+        <div class="highlight">
+          <h3>Official links only</h3>
+          <p class="mb-0">
+            Website: <a href="https://www.blazewallet.io">blazewallet.io</a><br>
+            Wallet: <a href="https://my.blazewallet.io">my.blazewallet.io</a><br>
+            Telegram: <a href="https://t.me/ai4ldMZv0KgyN2Y8">t.me</a> · X: <a href="https://x.com/blazewallet_io">@blazewallet_io</a><br>
+            We never ask for your seed phrase. Only use the links above.
+          </p>
+        </div>
+
+        <center>
+          <a href="https://my.blazewallet.io" class="btn">Open BLAZE Wallet and buy</a>
+          <br>
+          <a href="https://t.me/ai4ldMZv0KgyN2Y8" class="btn btn-secondary mt-8">Telegram status updates</a>
+        </center>
+      `),
+    });
+    return { success: true };
+  } catch (error) {
+    console.error('Failed to send commitment presale live email:', error);
     return { success: false, error };
   }
 }
