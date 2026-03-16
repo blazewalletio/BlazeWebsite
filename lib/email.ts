@@ -537,6 +537,71 @@ export async function sendPresaleTomorrowEmail(
   }
 }
 
+// Waitlist reminder series: every 6h for 48h, starting at 18:00 UTC. slotIndex 0..8.
+export async function sendWaitlistPresaleReminderEmail(
+  email: string,
+  referralCode: string,
+  slotIndex: number
+) {
+  const hoursUntilPublic = (8 - slotIndex) * 6; // 48, 42, 36, 30, 24, 18, 12, 6, 0
+  const isLastSlot = slotIndex === 8;
+  const subject = isLastSlot
+    ? '🚀 BLAZE presale is now open for everyone – buy in the wallet'
+    : `⏰ ${hoursUntilPublic} hours until BLAZE presale opens for everyone`;
+  const headline = isLastSlot
+    ? 'Presale open for everyone 🚀'
+    : `${hoursUntilPublic} hours until presale opens for everyone`;
+  const bodyParagraph = isLastSlot
+    ? 'Early access has ended. The BLAZE presale is now open for everyone. Create your account at my.blazewallet.io, add funds, and buy $BLAZE in the presale card.'
+    : `The presale is live for early supporters. In <strong>${hoursUntilPublic} hours</strong> it opens for everyone (18 March 2026, 12:00 UTC). Get ready: create your BLAZE Wallet account and add funds so you can buy as soon as you want.`;
+
+  try {
+    await resend.emails.send({
+      from: FROM_EMAIL,
+      to: email,
+      subject,
+      html: baseTemplate(`
+        <h1>${headline}</h1>
+        <p>${bodyParagraph}</p>
+
+        <div class="highlight">
+          <h3>How to buy BLAZE</h3>
+          <ol class="list-compact">
+            <li>Create an account at <a href="https://my.blazewallet.io">my.blazewallet.io</a></li>
+            <li>Add funds (ETH, BTC, USDT or BSC) to your wallet</li>
+            <li>Open the presale card in the app and complete your purchase (min $100, max $10,000)</li>
+          </ol>
+        </div>
+
+        <div class="stat-box">
+          <div class="price-tag mt-16">$${PRESALE_CONSTANTS.presalePrice.toFixed(6)}</div>
+          <div class="stat-label">Per BLAZE token (${PRESALE_CONSTANTS.presaleDiscount}% off launch)</div>
+        </div>
+
+        <center>
+          <a href="https://my.blazewallet.io" class="btn">Open BLAZE Wallet and buy</a>
+          <br>
+          <a href="https://www.blazewallet.io/presale" class="btn btn-secondary mt-8">Presale info</a>
+          <br>
+          <a href="https://t.me/ai4ldMZv0KgyN2Y8" class="btn btn-secondary mt-8">Join Telegram</a>
+        </center>
+
+        ${referralCode ? `
+        <div class="divider"></div>
+        <div class="referral-box">
+          <p class="text-muted">Share with friends:</p>
+          <p class="mb-0"><a href="https://www.blazewallet.io?ref=${referralCode}">blazewallet.io?ref=${referralCode}</a></p>
+        </div>
+        ` : ''}
+      `),
+    });
+    return { success: true };
+  } catch (error) {
+    console.error('Failed to send waitlist presale reminder email:', error);
+    return { success: false, error };
+  }
+}
+
 // Full "presale is live" email for commitment list – sent at 12:00 UTC. Steps + tiers, same style.
 export async function sendCommitmentPresaleLiveEmail(email: string) {
   try {

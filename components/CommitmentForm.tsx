@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Target, Zap, Calculator, Check, AlertCircle, Loader2, TrendingUp, Gift, Shield, Clock, Wallet, ArrowRight } from 'lucide-react';
+import { Target, Zap, Calculator, Check, AlertCircle, Loader2, TrendingUp, Gift, Shield, Wallet, ArrowRight } from 'lucide-react';
 import { BONUS_TIERS, PRESALE_CONSTANTS } from '@/lib/presale-constants';
 import { trackPresaleIntentRegistered } from '@/lib/analytics/client';
 import { useSearchParams } from 'next/navigation';
@@ -194,33 +194,74 @@ export default function CommitmentForm() {
           </div>
         </motion.div>
 
-        {/* Header */}
+        {/* Primary: Buy in wallet */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-10"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-100 text-orange-700 font-medium text-sm mb-6">
-            <Target className="w-4 h-4" />
-            Or register your intent
-          </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-            Lock in your{' '}
-            <span className="text-gradient-brand">tier and bonus</span>
+            Do your presale purchase in{' '}
+            <span className="text-gradient-brand">BLAZE Wallet</span>
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            You can also register your intended amount here. We&apos;ll send you a confirmation and reminders. When you&apos;re ready, buy in BLAZE Wallet at my.blazewallet.io.
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
+            Go to my.blazewallet.io, add funds, and buy $BLAZE in the presale card. Min $100, max $10,000 per wallet.
           </p>
+          <a
+            href={walletUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 px-10 py-4 rounded-xl bg-gradient-to-r from-orange-500 to-yellow-500 text-white font-bold text-lg shadow-lg shadow-orange-500/30 hover:from-orange-600 hover:to-yellow-600 transition-all"
+          >
+            <Wallet className="w-6 h-6" />
+            Open BLAZE Wallet and buy
+            <ArrowRight className="w-5 h-5" />
+          </a>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          {/* Form */}
+          {/* Left: Steps + optional intent form */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
+            className="space-y-6"
           >
+            <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-gray-100">
+              <h3 className="font-bold text-gray-900 mb-4">3 steps to buy</h3>
+              <ol className="space-y-3 text-gray-700">
+                <li className="flex items-start gap-3">
+                  <span className="w-7 h-7 rounded-full bg-orange-100 text-orange-600 font-bold text-sm flex items-center justify-center flex-shrink-0">1</span>
+                  Create your account at <a href={walletUrl} target="_blank" rel="noopener noreferrer" className="text-orange-600 font-medium hover:underline">my.blazewallet.io</a>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="w-7 h-7 rounded-full bg-orange-100 text-orange-600 font-bold text-sm flex items-center justify-center flex-shrink-0">2</span>
+                  Add funds (ETH, BTC, USDT or BSC) to your wallet
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="w-7 h-7 rounded-full bg-orange-100 text-orange-600 font-bold text-sm flex items-center justify-center flex-shrink-0">3</span>
+                  Open the presale card in the app and complete your purchase
+                </li>
+              </ol>
+              <a
+                href={walletUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-6 w-full inline-flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-orange-500 to-yellow-500 text-white font-semibold hover:from-orange-600 hover:to-yellow-600 transition-all"
+              >
+                Open BLAZE Wallet and buy
+                <ArrowRight className="w-4 h-4" />
+              </a>
+            </div>
+
+            {/* Optional: register intent (collapsible) */}
+            <details className="bg-white rounded-2xl border border-gray-200 shadow-soft overflow-hidden">
+              <summary className="px-6 py-4 cursor-pointer text-gray-700 font-medium hover:bg-gray-50 flex items-center gap-2">
+                <Target className="w-4 h-4 text-orange-500" />
+                Optional: register your intent for email reminders
+              </summary>
+              <div className="px-6 pb-6 pt-2 border-t border-gray-100">
             <AnimatePresence mode="wait">
               {success ? (
                 <motion.div
@@ -373,51 +414,34 @@ export default function CommitmentForm() {
                     </div>
                   )}
 
-                  {/* Compact countdown near CTA */}
-                  <div className="mb-6 p-4 bg-gray-50 rounded-xl border border-gray-200">
-                    <div className="flex items-center gap-2 text-gray-700 text-sm font-medium mb-3">
-                      <Clock className="w-4 h-4 text-orange-500" />
-                      Presale starts in
-                    </div>
-                    <div className="grid grid-cols-3 gap-2">
-                      {[
-                        { label: 'Days', value: timeLeft.days },
-                        { label: 'Hours', value: timeLeft.hours },
-                        { label: 'Minutes', value: timeLeft.minutes },
-                      ].map((item) => (
-                        <div key={item.label} className="bg-white border border-gray-200 rounded-lg p-2 text-center">
-                          <div className="text-lg font-bold text-gray-900">{item.value.toString().padStart(2, '0')}</div>
-                          <div className="text-[11px] text-gray-500">{item.label}</div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+                  <p className="text-xs text-gray-500 mb-4">
+                    We&apos;ll send a confirmation and reminders. You still buy in the wallet at my.blazewallet.io.
+                  </p>
 
                   {/* Submit */}
                   <button
                     type="submit"
                     disabled={loading || !email || effectiveAmount < 100 || effectiveAmount > 10000}
-                    className="w-full py-4 bg-gradient-to-r from-orange-500 to-yellow-500 text-white rounded-xl font-bold text-lg hover:from-orange-600 hover:to-yellow-600 transition-all shadow-lg shadow-orange-500/30 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    className="w-full py-3 bg-gray-900 text-white rounded-xl font-semibold hover:bg-gray-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
                     {loading ? (
                       <Loader2 className="w-5 h-5 animate-spin" />
                     ) : (
                       <>
-                        <Target className="w-5 h-5" />
-                        Register my intent
+                        <Target className="w-4 h-4" />
+                        Register for reminders
                       </>
                     )}
                   </button>
 
-                  <p className="text-xs text-gray-500 text-center mt-4">
-                    This is not a payment. You're only registering your interest.
-                  </p>
-                  <p className="text-xs text-gray-500 text-center mt-1">
-                    One intent per email • 48-hour early access • Confirmation email sent automatically.
+                  <p className="text-xs text-gray-500 text-center mt-3">
+                    Not a payment. One intent per email. Confirmation sent automatically.
                   </p>
                 </motion.form>
               )}
             </AnimatePresence>
+              </div>
+            </details>
           </motion.div>
 
           {/* Calculator & Benefits */}
@@ -472,15 +496,15 @@ export default function CommitmentForm() {
 
             {/* Benefits */}
             <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-soft">
-              <h3 className="font-bold text-gray-900 mb-4">Why register your intent?</h3>
+              <h3 className="font-bold text-gray-900 mb-4">Why buy in the wallet?</h3>
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
                   <div className="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center flex-shrink-0">
                     <Shield className="w-4 h-4 text-emerald-600" />
                   </div>
                   <div>
-                    <div className="font-medium text-gray-900">Lock in your tier</div>
-                    <div className="text-sm text-gray-600">Secure today's price even if tiers sell out</div>
+                    <div className="font-medium text-gray-900">Presale price</div>
+                    <div className="text-sm text-gray-600">Buy at 58% off the launch price. Bonus tiers for early buyers.</div>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
@@ -488,8 +512,8 @@ export default function CommitmentForm() {
                     <Zap className="w-4 h-4 text-orange-600" />
                   </div>
                   <div>
-                    <div className="font-medium text-gray-900">48-hour early access</div>
-                    <div className="text-sm text-gray-600">Get access 48 hours before the public presale opens</div>
+                    <div className="font-medium text-gray-900">Simple flow</div>
+                    <div className="text-sm text-gray-600">Account → add funds → open presale card and buy. Min $100, max $10,000.</div>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
@@ -497,8 +521,8 @@ export default function CommitmentForm() {
                     <Gift className="w-4 h-4 text-purple-600" />
                   </div>
                   <div>
-                    <div className="font-medium text-gray-900">Bonus reminders</div>
-                    <div className="text-sm text-gray-600">We'll remind you before the presale starts</div>
+                    <div className="font-medium text-gray-900">Pay with ETH, BTC, USDT or BSC</div>
+                    <div className="text-sm text-gray-600">Add funds to your BLAZE Wallet, then buy in the presale card.</div>
                   </div>
                 </div>
               </div>
