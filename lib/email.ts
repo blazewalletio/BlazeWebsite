@@ -538,22 +538,23 @@ export async function sendPresaleTomorrowEmail(
 }
 
 // Waitlist reminder series: every 6h for 48h, starting at 18:00 UTC. slotIndex 0..8.
+// Recipients have early access – message: use it before it's too late.
 export async function sendWaitlistPresaleReminderEmail(
   email: string,
   referralCode: string,
   slotIndex: number
 ) {
-  const hoursUntilPublic = (8 - slotIndex) * 6; // 48, 42, 36, 30, 24, 18, 12, 6, 0
+  const hoursLeftEarlyAccess = (8 - slotIndex) * 6; // 48, 42, 36, 30, 24, 18, 12, 6, 0
   const isLastSlot = slotIndex === 8;
   const subject = isLastSlot
-    ? '🚀 BLAZE presale is now open for everyone – buy in the wallet'
-    : `⏰ ${hoursUntilPublic} hours until BLAZE presale opens for everyone`;
+    ? '🚀 Your early access has ended – presale is now open for everyone'
+    : `⏰ Only ${hoursLeftEarlyAccess} hours left of your early access – use it now`;
   const headline = isLastSlot
-    ? 'Presale open for everyone 🚀'
-    : `${hoursUntilPublic} hours until presale opens for everyone`;
+    ? 'Early access has ended 🚀'
+    : `Only ${hoursLeftEarlyAccess} hours left of your early access`;
   const bodyParagraph = isLastSlot
-    ? 'Early access has ended. The BLAZE presale is now open for everyone. Create your account at my.blazewallet.io, add funds, and buy $BLAZE in the presale card.'
-    : `The presale is live for early supporters. In <strong>${hoursUntilPublic} hours</strong> it opens for everyone (18 March 2026, 12:00 UTC). Get ready: create your BLAZE Wallet account and add funds so you can buy as soon as you want.`;
+    ? 'Your early-access window has ended. The BLAZE presale is now open for everyone. You can still buy at the same presale price in the wallet – create your account at my.blazewallet.io, add funds, and buy $BLAZE in the presale card.'
+    : `You have <strong>early access</strong> to the BLAZE presale. In <strong>${hoursLeftEarlyAccess} hours</strong> it opens for everyone (18 March 2026, 12:00 UTC) and your exclusive window is over. Use it now: open my.blazewallet.io, add funds, and buy $BLAZE in the presale card before it's too late.`;
 
   try {
     await resend.emails.send({
