@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Target, Zap, Calculator, Check, AlertCircle, Loader2, TrendingUp, Gift, Shield, Clock } from 'lucide-react';
+import { Target, Zap, Calculator, Check, AlertCircle, Loader2, TrendingUp, Gift, Shield, Clock, Wallet, ArrowRight } from 'lucide-react';
 import { BONUS_TIERS, PRESALE_CONSTANTS } from '@/lib/presale-constants';
 import { trackPresaleIntentRegistered } from '@/lib/analytics/client';
 import { useSearchParams } from 'next/navigation';
@@ -155,9 +155,45 @@ export default function CommitmentForm() {
     }
   }
 
+  const walletUrl = 'https://my.blazewallet.io';
+
   return (
     <section id="commitment" className="py-20 lg:py-28 bg-gradient-to-b from-white to-orange-50">
       <div className="container-main">
+        {/* Presale live – buy in wallet CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-12 rounded-2xl border-2 border-emerald-200 bg-gradient-to-br from-emerald-50 to-white p-6 sm:p-8"
+        >
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-700 font-medium text-sm mb-3">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                </span>
+                Presale is live
+              </div>
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Buy BLAZE tokens in the wallet</h3>
+              <p className="text-gray-600 mb-4 max-w-xl">
+                Create an account at my.blazewallet.io, add funds (ETH, BTC, USDT or BSC), then open the presale card in the app to buy. Open for everyone from 18 March 2026, 12:00 UTC.
+              </p>
+              <a
+                href={walletUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-orange-500 to-yellow-500 text-white font-semibold hover:from-orange-600 hover:to-yellow-600 transition-all shadow-lg shadow-orange-500/25"
+              >
+                <Wallet className="w-5 h-5" />
+                Open BLAZE Wallet and buy
+                <ArrowRight className="w-4 h-4" />
+              </a>
+            </div>
+          </div>
+        </motion.div>
+
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -165,17 +201,16 @@ export default function CommitmentForm() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-100 text-emerald-700 font-medium text-sm mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-100 text-orange-700 font-medium text-sm mb-6">
             <Target className="w-4 h-4" />
-            Reserve your spot
+            Or register your intent
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             Lock in your{' '}
-            <span className="text-gradient-brand">early bird price</span>
+            <span className="text-gradient-brand">tier and bonus</span>
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Register your purchase intent now. No payment required. Just let us know how much you plan to invest
-            and secure your tier pricing. Registered intents get 48-hour early access before public opening.
+            You can also register your intended amount here. We&apos;ll send you a confirmation and reminders. When you&apos;re ready, buy in BLAZE Wallet at my.blazewallet.io.
           </p>
         </motion.div>
 

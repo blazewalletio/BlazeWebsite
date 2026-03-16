@@ -141,21 +141,32 @@ export default function PresaleTeaser() {
       <div className="container-main relative z-10">
         <div className="max-w-5xl mx-auto">
           <div className={`text-center mb-7 sm:mb-9 lg:mb-12 animate-entrance ${isVisible ? 'is-visible' : ''}`}>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-gradient-to-r from-orange-500/20 to-yellow-500/20 border border-orange-500/30 text-orange-300 font-medium text-xs sm:text-sm mb-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-gradient-to-r from-emerald-500/20 to-orange-500/20 border border-emerald-500/30 text-emerald-300 font-medium text-xs sm:text-sm mb-4">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
-              48-hour early presale access
+              Presale is live
             </div>
 
             <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4">
-              Get BLAZE tokens at{' '}
-              <span className="text-gradient-brand">58% off</span>
+              Buy BLAZE tokens at{' '}
+              <span className="text-gradient-brand">{presaleDiscount}% off</span>
             </h2>
             <p className="text-sm sm:text-lg text-gray-400 max-w-2xl mx-auto">
-              BLAZE Wallet is our main app. This presale is for BLAZE Token ($BLAZE), the utility token used for cashback, staking, governance, and fee discounts in the wallet ecosystem. Register your intent directly here with no upfront payment.
+              The presale is live. Open for everyone from 18 March 2026, 12:00 UTC. Create an account at my.blazewallet.io, add funds, and buy $BLAZE in the presale card in the wallet.
             </p>
+            <div className="mt-4">
+              <a
+                href="https://my.blazewallet.io"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-orange-500 to-yellow-500 text-white font-semibold hover:from-orange-600 hover:to-yellow-600 transition-all"
+              >
+                Open BLAZE Wallet and buy
+                <ArrowRight className="w-4 h-4" />
+              </a>
+            </div>
           </div>
 
           <div className={`bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 overflow-hidden animate-entrance delay-1 ${isVisible ? 'is-visible' : ''}`}>
@@ -368,10 +379,10 @@ export default function PresaleTeaser() {
 
                 <div className="mt-4 sm:mt-5 text-center">
                   <Link
-                    href="/presale?intent=500#commitment"
+                    href="/presale"
                     className="text-sm text-gray-400 hover:text-white transition-colors inline-flex items-center gap-1"
                   >
-                    Open full presale page
+                    How to buy & full presale details
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>
@@ -381,9 +392,9 @@ export default function PresaleTeaser() {
 
           <div className={`flex flex-wrap justify-center gap-5 sm:gap-8 mt-7 sm:mt-10 animate-entrance delay-2 ${isVisible ? 'is-visible' : ''}`}>
             {[
-              { icon: Zap, text: 'Email confirmation' },
-              { icon: Users, text: 'Non-custodial' },
-              { icon: Clock, text: '48h early access' },
+              { icon: Zap, text: 'Buy in BLAZE Wallet' },
+              { icon: Users, text: 'Open for everyone 18 March' },
+              { icon: Clock, text: 'ETH, BTC, USDT, BSC' },
             ].map((item, index) => (
               <div key={index} className="flex items-center gap-2 text-gray-400 text-sm">
                 <item.icon className="w-4 h-4 sm:w-5 sm:h-5 text-orange-400" />

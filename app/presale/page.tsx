@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { ArrowRight, CheckCircle2, Shield, Users, Zap, Coins, TrendingUp, Flame } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Shield, Users, Zap, Coins, Flame, Wallet, CreditCard, ShoppingBag } from 'lucide-react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { PRESALE_CONSTANTS } from '@/lib/presale-constants';
@@ -9,16 +9,17 @@ import { buildPageMetadata } from '@/lib/seo/metadata';
 const CommitmentForm = dynamic(() => import('@/components/CommitmentForm'), { ssr: false });
 const PresaleStickyCTA = dynamic(() => import('@/components/PresaleStickyCTA'), { ssr: false });
 
+const WALLET_URL = 'https://my.blazewallet.io';
+
 export const metadata = buildPageMetadata({
-  title: 'BLAZE Presale: Register Your Intent for 48h Early Access',
-  description: `Register your BLAZE presale intent at $${PRESALE_CONSTANTS.presalePrice.toFixed(6)} per token (${PRESALE_CONSTANTS.presaleDiscount}% off launch price). No upfront payment. One intent per email.`,
+  title: 'BLAZE Presale: Buy BLAZE Tokens Now',
+  description: `The BLAZE presale is live. Buy $BLAZE at $${PRESALE_CONSTANTS.presalePrice.toFixed(6)} per token (${PRESALE_CONSTANTS.presaleDiscount}% off launch). Create an account at my.blazewallet.io, add funds, and buy in the wallet. Open for everyone from ${PRESALE_CONSTANTS.publicPresaleDateLabel}.`,
   path: '/presale',
   keywords: [
     'BLAZE presale',
-    'crypto presale intent',
-    'token presale',
-    'BLAZE token price',
-    'early access crypto presale',
+    'buy BLAZE tokens',
+    'BLAZE token presale',
+    'BLAZE Wallet presale',
   ],
 });
 
@@ -38,11 +39,11 @@ export default function PresalePage() {
     'Target supply path: 1B to 700M over 10 years',
   ];
   const faqs = [
-    ['What is the BLAZE presale?', 'The presale gives early supporters access to BLAZE tokens at a discounted price. Registered intent participants receive a 48-hour early-access window before the public launch.'],
-    ['Why should I register my presale intent?', 'Registered intent participants receive a 48-hour early-access window before the public presale. It helps us prepare your launch instructions in advance.'],
-    ['What amount can I register?', 'You can register any intent between $100 and $10,000 per wallet. Most early supporters currently choose around $500, but the final amount is fully up to you.'],
-    ['Do I pay immediately?', 'No. Registering intent is not a payment. You reserve your spot, unlock 48-hour early access, and receive payment instructions when your access window opens.'],
-    ['Can I increase my intent later?', 'At the moment we allow one intent per email in the form flow. If you want to increase or adjust your intent, contact support and we can assist.'],
+    ['How do I buy BLAZE tokens?', 'Create an account at my.blazewallet.io, deposit funds (ETH, BTC, USDT or BSC) into your wallet, then open the presale card in the app and complete your purchase. Min $100, max $10,000 per wallet.'],
+    ['When can I buy?', 'The presale is live. Registered supporters had 48-hour early access. Everyone can buy from 18 March 2026, 12:00 UTC.'],
+    ['What can I pay with?', 'You can pay with ETH, BTC, USDT or via BSC. Add funds to your BLAZE Wallet first, then buy $BLAZE in the presale card.'],
+    ['What is the price?', `$${presalePrice.toFixed(6)} per BLAZE token (${presaleDiscount}% off the $0.02 launch price). Bonus tiers give extra tokens for early buyers.`],
+    ['Where do I buy?', 'Only in BLAZE Wallet at my.blazewallet.io. We never ask for your seed phrase. Use only official links.'],
   ] as const;
 
   return (
@@ -65,24 +66,32 @@ export default function PresalePage() {
 
         <div className="container-main relative z-10">
           <div className="max-w-5xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-full bg-gradient-to-r from-orange-500/20 to-yellow-500/20 border border-orange-500/30 text-orange-300 font-medium text-xs sm:text-sm mb-5 sm:mb-6">
+            <div className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-full bg-gradient-to-r from-emerald-500/20 to-orange-500/20 border border-emerald-500/30 text-emerald-300 font-medium text-xs sm:text-sm mb-5 sm:mb-6">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500" />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
               </span>
-              48-hour early presale access
+              Presale is live
             </div>
 
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-5 leading-tight tracking-tight">
-              Get BLAZE tokens at <span className="text-gradient-brand">{presaleDiscount}% off</span>
+              Buy BLAZE tokens at <span className="text-gradient-brand">{presaleDiscount}% off</span>
             </h1>
-            <p className="text-base sm:text-lg text-gray-300 max-w-3xl mx-auto mb-7 sm:mb-9">
-              Fixed presale price of ${presalePrice.toFixed(6)} per token. Early supporters get bonus tokens and a 48-hour early-access window.
+            <p className="text-base sm:text-lg text-gray-300 max-w-3xl mx-auto mb-4">
+              Registered supporters had 48-hour early access. The presale is open for <strong className="text-white">everyone from {PRESALE_CONSTANTS.publicPresaleDateLabel}</strong>. Create your BLAZE Wallet account, add funds, and buy $BLAZE in the wallet.
+            </p>
+            <p className="text-sm text-gray-400 max-w-2xl mx-auto mb-7 sm:mb-9">
+              ${presalePrice.toFixed(6)} per token · Min $100, max $10,000 per wallet · Pay with ETH, BTC, USDT or via BSC
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8 sm:mb-10 max-w-md sm:max-w-none mx-auto">
-              <a href="#commitment" className="btn-brand w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 text-base sm:text-lg shadow-lg shadow-orange-500/30">
-                Reserve my spot
+              <a
+                href={WALLET_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-brand w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 text-base sm:text-lg shadow-lg shadow-orange-500/30"
+              >
+                Open BLAZE Wallet and buy
                 <ArrowRight className="w-5 h-5" />
               </a>
               <Link
@@ -111,19 +120,19 @@ export default function PresalePage() {
             <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-xs sm:text-sm text-gray-400 mt-6 sm:mt-8">
               <span className="inline-flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                Intent only
+                Buy in BLAZE Wallet
               </span>
               <span className="inline-flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                Minimum $100
+                Min $100 · Max $10,000
               </span>
               <span className="inline-flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                No upfront payment
+                ETH, BTC, USDT, BSC
               </span>
               <span className="inline-flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                48-hour early access
+                Open for everyone from 18 March
               </span>
             </div>
           </div>
@@ -136,23 +145,23 @@ export default function PresalePage() {
             <div className="card card-hover p-5 sm:p-6">
               <div className="icon-box bg-emerald-100 mb-4">
                 <CheckCircle2 className="w-6 h-6 text-emerald-600" />
-                </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-1">No upfront payment</h3>
-              <p className="text-gray-600">Register intent first to unlock your 48-hour early-access window, then complete purchase when it opens.</p>
-                      </div>
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 mb-1">Buy in the wallet</h3>
+              <p className="text-gray-600">Create an account at my.blazewallet.io, add funds, then buy $BLAZE via the presale card in the app.</p>
+            </div>
             <div className="card card-hover p-5 sm:p-6">
               <div className="icon-box bg-orange-100 mb-4">
                 <Users className="w-6 h-6 text-orange-600" />
               </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-1">Referral rewards</h3>
-              <p className="text-gray-600">Invite friends and climb the leaderboard for extra token bonuses.</p>
-                </div>
+              <h3 className="text-lg font-bold text-gray-900 mb-1">Bonus tiers</h3>
+              <p className="text-gray-600">Early buyers get extra tokens. First-come, first-served per tier (Founders +100% down to Public).</p>
+            </div>
             <div className="card card-hover p-5 sm:p-6">
               <div className="icon-box bg-sky-100 mb-4">
                 <Shield className="w-6 h-6 text-sky-600" />
               </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-1">Clear contribution limits</h3>
-              <p className="text-gray-600">Intent range is $100 to $10,000 per wallet across all flows.</p>
+              <h3 className="text-lg font-bold text-gray-900 mb-1">Clear limits</h3>
+              <p className="text-gray-600">$100 minimum, $10,000 maximum per wallet. Pay with ETH, BTC, USDT or via BSC.</p>
             </div>
           </div>
         </div>
@@ -164,29 +173,49 @@ export default function PresalePage() {
             <div className="text-center mb-6 sm:mb-8">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-100 text-orange-700 font-medium text-sm mb-4">
                 <Zap className="w-4 h-4" />
-                How it works
+                How to participate
               </div>
-              <h2 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-2">Simple 3-step presale flow</h2>
+              <h2 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-2">Buy BLAZE in 3 steps</h2>
               <p className="text-sm sm:text-base text-gray-600">
-                One clear path from interest to participation, without duplicate sections or mixed messaging.
+                Create your account, add funds, and buy $BLAZE tokens directly in BLAZE Wallet.
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="card p-4 sm:p-5">
+                <div className="w-12 h-12 rounded-xl bg-sky-100 flex items-center justify-center mb-3">
+                  <Wallet className="w-6 h-6 text-sky-600" />
+                </div>
                 <div className="text-xs font-semibold text-orange-600 mb-2">STEP 1</div>
-                <h3 className="font-bold text-gray-900 mb-1">Register intent</h3>
-                <p className="text-sm text-gray-600">Submit your email and intended amount (min $100, max $10,000).</p>
+                <h3 className="font-bold text-gray-900 mb-1">Create your account</h3>
+                <p className="text-sm text-gray-600">Sign up at <a href={WALLET_URL} target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline font-medium">my.blazewallet.io</a>. It only takes a minute.</p>
               </div>
               <div className="card p-4 sm:p-5">
+                <div className="w-12 h-12 rounded-xl bg-emerald-100 flex items-center justify-center mb-3">
+                  <CreditCard className="w-6 h-6 text-emerald-600" />
+                </div>
                 <div className="text-xs font-semibold text-orange-600 mb-2">STEP 2</div>
-                <h3 className="font-bold text-gray-900 mb-1">Receive confirmation</h3>
-                <p className="text-sm text-gray-600">Get confirmation, your referral link, and reminders for your 48-hour early-access window.</p>
+                <h3 className="font-bold text-gray-900 mb-1">Add funds to your wallet</h3>
+                <p className="text-sm text-gray-600">Deposit ETH, BTC, USDT or use BSC. You need funds in your BLAZE Wallet to buy tokens.</p>
               </div>
               <div className="card p-4 sm:p-5">
+                <div className="w-12 h-12 rounded-xl bg-orange-100 flex items-center justify-center mb-3">
+                  <ShoppingBag className="w-6 h-6 text-orange-600" />
+                </div>
                 <div className="text-xs font-semibold text-orange-600 mb-2">STEP 3</div>
-                <h3 className="font-bold text-gray-900 mb-1">Complete at launch</h3>
-                <p className="text-sm text-gray-600">You get payment instructions once presale opens. No upfront payment.</p>
+                <h3 className="font-bold text-gray-900 mb-1">Buy BLAZE in the wallet</h3>
+                <p className="text-sm text-gray-600">Open the presale card in BLAZE Wallet and complete your purchase. Min $100, max $10,000 per wallet.</p>
               </div>
+            </div>
+            <div className="text-center mt-8">
+              <a
+                href={WALLET_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-brand inline-flex items-center justify-center gap-2 px-8 py-4"
+              >
+                Open BLAZE Wallet and buy
+                <ArrowRight className="w-5 h-5" />
+              </a>
             </div>
           </div>
         </div>
@@ -238,7 +267,7 @@ export default function PresalePage() {
                 Presale FAQ
               </div>
               <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">Frequently asked questions</h2>
-              <p className="text-gray-600">Everything about intent registration and your 48-hour early-access benefits.</p>
+              <p className="text-gray-600">How to buy BLAZE tokens and participate in the presale.</p>
             </div>
             <div className="space-y-3 sm:space-y-4">
               {faqs.map(([question, answer]) => (

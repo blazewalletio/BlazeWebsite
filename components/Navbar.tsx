@@ -20,7 +20,7 @@ export default function Navbar() {
   const mainLinks = [
     { label: 'Features', href: '/#features', description: 'What BLAZE offers' },
     { label: 'How it works', href: '/#demo', description: 'Get started in 3 steps' },
-    { label: 'Presale', href: '/presale', description: 'Join the early bird presale', highlight: true },
+    { label: 'Presale', href: '/presale', description: 'Buy BLAZE tokens in the wallet', highlight: true },
     { label: 'Tokenomics', href: '/#tokenomics', description: 'BLAZE token economy' },
     { label: 'Roadmap', href: '/#roadmap', description: 'Our development plan' },
     { label: 'Updates', href: '/updates', description: 'Release sync & changelog' },

@@ -26,6 +26,10 @@ export const PRESALE_CONSTANTS = {
   get maxTokensAtPresalePrice() {
     return Math.floor(this.hardCap / this.presalePrice);
   },
+
+  // Early-access window ended; presale open for everyone from this date (UTC)
+  publicPresaleDateIso: '2026-03-18T12:00:00Z',
+  publicPresaleDateLabel: '18 March 2026, 12:00 UTC',
 };
 
 // Early bird bonus tiers - bonus tokens for early supporters

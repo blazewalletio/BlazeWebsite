@@ -261,7 +261,7 @@ export default function Footer() {
         <div className="max-w-xl mx-auto text-center mb-16 pb-16 border-b border-gray-800">
           <h3 className="text-xl font-bold mb-2">Stay updated</h3>
           <p className="text-gray-400 mb-6">
-            Get the latest updates on BLAZE Wallet and exclusive presale opportunities.
+            Get the latest updates on BLAZE Wallet and the BLAZE presale.
           </p>
           <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
             <input

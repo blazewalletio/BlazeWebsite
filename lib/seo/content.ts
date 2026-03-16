@@ -50,8 +50,8 @@ export const SEO_FAQS = [
       'BLAZE supports 18+ networks including Ethereum, BSC, Polygon, Arbitrum, Base, Avalanche, Optimism, Fantom, and Cronos.',
   },
   {
-    question: 'How does the BLAZE presale flow work?',
-    answer: `The presale is for BLAZE Token ($BLAZE), the utility token inside BLAZE Wallet. The intent flow starts at ${SEO_PRODUCT_FACTS.presalePriceLabel} per token (${SEO_PRODUCT_FACTS.presaleDiscountLabel} off the ${SEO_PRODUCT_FACTS.launchPriceLabel} launch price). You can register intent between ${SEO_PRODUCT_FACTS.minContributionLabel} and ${SEO_PRODUCT_FACTS.maxContributionLabel}, and participants get a 48-hour early-access window when presale opens.`,
+    question: 'How does the BLAZE presale work?',
+    answer: `The presale is for BLAZE Token ($BLAZE), the utility token inside BLAZE Wallet. Create an account at my.blazewallet.io, add funds (ETH, BTC, USDT or BSC), then buy $BLAZE via the presale card in the wallet. Price is ${SEO_PRODUCT_FACTS.presalePriceLabel} per token (${SEO_PRODUCT_FACTS.presaleDiscountLabel} off launch). Min ${SEO_PRODUCT_FACTS.minContributionLabel}, max ${SEO_PRODUCT_FACTS.maxContributionLabel} per wallet. Open for everyone from 18 March 2026, 12:00 UTC.`,
   },
 ] as const;
 

@@ -66,11 +66,13 @@ export default function PresaleStickyCTA() {
         >
           <div className="flex items-center gap-2">
             <a
-              href="#commitment"
+              href="https://my.blazewallet.io"
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 bg-gradient-to-r from-orange-500 to-yellow-500 text-white font-semibold"
             >
               <Zap className="w-4 h-4" />
-              Reserve my spot
+              Buy BLAZE in wallet
               <ArrowRight className="w-4 h-4" />
             </a>
             <button
