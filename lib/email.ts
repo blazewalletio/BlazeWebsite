@@ -1,6 +1,7 @@
 import { Resend } from 'resend';
 import { generateWalletStyleEmailShell } from '@/lib/email-shell';
 import { PRESALE_CONSTANTS } from '@/lib/presale-constants';
+import { getPresaleDripCopy, type PresaleDripKey } from '@/lib/presale-drip-copy';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM_EMAIL = 'BLAZE Wallet <info@blazewallet.io>';
@@ -553,8 +554,8 @@ export async function sendWaitlistPresaleReminderEmail(
     ? 'Early access has ended 🚀'
     : `Only ${hoursLeftEarlyAccess} hours left of your early access`;
   const bodyParagraph = isLastSlot
-    ? 'Your early-access window has ended. The BLAZE presale is now open for everyone. You can still buy at the same presale price in the wallet – create your account at my.blazewallet.io, add funds, and buy $BLAZE in the presale card.'
-    : `You have <strong>early access</strong> to the BLAZE presale. In <strong>${hoursLeftEarlyAccess} hours</strong> it opens for everyone (18 March 2026, 12:00 UTC) and your exclusive window is over. Use it now: open my.blazewallet.io, add funds, and buy $BLAZE in the presale card before it's too late.`;
+    ? 'Your early-access window has ended. The BLAZE presale is now open for everyone. You can still buy at the same presale price in the wallet – create your account at my.blazewallet.io, add funds, and buy $BLAZE in the presale section.'
+    : `You have <strong>early access</strong> to the BLAZE presale. In <strong>${hoursLeftEarlyAccess} hours</strong> it opens for everyone (18 March 2026, 12:00 UTC) and your exclusive window is over. Use it now: open my.blazewallet.io, add funds, and buy $BLAZE in the presale section before it's too late.`;
 
   try {
     await resend.emails.send({
@@ -599,6 +600,131 @@ export async function sendWaitlistPresaleReminderEmail(
     return { success: true };
   } catch (error) {
     console.error('Failed to send waitlist presale reminder email:', error);
+    return { success: false, error };
+  }
+}
+
+// Sent 12 hours after the last early-access reminder (slot 8). Presale is now open for everyone; strong CTA to buy.
+export async function sendPresaleOpenForEveryoneEmail(email: string, referralCode: string) {
+  try {
+    await resend.emails.send({
+      from: FROM_EMAIL,
+      to: email,
+      subject: '🚀 Presale open for everyone – buy BLAZE before 30 April',
+      html: baseTemplate(`
+        <h1>Early access is over – presale is now open for everyone 🚀</h1>
+        <p>The exclusive early-access window has ended. The BLAZE presale is now <strong>open for everyone</strong> – and this is your chance to secure $BLAZE at the presale price before it’s too late.</p>
+
+        <div class="highlight">
+          <h3>Don’t miss out</h3>
+          <p class="mb-0">
+            The presale stays <strong>live until 30 April</strong>. Right after that, the Token Generation Event (TGE) takes place and tokens are distributed. Buy now so you’re in before the next phase.
+          </p>
+        </div>
+
+        <h2>Bonus tiers are still active</h2>
+        <p>Early supporters still get extra tokens. First-come, first-served per tier – a great opportunity to maximise your allocation.</p>
+        <table class="pricing-table">
+          <tr><td><strong>Founders</strong> (1–100)</td><td class="text-right">+100% bonus</td></tr>
+          <tr><td><strong>Early Birds</strong> (101–250)</td><td class="text-right">+75% bonus</td></tr>
+          <tr><td><strong>Pioneers</strong> (251–500)</td><td class="text-right">+50% bonus</td></tr>
+          <tr><td><strong>Adopters</strong> (501–1000)</td><td class="text-right">+30% bonus</td></tr>
+          <tr><td><strong>Supporters</strong> (1001–2000)</td><td class="text-right">+15% bonus</td></tr>
+          <tr><td><strong>Public</strong></td><td class="text-right">No bonus</td></tr>
+        </table>
+
+        <div class="stat-box">
+          <div class="price-tag mt-16">$${PRESALE_CONSTANTS.presalePrice.toFixed(6)}</div>
+          <div class="stat-label">Per BLAZE token (${PRESALE_CONSTANTS.presaleDiscount}% off $0.02 launch price)</div>
+        </div>
+
+        <div class="highlight">
+          <h3>How to buy BLAZE in the presale</h3>
+          <p class="mb-0">You can pay in two ways:</p>
+          <ol class="list-compact mt-8">
+            <li><strong>Pay with crypto in the app:</strong> Transfer balance (ETH, BTC, USDT or BSC) to your BLAZE Wallet at <a href="https://my.blazewallet.io">my.blazewallet.io</a>, then open the <strong>Presale</strong> section and complete your purchase directly with crypto.</li>
+            <li><strong>Pay by transfer to the presale address:</strong> In the presale flow in the app, enter the amount you want to invest. You’ll see the <strong>deposit address for your chosen chain/coin</strong>. Send the exact amount to that address to complete your purchase.</li>
+          </ol>
+          <p class="mt-8 mb-0">Minimum $100, maximum $10,000 per wallet. Only use the official wallet and links below.</p>
+        </div>
+
+        <center>
+          <a href="https://my.blazewallet.io" class="btn">Open BLAZE Wallet and buy $BLAZE</a>
+          <br>
+          <a href="https://www.blazewallet.io/presale" class="btn btn-secondary mt-8">Presale info</a>
+          <br>
+          <a href="https://t.me/ai4ldMZv0KgyN2Y8" class="btn btn-secondary mt-8">Join Telegram</a>
+        </center>
+
+        ${referralCode ? `
+        <div class="divider"></div>
+        <div class="referral-box">
+          <p class="text-muted">Share with friends:</p>
+          <p class="mb-0"><a href="https://www.blazewallet.io?ref=${referralCode}">blazewallet.io?ref=${referralCode}</a></p>
+        </div>
+        ` : ''}
+      `),
+    });
+    return { success: true };
+  } catch (error) {
+    console.error('Failed to send presale open for everyone email:', error);
+    return { success: false, error };
+  }
+}
+
+// Shared blocks for drip emails (price, how to buy, CTAs).
+function presaleDripFooter(referralCode: string) {
+  return `
+        <div class="stat-box">
+          <div class="price-tag mt-16">$${PRESALE_CONSTANTS.presalePrice.toFixed(6)}</div>
+          <div class="stat-label">Per BLAZE token (${PRESALE_CONSTANTS.presaleDiscount}% off $0.02 launch)</div>
+        </div>
+        <div class="highlight">
+          <h3>How to buy</h3>
+          <ol class="list-compact">
+            <li>Add funds (ETH, BTC, USDT or BSC) to your BLAZE Wallet at <a href="https://my.blazewallet.io">my.blazewallet.io</a></li>
+            <li>Open the <strong>Presale</strong> section and pay with crypto, or enter your amount in the presale flow to see the deposit address for your chain/coin and send that amount there.</li>
+          </ol>
+          <p class="mb-0 mt-8">Min $100, max $10,000 per wallet. Bonus tiers still apply.</p>
+        </div>
+        <center>
+          <a href="https://my.blazewallet.io" class="btn">Open BLAZE Wallet and buy $BLAZE</a>
+          <br>
+          <a href="https://www.blazewallet.io/presale" class="btn btn-secondary mt-8">Presale info</a>
+          <br>
+          <a href="https://t.me/ai4ldMZv0KgyN2Y8" class="btn btn-secondary mt-8">Join Telegram</a>
+        </center>
+        ${referralCode ? `
+        <div class="divider"></div>
+        <div class="referral-box">
+          <p class="text-muted">Share with friends:</p>
+          <p class="mb-0"><a href="https://www.blazewallet.io?ref=${referralCode}">blazewallet.io?ref=${referralCode}</a></p>
+        </div>
+        ` : ''}
+  `;
+}
+
+// Waitlist presale drip – one send per drip key (24h, 3d, 5d, … apr30). Unique copy per key.
+export async function sendWaitlistPresaleDripEmail(
+  email: string,
+  referralCode: string,
+  dripKey: PresaleDripKey
+) {
+  const copy = getPresaleDripCopy(dripKey);
+  try {
+    await resend.emails.send({
+      from: FROM_EMAIL,
+      to: email,
+      subject: copy.subject,
+      html: baseTemplate(`
+        <h1>${copy.headline}</h1>
+        <p>${copy.body}</p>
+        ${presaleDripFooter(referralCode)}
+      `),
+    });
+    return { success: true };
+  } catch (error) {
+    console.error(`Failed to send presale drip email (${dripKey}):`, error);
     return { success: false, error };
   }
 }
