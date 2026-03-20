@@ -51,6 +51,8 @@ export default function CommitmentsPage() {
     failed: number;
     total: number;
   } | null>(null);
+  const [surveyTestSendingId, setSurveyTestSendingId] = useState<string | null>(null);
+  const [surveyTestMsg, setSurveyTestMsg] = useState<string | null>(null);
 
   const supabase = createClient();
 
@@ -203,6 +205,34 @@ export default function CommitmentsPage() {
     }
   }
 
+  /** QA: one survey mail to that commitment’s email; does not touch commitment_email_sends. */
+  async function sendSurveyTest(commitmentId: string) {
+    const ok = window.confirm(
+      'Send ONE test survey email to this row\'s email address?\n\nThis does not mark them as "already sent" for the real blast.'
+    );
+    if (!ok) return;
+    setSurveyTestSendingId(commitmentId);
+    setSurveyTestMsg(null);
+    try {
+      const res = await fetch('/api/email/commitment-not-purchased-survey', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ testCommitmentId: commitmentId }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data?.success) {
+        setSurveyTestMsg(data?.error || 'Test send failed');
+        return;
+      }
+      setSurveyTestMsg(`Test survey sent to ${data.email}. Check inbox & spam; links work like production.`);
+    } catch (e) {
+      setSurveyTestMsg('Test send failed');
+      console.error(e);
+    } finally {
+      setSurveyTestSendingId(null);
+    }
+  }
+
   async function sendApologyBlast() {
     const ok = window.confirm(
       'Send an apology email to commitment users who received countdown emails recently? This is a broadcast action.'
@@ -322,6 +352,14 @@ export default function CommitmentsPage() {
           <div className="mb-8">
             <h1 className="text-2xl font-bold text-gray-900 mb-2">Purchase commitments</h1>
             <p className="text-gray-600">Manage purchase intents and track conversions</p>
+            <p className="text-sm text-gray-500 mt-2 max-w-3xl">
+              <strong>Survey mail:</strong> subject{' '}
+              <span className="font-mono text-gray-700">Quick question: what would help you join the BLAZE presale?</span>
+              — template log key <span className="font-mono">commitment_not_purchased_survey_v1</span>. It is{' '}
+              <strong>not automatic</strong>; it only goes out when you press{' '}
+              <span className="font-medium text-gray-800">Survey: why no purchase</span>. Use the row action{' '}
+              <span className="font-medium text-gray-800">Test survey</span> to send yourself a copy (no blast log).
+            </p>
           </div>
 
           {/* Stats */}
@@ -460,6 +498,12 @@ export default function CommitmentsPage() {
             </div>
           )}
 
+          {surveyTestMsg && (
+            <div className="p-4 rounded-xl mb-6 bg-sky-50 border border-sky-200 text-sky-900 text-sm">
+              {surveyTestMsg}
+            </div>
+          )}
+
           {apologyResult && (
             <div className={`p-4 rounded-xl mb-6 ${apologyResult.failed > 0 ? 'bg-yellow-50 border border-yellow-200' : 'bg-emerald-50 border border-emerald-200'}`}>
               <p className={apologyResult.failed > 0 ? 'text-yellow-700' : 'text-emerald-700'}>
@@ -573,6 +617,18 @@ export default function CommitmentsPage() {
                                 <Mail className="w-4 h-4" />
                               </button>
                             )}
+                            <button
+                              onClick={() => sendSurveyTest(commitment.id)}
+                              disabled={surveyTestSendingId === commitment.id}
+                              className="p-2 text-amber-700 hover:bg-amber-50 rounded-lg transition-colors disabled:opacity-50"
+                              title="Test survey email (QA only — not counted for real blast)"
+                            >
+                              {surveyTestSendingId === commitment.id ? (
+                                <Loader2 className="w-4 h-4 animate-spin" />
+                              ) : (
+                                <HelpCircle className="w-4 h-4" />
+                              )}
+                            </button>
                           </div>
                         </td>
                       </tr>

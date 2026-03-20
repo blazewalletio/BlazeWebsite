@@ -34,8 +34,51 @@ export async function POST(request: Request) {
 
     const body = await request.json().catch(() => ({}));
     const dryRun = Boolean(body?.dryRun);
+    const testCommitmentId =
+      typeof body?.testCommitmentId === 'string' ? body.testCommitmentId.trim() : '';
 
     const supabase = createAdminClient();
+
+    // Preview / QA: one email, does NOT log to commitment_email_sends (so the real blast still includes this person).
+    if (testCommitmentId) {
+      const { data: c, error: oneErr } = await supabase
+        .from('commitments')
+        .select('id, email, intended_amount_usd, commitment_tier')
+        .eq('id', testCommitmentId)
+        .maybeSingle();
+
+      if (oneErr || !c) {
+        return NextResponse.json({ success: false, error: 'Commitment not found' }, { status: 404 });
+      }
+
+      const token = signCommitmentFeedbackToken(String(c.id));
+      if (!token) {
+        return NextResponse.json(
+          { success: false, error: 'Token signing failed (set COMMITMENT_FEEDBACK_TOKEN_SECRET or CRON_SECRET)' },
+          { status: 500 }
+        );
+      }
+
+      const tierName = TIER_NAMES[c.commitment_tier] || 'Public';
+      const res = await sendCommitmentNotPurchasedSurveyEmail({
+        email: String(c.email),
+        intendedAmountUsd: Number(c.intended_amount_usd) || 0,
+        tierName,
+        token,
+      });
+
+      if (!res.success) {
+        return NextResponse.json({ success: false, error: 'Resend failed' }, { status: 500 });
+      }
+
+      return NextResponse.json({
+        success: true,
+        test: true,
+        email: String(c.email),
+        commitmentId: String(c.id),
+        note: 'Not logged in commitment_email_sends – safe for QA; blast will still send later.',
+      });
+    }
 
     const { data: commitments, error: listError } = await supabase
       .from('commitments')
