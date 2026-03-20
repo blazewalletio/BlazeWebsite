@@ -205,6 +205,8 @@ export default function CampaignsAdminPage() {
     commitment_tminus_3h: 'Commitment users: countdown email (3 hours)',
     commitment_tminus_1h: 'Commitment users: countdown email (1 hour)',
     commitment_live: 'Commitment users: live launch email',
+    commitment_not_purchased_survey:
+      'Commitment users: “why haven’t you bought yet” survey (one-click links; needs commitment row for test email)',
   };
 
   const commitmentCampaignDays: { sequence: number; daysAfter: number; templateKey: string; label: string }[] = [
@@ -250,6 +252,10 @@ export default function CampaignsAdminPage() {
     { value: 'commitment_tminus_3h', label: '⏳ Commitment: T-3h countdown' },
     { value: 'commitment_tminus_1h', label: '⏳ Commitment: T-1h countdown' },
     { value: 'commitment_live', label: '🚀 Commitment: LIVE launch' },
+    {
+      value: 'commitment_not_purchased_survey',
+      label: '❓ Commitment: Why no purchase yet? (survey + klik-opties)',
+    },
   ];
 
   async function sendTestEmail() {
@@ -282,7 +288,45 @@ export default function CampaignsAdminPage() {
   }
 
   async function sendBroadcast() {
-    if (!confirm(`Send "${templateOptions.find(t => t.value === selectedTemplate)?.label}" to ALL ${stats.activeSubscribers} subscribers?`)) {
+    if (selectedTemplate === 'commitment_not_purchased_survey') {
+      if (
+        !confirm(
+          'Survey “why no purchase” naar alle eligible commitments sturen?\n\n(Zelfde actie als Commitments → gele knop: niet-geconverteerd, nog geen survey-mail, sluit 2 test-adressen uit.)'
+        )
+      ) {
+        return;
+      }
+
+      setSendingBroadcast(true);
+      setSendResult(null);
+      try {
+        const res = await fetch('/api/email/commitment-not-purchased-survey', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({}),
+        });
+        const data = await res.json();
+        if (res.ok && data?.success) {
+          setSendResult({
+            success: true,
+            message: `Survey verstuurd: ${data.sent} gelukt, ${data.failed} mislukt (batch: ${data.total})`,
+          });
+          await fetchData();
+        } else {
+          setSendResult({ success: false, message: data?.error || 'Mislukt (ben je ingelogd in admin?)' });
+        }
+      } catch {
+        setSendResult({ success: false, message: 'Network error' });
+      }
+      setSendingBroadcast(false);
+      return;
+    }
+
+    if (
+      !confirm(
+        `Send "${templateOptions.find((t) => t.value === selectedTemplate)?.label}" to ALL ${stats.activeSubscribers} subscribers?`
+      )
+    ) {
       return;
     }
 
@@ -389,7 +433,9 @@ export default function CampaignsAdminPage() {
               </div>
               <div>
                 <h2 className="text-lg font-bold text-gray-900">Send emails</h2>
-                <p className="text-sm text-gray-500">Test emails or broadcast to all subscribers</p>
+                <p className="text-sm text-gray-500">
+                  Test emails or broadcast to all subscribers (commitment-survey broadcast = alle intents, niet waitlist)
+                </p>
               </div>
             </div>
 
@@ -432,7 +478,10 @@ export default function CampaignsAdminPage() {
                 </button>
                 <button
                   onClick={sendBroadcast}
-                  disabled={sendingBroadcast || stats.activeSubscribers === 0}
+                  disabled={
+                    sendingBroadcast ||
+                    (selectedTemplate !== 'commitment_not_purchased_survey' && stats.activeSubscribers === 0)
+                  }
                   className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-orange-500 to-yellow-500 text-white rounded-xl hover:from-orange-600 hover:to-yellow-600 transition-all disabled:opacity-50"
                 >
                   {sendingBroadcast ? <Loader2 className="w-4 h-4 animate-spin" /> : <Megaphone className="w-4 h-4" />}
@@ -440,6 +489,14 @@ export default function CampaignsAdminPage() {
                 </button>
               </div>
             </div>
+
+            {selectedTemplate === 'commitment_not_purchased_survey' && (
+              <p className="text-sm text-amber-900 bg-amber-50 border border-amber-100 rounded-xl px-4 py-3 mb-4">
+                <strong>Survey “why no purchase”:</strong> voor <strong>Test</strong> een adres gebruiken dat in{' '}
+                <strong>Commitments</strong> staat (anders: foutmelding). <strong>Broadcast</strong> stuurt naar alle
+                relevante commitments — niet naar de hele waitlist — zelfde logica als de gele knop op Commitments.
+              </p>
+            )}
 
             {/* Result Message */}
             {sendResult && (

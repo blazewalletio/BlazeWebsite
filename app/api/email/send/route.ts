@@ -19,8 +19,19 @@ import {
   sendCommitmentLiveEmail,
   sendCommitmentPresaleLiveEmail,
   sendCommitmentApologyEmail,
+  sendCommitmentNotPurchasedSurveyEmail,
 } from '@/lib/email';
+import { signCommitmentFeedbackToken } from '@/lib/commitment-feedback-token';
 import { PRESALE_CONSTANTS } from '@/lib/presale-constants';
+
+const COMMITMENT_TIER_NAMES: Record<number, string> = {
+  1: 'Founders',
+  2: 'Early Birds',
+  3: 'Pioneers',
+  4: 'Adopters',
+  5: 'Supporters',
+  6: 'Public',
+};
 
 function parsePresaleDateFromSettings(value: unknown) {
   if (typeof value !== 'string') return null;
@@ -93,6 +104,17 @@ export async function POST(request: Request) {
       if (!seen.has(key)) seen.set(key, r);
     }
     recipients = Array.from(seen.values());
+
+    // Survey blast goes through /api/email/commitment-not-purchased-survey (admin + commitments list), not waitlist.
+    if (broadcast && template === 'commitment_not_purchased_survey') {
+      return NextResponse.json(
+        {
+          error:
+            'Deze survey gaat naar commitments, niet naar de hele waitlist. Gebruik in dit scherm de knop Broadcast (die roept de juiste API aan) of Commitments → gele knop.',
+        },
+        { status: 400 }
+      );
+    }
 
     // Safety: some templates are not intended to be broadcast to all waitlist subscribers from here.
     if (broadcast && (String(template).startsWith('commitment_') || template === 'commitment_apology')) {
@@ -293,6 +315,41 @@ export async function POST(request: Request) {
 
           case 'commitment_presale_live': {
             const r = await sendCommitmentPresaleLiveEmail(recipient.email);
+            success = r.success;
+            break;
+          }
+
+          case 'commitment_not_purchased_survey': {
+            const norm = recipient.email.toLowerCase().trim();
+            const { data: commitmentRow } = await supabase
+              .from('commitments')
+              .select('id, email, intended_amount_usd, commitment_tier')
+              .eq('email', norm)
+              .maybeSingle();
+            if (!commitmentRow) {
+              results.push({
+                email: recipient.email,
+                success: false,
+                error: 'Geen commitment (intent) voor dit e-mailadres — gebruik een adres dat in Commitments staat.',
+              });
+              continue;
+            }
+            const token = signCommitmentFeedbackToken(String(commitmentRow.id));
+            if (!token) {
+              results.push({
+                email: recipient.email,
+                success: false,
+                error: 'Token mislukt (COMMITMENT_FEEDBACK_TOKEN_SECRET of CRON_SECRET)',
+              });
+              continue;
+            }
+            const tierName = COMMITMENT_TIER_NAMES[commitmentRow.commitment_tier] || 'Public';
+            const r = await sendCommitmentNotPurchasedSurveyEmail({
+              email: String(commitmentRow.email),
+              intendedAmountUsd: Number(commitmentRow.intended_amount_usd) || 0,
+              tierName,
+              token,
+            });
             success = r.success;
             break;
           }
