@@ -206,11 +206,13 @@ export default function CommitmentsPage() {
   }
 
   /** QA: one survey mail to that commitment’s email; does not touch commitment_email_sends. */
-  async function sendSurveyTest(commitmentId: string) {
-    const ok = window.confirm(
-      'Send ONE test survey email to this row\'s email address?\n\nThis does not mark them as "already sent" for the real blast.'
-    );
-    if (!ok) return;
+  async function sendSurveyTest(commitmentId: string, skipConfirm = false) {
+    if (!skipConfirm) {
+      const ok = window.confirm(
+        'Send ONE test survey email to this row\'s email address?\n\nThis does not mark them as "already sent" for the real blast.'
+      );
+      if (!ok) return;
+    }
     setSurveyTestSendingId(commitmentId);
     setSurveyTestMsg(null);
     try {
@@ -231,6 +233,28 @@ export default function CommitmentsPage() {
     } finally {
       setSurveyTestSendingId(null);
     }
+  }
+
+  /** Toolbar: send test to the single row matching the search box (e.g. filter info@ → 1 row). */
+  async function sendSurveyTestFromSearchFilter() {
+    const n = filteredCommitments.length;
+    if (n === 0) {
+      window.alert(
+        'Geen rijen zichtbaar. Maak het zoekveld leger of pas je zoekterm aan tot er precies één commitment zichtbaar is.'
+      );
+      return;
+    }
+    if (n > 1) {
+      window.alert(
+        `Er zijn nu ${n} rijen zichtbaar. Typ in het zoekveld tot er precies één rij over is (bijv. je eigen e-mail), daarna klik je opnieuw op "Test survey mail".`
+      );
+      return;
+    }
+    const ok = window.confirm(
+      `Test survey mail sturen naar ${filteredCommitments[0].email}?\n\nDit telt niet mee voor de grote bulk (gele knop).`
+    );
+    if (!ok) return;
+    await sendSurveyTest(filteredCommitments[0].id, true);
   }
 
   async function sendApologyBlast() {
@@ -353,12 +377,15 @@ export default function CommitmentsPage() {
             <h1 className="text-2xl font-bold text-gray-900 mb-2">Purchase commitments</h1>
             <p className="text-gray-600">Manage purchase intents and track conversions</p>
             <p className="text-sm text-gray-500 mt-2 max-w-3xl">
-              <strong>Survey mail:</strong> subject{' '}
+              <strong>Survey-mail (Engels):</strong> onderwerp{' '}
               <span className="font-mono text-gray-700">Quick question: what would help you join the BLAZE presale?</span>
-              — template log key <span className="font-mono">commitment_not_purchased_survey_v1</span>. It is{' '}
-              <strong>not automatic</strong>; it only goes out when you press{' '}
-              <span className="font-medium text-gray-800">Survey: why no purchase</span>. Use the row action{' '}
-              <span className="font-medium text-gray-800">Test survey</span> to send yourself a copy (no blast log).
+              <br />
+              <strong className="text-gray-700">Naar iedereen:</strong> klik op de <span className="font-medium text-amber-700">gele knop</span>{' '}
+              <span className="font-medium text-gray-800">Survey: why no purchase</span> — die mailt alle commitments die nog{' '}
+              <em>niet</em> geconverteerd zijn en deze survey nog niet kregen (uitgezonderd 2 test-adressen). Geen cron: alleen als jij die knop gebruikt.
+              <br />
+              <strong className="text-gray-700">Alleen testen:</strong> zet in het zoekveld je e-mail tot er <em>precies één</em> rij zichtbaar is, daarna{' '}
+              <span className="font-medium text-gray-800">Test survey mail</span> (witte knop). Of gebruik het <span className="font-medium text-gray-800">?</span>-icoon op een rij — telt niet mee voor de bulk.
             </p>
           </div>
 
@@ -414,7 +441,7 @@ export default function CommitmentsPage() {
                 className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-orange-500"
               />
             </div>
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
               <button
                 onClick={backfillCountries}
                 disabled={backfilling}
@@ -440,7 +467,7 @@ export default function CommitmentsPage() {
                 onClick={sendNotPurchasedSurvey}
                 disabled={sendingSurvey}
                 className="flex items-center gap-2 px-4 py-3 bg-amber-500 text-white rounded-xl hover:bg-amber-600 transition-colors disabled:opacity-50"
-                title="Survey: why haven’t they bought yet (excludes 2 test emails)"
+                title="Verstuurt de survey naar alle niet-geconverteerde commitments (bulk). Slaat over wie deze mail al kreeg + 2 test-adressen."
               >
                 {sendingSurvey ? (
                   <Loader2 className="w-5 h-5 animate-spin" />
@@ -448,6 +475,19 @@ export default function CommitmentsPage() {
                   <HelpCircle className="w-5 h-5" />
                 )}
                 Survey: why no purchase
+              </button>
+              <button
+                onClick={() => void sendSurveyTestFromSearchFilter()}
+                disabled={surveyTestSendingId !== null || sendingSurvey}
+                className="flex items-center gap-2 px-4 py-3 bg-white text-amber-900 rounded-xl border-2 border-amber-400 hover:bg-amber-50 transition-colors disabled:opacity-50"
+                title="Zoek tot er precies 1 rij zichtbaar is, dan stuur je 1 testmail. Telt niet mee voor bulk."
+              >
+                {surveyTestSendingId ? (
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                ) : (
+                  <Mail className="w-5 h-5" />
+                )}
+                Test survey mail
               </button>
               <button
                 onClick={sendApologyBlast}
