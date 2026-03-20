@@ -2,6 +2,7 @@ import { Resend } from 'resend';
 import { generateWalletStyleEmailShell } from '@/lib/email-shell';
 import { PRESALE_CONSTANTS } from '@/lib/presale-constants';
 import { getPresaleDripCopy, type PresaleDripKey } from '@/lib/presale-drip-copy';
+import { COMMITMENT_FEEDBACK_REASONS } from '@/lib/commitment-feedback-reasons';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM_EMAIL = 'BLAZE Wallet <info@blazewallet.io>';
@@ -150,6 +151,65 @@ export async function sendCommitmentConfirmation({
     return { success: true };
   } catch (error) {
     console.error('Failed to send commitment confirmation:', error);
+    return { success: false, error };
+  }
+}
+
+/** Campaign + log key for “why haven’t you bought yet” one-click survey */
+export const COMMITMENT_NOT_PURCHASED_SURVEY_CAMPAIGN_KEY = 'not_purchased_survey_v1';
+export const COMMITMENT_NOT_PURCHASED_SURVEY_TEMPLATE_KEY = 'commitment_not_purchased_survey_v1';
+
+function publicSiteUrl(): string {
+  return (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.blazewallet.io').replace(/\/$/, '');
+}
+
+/** Survey email: one link per reason → records choice in admin. Token must be signed server-side. */
+export async function sendCommitmentNotPurchasedSurveyEmail({
+  email,
+  intendedAmountUsd,
+  tierName,
+  token,
+}: {
+  email: string;
+  intendedAmountUsd: number;
+  tierName: string;
+  token: string;
+}) {
+  const base = publicSiteUrl();
+  const reasonLinks = COMMITMENT_FEEDBACK_REASONS.map((r) => {
+    const href = `${base}/api/commitment-feedback/click?r=${encodeURIComponent(r.key)}&t=${encodeURIComponent(token)}`;
+    return `<p style="margin:12px 0;"><a href="${href}" class="btn btn-secondary" style="display:inline-block;text-align:left;max-width:100%;line-height:1.45;white-space:normal;padding:14px 20px;">${r.emailLabel}</a></p>`;
+  }).join('\n');
+
+  try {
+    await resend.emails.send({
+      from: FROM_EMAIL,
+      to: email,
+      subject: 'Quick question: what would help you join the BLAZE presale?',
+      html: baseTemplate(`
+        <h1>We&apos;d love to understand</h1>
+        <p>You registered a presale intent with BLAZE (${tierName} tier, <strong>$${intendedAmountUsd.toLocaleString()}</strong> intended). Many people like you are ready to go — and we see that not everyone has completed a purchase yet.</p>
+        <p><strong>No pressure.</strong> One click below helps us know what you need so we can support you better (or improve the experience for everyone).</p>
+
+        <div class="highlight">
+          <h3>What best describes your situation right now?</h3>
+          <p class="mb-0 text-muted" style="font-size:15px;">Tap the option that fits — you&apos;ll go to a short thank-you page. If you pick &quot;Something else&quot;, you can add a line or two there.</p>
+        </div>
+
+        ${reasonLinks}
+
+        <div class="divider"></div>
+        <p class="text-muted" style="font-size:15px;">
+          Presale is still open at <a href="https://my.blazewallet.io">my.blazewallet.io</a> whenever you&apos;re ready. Official site: <a href="https://www.blazewallet.io">blazewallet.io</a>
+        </p>
+        <center>
+          <a href="https://my.blazewallet.io" class="btn">Open BLAZE Wallet</a>
+        </center>
+      `),
+    });
+    return { success: true };
+  } catch (error) {
+    console.error('Failed to send commitment not-purchased survey email:', error);
     return { success: false, error };
   }
 }
