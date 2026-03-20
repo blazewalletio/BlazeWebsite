@@ -254,7 +254,7 @@ export default function CampaignsAdminPage() {
     { value: 'commitment_live', label: '🚀 Commitment: LIVE launch' },
     {
       value: 'commitment_not_purchased_survey',
-      label: '❓ Commitment: Why no purchase yet? (survey + klik-opties)',
+      label: '❓ Commitment: Why no purchase yet? (survey, one-click options)',
     },
   ];
 
@@ -291,7 +291,7 @@ export default function CampaignsAdminPage() {
     if (selectedTemplate === 'commitment_not_purchased_survey') {
       if (
         !confirm(
-          'Survey “why no purchase” naar alle eligible commitments sturen?\n\n(Zelfde actie als Commitments → gele knop: niet-geconverteerd, nog geen survey-mail, sluit 2 test-adressen uit.)'
+          'Send the “why no purchase” survey to all eligible commitments?\n\n(Same as Commitments → yellow button: non-converted, has not received this survey yet, excludes 2 test addresses.)'
         )
       ) {
         return;
@@ -309,11 +309,11 @@ export default function CampaignsAdminPage() {
         if (res.ok && data?.success) {
           setSendResult({
             success: true,
-            message: `Survey verstuurd: ${data.sent} gelukt, ${data.failed} mislukt (batch: ${data.total})`,
+            message: `Survey sent: ${data.sent} succeeded, ${data.failed} failed (batch: ${data.total})`,
           });
           await fetchData();
         } else {
-          setSendResult({ success: false, message: data?.error || 'Mislukt (ben je ingelogd in admin?)' });
+          setSendResult({ success: false, message: data?.error || 'Failed (are you logged in to admin?)' });
         }
       } catch {
         setSendResult({ success: false, message: 'Network error' });
@@ -434,7 +434,7 @@ export default function CampaignsAdminPage() {
               <div>
                 <h2 className="text-lg font-bold text-gray-900">Send emails</h2>
                 <p className="text-sm text-gray-500">
-                  Test emails or broadcast to all subscribers (commitment-survey broadcast = alle intents, niet waitlist)
+                  Test emails or broadcast to all subscribers (commitment survey broadcast = all intents, not the whole waitlist)
                 </p>
               </div>
             </div>
@@ -492,9 +492,9 @@ export default function CampaignsAdminPage() {
 
             {selectedTemplate === 'commitment_not_purchased_survey' && (
               <p className="text-sm text-amber-900 bg-amber-50 border border-amber-100 rounded-xl px-4 py-3 mb-4">
-                <strong>Survey “why no purchase”:</strong> voor <strong>Test</strong> een adres gebruiken dat in{' '}
-                <strong>Commitments</strong> staat (anders: foutmelding). <strong>Broadcast</strong> stuurt naar alle
-                relevante commitments — niet naar de hele waitlist — zelfde logica als de gele knop op Commitments.
+                <strong>“Why no purchase” survey:</strong> for <strong>Test</strong>, use an email that exists on{' '}
+                <strong>Commitments</strong> (otherwise you’ll get an error). <strong>Broadcast</strong> targets all
+                eligible commitments — not the full waitlist — same logic as the yellow button on Commitments.
               </p>
             )}
 

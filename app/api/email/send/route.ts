@@ -110,7 +110,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           error:
-            'Deze survey gaat naar commitments, niet naar de hele waitlist. Gebruik in dit scherm de knop Broadcast (die roept de juiste API aan) of Commitments → gele knop.',
+            'This survey targets commitments, not the full waitlist. Use Broadcast in Campaigns (correct API) or the yellow button on Commitments.',
         },
         { status: 400 }
       );
@@ -330,7 +330,7 @@ export async function POST(request: Request) {
               results.push({
                 email: recipient.email,
                 success: false,
-                error: 'Geen commitment (intent) voor dit e-mailadres — gebruik een adres dat in Commitments staat.',
+                error: 'No commitment (intent) for this email — use an address that exists on Commitments.',
               });
               continue;
             }
@@ -339,7 +339,7 @@ export async function POST(request: Request) {
               results.push({
                 email: recipient.email,
                 success: false,
-                error: 'Token mislukt (COMMITMENT_FEEDBACK_TOKEN_SECRET of CRON_SECRET)',
+                error: 'Token signing failed (set COMMITMENT_FEEDBACK_TOKEN_SECRET or CRON_SECRET)',
               });
               continue;
             }

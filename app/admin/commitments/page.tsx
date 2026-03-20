@@ -240,18 +240,18 @@ export default function CommitmentsPage() {
     const n = filteredCommitments.length;
     if (n === 0) {
       window.alert(
-        'Geen rijen zichtbaar. Maak het zoekveld leger of pas je zoekterm aan tot er precies één commitment zichtbaar is.'
+        'No rows visible. Clear or adjust your search until exactly one commitment is visible.'
       );
       return;
     }
     if (n > 1) {
       window.alert(
-        `Er zijn nu ${n} rijen zichtbaar. Typ in het zoekveld tot er precies één rij over is (bijv. je eigen e-mail), daarna klik je opnieuw op "Test survey mail".`
+        `There are ${n} rows visible. Narrow the search until exactly one row remains (e.g. your email), then click "Test survey mail" again.`
       );
       return;
     }
     const ok = window.confirm(
-      `Test survey mail sturen naar ${filteredCommitments[0].email}?\n\nDit telt niet mee voor de grote bulk (gele knop).`
+      `Send one test survey email to ${filteredCommitments[0].email}?\n\nThis does not count toward the real bulk send (yellow button).`
     );
     if (!ok) return;
     await sendSurveyTest(filteredCommitments[0].id, true);
@@ -377,15 +377,16 @@ export default function CommitmentsPage() {
             <h1 className="text-2xl font-bold text-gray-900 mb-2">Purchase commitments</h1>
             <p className="text-gray-600">Manage purchase intents and track conversions</p>
             <p className="text-sm text-gray-500 mt-2 max-w-3xl">
-              <strong>Survey-mail (Engels):</strong> onderwerp{' '}
+              <strong>Survey email:</strong> subject line{' '}
               <span className="font-mono text-gray-700">Quick question: what would help you join the BLAZE presale?</span>
               <br />
-              <strong className="text-gray-700">Naar iedereen:</strong> klik op de <span className="font-medium text-amber-700">gele knop</span>{' '}
-              <span className="font-medium text-gray-800">Survey: why no purchase</span> — die mailt alle commitments die nog{' '}
-              <em>niet</em> geconverteerd zijn en deze survey nog niet kregen (uitgezonderd 2 test-adressen). Geen cron: alleen als jij die knop gebruikt.
+              <strong className="text-gray-700">Send to everyone:</strong> click the <span className="font-medium text-amber-700">yellow</span>{' '}
+              <span className="font-medium text-gray-800">Survey: why no purchase</span> button — it emails all commitments that are{' '}
+              <em>not</em> converted and have not received this survey yet (two test addresses excluded). Not on a schedule; only when you click.
               <br />
-              <strong className="text-gray-700">Alleen testen:</strong> zet in het zoekveld je e-mail tot er <em>precies één</em> rij zichtbaar is, daarna{' '}
-              <span className="font-medium text-gray-800">Test survey mail</span> (witte knop). Of gebruik het <span className="font-medium text-gray-800">?</span>-icoon op een rij — telt niet mee voor de bulk.
+              <strong className="text-gray-700">Test only:</strong> search until <em>exactly one</em> row is visible, then click{' '}
+              <span className="font-medium text-gray-800">Test survey mail</span> (outlined button). Or use the <span className="font-medium text-gray-800">?</span>{' '}
+              icon on a row — neither counts toward the bulk send.
             </p>
           </div>
 
@@ -467,7 +468,7 @@ export default function CommitmentsPage() {
                 onClick={sendNotPurchasedSurvey}
                 disabled={sendingSurvey}
                 className="flex items-center gap-2 px-4 py-3 bg-amber-500 text-white rounded-xl hover:bg-amber-600 transition-colors disabled:opacity-50"
-                title="Verstuurt de survey naar alle niet-geconverteerde commitments (bulk). Slaat over wie deze mail al kreeg + 2 test-adressen."
+                title="Send the survey to all non-converted commitments (bulk). Skips anyone who already received it + 2 excluded test addresses."
               >
                 {sendingSurvey ? (
                   <Loader2 className="w-5 h-5 animate-spin" />
@@ -480,7 +481,7 @@ export default function CommitmentsPage() {
                 onClick={() => void sendSurveyTestFromSearchFilter()}
                 disabled={surveyTestSendingId !== null || sendingSurvey}
                 className="flex items-center gap-2 px-4 py-3 bg-white text-amber-900 rounded-xl border-2 border-amber-400 hover:bg-amber-50 transition-colors disabled:opacity-50"
-                title="Zoek tot er precies 1 rij zichtbaar is, dan stuur je 1 testmail. Telt niet mee voor bulk."
+                title="Narrow search to exactly one visible row, then send one test email. Does not count toward bulk."
               >
                 {surveyTestSendingId ? (
                   <Loader2 className="w-5 h-5 animate-spin" />
