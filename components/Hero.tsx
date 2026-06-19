@@ -3,6 +3,7 @@
 import { ArrowRight, Shield, Zap, CheckCircle, QrCode } from 'lucide-react';
 import Image from 'next/image';
 import TrackedLaunchAppLink from '@/components/TrackedLaunchAppLink';
+import { BLAZE_TOKEN } from '@/lib/token-constants';
 
 const trustBadges = [
   { text: 'Pay anywhere' },
@@ -85,12 +86,24 @@ export default function Hero() {
                 <ArrowRight className="w-5 h-5" />
               </TrackedLaunchAppLink>
               <a
-                href="#quickpay"
-                className="inline-flex items-center justify-center gap-2 px-2 py-1 text-gray-300 hover:text-white transition-colors text-base font-medium"
-                aria-label="Jump to QuickPay section"
+                href={BLAZE_TOKEN.pancakeSwapUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center justify-center gap-2.5 px-8 py-4 text-lg font-semibold rounded-xl text-white transition-all hover:brightness-110 active:scale-[0.98]"
+                style={{
+                  backgroundColor: '#1FC7D4',
+                  boxShadow: '0 10px 30px rgba(31, 199, 212, 0.35)',
+                }}
+                aria-label="Buy $BLAZE on PancakeSwap"
               >
-                <QrCode className="w-5 h-5" />
-                See QuickPay
+                <img
+                  src="/pancakeswap.svg"
+                  alt=""
+                  width={26}
+                  height={26}
+                  className="w-[26px] h-[26px] transition-transform group-hover:-rotate-6"
+                />
+                Buy $BLAZE on PancakeSwap
               </a>
             </div>
 
