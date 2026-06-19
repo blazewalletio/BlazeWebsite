@@ -8,6 +8,7 @@ import {
   sendExclusiveBonusEmail,
   sendPresaleCountdownEmail,
   sendPresaleTomorrowEmail,
+  sendPancakeLiveEmail,
   sendCommitmentConfirmation,
   sendCommitmentDay2ReadinessEmail,
   sendCommitmentDay5WhyBlazeEmail,
@@ -211,6 +212,14 @@ export async function POST(request: Request) {
               presaleDate
             );
             success = tomorrowResult.success;
+            break;
+
+          case 'pancakeswap_live':
+            const pancakeResult = await sendPancakeLiveEmail(
+              recipient.email,
+              recipient.referral_code || 'BLAZE'
+            );
+            success = pancakeResult.success;
             break;
 
           case 'commitment_apology':

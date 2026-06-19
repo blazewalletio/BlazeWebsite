@@ -103,11 +103,8 @@ export default function AdminSidebar({ unreadMessages = 0 }: { unreadMessages?: 
         <div className="flex flex-col h-full">
           {/* Logo */}
           <div className="h-16 flex items-center gap-3 px-6 border-b border-gray-100">
-            <Image src="/blaze-logo.png" alt="BLAZE" width={36} height={36} className="rounded-lg" />
-            <div>
-              <span className="font-bold text-gray-900">BLAZE</span>
-              <span className="text-xs text-orange-500 block">Admin Panel</span>
-            </div>
+            <Image src="/blaze-wordmark.png" alt="BLAZE" width={160} height={64} className="h-6 w-auto" />
+            <span className="text-xs text-orange-500 font-semibold">Admin Panel</span>
           </div>
 
           {/* Navigation */}

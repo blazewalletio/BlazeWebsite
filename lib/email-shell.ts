@@ -11,7 +11,7 @@ export function generateWalletStyleEmailShell({
   title,
   includeSupportSection = true,
 }: WalletEmailShellOptions): string {
-  const logoUrl = `${ASSET_BASE_URL}/icons/icon-512x512.png`;
+  const logoUrl = `${ASSET_BASE_URL}/blaze-wordmark.png`;
   const currentYear = new Date().getFullYear();
 
   return `
@@ -234,7 +234,7 @@ export function generateWalletStyleEmailShell({
               <table width="100%" cellpadding="0" cellspacing="0" border="0">
                 <tr>
                   <td style="padding-bottom: 24px; border-bottom: 2px solid #f97316;">
-                    <img src="${logoUrl}" alt="BLAZE Wallet" width="56" height="56" style="display: block; border-radius: 12px;" />
+                    <img src="${logoUrl}" alt="BLAZE Wallet" width="190" height="76" style="display: block; border: 0; width: 190px; height: auto; max-width: 190px;" />
                   </td>
                 </tr>
               </table>

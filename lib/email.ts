@@ -1,5 +1,6 @@
 import { Resend } from 'resend';
 import { generateWalletStyleEmailShell } from '@/lib/email-shell';
+import { BLAZE_TOKEN } from '@/lib/token-constants';
 import { PRESALE_CONSTANTS } from '@/lib/presale-constants';
 import { getPresaleDripCopy, type PresaleDripKey } from '@/lib/presale-drip-copy';
 import { COMMITMENT_FEEDBACK_REASONS } from '@/lib/commitment-feedback-reasons';
@@ -79,6 +80,71 @@ export async function sendWelcomeEmail(email: string, referralCode: string) {
     return { success: true };
   } catch (error) {
     console.error('Failed to send welcome email:', error);
+    return { success: false, error };
+  }
+}
+
+// 🔥 Launch announcement: BLAZE is live on PancakeSwap. High-converting broadcast to the full list.
+export async function sendPancakeLiveEmail(email: string, referralCode?: string) {
+  const buyUrl = BLAZE_TOKEN.pancakeSwapUrl;
+  const chartUrl = BLAZE_TOKEN.dexScreenerUrl;
+  const bscUrl = BLAZE_TOKEN.bscScanTokenUrl;
+  const contract = BLAZE_TOKEN.contract;
+  try {
+    await resend.emails.send({
+      from: FROM_EMAIL,
+      to: email,
+      subject: '🔥 BLAZE is LIVE on PancakeSwap — buy $BLAZE now',
+      html: baseTemplate(`
+        <div class="tier-badge">Now live · PancakeSwap</div>
+        <h1 style="margin-top: 16px;">$BLAZE is live on PancakeSwap 🔥</h1>
+        <p>The moment is here. <strong>BLAZE</strong> is now trading live on <strong>PancakeSwap</strong>. Liquidity is open and you can buy and swap $BLAZE right now, directly on-chain — no waiting, no whitelist.</p>
+
+        <center>
+          <a href="${buyUrl}" class="btn">Buy $BLAZE on PancakeSwap →</a>
+        </center>
+
+        <div class="urgency">
+          <p class="mb-0"><strong>Why act now:</strong> trading has officially opened. Being early means you're in from day one on the open market — before the next wave of buyers arrives.</p>
+        </div>
+
+        <h2>Get $BLAZE in under 2 minutes</h2>
+        <div class="highlight">
+          <ol class="list-compact">
+            <li>Tap <a href="${buyUrl}"><strong>Buy on PancakeSwap</strong></a> (or open the BLAZE Wallet app)</li>
+            <li>Connect your wallet and choose <strong>BNB → BLAZE</strong></li>
+            <li>Enter an amount, confirm the swap — done. You now hold $BLAZE 🎉</li>
+          </ol>
+        </div>
+
+        <div class="stat-box">
+          <div class="stat-label">Official BLAZE contract · BNB Smart Chain (BEP-20)</div>
+          <div style="font-family: 'SF Mono', Menlo, Consolas, monospace; font-size: 15px; font-weight: 700; color: #111827; word-break: break-all; margin-top: 8px; line-height: 1.5;">${contract}</div>
+          <div class="stat-label" style="margin-top: 10px;">Always double-check the contract before buying — <a href="${bscUrl}">verify it on BscScan</a>.</div>
+        </div>
+
+        <center>
+          <a href="${BLAZE_TOKEN.walletUrl}" class="btn btn-secondary mt-8">Buy inside BLAZE Wallet</a>
+          <br>
+          <a href="${chartUrl}" class="btn btn-secondary mt-8">View the live chart</a>
+          <br>
+          <a href="https://t.me/ai4ldMZv0KgyN2Y8" class="btn btn-secondary mt-8">Join the community on Telegram</a>
+        </center>
+
+        <div class="divider"></div>
+        <p class="text-muted">Stay safe: only ever use the official contract address above. The BLAZE team will never DM you first and will never ask for your seed phrase or private keys.</p>
+
+        ${referralCode ? `
+        <div class="referral-box">
+          <p class="text-muted">Love BLAZE? Share it and earn:</p>
+          <p class="mb-0"><a href="https://www.blazewallet.io?ref=${referralCode}">blazewallet.io?ref=${referralCode}</a></p>
+        </div>
+        ` : ''}
+      `),
+    });
+    return { success: true };
+  } catch (error) {
+    console.error('Failed to send PancakeSwap live email:', error);
     return { success: false, error };
   }
 }

@@ -311,15 +311,14 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <div className="flex items-center gap-2 mb-4">
-              <Image 
-                src="/blaze-logo.png" 
-                alt="BLAZE" 
-                width={36} 
-                height={36} 
-                className="rounded-lg"
+            <div className="flex items-center mb-4">
+              <Image
+                src="/blaze-wordmark-light.png"
+                alt="BLAZE"
+                width={160}
+                height={64}
+                className="h-8 w-auto"
               />
-              <span className="text-xl font-bold">BLAZE</span>
             </div>
             <p className="text-gray-400 text-sm mb-4">
               The intelligent crypto wallet for everyone.

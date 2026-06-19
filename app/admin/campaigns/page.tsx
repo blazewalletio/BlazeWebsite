@@ -51,7 +51,7 @@ export default function CampaignsAdminPage() {
   const [runningCron, setRunningCron] = useState(false);
   const [runningCommitmentCron, setRunningCommitmentCron] = useState(false);
   const [testEmail, setTestEmail] = useState('');
-  const [selectedTemplate, setSelectedTemplate] = useState('welcome');
+  const [selectedTemplate, setSelectedTemplate] = useState('pancakeswap_live');
   const [sendingTest, setSendingTest] = useState(false);
   const [sendingBroadcast, setSendingBroadcast] = useState(false);
   const [sendResult, setSendResult] = useState<{ success: boolean; message: string } | null>(null);
@@ -182,6 +182,7 @@ export default function CampaignsAdminPage() {
   }
 
   const templateDescriptions: Record<string, string> = {
+    pancakeswap_live: 'BLAZE is LIVE on PancakeSwap — high-converting launch broadcast with buy CTA, contract + chart links (broadcast to full waitlist)',
     welcome: 'Sent immediately when user signs up',
     why_blaze: 'Explains BLAZE features and benefits',
     social_proof: 'Shows waitlist growth and social proof',
@@ -229,6 +230,7 @@ export default function CampaignsAdminPage() {
   ];
 
   const templateOptions = [
+    { value: 'pancakeswap_live', label: '🔥 LIVE on PancakeSwap — launch broadcast (buy $BLAZE)' },
     { value: 'welcome', label: '🔥 Welcome to waitlist' },
     { value: 'why_blaze', label: '💡 Why BLAZE?' },
     { value: 'social_proof', label: '🚀 Social proof' },

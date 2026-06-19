@@ -86,15 +86,15 @@ export default function Navbar() {
       <div className="container-main">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 font-bold text-xl">
-            <Image 
-              src="/blaze-logo.png" 
-              alt="BLAZE" 
-              width={36} 
-              height={36} 
-              className="rounded-lg"
+          <Link href="/" className="flex items-center" aria-label="BLAZE">
+            <Image
+              src={useLightTheme ? '/blaze-wordmark.png' : '/blaze-wordmark-light.png'}
+              alt="BLAZE"
+              width={160}
+              height={64}
+              priority
+              className="h-7 md:h-8 w-auto"
             />
-            <span className={useLightTheme ? 'text-gray-900' : 'text-white'}>BLAZE</span>
           </Link>
 
           {/* Desktop menu */}
