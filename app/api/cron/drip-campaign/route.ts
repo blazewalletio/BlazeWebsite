@@ -29,7 +29,7 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // The presale has ended — drip email campaigns are disabled by default.
+    // The presale has ended, so drip email campaigns are disabled by default.
     // Set PRESALE_EMAILS_DISABLED=false to re-enable.
     if (process.env.PRESALE_EMAILS_DISABLED !== 'false') {
       return NextResponse.json({

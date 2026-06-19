@@ -71,7 +71,7 @@ function ThanksInner() {
       {other && token && !saved && (
         <div className="bg-orange-50 border border-orange-200 rounded-2xl p-6 mb-8">
           <h2 className="font-semibold text-gray-900 mb-2">Care to add a few words?</h2>
-          <p className="text-sm text-gray-600 mb-4">Optional — tell us in your own words what would help.</p>
+          <p className="text-sm text-gray-600 mb-4">Optional: tell us in your own words what would help.</p>
           <form onSubmit={submitNote}>
             <textarea
               value={note}

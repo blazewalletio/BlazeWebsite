@@ -76,7 +76,7 @@ export async function POST(request: Request) {
         test: true,
         email: String(c.email),
         commitmentId: String(c.id),
-        note: 'Not logged in commitment_email_sends – safe for QA; blast will still send later.',
+        note: 'Not logged in commitment_email_sends; safe for QA; blast will still send later.',
       });
     }
 

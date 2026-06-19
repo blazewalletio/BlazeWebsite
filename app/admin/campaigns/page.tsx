@@ -182,14 +182,14 @@ export default function CampaignsAdminPage() {
   }
 
   const templateDescriptions: Record<string, string> = {
-    pancakeswap_live: 'BLAZE is LIVE on PancakeSwap — high-converting launch broadcast with buy CTA, contract + chart links (broadcast to full waitlist)',
+    pancakeswap_live: 'BLAZE is LIVE on PancakeSwap: high-converting launch broadcast with buy CTA, contract + chart links (broadcast to full waitlist)',
     welcome: 'Sent immediately when user signs up',
     why_blaze: 'Explains BLAZE features and benefits',
     social_proof: 'Shows waitlist growth and social proof',
     fomo_pricing: 'Highlights tiered pricing urgency',
     exclusive_bonus: 'Promotes referral bonuses and rewards',
     presale_countdown: 'Final reminder before presale',
-    presale_tomorrow: 'Announces presale goes live tomorrow 12:00 UTC – send now to waitlist (broadcast)',
+    presale_tomorrow: 'Announces presale goes live tomorrow 12:00 UTC, send now to waitlist (broadcast)',
     commitment_presale_live: 'Commitment users: full presale live email with steps + tiers (sent at 12:00 UTC by cron; test here)',
     commitment_apology: 'Commitment users: apology email (test-send only from here)',
     commitment_confirmation: 'Commitment users: confirmation email (sample values for test send)',
@@ -230,14 +230,14 @@ export default function CampaignsAdminPage() {
   ];
 
   const templateOptions = [
-    { value: 'pancakeswap_live', label: '🔥 LIVE on PancakeSwap — launch broadcast (buy $BLAZE)' },
+    { value: 'pancakeswap_live', label: '🔥 LIVE on PancakeSwap: launch broadcast (buy $BLAZE)' },
     { value: 'welcome', label: '🔥 Welcome to waitlist' },
     { value: 'why_blaze', label: '💡 Why BLAZE?' },
     { value: 'social_proof', label: '🚀 Social proof' },
     { value: 'fomo_pricing', label: '⏰ FOMO pricing' },
     { value: 'exclusive_bonus', label: '🎁 Exclusive bonus' },
     { value: 'presale_countdown', label: '📅 Presale countdown' },
-    { value: 'presale_tomorrow', label: '🚀 Presale tomorrow (16 March 12:00 UTC) – broadcast now' },
+    { value: 'presale_tomorrow', label: '🚀 Presale tomorrow (16 March 12:00 UTC), broadcast now' },
     { value: 'commitment_presale_live', label: '🚀 Commitment: Presale LIVE (steps + tiers, test only)' },
     { value: 'commitment_apology', label: '🙏 Commitment: Apology (test)' },
     { value: 'commitment_confirmation', label: '✅ Commitment: Confirmation (test)' },
@@ -496,7 +496,7 @@ export default function CampaignsAdminPage() {
               <p className="text-sm text-amber-900 bg-amber-50 border border-amber-100 rounded-xl px-4 py-3 mb-4">
                 <strong>“Why no purchase” survey:</strong> for <strong>Test</strong>, use an email that exists on{' '}
                 <strong>Commitments</strong> (otherwise you’ll get an error). <strong>Broadcast</strong> targets all
-                eligible commitments — not the full waitlist — same logic as the yellow button on Commitments.
+                eligible commitments, not the full waitlist, same logic as the yellow button on Commitments.
               </p>
             )}
 
@@ -561,7 +561,7 @@ export default function CampaignsAdminPage() {
                       <div className="flex items-start justify-between gap-4">
                         <div className="min-w-0">
                           <div className="font-medium text-gray-900 truncate">
-                            {c.sequence}. Day {c.daysAfter} — {c.label}
+                            {c.sequence}. Day {c.daysAfter}: {c.label}
                           </div>
                           <div className="text-sm text-gray-500 mt-1">{c.templateKey}</div>
                         </div>

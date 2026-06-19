@@ -94,18 +94,18 @@ export async function sendPancakeLiveEmail(email: string, referralCode?: string)
     await resend.emails.send({
       from: FROM_EMAIL,
       to: email,
-      subject: '🔥 BLAZE is LIVE on PancakeSwap — buy $BLAZE now',
+      subject: '🔥 BLAZE is LIVE on PancakeSwap. Buy $BLAZE now',
       html: baseTemplate(`
         <div class="tier-badge">Now live · PancakeSwap</div>
         <h1 style="margin-top: 16px;">$BLAZE is live on PancakeSwap 🔥</h1>
-        <p>The moment is here. <strong>BLAZE</strong> is now trading live on <strong>PancakeSwap</strong>. Liquidity is open and you can buy and swap $BLAZE right now, directly on-chain — no waiting, no whitelist.</p>
+        <p>The moment is here. <strong>BLAZE</strong> is now trading live on <strong>PancakeSwap</strong>. Liquidity is open and you can buy and swap $BLAZE right now, directly on-chain, with no waiting and no whitelist.</p>
 
         <center>
           <a href="${buyUrl}" class="btn">Buy $BLAZE on PancakeSwap →</a>
         </center>
 
         <div class="urgency">
-          <p class="mb-0"><strong>Why act now:</strong> trading has officially opened. Being early means you're in from day one on the open market — before the next wave of buyers arrives.</p>
+          <p class="mb-0"><strong>Why act now:</strong> trading has officially opened. Being early means you're in from day one on the open market, before the next wave of buyers arrives.</p>
         </div>
 
         <h2>Get $BLAZE in under 2 minutes</h2>
@@ -113,14 +113,14 @@ export async function sendPancakeLiveEmail(email: string, referralCode?: string)
           <ol class="list-compact">
             <li>Tap <a href="${buyUrl}"><strong>Buy on PancakeSwap</strong></a> (or open the BLAZE Wallet app)</li>
             <li>Connect your wallet and choose <strong>BNB → BLAZE</strong></li>
-            <li>Enter an amount, confirm the swap — done. You now hold $BLAZE 🎉</li>
+            <li>Enter an amount and confirm the swap. Done. You now hold $BLAZE 🎉</li>
           </ol>
         </div>
 
         <div class="stat-box">
           <div class="stat-label">Official BLAZE contract · BNB Smart Chain (BEP-20)</div>
           <div style="font-family: 'SF Mono', Menlo, Consolas, monospace; font-size: 15px; font-weight: 700; color: #111827; word-break: break-all; margin-top: 8px; line-height: 1.5;">${contract}</div>
-          <div class="stat-label" style="margin-top: 10px;">Always double-check the contract before buying — <a href="${bscUrl}">verify it on BscScan</a>.</div>
+          <div class="stat-label" style="margin-top: 10px;">Always double-check the contract before buying. <a href="${bscUrl}">Verify it on BscScan</a>.</div>
         </div>
 
         <center>
@@ -254,12 +254,12 @@ export async function sendCommitmentNotPurchasedSurveyEmail({
       subject: 'Quick question: what would help you join the BLAZE presale?',
       html: baseTemplate(`
         <h1>We&apos;d love to understand</h1>
-        <p>You registered a presale intent with BLAZE (${tierName} tier, <strong>$${intendedAmountUsd.toLocaleString()}</strong> intended). Many people like you are ready to go — and we see that not everyone has completed a purchase yet.</p>
+        <p>You registered a presale intent with BLAZE (${tierName} tier, <strong>$${intendedAmountUsd.toLocaleString()}</strong> intended). Many people like you are ready to go, and we see that not everyone has completed a purchase yet.</p>
         <p><strong>No pressure.</strong> One click below helps us know what you need so we can support you better (or improve the experience for everyone).</p>
 
         <div class="highlight">
           <h3>What best describes your situation right now?</h3>
-          <p class="mb-0 text-muted" style="font-size:15px;">Tap the option that fits — you&apos;ll go to a short thank-you page. If you pick &quot;Something else&quot;, you can add a line or two there.</p>
+          <p class="mb-0 text-muted" style="font-size:15px;">Tap the option that fits and you&apos;ll go to a short thank-you page. If you pick &quot;Something else&quot;, you can add a line or two there.</p>
         </div>
 
         ${reasonLinks}
@@ -597,7 +597,7 @@ export async function sendCommitmentLiveEmail(email: string) {
   }
 }
 
-// Presale tomorrow announcement – send now to waitlist (broadcast). Same style as other emails.
+// Presale tomorrow announcement, send now to waitlist (broadcast). Same style as other emails.
 export async function sendPresaleTomorrowEmail(
   email: string,
   referralCode: string,
@@ -665,7 +665,7 @@ export async function sendPresaleTomorrowEmail(
 }
 
 // Waitlist reminder series: every 6h for 48h, starting at 18:00 UTC. slotIndex 0..8.
-// Recipients have early access – message: use it before it's too late.
+// Recipients have early access. Message: use it before it's too late.
 export async function sendWaitlistPresaleReminderEmail(
   email: string,
   referralCode: string,
@@ -674,13 +674,13 @@ export async function sendWaitlistPresaleReminderEmail(
   const hoursLeftEarlyAccess = (8 - slotIndex) * 6; // 48, 42, 36, 30, 24, 18, 12, 6, 0
   const isLastSlot = slotIndex === 8;
   const subject = isLastSlot
-    ? '🚀 Your early access has ended – presale is now open for everyone'
-    : `⏰ Only ${hoursLeftEarlyAccess} hours left of your early access – use it now`;
+    ? '🚀 Your early access has ended. Presale is now open for everyone'
+    : `⏰ Only ${hoursLeftEarlyAccess} hours left of your early access. Use it now`;
   const headline = isLastSlot
     ? 'Early access has ended 🚀'
     : `Only ${hoursLeftEarlyAccess} hours left of your early access`;
   const bodyParagraph = isLastSlot
-    ? 'Your early-access window has ended. The BLAZE presale is now open for everyone. You can still buy at the same presale price in the wallet – create your account at my.blazewallet.io, add funds, and buy $BLAZE in the presale section.'
+    ? 'Your early-access window has ended. The BLAZE presale is now open for everyone. You can still buy at the same presale price in the wallet. Create your account at my.blazewallet.io, add funds, and buy $BLAZE in the presale section.'
     : `You have <strong>early access</strong> to the BLAZE presale. In <strong>${hoursLeftEarlyAccess} hours</strong> it opens for everyone (18 March 2026, 12:00 UTC) and your exclusive window is over. Use it now: open my.blazewallet.io, add funds, and buy $BLAZE in the presale section before it's too late.`;
 
   try {
@@ -736,10 +736,10 @@ export async function sendPresaleOpenForEveryoneEmail(email: string, referralCod
     await resend.emails.send({
       from: FROM_EMAIL,
       to: email,
-      subject: '🚀 Presale open for everyone – buy BLAZE before 30 April',
+      subject: '🚀 Presale open for everyone. Buy BLAZE before 30 April',
       html: baseTemplate(`
-        <h1>Early access is over – presale is now open for everyone 🚀</h1>
-        <p>The exclusive early-access window has ended. The BLAZE presale is now <strong>open for everyone</strong> – and this is your chance to secure $BLAZE at the presale price before it’s too late.</p>
+        <h1>Early access is over. Presale is now open for everyone 🚀</h1>
+        <p>The exclusive early-access window has ended. The BLAZE presale is now <strong>open for everyone</strong>, and this is your chance to secure $BLAZE at the presale price before it’s too late.</p>
 
         <div class="highlight">
           <h3>Don’t miss out</h3>
@@ -749,13 +749,13 @@ export async function sendPresaleOpenForEveryoneEmail(email: string, referralCod
         </div>
 
         <h2>Bonus tiers are still active</h2>
-        <p>Early supporters still get extra tokens. First-come, first-served per tier – a great opportunity to maximise your allocation.</p>
+        <p>Early supporters still get extra tokens. First-come, first-served per tier, a great opportunity to maximise your allocation.</p>
         <table class="pricing-table">
-          <tr><td><strong>Founders</strong> (1–100)</td><td class="text-right">+100% bonus</td></tr>
-          <tr><td><strong>Early Birds</strong> (101–250)</td><td class="text-right">+75% bonus</td></tr>
-          <tr><td><strong>Pioneers</strong> (251–500)</td><td class="text-right">+50% bonus</td></tr>
-          <tr><td><strong>Adopters</strong> (501–1000)</td><td class="text-right">+30% bonus</td></tr>
-          <tr><td><strong>Supporters</strong> (1001–2000)</td><td class="text-right">+15% bonus</td></tr>
+          <tr><td><strong>Founders</strong> (1-100)</td><td class="text-right">+100% bonus</td></tr>
+          <tr><td><strong>Early Birds</strong> (101-250)</td><td class="text-right">+75% bonus</td></tr>
+          <tr><td><strong>Pioneers</strong> (251-500)</td><td class="text-right">+50% bonus</td></tr>
+          <tr><td><strong>Adopters</strong> (501-1000)</td><td class="text-right">+30% bonus</td></tr>
+          <tr><td><strong>Supporters</strong> (1001-2000)</td><td class="text-right">+15% bonus</td></tr>
           <tr><td><strong>Public</strong></td><td class="text-right">No bonus</td></tr>
         </table>
 
@@ -830,7 +830,7 @@ function presaleDripFooter(referralCode: string) {
   `;
 }
 
-// Waitlist presale drip – one send per drip key (24h, 3d, 5d, … apr30). Unique copy per key.
+// Waitlist presale drip, one send per drip key (24h, 3d, 5d, ... apr30). Unique copy per key.
 export async function sendWaitlistPresaleDripEmail(
   email: string,
   referralCode: string,
@@ -855,13 +855,13 @@ export async function sendWaitlistPresaleDripEmail(
   }
 }
 
-// Full "presale is live" email for commitment list – sent at 12:00 UTC. Steps + tiers, same style.
+// Full "presale is live" email for commitment list, sent at 12:00 UTC. Steps + tiers, same style.
 export async function sendCommitmentPresaleLiveEmail(email: string) {
   try {
     await resend.emails.send({
       from: FROM_EMAIL,
       to: email,
-      subject: '🚀 The BLAZE presale is live – buy your tokens now',
+      subject: '🚀 The BLAZE presale is live. Buy your tokens now',
       html: baseTemplate(`
         <h1>The presale is LIVE 🚀</h1>
         <p>Your early-access window is open. You can now buy BLAZE tokens.</p>
@@ -872,7 +872,7 @@ export async function sendCommitmentPresaleLiveEmail(email: string) {
             <li><strong>Log in</strong> to your BLAZE Wallet: <a href="https://my.blazewallet.io">my.blazewallet.io</a></li>
             <li><strong>Go to the presale</strong> / token purchase section in the app</li>
             <li><strong>Choose your amount</strong> (min $100, max $10,000 per wallet)</li>
-            <li><strong>Pay</strong> with ETH, BTC, USDT or via BSC – as communicated in our earlier emails</li>
+            <li><strong>Pay</strong> with ETH, BTC, USDT or via BSC, as communicated in our earlier emails</li>
           </ol>
         </div>
 
@@ -884,11 +884,11 @@ export async function sendCommitmentPresaleLiveEmail(email: string) {
         <h2>Bonus tiers</h2>
         <p>Early supporters get extra tokens. First-come, first-served per tier:</p>
         <table class="pricing-table">
-          <tr><td><strong>Founders</strong> (1–100)</td><td class="text-right">+100% bonus</td></tr>
-          <tr><td><strong>Early Birds</strong> (101–250)</td><td class="text-right">+75% bonus</td></tr>
-          <tr><td><strong>Pioneers</strong> (251–500)</td><td class="text-right">+50% bonus</td></tr>
-          <tr><td><strong>Adopters</strong> (501–1000)</td><td class="text-right">+30% bonus</td></tr>
-          <tr><td><strong>Supporters</strong> (1001–2000)</td><td class="text-right">+15% bonus</td></tr>
+          <tr><td><strong>Founders</strong> (1-100)</td><td class="text-right">+100% bonus</td></tr>
+          <tr><td><strong>Early Birds</strong> (101-250)</td><td class="text-right">+75% bonus</td></tr>
+          <tr><td><strong>Pioneers</strong> (251-500)</td><td class="text-right">+50% bonus</td></tr>
+          <tr><td><strong>Adopters</strong> (501-1000)</td><td class="text-right">+30% bonus</td></tr>
+          <tr><td><strong>Supporters</strong> (1001-2000)</td><td class="text-right">+15% bonus</td></tr>
           <tr><td><strong>Public</strong></td><td class="text-right">No bonus</td></tr>
         </table>
 

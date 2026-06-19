@@ -339,7 +339,7 @@ export async function POST(request: Request) {
               results.push({
                 email: recipient.email,
                 success: false,
-                error: 'No commitment (intent) for this email — use an address that exists on Commitments.',
+                error: 'No commitment (intent) for this email. Use an address that exists on Commitments.',
               });
               continue;
             }

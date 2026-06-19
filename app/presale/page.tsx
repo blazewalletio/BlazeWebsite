@@ -71,15 +71,15 @@ const faqs = [
   ],
   [
     'What is the official contract address?',
-    `$BLAZE runs on BNB Smart Chain (BEP-20). The official contract is ${BLAZE_TOKEN.contract}. Always verify it on BscScan before swapping — never trust an address from a DM.`,
+    `$BLAZE runs on BNB Smart Chain (BEP-20). The official contract is ${BLAZE_TOKEN.contract}. Always verify it on BscScan before swapping, and never trust an address from a DM.`,
   ],
   [
     'Do I need to set slippage?',
-    '$BLAZE has a small 0.10% transfer burn. A slippage tolerance of around 0.5%–1% on PancakeSwap is usually enough for a smooth swap.',
+    '$BLAZE has a small 0.10% transfer burn. A slippage tolerance of around 0.5% to 1% on PancakeSwap is usually enough for a smooth swap.',
   ],
   [
     'Can I buy without leaving the app?',
-    'Yes. Open BLAZE Wallet at my.blazewallet.io, add funds, and buy $BLAZE in-app — no separate DEX account needed.',
+    'Yes. Open BLAZE Wallet at my.blazewallet.io, add funds, and buy $BLAZE in-app, with no separate DEX account needed.',
   ],
   [
     'How do I stay safe?',
@@ -146,7 +146,7 @@ export default function BuyBlazePage() {
             <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-xs sm:text-sm text-gray-400 mt-6 sm:mt-8">
               <span className="inline-flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                Non-custodial — you hold your keys
+                Non-custodial, you hold your keys
               </span>
               <span className="inline-flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400" />
@@ -210,7 +210,7 @@ export default function BuyBlazePage() {
               </a>
             </div>
             <p className="text-center text-xs text-gray-500 mt-4">
-              Tip: $BLAZE has a 0.10% transfer burn — set PancakeSwap slippage to about 0.5%–1% for a smooth swap.
+              Tip: $BLAZE has a 0.10% transfer burn, so set PancakeSwap slippage to about 0.5% to 1% for a smooth swap.
             </p>
           </div>
         </div>
@@ -226,7 +226,7 @@ export default function BuyBlazePage() {
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-2">Prefer to buy in the app?</h3>
               <p className="text-gray-600 mb-5">
-                Create a BLAZE Wallet account, add funds, and buy $BLAZE directly inside the app — no separate exchange account required.
+                Create a BLAZE Wallet account, add funds, and buy $BLAZE directly inside the app, with no separate exchange account required.
               </p>
               <a
                 href={WALLET_URL}

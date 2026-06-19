@@ -29,7 +29,7 @@ export const COMMITMENT_FEEDBACK_REASONS: CommitmentFeedbackReason[] = [
   {
     key: 'not_ready_timing',
     emailLabel: "I haven't had time yet / waiting for the right moment",
-    adminLabel: 'Timing – not ready yet',
+    adminLabel: 'Timing, not ready yet',
   },
   {
     key: 'budget_price',
@@ -53,7 +53,7 @@ export const COMMITMENT_FEEDBACK_REASONS: CommitmentFeedbackReason[] = [
   },
   {
     key: 'other',
-    emailLabel: 'Something else — I’ll tell you on the next page',
+    emailLabel: 'Something else, I’ll tell you on the next page',
     adminLabel: 'Other (see note)',
   },
 ];

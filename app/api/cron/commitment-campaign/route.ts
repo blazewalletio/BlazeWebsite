@@ -57,7 +57,7 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // The presale has ended — commitment email campaigns are disabled by default.
+    // The presale has ended, so commitment email campaigns are disabled by default.
     // Set PRESALE_EMAILS_DISABLED=false to re-enable.
     if (process.env.PRESALE_EMAILS_DISABLED !== 'false') {
       return NextResponse.json({
@@ -254,7 +254,7 @@ export async function GET(request: Request) {
     }
     }
 
-    // LIVE email (T0) – at presale time. When commitment_campaign_only_live is true, send full "presale live" email.
+    // LIVE email (T0) at presale time. When commitment_campaign_only_live is true, send full "presale live" email.
     const liveTarget = presaleDate;
     if (now.getTime() >= liveTarget.getTime() && now.getTime() < liveTarget.getTime() + windowMs) {
       const templateKey = commitmentCampaignOnlyLive ? 'commitment_presale_live' : 'commitment_live';

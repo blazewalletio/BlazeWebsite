@@ -7,13 +7,13 @@ import TrackedLaunchAppLink from '@/components/TrackedLaunchAppLink';
 const iosSteps = [
   { icon: Share, text: 'Open my.blazewallet.io in Safari and tap the Share icon.' },
   { icon: Plus, text: 'Choose “Add to Home Screen”.' },
-  { icon: Smartphone, text: 'Tap “Add” — BLAZE now opens like a native app.' },
+  { icon: Smartphone, text: 'Tap “Add” and BLAZE now opens like a native app.' },
 ];
 
 const androidSteps = [
   { icon: MoreVertical, text: 'Open my.blazewallet.io in Chrome and tap the ⋮ menu.' },
   { icon: Plus, text: 'Choose “Install app” or “Add to Home screen”.' },
-  { icon: Smartphone, text: 'Confirm — BLAZE installs to your home screen.' },
+  { icon: Smartphone, text: 'Confirm, and BLAZE installs to your home screen.' },
 ];
 
 export default function InstallApp() {
@@ -31,7 +31,7 @@ export default function InstallApp() {
             Get <span className="text-gradient-brand">BLAZE</span> on your phone
           </h2>
           <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
-            BLAZE Wallet is a web app — no download, no app store. Add it to your home screen and it works just like a native app, fully non-custodial.
+            BLAZE Wallet is a web app, with no download and no app store. Add it to your home screen and it works just like a native app, fully non-custodial.
           </p>
         </div>
 

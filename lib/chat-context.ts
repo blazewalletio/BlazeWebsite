@@ -114,10 +114,10 @@ export function buildBlazeSystemPrompt(ctx: ChatDynamicContext) {
   buyLines.push('- The presale has ended. $BLAZE is now LIVE on BNB Smart Chain (BEP-20). Do NOT pitch the presale, intents, waitlist, bonus tiers, or "early access" anymore.');
   buyLines.push('- Easiest way to buy: swap BNB for $BLAZE on PancakeSwap.');
   buyLines.push('- PancakeSwap buy link: https://pancakeswap.finance/swap?outputCurrency=0xd2349feb4165c1ac291AB987a31eC58716660095');
-  buyLines.push('- Official $BLAZE contract (BEP-20): 0xd2349feb4165c1ac291AB987a31eC58716660095 — always verify on BscScan: https://bscscan.com/token/0xd2349feb4165c1ac291AB987a31eC58716660095');
+  buyLines.push('- Official $BLAZE contract (BEP-20): 0xd2349feb4165c1ac291AB987a31eC58716660095. Always verify on BscScan: https://bscscan.com/token/0xd2349feb4165c1ac291AB987a31eC58716660095');
   buyLines.push('- Live chart: https://dexscreener.com/bsc/0x0645121e8a99aE89DE2eD082AeCEc3232626268a');
   buyLines.push('- You can also buy $BLAZE directly inside BLAZE Wallet at https://my.blazewallet.io (add funds, then buy in-app).');
-  buyLines.push('- Tip: $BLAZE has a 0.10% transfer burn — suggest ~0.5%-1% slippage on PancakeSwap for a smooth swap.');
+  buyLines.push('- Tip: $BLAZE has a 0.10% transfer burn, so suggest about 0.5% to 1% slippage on PancakeSwap for a smooth swap.');
   buyLines.push('- In-page buy guide: https://www.blazewallet.io/presale');
   buyLines.push('- Official channels only: Telegram https://t.me/ai4ldMZv0KgyN2Y8 and X https://x.com/blazewallet_io. BLAZE never DMs first or asks for your seed phrase.');
 

@@ -381,12 +381,12 @@ export default function CommitmentsPage() {
               <span className="font-mono text-gray-700">Quick question: what would help you join the BLAZE presale?</span>
               <br />
               <strong className="text-gray-700">Send to everyone:</strong> click the <span className="font-medium text-amber-700">yellow</span>{' '}
-              <span className="font-medium text-gray-800">Survey: why no purchase</span> button — it emails all commitments that are{' '}
+              <span className="font-medium text-gray-800">Survey: why no purchase</span> button, which emails all commitments that are{' '}
               <em>not</em> converted and have not received this survey yet (two test addresses excluded). Not on a schedule; only when you click.
               <br />
               <strong className="text-gray-700">Test only:</strong> search until <em>exactly one</em> row is visible, then click{' '}
               <span className="font-medium text-gray-800">Test survey mail</span> (outlined button). Or use the <span className="font-medium text-gray-800">?</span>{' '}
-              icon on a row — neither counts toward the bulk send.
+              icon on a row; neither counts toward the bulk send.
             </p>
           </div>
 
@@ -632,7 +632,7 @@ export default function CommitmentsPage() {
                               )}
                             </div>
                           ) : (
-                            <span className="text-gray-400">—</span>
+                            <span className="text-gray-400">-</span>
                           )}
                         </td>
                         <td className="px-6 py-4 text-gray-500 text-sm">
@@ -662,7 +662,7 @@ export default function CommitmentsPage() {
                               onClick={() => sendSurveyTest(commitment.id)}
                               disabled={surveyTestSendingId === commitment.id}
                               className="p-2 text-amber-700 hover:bg-amber-50 rounded-lg transition-colors disabled:opacity-50"
-                              title="Test survey email (QA only — not counted for real blast)"
+                              title="Test survey email (QA only, not counted for real blast)"
                             >
                               {surveyTestSendingId === commitment.id ? (
                                 <Loader2 className="w-4 h-4 animate-spin" />

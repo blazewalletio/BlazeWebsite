@@ -160,7 +160,7 @@ export default function CommitmentForm() {
   return (
     <section id="commitment" className="py-20 lg:py-28 bg-gradient-to-b from-white to-orange-50">
       <div className="container-main">
-        {/* Presale live – buy in wallet CTA */}
+        {/* Presale live, buy in wallet CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
