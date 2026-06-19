@@ -11,7 +11,7 @@ export function generateWalletStyleEmailShell({
   title,
   includeSupportSection = true,
 }: WalletEmailShellOptions): string {
-  const logoUrl = `${ASSET_BASE_URL}/blaze-wordmark.png`;
+  const logoUrl = `${ASSET_BASE_URL}/blaze-email-logo.png`;
   const currentYear = new Date().getFullYear();
 
   return `
