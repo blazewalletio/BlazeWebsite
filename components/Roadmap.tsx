@@ -41,21 +41,21 @@ const roadmapPhases = [
   },
   {
     phase: 'Q1 2026',
-    title: 'Presale & app launch',
-    status: 'active',
+    title: 'Token launch & app',
+    status: 'completed',
     highlights: [
-      'BLAZE token presale',
-      'iOS & Android app launch',
-      'Public beta release',
+      'BLAZE token launch (TGE)',
+      'Listed on PancakeSwap (BEP-20)',
+      'Public app live (web & PWA)',
       'Staking platform live',
-      'CertiK security audit',
     ],
   },
   {
     phase: 'Q2 2026',
     title: 'Growth & expansion',
-    status: 'upcoming',
+    status: 'active',
     highlights: [
+      'Native iOS & Android apps',
       'CEX listings (continued)',
       'Merchant partnerships',
       'BLAZE card program',

@@ -10,6 +10,7 @@ function parseSafeDate(value?: string) {
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://www.blazewallet.io';
   const baselineDate = new Date('2026-02-26T00:00:00.000Z');
+  const buyPageDate = new Date('2026-06-19T00:00:00.000Z');
   const { updates } = await getWalletUpdates(1);
   const updatesLastModified = parseSafeDate(updates[0]?.date) || baselineDate;
 
@@ -46,8 +47,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${baseUrl}/presale`,
-      lastModified: baselineDate,
-      changeFrequency: 'daily',
+      lastModified: buyPageDate,
+      changeFrequency: 'weekly',
       priority: 0.9,
     },
     {

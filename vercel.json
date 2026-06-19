@@ -5,20 +5,7 @@
   "installCommand": "npm install",
   "framework": "nextjs",
   "outputDirectory": ".next",
-  "crons": [
-    {
-      "path": "/api/cron/drip-campaign",
-      "schedule": "0 9 * * *"
-    },
-    {
-      "path": "/api/cron/commitment-campaign",
-      "schedule": "*/15 * * * *"
-    },
-    {
-      "path": "/api/cron/waitlist-reminder",
-      "schedule": "*/15 * * * *"
-    }
-  ]
+  "crons": []
 }
 
 

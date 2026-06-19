@@ -1,4 +1,4 @@
-import { PRESALE_CONSTANTS } from '@/lib/presale-constants';
+import { BLAZE_TOKEN } from '@/lib/token-constants';
 
 export const SEO_SITE = {
   name: 'BLAZE Wallet',
@@ -16,11 +16,8 @@ export const SEO_SITE = {
 export const SEO_PRODUCT_FACTS = {
   chainsLabel: '18+ blockchains',
   nonCustodialLabel: 'Non-custodial wallet',
-  presalePriceLabel: `$${PRESALE_CONSTANTS.presalePrice.toFixed(6)}`,
-  launchPriceLabel: `$${PRESALE_CONSTANTS.launchPrice.toFixed(2)}`,
-  presaleDiscountLabel: `${PRESALE_CONSTANTS.presaleDiscount}%`,
-  minContributionLabel: `$${PRESALE_CONSTANTS.minContribution}`,
-  maxContributionLabel: `$${PRESALE_CONSTANTS.maxContribution.toLocaleString()}`,
+  tokenChainLabel: BLAZE_TOKEN.chain,
+  tokenContractLabel: BLAZE_TOKEN.contract,
 } as const;
 
 export const SEO_FAQS = [
@@ -50,8 +47,8 @@ export const SEO_FAQS = [
       'BLAZE supports 18+ networks including Ethereum, BSC, Polygon, Arbitrum, Base, Avalanche, Optimism, Fantom, and Cronos.',
   },
   {
-    question: 'How does the BLAZE presale work?',
-    answer: `The presale is for BLAZE Token ($BLAZE), the utility token inside BLAZE Wallet. Create an account at my.blazewallet.io, add funds (ETH, BTC, USDT or BSC), then buy $BLAZE via the presale card in the wallet. Price is ${SEO_PRODUCT_FACTS.presalePriceLabel} per token (${SEO_PRODUCT_FACTS.presaleDiscountLabel} off launch). Min ${SEO_PRODUCT_FACTS.minContributionLabel}, max ${SEO_PRODUCT_FACTS.maxContributionLabel} per wallet. Open for everyone from 18 March 2026, 12:00 UTC.`,
+    question: 'How do I buy $BLAZE on PancakeSwap?',
+    answer: `BLAZE Token ($BLAZE) is live on ${SEO_PRODUCT_FACTS.tokenChainLabel}. The easiest way to buy is to swap BNB for $BLAZE on PancakeSwap: connect your wallet, make sure you hold some BNB on BNB Smart Chain, and confirm the swap. Always verify the official contract address (${SEO_PRODUCT_FACTS.tokenContractLabel}) on BscScan first. You can also buy $BLAZE directly inside BLAZE Wallet at my.blazewallet.io.`,
   },
 ] as const;
 

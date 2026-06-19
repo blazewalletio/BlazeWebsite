@@ -46,7 +46,7 @@ function ThanksInner() {
       <div className="max-w-lg mx-auto text-center py-16 px-6">
         <h1 className="text-2xl font-bold text-gray-900 mb-3">Link not valid</h1>
         <p className="text-gray-600 mb-8">This link may have expired or is incorrect. Please use the link from your latest BLAZE email.</p>
-        <Link href="/presale" className="text-orange-600 font-semibold hover:underline">Presale</Link>
+        <Link href="/presale" className="text-orange-600 font-semibold hover:underline">Buy $BLAZE</Link>
       </div>
     );
   }
@@ -65,7 +65,7 @@ function ThanksInner() {
     <div className="max-w-lg mx-auto py-16 px-6">
       <h1 className="text-3xl font-bold text-gray-900 mb-4">Thank you 🙏</h1>
       <p className="text-gray-600 text-lg leading-relaxed mb-8">
-        We&apos;ve received your answer. It helps the BLAZE team understand how to support you and improve the presale experience.
+        We&apos;ve received your answer. It helps the BLAZE team understand how to support you and improve the BLAZE experience.
       </p>
 
       {other && token && !saved && (
@@ -104,7 +104,7 @@ function ThanksInner() {
           Open BLAZE Wallet
         </Link>
         <Link href="/presale" className="inline-flex justify-center items-center px-6 py-3 rounded-xl border border-gray-200 text-gray-800 font-semibold hover:bg-gray-50">
-          Presale info
+          Buy $BLAZE
         </Link>
       </div>
     </div>

@@ -88,7 +88,7 @@ export default async function UpdatesPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 mt-7 sm:mt-8 max-w-sm sm:max-w-none">
               <Link href="/" className="btn-secondary px-5 py-2.5 text-center">Back to homepage</Link>
-              <Link href="/presale" className="btn-brand px-5 py-2.5 text-center">Open presale</Link>
+              <Link href="/presale" className="btn-brand px-5 py-2.5 text-center">Buy $BLAZE</Link>
               <a
                 href={commitsPageUrl}
                 target="_blank"

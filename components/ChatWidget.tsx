@@ -34,7 +34,6 @@ export default function ChatWidget() {
   const [isStreaming, setIsStreaming] = useState(false);
   const [copied, setCopied] = useState<string | null>(null);
   const [showScrollButton, setShowScrollButton] = useState(false);
-  const [hasPresaleStickyCta, setHasPresaleStickyCta] = useState(false);
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
@@ -70,18 +69,6 @@ export default function ChatWidget() {
       setShowScrollButton(scrollHeight - scrollTop - clientHeight > 100);
     }
   };
-
-  useEffect(() => {
-    const handleStickyVisibility = (event: Event) => {
-      const customEvent = event as CustomEvent<{ visible?: boolean }>;
-      setHasPresaleStickyCta(Boolean(customEvent.detail?.visible));
-    };
-
-    window.addEventListener('presale-sticky-cta-visibility', handleStickyVisibility as EventListener);
-    return () => {
-      window.removeEventListener('presale-sticky-cta-visibility', handleStickyVisibility as EventListener);
-    };
-  }, []);
 
   // Don't show chat widget on admin pages - AFTER all hooks!
   if (isAdminPage) {
@@ -202,9 +189,9 @@ export default function ChatWidget() {
       {/* Floating Button */}
       <motion.button
         onClick={() => setIsOpen(true)}
-        className={`fixed right-6 z-40 w-14 h-14 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-full shadow-lg shadow-orange-500/30 flex items-center justify-center hover:scale-110 transition-all duration-300 ease-out ${
-          hasPresaleStickyCta && pathname?.startsWith('/presale') ? 'bottom-28' : 'bottom-6'
-        } ${isOpen ? 'hidden' : ''}`}
+        className={`fixed right-6 bottom-6 z-40 w-14 h-14 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-full shadow-lg shadow-orange-500/30 flex items-center justify-center hover:scale-110 transition-all duration-300 ease-out ${
+          isOpen ? 'hidden' : ''
+        }`}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         initial={{ opacity: 0, scale: 0 }}
@@ -277,31 +264,29 @@ export default function ChatWidget() {
                 {/* Welcome message */}
                 {messages.length === 0 && (
                   <div className="text-center py-6">
-                    {/* Presale CTA */}
+                    {/* Buy $BLAZE CTA */}
                     <div className="max-w-md mx-auto mb-5 text-left">
                       <div className="rounded-2xl border border-orange-200 bg-gradient-to-br from-white to-orange-50 p-4">
                         <div className="flex items-start justify-between gap-3">
                           <div className="min-w-0">
-                            <div className="text-xs font-semibold text-orange-600">Presale is live</div>
-                            <div className="font-bold text-gray-900 mt-1">Buy BLAZE tokens in the wallet</div>
+                            <div className="text-xs font-semibold text-orange-600">$BLAZE is live</div>
+                            <div className="font-bold text-gray-900 mt-1">Buy $BLAZE on PancakeSwap</div>
                             <p className="text-sm text-gray-600 mt-1">
-                              Create an account at my.blazewallet.io, add funds, then buy $BLAZE in the presale card. Open for everyone from 18 March.
+                              Swap BNB for $BLAZE on PancakeSwap, or buy directly inside BLAZE Wallet at my.blazewallet.io.
                             </p>
                           </div>
                           <a
-                            href="https://my.blazewallet.io"
-                            target="_blank"
-                            rel="noopener noreferrer"
+                            href="/presale"
                             className="shrink-0 inline-flex items-center justify-center px-4 py-2 rounded-xl bg-gradient-to-r from-orange-500 to-yellow-500 text-white text-sm font-semibold shadow-sm hover:from-orange-600 hover:to-yellow-600 transition-colors"
                           >
-                            Buy in wallet
+                            Buy $BLAZE
                           </a>
                         </div>
                       </div>
                     </div>
                     <h4 className="font-bold text-gray-900 mb-2">Hi! I'm BLAZE Assistant 👋</h4>
                     <p className="text-gray-500 text-sm mb-6">
-                      Ask me anything about BLAZE Wallet, QuickPay, presale, or security.
+                      Ask me anything about BLAZE Wallet, QuickPay, buying $BLAZE, or security.
                     </p>
                     
                     {/* Quick questions */}

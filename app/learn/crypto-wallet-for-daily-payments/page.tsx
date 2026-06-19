@@ -80,7 +80,7 @@ export default function DailyPaymentsGuidePage() {
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link href="/presale" className="btn-secondary inline-flex items-center justify-center gap-2">
-                Open presale page
+                Buy $BLAZE
               </Link>
             </div>
           </div>

@@ -1,7 +1,6 @@
 'use client';
 
 import { Coins, TrendingUp, Users, Flame, Lock, ArrowRight } from 'lucide-react';
-import PresaleCountdown from './PresaleCountdown';
 import { useAnimateOnce } from '@/hooks/useAnimateOnce';
 
 const tokenInfo = [
@@ -131,11 +130,6 @@ export default function Tokenomics() {
               <ArrowRight className="w-4 h-4" />
             </a>
           </div>
-        </div>
-
-        {/* Presale Countdown */}
-        <div className="mt-12">
-          <PresaleCountdown />
         </div>
       </div>
     </section>

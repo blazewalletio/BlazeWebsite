@@ -9,7 +9,8 @@ import Roadmap from '@/components/Roadmap';
 import FAQ from '@/components/FAQ';
 import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
-import PresaleTeaser from '@/components/PresaleTeaser';
+import BuyBlaze from '@/components/BuyBlaze';
+import InstallApp from '@/components/InstallApp';
 import ProductStatus from '@/components/ProductStatus';
 import SupportBlazeTeaser from '@/components/SupportBlazeTeaser';
 import { buildPageMetadata } from '@/lib/seo/metadata';
@@ -42,8 +43,9 @@ export default function Home() {
         <ProductStatus />
         <QuickPay />
         <Features />
-        <PresaleTeaser />
+        <BuyBlaze />
         <Demo />
+        <InstallApp />
         <section className="py-14 lg:py-20 bg-gray-50 border-y border-gray-100">
           <div className="container-main">
             <div className="text-center mb-8">

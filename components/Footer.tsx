@@ -56,6 +56,7 @@ export default function Footer() {
       // Use absolute hash links so they work from any page, not only the homepage.
       { label: 'Features', href: '/#features' },
       { label: 'How it works', href: '/#demo' },
+      { label: 'Buy $BLAZE', href: '/presale' },
       { label: 'Tokenomics', href: '/#tokenomics' },
       { label: 'FAQ', href: '/#faq' },
       { label: 'Launch app', href: 'https://my.blazewallet.io', external: true },
@@ -261,7 +262,7 @@ export default function Footer() {
         <div className="max-w-xl mx-auto text-center mb-16 pb-16 border-b border-gray-800">
           <h3 className="text-xl font-bold mb-2">Stay updated</h3>
           <p className="text-gray-400 mb-6">
-            Get the latest updates on BLAZE Wallet and the BLAZE presale.
+            Get the latest product updates and news from BLAZE Wallet.
           </p>
           <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
             <input

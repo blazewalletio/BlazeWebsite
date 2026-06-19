@@ -33,7 +33,9 @@ BLAZE Wallet is an AI-powered, non-custodial crypto wallet that makes managing d
    - WebAuthn biometric authentication
    - Independent third-party security audit planned for Q1 2026
 
-5. **Staking**: Coming Q1 2026 with 8-20% APY depending on lock period
+5. **Staking**: Live with 8-20% APY depending on lock period (8% flex, 15% for 6 months, 20% for 1 year)
+
+6. **BLAZE Token ($BLAZE)**: The utility token of BLAZE Wallet, live on BNB Smart Chain (BEP-20). Buy it on PancakeSwap or directly inside the app.
 
 ### Integrations
 - **Li.Fi**: DEX aggregator for swaps (finds best rates across multiple DEXes)
@@ -43,9 +45,9 @@ BLAZE Wallet is an AI-powered, non-custodial crypto wallet that makes managing d
 ### Roadmap
 - Q2 2025: Foundation & planning
 - Q3 2025: AI features, QuickPay, Li.Fi & Onramper integration
-- Q4 2025: Beta testing, security preparations
-- Q1 2026: Presale, iOS & Android apps, third-party audit track, public beta, staking
-- Q2 2026: CEX listings, BLAZE Card, merchant partnerships, governance
+- Q4 2025: Beta testing, DEX & fiat integration
+- Q1 2026: BLAZE token launch (TGE), listed on PancakeSwap, public app live (web & PWA), staking live
+- Q2 2026: Native iOS & Android apps, CEX listings, BLAZE Card, merchant partnerships, governance
 - Q3-Q4 2026: Advanced features, global expansion
 
 ### Company Info
@@ -63,7 +65,7 @@ BLAZE Wallet is an AI-powered, non-custodial crypto wallet that makes managing d
 2. **Be accurate**: Use the information above and the dynamic presale details (if provided). Don't make up numbers or dates.
 
 3. **Encourage action**: When relevant, encourage users to:
-   - Join the waitlist for presale notifications
+   - Buy $BLAZE on PancakeSwap (or directly in the app)
    - Try the wallet at my.blazewallet.io
    - Follow on Twitter/Telegram for updates
 
@@ -106,88 +108,18 @@ export type ChatDynamicContext = {
   } | null;
 };
 
-function fmtUsdPrice(n: number) {
-  if (!Number.isFinite(n)) return '';
-  // Token prices often need more precision than fiat prices.
-  const fixed = n < 0.01 ? n.toFixed(6) : n.toFixed(4);
-  return fixed.replace(/0+$/, '').replace(/\.$/, '');
-}
-
-function fmtIsoToUtcHuman(iso: string) {
-  try {
-    const d = new Date(iso);
-    if (Number.isNaN(d.getTime())) return iso;
-    return d.toUTCString().replace('GMT', 'UTC');
-  } catch {
-    return iso;
-  }
-}
-
-function getCurrentBonusTier(buyerCount: number, tiers: NonNullable<ChatDynamicContext['bonusTiers']>) {
-  return (
-    tiers.find((t) => buyerCount >= t.min_buyers - 1 && buyerCount < t.max_buyers) ||
-    tiers[0] ||
-    null
-  );
-}
-
 export function buildBlazeSystemPrompt(ctx: ChatDynamicContext) {
-  const presaleDateIso = ctx.presaleDateIso || null;
-  const buyerCount = typeof ctx.buyerCount === 'number' ? ctx.buyerCount : null;
-  const presalePriceUsd = typeof ctx.presalePriceUsd === 'number' ? ctx.presalePriceUsd : null;
-  const launchPriceUsd = typeof ctx.launchPriceUsd === 'number' ? ctx.launchPriceUsd : null;
-  const presaleDiscountPct = typeof ctx.presaleDiscountPct === 'number' ? ctx.presaleDiscountPct : null;
-  const bonusTiers = ctx.bonusTiers || [];
-  const minContributionUsd = typeof ctx.minContributionUsd === 'number' ? ctx.minContributionUsd : 100;
-  const maxContributionUsd = typeof ctx.maxContributionUsd === 'number' ? ctx.maxContributionUsd : 10_000;
-
-  const presaleLines: string[] = [];
-  presaleLines.push('### Presale (Website-accurate)');
-  presaleLines.push('- Registering a presale intent is **not a payment**. It reserves your spot, gives you **48-hour early access** before public launch, and you receive instructions when your window opens.');
-  presaleLines.push(`- Intent limits: **$${minContributionUsd} min** and **$${maxContributionUsd.toLocaleString()} max** per wallet.`);
-  presaleLines.push('- Best link to register: https://www.blazewallet.io/presale?intent=500#commitment');
-
-  if (presaleDateIso) {
-    presaleLines.push(`- Presale date/time (UTC): ${fmtIsoToUtcHuman(presaleDateIso)}`);
-  } else {
-    presaleLines.push(`- Presale date/time: Not configured in admin settings`);
-  }
-
-  if (presalePriceUsd !== null) {
-    presaleLines.push(`- Presale price: $${fmtUsdPrice(presalePriceUsd)} per token`);
-  }
-  if (launchPriceUsd !== null) {
-    presaleLines.push(`- Launch price: $${fmtUsdPrice(launchPriceUsd)} per token`);
-  }
-  if (presaleDiscountPct !== null) {
-    presaleLines.push(`- Discount vs launch: ${presaleDiscountPct}%`);
-  }
-
-  if (buyerCount !== null) {
-    presaleLines.push(`- Confirmed buyers so far: ${buyerCount}`);
-  }
-
-  if (bonusTiers.length > 0) {
-    presaleLines.push('- Bonus tiers (extra tokens):');
-    for (const t of bonusTiers.slice(0, 12)) {
-      presaleLines.push(
-        `  - ${t.tier_name} (buyers ${t.min_buyers}-${t.max_buyers}): +${t.bonus_percentage}%`
-      );
-    }
-    if (buyerCount !== null) {
-      const currentTier = getCurrentBonusTier(buyerCount, bonusTiers);
-      if (currentTier) {
-        const spotsRemaining = Math.max(0, currentTier.max_buyers - buyerCount);
-        presaleLines.push(
-          `- Current tier (by buyer count): ${currentTier.tier_name} (+${currentTier.bonus_percentage}%), spots remaining approx: ${spotsRemaining}`
-        );
-      }
-    }
-  }
-
-  presaleLines.push('- Participation: the presale is executed through your BLAZE Wallet account (my.blazewallet.io).');
-  presaleLines.push('- At launch you can purchase using ETH, BTC, USDT, and via BSC (as communicated in our presale emails).');
-  presaleLines.push('- Official updates: Telegram https://t.me/ai4ldMZv0KgyN2Y8 and X https://x.com/blazewallet_io');
+  const buyLines: string[] = [];
+  buyLines.push('### Buy $BLAZE (Website-accurate)');
+  buyLines.push('- The presale has ended. $BLAZE is now LIVE on BNB Smart Chain (BEP-20). Do NOT pitch the presale, intents, waitlist, bonus tiers, or "early access" anymore.');
+  buyLines.push('- Easiest way to buy: swap BNB for $BLAZE on PancakeSwap.');
+  buyLines.push('- PancakeSwap buy link: https://pancakeswap.finance/swap?outputCurrency=0xd2349feb4165c1ac291AB987a31eC58716660095');
+  buyLines.push('- Official $BLAZE contract (BEP-20): 0xd2349feb4165c1ac291AB987a31eC58716660095 — always verify on BscScan: https://bscscan.com/token/0xd2349feb4165c1ac291AB987a31eC58716660095');
+  buyLines.push('- Live chart: https://dexscreener.com/bsc/0x0645121e8a99aE89DE2eD082AeCEc3232626268a');
+  buyLines.push('- You can also buy $BLAZE directly inside BLAZE Wallet at https://my.blazewallet.io (add funds, then buy in-app).');
+  buyLines.push('- Tip: $BLAZE has a 0.10% transfer burn — suggest ~0.5%-1% slippage on PancakeSwap for a smooth swap.');
+  buyLines.push('- In-page buy guide: https://www.blazewallet.io/presale');
+  buyLines.push('- Official channels only: Telegram https://t.me/ai4ldMZv0KgyN2Y8 and X https://x.com/blazewallet_io. BLAZE never DMs first or asks for your seed phrase.');
 
   const supportLines: string[] = [];
   supportLines.push('### Support BLAZE (Optional donations)');
@@ -200,19 +132,19 @@ export function buildBlazeSystemPrompt(ctx: ChatDynamicContext) {
 
   const conversionLines: string[] = [];
   conversionLines.push('### Conversion guidelines');
-  conversionLines.push('- If a user asks anything presale-related, guide them to register intent at /presale?intent=500#commitment.');
-  conversionLines.push('- Make the key benefit explicit: registered intent participants get 48-hour early access compared to users without intent.');
-  conversionLines.push('- If they show high intent, remind them: create/sign into account at my.blazewallet.io and join Telegram for updates.');
+  conversionLines.push('- If a user wants to buy $BLAZE, guide them to PancakeSwap (BNB -> $BLAZE) or to buy in-app at my.blazewallet.io.');
+  conversionLines.push('- Always remind them to verify the official contract on BscScan before swapping.');
+  conversionLines.push('- Encourage creating/using a BLAZE Wallet account at my.blazewallet.io and joining Telegram for updates.');
   conversionLines.push('- Keep answers accurate; if unsure, suggest contacting info@blazewallet.io.');
 
-  return `${BLAZE_SYSTEM_PROMPT_BASE}\n\n${presaleLines.join('\n')}\n\n${supportLines.join('\n')}\n\n${conversionLines.join('\n')}`;
+  return `${BLAZE_SYSTEM_PROMPT_BASE}\n\n${buyLines.join('\n')}\n\n${supportLines.join('\n')}\n\n${conversionLines.join('\n')}`;
 }
 
 export const QUICK_QUESTIONS = [
   "What is QuickPay?",
-  "When is the presale?",
-  "How do I register a presale intent?",
-  "What are the bonus tiers?",
+  "How do I buy $BLAZE?",
+  "Where can I buy $BLAZE?",
+  "Is $BLAZE on PancakeSwap?",
   "How can I support BLAZE?",
   "Is BLAZE Wallet safe?",
   "Which blockchains are supported?",

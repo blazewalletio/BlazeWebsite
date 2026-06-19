@@ -29,6 +29,16 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    // The presale has ended — drip email campaigns are disabled by default.
+    // Set PRESALE_EMAILS_DISABLED=false to re-enable.
+    if (process.env.PRESALE_EMAILS_DISABLED !== 'false') {
+      return NextResponse.json({
+        disabled: true,
+        message: 'Presale drip email campaign is disabled (presale ended).',
+        results: [],
+      });
+    }
+
     const supabase = createAdminClient();
     const now = new Date();
     const results: { email: string; template: string; success: boolean }[] = [];
