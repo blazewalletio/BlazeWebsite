@@ -307,7 +307,7 @@ export default function BuyBlazePage() {
               {faqs.map(([question, answer]) => (
                 <div key={question} className="card card-hover p-5 sm:p-6">
                   <h3 className="text-lg font-bold text-gray-900 mb-2">{question}</h3>
-                  <p className="text-gray-600">{answer}</p>
+                  <p className="text-gray-600 break-words">{answer}</p>
                 </div>
               ))}
             </div>

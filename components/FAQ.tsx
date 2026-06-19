@@ -55,10 +55,10 @@ export default function FAQ() {
                 </button>
                 <div
                   className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                    openIndex === index ? 'max-h-96' : 'max-h-0'
+                    openIndex === index ? 'max-h-[640px]' : 'max-h-0'
                   }`}
                 >
-                  <div className="px-6 pb-6 text-gray-600 leading-relaxed">
+                  <div className="px-6 pb-6 text-gray-600 leading-relaxed break-words">
                     {faq.answer}
                   </div>
                 </div>

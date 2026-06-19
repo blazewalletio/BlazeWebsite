@@ -294,7 +294,7 @@ export default function SupportPage() {
                       <span className="font-medium text-gray-900 pr-4">{faq.question}</span>
                       <HelpCircle className="w-5 h-5 text-gray-400 flex-shrink-0 group-open:text-orange-500 transition-colors" />
                     </summary>
-                    <p className="mt-3 text-gray-600 pt-3 border-t border-gray-100">
+                    <p className="mt-3 text-gray-600 pt-3 border-t border-gray-100 break-words">
                       {faq.answer}
                     </p>
                   </details>
