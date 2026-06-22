@@ -8,19 +8,28 @@ import {
 
 const EXCLUDED_EMAILS = new Set(['sjoehl@yahoo.com', 'marcveltens@gmail.com'].map((e) => e.toLowerCase()));
 
+function hasAdminBearer(request: Request): boolean {
+  const authHeader = request.headers.get('authorization');
+  const adminSecret = process.env.ADMIN_SECRET || 'blaze-admin-2024';
+  return authHeader === `Bearer ${adminSecret}`;
+}
+
 /**
  * Admin-only: PancakeSwap follow-up to all non-converted commitments
  * (except excluded / paused). Supports dryRun and testCommitmentId for QA.
+ * Auth: a logged-in admin session OR a Bearer ADMIN_SECRET (server-to-server).
  */
 export async function POST(request: Request) {
   try {
-    const authClient = createServerClient();
-    const {
-      data: { user },
-    } = await authClient.auth.getUser();
+    if (!hasAdminBearer(request)) {
+      const authClient = createServerClient();
+      const {
+        data: { user },
+      } = await authClient.auth.getUser();
 
-    if (!user) {
-      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+      if (!user) {
+        return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+      }
     }
 
     const body = await request.json().catch(() => ({}));
