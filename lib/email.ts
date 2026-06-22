@@ -149,6 +149,73 @@ export async function sendPancakeLiveEmail(email: string, referralCode?: string)
   }
 }
 
+/** Campaign + log key for the PancakeSwap follow-up to commitment users. */
+export const COMMITMENT_PANCAKE_FOLLOWUP_CAMPAIGN_KEY = 'commitment_pancake_followup_v1';
+export const COMMITMENT_PANCAKE_FOLLOWUP_TEMPLATE_KEY = 'commitment_pancakeswap_followup_v1';
+
+/**
+ * Follow-up to presale commitments who have not bought yet.
+ * Softer reminder than the launch email: market price is open, early is early,
+ * simple 2-minute swap, both in-app and PancakeSwap CTAs. No em/en-dashes.
+ */
+export async function sendCommitmentPancakeFollowupEmail(email: string) {
+  const buyUrl = BLAZE_TOKEN.pancakeSwapUrl;
+  const inAppSwapUrl = 'https://my.blazewallet.io/?tab=swap&to=blaze';
+  const chartUrl = BLAZE_TOKEN.dexScreenerUrl;
+  const bscUrl = BLAZE_TOKEN.bscScanTokenUrl;
+  const contract = BLAZE_TOKEN.contract;
+  try {
+    await resend.emails.send({
+      from: FROM_EMAIL,
+      to: email,
+      subject: 'Still no $BLAZE? This takes 2 minutes',
+      html: baseTemplate(`
+        <div class="tier-badge">Trading live · PancakeSwap</div>
+        <h1 style="margin-top: 16px;">You committed early. Now you can actually own $BLAZE</h1>
+        <p>You were one of the people who registered intent for BLAZE before launch. Thank you for that. BLAZE is now trading live on <strong>PancakeSwap</strong>, and if you have not picked up your $BLAZE yet, this is the easy moment to do it.</p>
+
+        <div class="urgency">
+          <p class="mb-0"><strong>Why now:</strong> the price is set by the open market from here. Being early on day one means you are in before the next wave of buyers, not after.</p>
+        </div>
+
+        <center>
+          <a href="${inAppSwapUrl}" class="btn">Swap to BLAZE in the app</a>
+          <br>
+          <a href="${buyUrl}" class="btn btn-secondary mt-8">Buy $BLAZE on PancakeSwap</a>
+        </center>
+
+        <h2>Two minutes, three steps</h2>
+        <div class="highlight">
+          <ol class="list-compact">
+            <li>Open the Blaze Wallet app and tap Swap, or open <a href="${buyUrl}"><strong>PancakeSwap</strong></a></li>
+            <li>Choose <strong>BNB to BLAZE</strong> on BNB Smart Chain</li>
+            <li>Enter an amount and confirm. You now hold $BLAZE</li>
+          </ol>
+        </div>
+
+        <div class="stat-box">
+          <div class="stat-label">Official BLAZE contract · BNB Smart Chain (BEP-20)</div>
+          <div style="font-family: 'SF Mono', Menlo, Consolas, monospace; font-size: 15px; font-weight: 700; color: #111827; word-break: break-all; margin-top: 8px; line-height: 1.5;">${contract}</div>
+          <div class="stat-label" style="margin-top: 10px;">Always double-check the contract before buying. <a href="${bscUrl}">Verify it on BscScan</a>.</div>
+        </div>
+
+        <center>
+          <a href="${chartUrl}" class="btn btn-secondary mt-8">View the live chart</a>
+          <br>
+          <a href="https://t.me/ai4ldMZv0KgyN2Y8" class="btn btn-secondary mt-8">Join the community on Telegram</a>
+        </center>
+
+        <div class="divider"></div>
+        <p class="text-muted">Stay safe: only ever use the official contract address above. The BLAZE team will never message you first and will never ask for your seed phrase or private keys.</p>
+      `),
+    });
+    return { success: true };
+  } catch (error) {
+    console.error('Failed to send commitment PancakeSwap follow-up email:', error);
+    return { success: false, error };
+  }
+}
+
 // Commitment confirmation email
 export async function sendCommitmentConfirmation({
   email,
